@@ -1,0 +1,39 @@
+{
+  "name": "arch-install-kit",
+  "version": "1.0.0",
+	"description": "Подробное руководство по установке Arch Linux, включая базовую установку, dual boot с Windows и использование archinstall",
+	"author": {
+    "name": "Artemev Alexandr",
+    "url": "https://github.com/Zilero232"
+  },
+  "keywords": [
+    "arch",
+    "linux",
+    "installation",
+    "guide",
+    "documentation",
+    "archinstall",
+    "dual-boot",
+    "wiki"
+  ],
+	"scripts": {
+    "commit": "git cz"
+  },
+	"bugs": {
+    "url": "https://github.com/yourusername/arch-install-guide/issues"
+  },
+  "homepage": "https://github.com/yourusername/arch-install-guide",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/arch-install-guide.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "commit-jazzer": "^1.1.2"
+  },
+	"config": {
+    "commitizen": {
+      "path": "node_modules/commit-jazzer"
+    }
+  }
+}
