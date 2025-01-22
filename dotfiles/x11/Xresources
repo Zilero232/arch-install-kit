@@ -1,0 +1,93 @@
+! --- Xft настройки рендеринга шрифтов ---
+Xft.antialias: 1           ! Включение сглаживания шрифтов
+Xft.hinting: 1             ! Включение хинтинга (улучшает отображение шрифтов)
+Xft.autohint: 0            ! Отключение автохинтинга (используем встроенные хинты шрифта)
+Xft.hintstyle: hintslight  ! Легкий хинтинг (варианты: none, slight, medium, full)
+Xft.rgba: rgb              ! Порядок субпикселей RGB (для LCD мониторов)
+Xft.lcdfilter: lcddefault  ! Фильтр LCD для субпиксельного рендеринга
+Xft.dpi: 100               ! Разрешение экрана (96-100 для обычных мониторов)
+
+! --- ST (Simple Terminal) настройки ---
+! Настройки шрифта
+st.font: JetBrainsMono Nerd Font:style:medium:pixelsize=20  ! Шрифт и его размер
+
+! Внешний вид окна
+st.opacity: 255         ! Непрозрачность (255 = полная)
+st.borderpx: 10         ! Внутренний отступ от края окна
+st.padding: 15          ! Дополнительный отступ
+
+! Настройки курсора
+st.cursorshape: 2       ! Форма курсора (0: блок, 1: линия, 2: подчеркивание)
+st.cursorthickness: 2   ! Толщина курсора
+st.cursorblinkstyle: 0  ! Стиль мигания (0: всегда вкл, 1: мигает)
+st.cursorblinkontype: 1 ! Мигание при вводе (0: всегда, 1: при наборе)
+
+! Дополнительные настройки ST
+st.bold_font: 0         ! Отключение жирного шрифта
+st.bellvolume: 0        ! Отключение звукового сигнала
+
+! --- OneDark цветовая схема ---
+! Базовые определения цветов
+#define base00 #1e222a  ! Основной фон
+#define base01 #353b45  ! Более светлый фон (для выделения)
+#define base02 #3e4451  ! Фон выделения
+#define base03 #545862  ! Цвет комментариев
+#define base04 #565c64  ! Темный foreground
+#define base05 #abb2bf  ! Основной цвет текста
+#define base06 #b6bdca  ! Светлый текст
+#define base07 #c8ccd4  ! Очень светлый текст
+#define base08 #e06c75  ! Красный (ошибки)
+#define base09 #d19a66  ! Оранжевый (числа)
+#define base0A #e5c07b  ! Желтый (предупреждения)
+#define base0B #98c379  ! Зеленый (строки)
+#define base0C #56b6c2  ! Голубой (специальные символы)
+#define base0D #61afef  ! Синий (функции)
+#define base0E #c678dd  ! Пурпурный (ключевые слова)
+#define base0F #be5046  ! Коричневый (deprecated)
+
+! --- Применение цветовой схемы ---
+*foreground: base07     ! Основной цвет текста
+*background: base00     ! Цвет фона
+*cursorColor: base05    ! Цвет курсора
+
+! Стандартные цвета ANSI
+*color0: base00   ! Черный (фон)
+*color1: base08   ! Красный
+*color2: base0B   ! Зеленый
+*color3: base0A   ! Желтый
+*color4: base0D   ! Синий
+*color5: base0E   ! Пурпурный
+*color6: base0C   ! Голубой
+*color7: base05   ! Светло-серый
+
+! Яркие варианты цветов ANSI
+*color8: base03   ! Яркий черный (темно-серый)
+*color9: base08   ! Яркий красный
+*color10: base0B  ! Яркий зеленый
+*color11: base0A  ! Яркий желтый
+*color12: base0D  ! Яркий синий
+*color13: base0E  ! Яркий пурпурный
+*color14: base0C  ! Яркий голубой
+*color15: base07  ! Яркий белый
+
+! Дополнительные цвета (используются некоторыми приложениями)
+*color16: base09  ! Дополнительный оранжевый
+*color17: base0F  ! Дополнительный коричневый
+*color18: base01  ! Дополнительный фон 1
+*color19: base02  ! Дополнительный фон 2
+*color20: base04  ! Дополнительный текст 1
+*color21: base06  ! Дополнительный текст 2
+
+! --- Настройки вкладок (tabbed) ---
+tabbed.selbgcolor: #282c34    ! Цвет фона активной вкладки
+tabbed.selfgcolor: #d6d8eb    ! Цвет текста активной вкладки
+tabbed.normfgcolor: #9294a8   ! Цвет текста неактивной вкладки
+tabbed.normbgcolor: #353b45   ! Цвет фона неактивной вкладки
+
+! --- Настройки курсора X11 ---
+Xcursor.theme: Adwaita         ! Тема курсора
+Xcursor.size: 16              ! Размер курсора
+
+! --- Настройки выделения ---
+*selectToClipboard: true      ! Автоматическое копирование выделенного текста
+*allowBoldFonts: false        ! Отключение жирных шрифтов

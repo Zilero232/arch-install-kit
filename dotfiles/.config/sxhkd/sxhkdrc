@@ -1,0 +1,192 @@
+#
+# Основные системные комбинации
+#
+
+# Перезагрузка конфигурации (alt + shift + r)
+alt + shift + r
+    pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Конфигурация перезагружена'
+
+# Выход/перезагрузка bspwm (alt + ctrl + q для безопасности)
+alt + ctrl + {q,r}
+    bspc {quit,wm -r}
+
+#
+# Запуск приложений (быстрый доступ)
+#
+
+# Терминал (alt + enter - самая удобная)
+alt + Return
+    alacritty
+
+# Запуск программ (alt + пробел - самое быстрое)
+alt + space
+    rofi -show drun
+
+# Переключение окон (alt + tab - привычное)
+alt + Tab
+    rofi -show window
+
+# Частые приложения (alt + клавиша)
+alt + {f,e,t,c,m,n,v,s}
+    {firefox, \
+    thunar, \
+    telegram-desktop, \
+    code, \
+    thunderbird, \
+    notion-app, \
+    virtualbox, \
+    spotify}
+
+#
+# Управление окнами
+#
+
+# Закрыть окно (q - быстрый доступ)
+alt + q
+    bspc node -c
+
+# Убить окно (если зависло)
+alt + ctrl + q
+    bspc node -k
+
+# Режимы окна (быстрое переключение)
+alt + {1,2,3,4}
+    bspc node -t {tiled,floating,fullscreen,pseudo_tiled}
+
+# Перемещение между окнами (vim-style)
+alt + {h,j,k,l}
+    bspc node -f {west,south,north,east}
+
+# Перемещение окон (с shift)
+alt + shift + {h,j,k,l}
+    bspc node -s {west,south,north,east}
+
+# Изменение размера (с ctrl)
+alt + ctrl + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Быстрое изменение размера (с alt + arrows)
+alt + {Left,Down,Up,Right}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+#
+# Управление рабочими столами
+#
+
+# Переключение рабочих столов
+alt + {1-9,0}
+    bspc desktop -f '^{1-9,10}'
+
+# Перемещение окна на другой стол
+alt + shift + {1-9,0}
+    bspc node -d '^{1-9,10}' --follow
+
+# Быстрое переключение между последними столами
+alt + grave
+    bspc desktop -f last
+
+#
+# Мультимедиа и системные клавиши
+#
+
+# Громкость (колесико мыши на панели)
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    pamixer {-i 5,-d 5,-t}; \
+    notify-send "Громкость: $(pamixer --get-volume)%"
+
+# Плеер (multimedia keys)
+XF86Audio{Play,Prev,Next}
+    playerctl {play-pause,previous,next}
+
+# Быстрое управление плеером (alt + медиа)
+alt + {F7,F8,F9}
+    playerctl {previous,play-pause,next}
+
+# Яркость
+XF86MonBrightness{Up,Down}
+    brightnessctl set {+5%,5%-}; \
+    notify-send "Яркость: $(brightnessctl get)%"
+
+#
+# Скриншоты и утилиты
+#
+
+# Скриншоты (Print - основная, + модификаторы для режимов)
+{_,shift + ,ctrl + }Print
+    flameshot {full -c,gui,screen -c}
+
+# Быстрые скриншоты (alt + s + модификатор)
+alt + s; {1,2,3}
+    flameshot {full -c,gui,screen -c}
+
+#
+# Системные функции
+#
+
+# Блокировка (alt + l - быстрый доступ)
+alt + l
+    betterlockscreen -l
+
+# Меню питания (alt + 0 - в углу клавиатуры)
+alt + shift + 0
+    ~/.config/rofi/powermenu.sh
+
+# Переключение раскладки (caps lock через xmodmap)
+Caps_Lock
+    sh $HOME/bin/change_language.sh
+
+#
+# Управление рабочим столом
+#
+
+# Показать/скрыть панель (alt + p)
+alt + p
+    sh $HOME/bin/toggle-polybar
+
+# Обои (alt + w)
+alt + w
+    sh $HOME/bin/random_wallpaper
+
+# Быстрая настройка монитора
+alt + m; {1,2,3}
+    sh $HOME/bin/monitor-{single,dual,triple}
+
+#
+# Дополнительные функции окон
+#
+
+# Режим картинка-в-картинке (для видео)
+alt + p; p
+    bspc node -t floating && xdotool getactivewindow windowsize 480 270
+
+# Центрирование плавающего окна
+alt + c
+    sh $HOME/bin/center-window
+
+# Быстрое разделение
+alt + {minus,equal}
+    bspc node @/ -C {backward,forward}
+
+# Скрытие/показ окон
+alt + shift + {h,s}
+    bspc node -g {hidden,sticky}
+
+# Показать последнее скрытое окно
+alt + shift + n
+    bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
+
+#
+# Специальные функции
+#	
+
+# Быстрый доступ к конфигам
+alt + shift + c; {b,s,p,x}
+    alacritty -e nvim {~/.config/bspwm/bspwmrc,~/.config/sxhkd/sxhkdrc,~/.config/polybar/config,~/.xinitrc}
+
+# Перезапуск сети
+alt + shift + n
+    sh $HOME/bin/restart-network
+
+# Очистка кэша
+alt + shift + Delete
+    sh $HOME/bin/clear-cache

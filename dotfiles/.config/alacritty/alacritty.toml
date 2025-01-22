@@ -1,0 +1,71 @@
+# Импорт темы
+import = [
+    "/home/user/.config/alacritty/themes/custom.toml",
+    "/home/user/.config/alacritty/keybindings.toml"
+]
+
+# Цветовая схема
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[env]
+TERM = "alacritty"
+
+# Настройки окна
+[window]
+title = "Alacritty"       # Заголовок окна
+opacity = 0.95            # Прозрачность окна (0.0 - 1.0)
+dynamic_title = true      # Динамическое изменение заголовка
+decorations = "none"      # Убирает рамки окна
+
+# Внутренние отступы окна
+[window.padding]          
+x = 10                    # Отступ по горизонтали
+y = 10                    # Отступ по вертикали
+
+# Классы окна для WM
+[window.class]           
+instance = "Alacritty"    # Имя экземпляра
+general = "Alacritty"     # Общее имя
+
+# Настройки шрифта
+[font]
+size = 17.0                        # Размер шрифта
+builtin_box_drawing = true         # Встроенные символы рамок
+
+[font.normal]
+family = "JetBrainsMono Nerd Font" # Основной шрифт
+style = "Regular"                  # Стиль обычного текста
+
+[font.bold]
+style = "Bold"                     # Стиль жирного текста
+
+[font.italic]
+style = "Italic"                   # Стиль курсива
+
+[font.bold_italic]
+style = "Bold Italic"              # Стиль жирного курсива
+
+# Настройки курсора
+[cursor]
+matches = { shape = "Beam", blinking = "Always" } # Курсор
+unfocused_hollow = true  # Пустой курсор при потере фокуса
+
+# Настройки скролла
+[scrolling]
+history = 10000                  # Размер истории в строках
+multiplier = 3                   # Множитель скорости скролла
+
+# Настройки выделения
+[selection]
+save_to_clipboard = true         # Автокопирование выделенного текста
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"  # Символы-разделители слов
+
+# Настройки оболочки
+[shell]
+program = "/usr/bin/fish"        # Путь к используемому шеллу
+
+# Настройки URL
+[url]
+launcher = { program = "chromium" }  # Программа для открытия URL
+modifiers = "Alt"                    # Модификатор для открытия URL

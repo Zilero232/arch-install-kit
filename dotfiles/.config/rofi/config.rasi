@@ -1,0 +1,35 @@
+configuration {
+    // Основные настройки
+    modi: "drun,run,window,ssh";
+    font: "JetBrainsMono Nerd Font 12";
+    location: 0;
+    terminal: "alacritty";
+    
+    // Внешний вид
+    show-icons: true;
+    icon-theme: "Papirus";
+    display-drun: "";
+    display-run: "";
+    display-window: "";
+    display-ssh: "󰣀";
+    
+    // Поведение
+    sidebar-mode: true;
+    click-to-exit: true;
+    hide-scrollbar: true;
+    
+    // Клавиши
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+    kb-accept-entry: "Return,KP_Enter";
+    kb-remove-to-eol: "Control+Shift+e";
+    kb-mode-next: "Shift+Right,Control+Tab";
+    kb-mode-previous: "Shift+Left,Control+Shift+Tab";
+    kb-remove-char-back: "BackSpace";
+}
+
+// Импорт цветовой схемы
+@theme "~/.config/rofi/colors/colors.rasi"
+
+// Основная тема
+@theme "~/.config/rofi/themes/main.rasi"

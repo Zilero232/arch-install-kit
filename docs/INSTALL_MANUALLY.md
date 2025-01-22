@@ -32,6 +32,9 @@ ping google.org
 lsblk
 
 # Запуск cfdisk
+# Внимание: /dev/sda используется как пример!
+# У вас может быть другое название диска (например, /dev/nvme0n1, /dev/vda или /dev/sdb)
+# Используйте команду lsblk для определения правильного имени вашего диска
 cfdisk /dev/sda
 
 # В интерактивном меню создаем разделы:
@@ -59,15 +62,12 @@ mkfs.fat -F32 /dev/sda3
 # Swap раздел
 mkswap /dev/sda4
 ```
-### 4. Активация swap
-
+### 4. Активация swap и монтирование разделов
 ```bash
+# Активация swap
 swapon /dev/sda4
-```
 
-### 5. Монтирование разделов
-
-```bash
+# Монтирование разделов
 mount /dev/sda1 /mnt
 
 mkdir -p /mnt/{boot/EFI,home}
@@ -76,8 +76,7 @@ mount /dev/sda2 /mnt/home
 mount /dev/sda3 /mnt/boot/EFI
 ```
 
-### 6. Сборка ядра и базовых софтов
-
+### 5. Установка базовой системы
 ```bash
 # Устанавливаем базовые софты
 pacstrap -K /mnt base base-devel linux linux-firmware iwd dhcpcd networkmanager vim
@@ -86,15 +85,35 @@ pacstrap -K /mnt base base-devel linux linux-firmware iwd dhcpcd networkmanager 
 genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
-# Настройка системы
+# Переход в новую систему
 arch-chroot /mnt
+```
 
-# Нужно раскомментировать ru_RU и en_US в этом файле
+### 5. Настройка пользователей
+```bash
+# Установка пароля root
+passwd
+
+# Создание пользователя
+useradd -m -G wheel,users,video,audio,optical,storage,power,network -s /bin/bash zilero
+passwd zilero
+
+# Настройка sudo
+EDITOR=vim visudo
+# Раскомментировать %wheel ALL=(ALL:ALL) ALL
+```
+
+### 7. Настройка системы
+
+```bash
+# Редактирование locale.gen
 vim /etc/locale.gen
+# Раскомментировать ru_RU.UTF-8 и en_US.UTF-8
 
+# Сгенерировать локали
 locale-gen
 
-# Создание locale.conf
+# Выбрать язык по дефолту
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 # Настройка времени
@@ -102,61 +121,62 @@ ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 hwclock --systohc
 
 # Настройка сети
-echo "archlinux" > /etc/hostname
+vim /etc/hostname
 
 # Настройка hosts
-vim /etc/hosts
-127.0.0.1 localhost
-::1 localhost
-127.0.1.1 archlinux.localdomain archlinux
-
-# Включение сервисов
-systemctl enable NetworkManager
-
-# Пользователи
-passwd # пароль root
-
-useradd -m -G wheel,users,video,audio,optical,storage,power,network -s /bin/bash zilero
-passwd zilero
-
-# Выдаем права на sudo
-sudo EDITOR=vim visudo
-# После открытия раскомментируйте %wheel ALL=(ALL:ALL) ALL
+echo "127.0.0.1 localhost" >> /etc/hosts
+echo "::1 localhost" >> /etc/hosts
+echo "127.0.1.1 archlinux.localdomain archlinux" >> /etc/hosts
 ```
 
-### 7. Установка загрузчика
+### 8. Установка загрузчика
 
-```bash 
+```bash
 # Установка необходимых пакетов
-pacman -S grub efibootmgr os-prober ntfs-3g
+pacman -S grub efibootmgr os-prober
 
-# Включение поиска других ОС
+# Редактирование grub
 vim /etc/default/grub
-# После открытия раскомментируйте GRUB_DISABLE_OS_PROBER=false
+# Раскомментировать "GRUB_DISABLE_OS_PROBER=false"
 
-# Установка GRUB (указываем именно диск, а не раздел!)
-grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck /dev/sda
+# Установка GRUB
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --efi-directory=/boot/EFI --recheck
 
-# Настройка параметров GRUB
-vim /etc/default/grub
-
-# Рекомендуемые настройки:
-GRUB_TIMEOUT=5
-GRUB_DISABLE_OS_PROBER=false
-GRUB_DISABLE_SUBMENU=y
-
-# Создание конфигурации GRUB
-os-prober # поиск других ОС
+# Создание конфига
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# Проверяем, что Windows найдена в выводе команды
-cat /boot/grub/grub.cfg | grep Windows
-
-# Выход из chroot
+# Выход и перезагрузка
 exit
-
 umount -R /mnt
-
-# Перезагрузка
 reboot
+```
+
+## Настройка системы после первой загрузки
+
+```bash
+# Включение и запуск NetworkManager
+systemctl enable NetworkManager
+systemctl start NetworkManager
+
+# Подключение к Wi-Fi через NetworkManager
+nmcli device wifi list
+nmcli device wifi connect SSID password PASSWORD
+
+# Установка Xorg и необходимых компонентов
+pacman -S xorg xorg-xinit xterm bspwm
+
+# Установка видеодрайверов (выберите соответствующий вашей видеокарте)
+
+# Для Intel:
+pacman -S xf86-video-intel
+# Для NVIDIA:
+pacman -S nvidia nvidia-utils
+# Для AMD:
+pacman -S xf86-video-amdgpu
+
+# Создание конфигурационного файла xinit
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+
+# Проверка работоспособности X сервера
+startx
 ```
