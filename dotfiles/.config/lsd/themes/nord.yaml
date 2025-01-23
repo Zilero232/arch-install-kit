@@ -1,0 +1,47 @@
+user: 109        # Голубой
+group: 109
+permission:
+  read: 110      # Синий
+  write: 110
+  exec: 114      # Зелёный
+  exec-sticky: 114
+  no-access: 059 # Серый
+  octal: 109
+  acl: 110
+  context: 110
+
+date:
+  hour-old: 114  # Зелёный
+  day-old: 109   # Голубой
+  older: 059     # Серый
+
+size:
+  none: 059      # Серый
+  small: 110     # Синий
+  medium: 109    # Голубой
+  large: 167     # Красный
+
+name:
+  normal: 252    # Белый
+  directory: 109 # Голубой
+  executable: 114 # Зелёный
+  symlink: 139   # Фиолетовый
+  broken: 167    # Красный
+  missing: 167
+  pipe: 114
+  socket: 114
+  door: 114
+  block-device: 139
+  char-device: 139
+  special: 139
+
+git:
+  unmodified: 252  # Белый
+  ignored: 059     # Серый
+  modified: 179    # Жёлтый
+  added: 114       # Зелёный
+  deleted: 167     # Красный
+  renamed: 109     # Голубой
+  typechanged: 139 # Фиолетовый
+  unmerged: 167
+  untracked: 059

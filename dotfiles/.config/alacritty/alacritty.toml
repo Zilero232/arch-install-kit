@@ -1,4 +1,5 @@
 # Импорт темы
+[general]
 import = [
     "/home/user/.config/alacritty/themes/custom.toml",
     "/home/user/.config/alacritty/keybindings.toml"
@@ -48,7 +49,7 @@ style = "Bold Italic"              # Стиль жирного курсива
 
 # Настройки курсора
 [cursor]
-matches = { shape = "Beam", blinking = "Always" } # Курсор
+style = { shape = "Beam", blinking = "Always"} # Курсор
 unfocused_hollow = true  # Пустой курсор при потере фокуса
 
 # Настройки скролла

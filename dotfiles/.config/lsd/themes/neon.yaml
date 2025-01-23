@@ -1,0 +1,47 @@
+user: 051        # Яркий синий
+group: 051
+permission:
+  read: 046      # Яркий зелёный
+  write: 046
+  exec: 046
+  exec-sticky: 046
+  no-access: 239 # Тёмно-серый
+  octal: 051
+  acl: 046
+  context: 046
+
+date:
+  hour-old: 046  # Яркий зелёный
+  day-old: 051   # Яркий синий
+  older: 239     # Тёмно-серый
+
+size:
+  none: 239      # Тёмно-серый
+  small: 046     # Яркий зелёный
+  medium: 051    # Яркий синий
+  large: 197     # Яркий розовый
+
+name:
+  normal: 252    # Белый
+  directory: 051 # Яркий синий
+  executable: 046 # Яркий зелёный
+  symlink: 201   # Яркий пурпурный
+  broken: 197    # Яркий розовый
+  missing: 197
+  pipe: 046
+  socket: 046
+  door: 046
+  block-device: 201
+  char-device: 201
+  special: 201
+
+git:
+  unmodified: 252  # Белый
+  ignored: 239     # Тёмно-серый
+  modified: 226    # Яркий жёлтый
+  added: 046       # Яркий зелёный
+  deleted: 197     # Яркий розовый
+  renamed: 051     # Яркий синий
+  typechanged: 201 # Яркий пурпурный
+  unmerged: 197
+  untracked: 239
