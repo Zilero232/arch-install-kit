@@ -141,11 +141,11 @@ Caps_Lock
 
 # Показать/скрыть панель (alt + p)
 alt + p
-    sh $HOME/bin/toggle-polybar
+    sh $HOME/bin/toggle_polybar.sh
 
 # Обои (alt + w)
 alt + w
-    sh $HOME/bin/random_wallpaper
+    sh $HOME/bin/random_wallpaper.sh
 
 # Быстрая настройка монитора
 alt + m; {1,2,3}
