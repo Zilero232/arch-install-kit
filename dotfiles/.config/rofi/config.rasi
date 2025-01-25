@@ -1,35 +1,100 @@
 configuration {
-    // Основные настройки
-    modi: "drun,run,window,ssh";
-    font: "JetBrainsMono Nerd Font 12";
-    location: 0;
-    terminal: "alacritty";
-    
-    // Внешний вид
-    show-icons: true;
-    icon-theme: "Papirus";
-    display-drun: "";
-    display-run: "";
-    display-window: "";
-    display-ssh: "󰣀";
-    
-    // Поведение
-    sidebar-mode: true;
-    click-to-exit: true;
-    hide-scrollbar: true;
-    
-    // Клавиши
-    kb-row-up: "Up,Control+k";
-    kb-row-down: "Down,Control+j";
-    kb-accept-entry: "Return,KP_Enter";
-    kb-remove-to-eol: "Control+Shift+e";
-    kb-mode-next: "Shift+Right,Control+Tab";
-    kb-mode-previous: "Shift+Left,Control+Shift+Tab";
-    kb-remove-char-back: "BackSpace";
+    modi: "run,drun,window";                  // Доступные режимы
+    font: "JetBrainsMono Nerd Font 14";       // Шрифт
+    show-icons: true;                         // Показывать иконки
+    icon-theme: "Papirus-dark";               // Тема иконок
+    terminal: "alacritty";                    // Терминал по умолчанию
+    drun-display-format: "{icon} {name}";     // Формат отображения приложений
+    location: 0;                              // 0 = центр экрана
+    disable-history: false;                   // История поиска включена
+    hide-scrollbar: true;                     // Скрыть полосу прокрутки
+    // Иконки и названия для разных режимов
+    display-drun: "Apps ";
+    display-run: "Run ";
+    display-window: "Window";
+    sidebar-mode: true;                       // Включить боковую панель
 }
 
-// Импорт цветовой схемы
-@theme "~/.config/rofi/colors/colors.rasi"
+@theme "themes/catppuccin"
 
-// Основная тема
-@theme "~/.config/rofi/themes/main.rasi"
+// Наследование стилей для текста и иконок
+element-text, element-icon, mode-switcher {
+    background-color: inherit;
+    text-color: inherit;
+}
+
+window {
+    height: 360px;                // Высота окна
+    width: 50%;                   // Ширина окна
+    border: 3px;                  // Толщина границы
+    border-color: @border-col;    // Цвет границы
+    background-color: @bg-col;    // Цвет фона
+}
+
+mainbox {
+    background-color: @bg-col;    // Цвет фона основного контейнера
+}
+
+inputbar {
+    children: [prompt, entry];    // Компоненты строки ввода
+    background-color: @bg-col;    // Цвет фона
+    border-radius: 5px;           // Скругление углов
+    padding: 2px;                 // Внутренние отступы
+}
+
+prompt {
+    background-color: @blue;      // Синий фон для prompt
+    padding: 6px;                 // Внутренние отступы
+    text-color: @bg-col;          // Цвет текста
+    border-radius: 3px;           // Скругление углов
+    margin: 20px 0px 0px 20px;    // Внешние отступы
+}
+
+entry {
+    padding: 6px;                 // Внутренние отступы
+    margin: 20px 0px 0px 10px;    // Внешние отступы
+    text-color: @fg-col;          // Цвет текста
+    background-color: @bg-col;    // Цвет фона
+    placeholder: "Search";        // Текст-подсказка
+}
+
+listview {
+    border: 0px 0px 0px;          // Границы списка
+    padding: 6px 0px 0px;         // Внутренние отступы
+    margin: 10px 0px 0px 20px;    // Внешние отступы
+    columns: 2;                   // Количество колонок
+    lines: 5;                     // Количество строк
+    background-color: @bg-col;    // Цвет фона
+}
+
+element {
+    padding: 5px;                 // Отступы элементов списка
+    background-color: @bg-col;    // Цвет фона
+    text-color: @fg-col;          // Цвет текста
+}
+
+element-icon {
+    size: 25px;                   // Размер иконок
+}
+
+element selected {
+    background-color: @selected-col;  // Цвет фона выбранного элемента
+    text-color: @fg-col2;             // Цвет текста выбранного элемента
+}
+
+mode-switcher {
+    spacing: 0;                       // Отступы между кнопками режимов
+}
+
+button {
+    padding: 10px;                    // Отступы кнопок
+    background-color: @bg-col-light;  // Цвет фона
+    text-color: @grey;                // Цвет текста
+    vertical-align: 0.5;              // Вертикальное выравнивание
+    horizontal-align: 0.5;            // Горизонтальное выравнивание
+}
+
+button selected {
+    background-color: @bg-col;    // Цвет фона выбранной кнопки
+    text-color: @blue;            // Цвет текста выбранной кнопки
+}
