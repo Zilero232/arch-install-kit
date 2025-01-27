@@ -1,74 +1,80 @@
 * {
     background-image: none;
-    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
 }
 
 window {
-    background-color: rgba(40, 42, 54, 0.8);
+    background-color: rgba(40, 42, 54, 0.7);
 }
 
 button {
     color: #f8f8f2;
     background-color: rgba(68, 71, 90, 0.7);
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 20px;  /* Скругление для общего контейнера */
-    border-color: #6272a4;
-    margin: 20px;
-    padding-top: 100px;  /* Место для иконки */
-    padding-bottom: 20px; /* Место для текста */
-    min-width: 160px;
-    min-height: 160px;
+    outline-style: none;
+    border: none;
+    border-width: 0px;
     background-repeat: no-repeat;
-    background-position: top 30px center; /* Иконка сверху */
-    background-size: 64px;  /* Размер иконки */
-    transition: all 0.3s ease-in-out;
-    /* Добавляем текст снизу */
-    text-align: center;
-    font-size: 16px;
+    background-position: center;
+    background-size: 10%;
+    border-radius: 0px;
+    box-shadow: none;
+    text-shadow: none;
+    animation: gradient_f 20s ease-in infinite;
+}
+
+button:focus {
+    background-color: rgba(189, 147, 249, 0.7);
+    background-size: 20%;
 }
 
 button:hover {
     background-color: rgba(98, 114, 164, 0.7);
-    border-color: #bd93f9;
-    transform: translateY(-2px);
+    background-size: 25%;
+    border-radius: 15px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
 }
 
-button:focus {
-    background-color: #bd93f9;
-    border-color: #ff79c6;
-    color: #282a36;
+button:hover#lock {
+    border-radius: 15px 15px 0px 15px;
+    margin: 10px 0px 0px 10px;
 }
 
-/* Позиционирование кнопок */
-#lock, #suspend, #reboot, #shutdown {
-    margin: 20px;
-    background-size: 50px;
-    /* Добавляем псевдоэлемент для круглой области иконки */
-    position: relative;
+button:hover#logout {
+    border-radius: 15px 0px 15px 15px;
+    margin: 0px 0px 10px 10px;
 }
 
-/* Создаем круглую область для иконки */
-#lock::before, 
-#suspend::before, 
-#reboot::before, 
-#shutdown::before {
-    content: "";
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 80px;
-    background-color: rgba(68, 71, 90, 0.9);
-    border-radius: 50%;
-    border: 2px solid #6272a4;
-    z-index: -1;
-    transition: all 0.3s ease-in-out;
+button:hover#shutdown {
+    border-radius: 15px 15px 15px 0px;
+    margin: 10px 10px 0px 0px;
 }
 
-/* Эффект при наведении на круглую область */
-button:hover::before {
-    background-color: rgba(98, 114, 164, 0.9);
-    border-color: #bd93f9;
+button:hover#reboot {
+    border-radius: 0px 15px 15px 15px;
+    margin: 0px 10px 10px 0px;
+}
+
+#lock {
+    background-image: image(url("$HOME/.config/wlogout/icons/lock.png"));
+    border-radius: 20px 0px 0px 0px;
+    margin: 5px 0px 0px 5px;
+}
+
+#logout {
+    background-image: image(url("$HOME/.config/wlogout/icons/logout.png"));
+    border-radius: 0px 0px 0px 20px;
+    margin: 0px 0px 5px 5px;
+}
+
+#shutdown {
+    background-image: image(url("$HOME/.config/wlogout/icons/shutdown.png"));
+    border-radius: 0px 20px 0px 0px;
+    margin: 5px 5px 0px 0px;
+}
+
+#reboot {
+    background-image: image(url("$HOME/.config/wlogout/icons/reboot.png"));
+    border-radius: 0px 0px 20px 0px;
+    margin: 0px 5px 5px 0px;
 }
