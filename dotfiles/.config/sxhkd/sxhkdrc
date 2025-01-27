@@ -1,192 +1,178 @@
-#
-# Основные системные комбинации
-#
+# ┌─────────────────────────────────────────────────┐
+# │                Базовые команды                  │
+# │           (Win = Super = Mod4 = ⊞ Win)         │
+# └─────────────────────────────────────────────────┘
 
-# Перезагрузка конфигурации (alt + shift + r)
-alt + shift + r
-    pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Конфигурация перезагружена'
-
-# Выход/перезагрузка bspwm (alt + ctrl + q для безопасности)
-alt + ctrl + {q,r}
-    bspc {quit,wm -r}
-
-#
-# Запуск приложений (быстрый доступ)
-#
-
-# Терминал (alt + enter - самая удобная)
-alt + Return
+# Терминал (alacritty)
+super + Return
     alacritty
 
-# Запуск программ (alt + пробел - самое быстрое)
-alt + space
+# Файловый менеджер
+super + shift + n
+    thunar
+
+# Меню приложений
+super + d
     rofi -show drun
 
-# Переключение окон (alt + tab - привычное)
-alt + Tab
-    rofi -show window
+# ┌─────────────────────────────────────────────────┐
+# │              Системное управление               │
+# └─────────────────────────────────────────────────┘
 
-# Частые приложения (alt + клавиша)
-alt + {f,e,t,c,m,n,v,s}
-    {firefox, \
-    thunar, \
-    telegram-desktop, \
-    code, \
-    thunderbird, \
-    notion-app, \
-    virtualbox, \
-    spotify}
+# Перезагрузка конфига
+super + Escape + r
+    pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config' -t 1500
 
-#
-# Управление окнами
-#
+# Меню питания
+super + x
+    sh $HOME/bin/power_menu.sh
 
-# Закрыть окно (q - быстрый доступ)
-alt + q
-    bspc node -c
+# Блокировка экрана
+super + shift + l
+    sh $HOME/bin/screen_lock.sh
 
-# Убить окно (если зависло)
-alt + ctrl + q
-    bspc node -k
+# Принудительное закрытие окна
+ctrl + super + alt + k
+    xkill
 
-# Режимы окна (быстрое переключение)
-alt + {1,2,3,4}
-    bspc node -t {tiled,floating,fullscreen,pseudo_tiled}
+# ┌─────────────────────────────────────────────────┐
+# │                   Интерфейс                     │
+# └─────────────────────────────────────────────────┘
 
-# Перемещение между окнами (vim-style)
-alt + {h,j,k,l}
-    bspc node -f {west,south,north,east}
+# Polybar: показать/скрыть
+super + p
+    sh $HOME/bin/toggle_polybar.sh
 
-# Перемещение окон (с shift)
-alt + shift + {h,j,k,l}
-    bspc node -s {west,south,north,east}
+# Обои: случайные
+super + w
+    sh $HOME/bin/random_wallpaper.sh
 
-# Изменение размера (с ctrl)
-alt + ctrl + {h,j,k,l}
-    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# Раскладка клавиатуры
+{Alt_L + shift, Shift_L + alt}
+    sh $HOME/bin/change_language.sh
 
-# Быстрое изменение размера (с alt + arrows)
-alt + {Left,Down,Up,Right}
-    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# ┌─────────────────────────────────────────────────┐
+# │              Запуск программ                    │
+# └─────────────────────────────────────────────────┘
 
-#
-# Управление рабочими столами
-#
+# Firefox
+super + shift + {f,i}
+    firefox {_,--private-window}  # Обычный и приватный режим
+
+# Chromium
+super + {shift,alt} + b
+    chromium {_,--incognito}
+
+# Мультимедиа и утилиты
+super + shift + {p,t}
+    {pavucontrol,              # Звук
+    telegram-desktop}          # Мессенджер
+
+# Инструменты разработки
+super + shift + {c,x}
+    {cursor-bin,               # IDE
+    sh $HOME/bin/xcolor-pick}  # Пипетка цвета
+
+# Органайзер
+super + shift + k
+    alacritty -e calcurse     # Календарь
+
+# ┌─────────────────────────────────────────────────┐
+# │                Управление медиа                 │
+# └─────────────────────────────────────────────────┘
+
+# Звук
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    sh $HOME/bin/volume{ --up, --down, --toggle}
+
+# Яркость экрана
+XF86MonBrightness{Up,Down}
+    sh $HOME/bin/brightness{ --up, --down}
+
+# ┌─────────────────────────────────────────────────┐
+# │                Скриншоты                        │
+# └─────────────────────────────────────────────────┘
+
+# Полный экран в буфер обмена
+Print
+    flameshot full -c                        
+
+# Полный экран в файл и в буфер
+shift + Print
+    flameshot full -c -p ~/Screenshots
+
+# Интерактивный режим выделения
+super + shift + s
+    flameshot gui                          
+
+# ┌─────────────────────────────────────────────────┐
+# │             Управление BSPWM                    │
+# └─────────────────────────────────────────────────┘
+
+# Выход/перезапуск
+ctrl + shift + {q,r}
+    bspc {quit,wm -r}
+
+# Закрыть окно
+super + {_,shift + }c
+    bspc node -{c,k}  # c = закрыть, k = убить
+
+# ┌─────────────────────────────────────────────────┐
+# │               Режимы окон                       │
+# └─────────────────────────────────────────────────┘
+
+# Переключение режимов
+super + {t,shift + t,f}
+    bspc node -t {tiled,pseudo_tiled,fullscreen}
+
+# Плавающий режим
+super + space
+    bspc node -t "~"{floating,tiled}
+
+# ┌─────────────────────────────────────────────────┐
+# │            Навигация и перемещение              │
+# └─────────────────────────────────────────────────┘
+
+# Переключение окон
+alt + {_,shift + }Tab
+    bspc node -f {next,prev}.local
 
 # Переключение рабочих столов
 alt + {1-9,0}
     bspc desktop -f '^{1-9,10}'
 
-# Перемещение окна на другой стол
-alt + shift + {1-9,0}
-    bspc node -d '^{1-9,10}' --follow
+# Перемещение окон между рабочими столами
+super + shift + {1-9,0}
+    bspc node -d '^{1-9,10}'
 
-# Быстрое переключение между последними столами
-alt + grave
-    bspc desktop -f last
+# Перемещение/выбор окна по направлению
+super + {_,shift + }{h,j,k,l}
+    bspc node -{f,s} {west,south,north,east}
 
-#
-# Мультимедиа и системные клавиши
-#
+# ┌─────────────────────────────────────────────────┐
+# │              Размер и положение                 │
+# └─────────────────────────────────────────────────┘
 
-# Громкость (колесико мыши на панели)
-XF86Audio{RaiseVolume,LowerVolume,Mute}
-    pamixer {-i 5,-d 5,-t}; \
-    notify-send "Громкость: $(pamixer --get-volume)%"
+# Изменение размера
+super + ctrl + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
-# Плеер (multimedia keys)
-XF86Audio{Play,Prev,Next}
-    playerctl {play-pause,previous,next}
+# Отмена разделения
+super + ctrl + {space,shift + space}
+    bspc {node -p cancel,desktop -c}
 
-# Быстрое управление плеером (alt + медиа)
-alt + {F7,F8,F9}
-    playerctl {previous,play-pause,next}
+# ┌─────────────────────────────────────────────────┐
+# │            Специальные функции                  │
+# └─────────────────────────────────────────────────┘
 
-# Яркость
-XF86MonBrightness{Up,Down}
-    brightnessctl set {+5%,5%-}; \
-    notify-send "Яркость: $(brightnessctl get)%"
+# Флаги окон
+super + ctrl + {m,x,y,z}
+    bspc node -g {marked,locked,sticky,private}
 
-#
-# Скриншоты и утилиты
-#
+# Предварительный выбор
+super + ctrl + {1-9}
+    bspc node -o 0.{1-9}
 
-# Скриншоты (Print - основная, + модификаторы для режимов)
-{_,shift + ,ctrl + }Print
-    flameshot {full -c,gui,screen -c}
-
-# Быстрые скриншоты (alt + s + модификатор)
-alt + s; {1,2,3}
-    flameshot {full -c,gui,screen -c}
-
-#
-# Системные функции
-#
-
-# Блокировка (alt + l - быстрый доступ)
-alt + l
-    betterlockscreen -l
-
-# Меню питания (alt + 0 - в углу клавиатуры)
-alt + shift + 0
-    ~/.config/rofi/powermenu.sh
-
-# Переключение раскладки (caps lock через xmodmap)
-Caps_Lock
-    sh $HOME/bin/change_language.sh
-
-#
-# Управление рабочим столом
-#
-
-# Показать/скрыть панель (alt + p)
-alt + p
-    sh $HOME/bin/toggle_polybar.sh
-
-# Обои (alt + w)
-alt + w
-    sh $HOME/bin/random_wallpaper.sh
-
-# Быстрая настройка монитора
-alt + m; {1,2,3}
-    sh $HOME/bin/monitor-{single,dual,triple}
-
-#
-# Дополнительные функции окон
-#
-
-# Режим картинка-в-картинке (для видео)
-alt + p; p
-    bspc node -t floating && xdotool getactivewindow windowsize 480 270
-
-# Центрирование плавающего окна
-alt + c
-    sh $HOME/bin/center-window
-
-# Быстрое разделение
-alt + {minus,equal}
-    bspc node @/ -C {backward,forward}
-
-# Скрытие/показ окон
-alt + shift + {h,s}
-    bspc node -g {hidden,sticky}
-
-# Показать последнее скрытое окно
-alt + shift + n
-    bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
-
-#
-# Специальные функции
-#	
-
-# Быстрый доступ к конфигам
-alt + shift + c; {b,s,p,x}
-    alacritty -e nvim {~/.config/bspwm/bspwmrc,~/.config/sxhkd/sxhkdrc,~/.config/polybar/config,~/.xinitrc}
-
-# Перезапуск сети
-alt + shift + n
-    sh $HOME/bin/restart-network
-
-# Очистка кэша
-alt + shift + Delete
-    sh $HOME/bin/clear-cache
+# Обмен с большим окном
+super + g
+    bspc node -s biggest.window
