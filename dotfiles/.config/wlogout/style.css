@@ -3,6 +3,18 @@
     font-size: 14px;
 }
 
+@keyframes gradient_f {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 window {
     background-color: rgba(40, 42, 54, 0.7);
 }
@@ -12,7 +24,7 @@ button {
     background-color: rgba(68, 71, 90, 0.7);
     outline-style: none;
     border: none;
-    border-width: 0px;
+    border-width: 0px;		
     background-repeat: no-repeat;
     background-position: center;
     background-size: 10%;
