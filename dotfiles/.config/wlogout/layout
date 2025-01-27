@@ -1,0 +1,35 @@
+{
+	"label" : "lock",
+	"action" : "$HOME/bin/screen_lock.sh",
+	"text" : "Lock (L)",
+	"keybind" : "l",
+	"circular" : false,
+	"icon" : "/usr/share/icons/Dracula/symbolic/actions/system-lock-screen-symbolic.svg"
+}
+
+{
+	"label" : "suspend",
+	"action" : "systemctl suspend && $HOME/bin/screen_lock.sh",
+	"text" : "Sleep (S)",
+	"keybind" : "s",
+	"circular" : false,
+	"icon" : "/usr/share/icons/Dracula/symbolic/actions/system-suspend-symbolic.svg"
+}
+
+{
+	"label" : "reboot",
+	"action" : "systemctl reboot",
+	"text" : "Restart (R)",
+	"keybind" : "r",
+	"circular" : false,
+	"icon" : "/usr/share/icons/Dracula/symbolic/actions/system-reboot-symbolic.svg"
+}
+
+{
+	"label" : "shutdown",
+	"action" : "systemctl poweroff",
+	"text" : "Power Off (E)",
+	"keybind" : "e",
+	"circular" : false,
+	"icon" : "/usr/share/icons/Dracula/symbolic/actions/system-shutdown-symbolic.svg"
+}

@@ -1,178 +1,153 @@
 # ┌─────────────────────────────────────────────────┐
-# │                Базовые команды                  │
-# │           (Win = Super = Mod4 = ⊞ Win)         │
+# │            Основные горячие клавиши             │
 # └─────────────────────────────────────────────────┘
 
-# Терминал (alacritty)
+# Запуск терминала
 super + Return
     alacritty
 
-# Файловый менеджер
-super + shift + n
-    thunar
-
-# Меню приложений
+# Запуск программ
 super + d
     rofi -show drun
 
-# ┌─────────────────────────────────────────────────┐
-# │              Системное управление               │
-# └─────────────────────────────────────────────────┘
-
-# Перезагрузка конфига
-super + Escape + r
-    pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config' -t 1500
-
-# Меню питания
-super + x
-    sh $HOME/bin/power_menu.sh
-
-# Блокировка экрана
-super + shift + l
-    sh $HOME/bin/screen_lock.sh
-
-# Принудительное закрытие окна
-ctrl + super + alt + k
-    xkill
+# Перезагрузка конфигурации sxhkd
+super + Escape
+    pkill -USR1 -x sxhkd
 
 # ┌─────────────────────────────────────────────────┐
-# │                   Интерфейс                     │
+# │            Управление окнами BSPWM              │   
 # └─────────────────────────────────────────────────┘
 
-# Polybar: показать/скрыть
-super + p
-    sh $HOME/bin/toggle_polybar.sh
+# Выход/перезапуск bspwm
+super + alt + {q,r}
+    bspc {quit,wm -r}
 
-# Обои: случайные
-super + w
-    sh $HOME/bin/random_wallpaper.sh
+# Закрыть/убить окно
+super + {_,shift + }c
+    bspc node -{c,k}
 
-# Раскладка клавиатуры
-{Alt_L + shift, Shift_L + alt}
-    sh $HOME/bin/change_language.sh
+# Переключение между обычным и полноэкранным режимом
+super + m
+    bspc desktop -l next
+
+# ┌─────────────────────────────────────────────────┐
+# │               Состояния окон                    │
+# └─────────────────────────────────────────────────┘
+
+# Установка состояния окна
+super + {t,shift + t,s,f}
+    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# Установка флагов окна
+super + ctrl + {m,x,y,z}
+    bspc node -g {marked,locked,sticky,private}
+
+# ┌─────────────────────────────────────────────────┐
+# │         Перемещение и выбор окон                │
+# └─────────────────────────────────────────────────┘
+
+# Фокус/перемещение окна в заданном направлении
+super + {_,shift + }{h,j,k,l}
+    bspc node -{f,s} {west,south,north,east}
+
+# Переключение/перемещение на рабочий стол
+super + {_,shift + }{1-9,0}
+    bspc {desktop -f,node -d} '^{1-9,10}'
+
+# ┌─────────────────────────────────────────────────┐
+# │            Разделение окон                      │
+# └─────────────────────────────────────────────────┘
+
+# Выбор направления разделения
+super + ctrl + {h,j,k,l}
+    bspc node -p {west,south,north,east}
+
+# ┌─────────────────────────────────────────────────┐
+# │           Изменение размера окон                │
+# └─────────────────────────────────────────────────┘
+
+# Изменение размера окон
+super + ctrl + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Изменение размера в противоположную сторону
+super + ctrl + shift + {h,j,k,l}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # ┌─────────────────────────────────────────────────┐
 # │              Запуск программ                    │
 # └─────────────────────────────────────────────────┘
 
-# Firefox
-super + shift + {f,i}
-    firefox {_,--private-window}  # Обычный и приватный режим
+# Основные программы
+super + shift + {f,c,p,t,b,v,n,s}
+    {firefox, \                 # Браузер Firefox
+    chromium, \                 # Браузер Chromium
+    pavucontrol, \              # Управление звуком
+    telegram-desktop, \         # Телеграм
+    thunar, \                   # Файловый менеджер
+    cursor, \                   # Редактор кода
+    spotify}                    # Музыкальный плеер
 
-# Chromium
-super + {shift,alt} + b
-    chromium {_,--incognito}
-
-# Мультимедиа и утилиты
-super + shift + {p,t}
-    {pavucontrol,              # Звук
-    telegram-desktop}          # Мессенджер
-
-# Инструменты разработки
-super + shift + {c,x}
-    {cursor-bin,               # IDE
-    sh $HOME/bin/xcolor-pick}  # Пипетка цвета
-
-# Органайзер
-super + shift + k
-    alacritty -e calcurse     # Календарь
+# Браузеры в приватном режиме
+super + alt + {f,c}
+    {firefox --private-window, \      # Firefox в приватном режиме
+    chromium --incognito}             # Chromium в режиме инкогнито
 
 # ┌─────────────────────────────────────────────────┐
-# │                Управление медиа                 │
+# │              Системные функции                  │
 # └─────────────────────────────────────────────────┘
 
-# Звук
-XF86Audio{RaiseVolume,LowerVolume,Mute}
-    sh $HOME/bin/volume{ --up, --down, --toggle}
+# Меню выключения
+super + x
+    wlogout
 
-# Яркость экрана
-XF86MonBrightness{Up,Down}
-    sh $HOME/bin/brightness{ --up, --down}
+# Блокировка экрана
+super + l
+    sh $HOME/bin/screen_lock.sh
 
 # ┌─────────────────────────────────────────────────┐
-# │                Скриншоты                        │
+# │              Интерфейс и внешний вид           │
 # └─────────────────────────────────────────────────┘
 
-# Полный экран в буфер обмена
+# Скрыть/показать Polybar
+super + p
+    sh $HOME/bin/toggle_polybar.sh
+
+# Случайные обои
+super + w
+    sh $HOME/bin/random_wallpaper.sh
+
+# ┌─────────────────────────────────────────────────┐
+# │                   Скриншоты                     │
+# └─────────────────────────────────────────────────┘
+
+# Снимок всего экрана
 Print
-    flameshot full -c                        
+    flameshot full -c
 
-# Полный экран в файл и в буфер
-shift + Print
-    flameshot full -c -p ~/Screenshots
-
-# Интерактивный режим выделения
+# Выбор области для снимка
 super + shift + s
-    flameshot gui                          
+    flameshot gui
 
 # ┌─────────────────────────────────────────────────┐
-# │             Управление BSPWM                    │
+# │            Управление мультимедиа               │
 # └─────────────────────────────────────────────────┘
 
-# Выход/перезапуск
-ctrl + shift + {q,r}
-    bspc {quit,wm -r}
+# Управление громкостью
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    pamixer {-i 5, -d 5, -t}     # Увеличить/уменьшить/выключить звук
 
-# Закрыть окно
-super + {_,shift + }c
-    bspc node -{c,k}  # c = закрыть, k = убить
+# Управление яркостью экрана
+XF86MonBrightness{Up,Down}
+    brightnessctl set {+5%, 5%-}  # Увеличить/уменьшить яркость
 
 # ┌─────────────────────────────────────────────────┐
-# │               Режимы окон                       │
+# │              Переключение языка                 │
 # └─────────────────────────────────────────────────┘
 
-# Переключение режимов
-super + {t,shift + t,f}
-    bspc node -t {tiled,pseudo_tiled,fullscreen}
+# Переключение раскладки клавиатуры
+Alt_L + shift
+    sh $HOME/bin/change_language.sh
 
-# Плавающий режим
-super + space
-    bspc node -t "~"{floating,tiled}
-
-# ┌─────────────────────────────────────────────────┐
-# │            Навигация и перемещение              │
-# └─────────────────────────────────────────────────┘
-
-# Переключение окон
-alt + {_,shift + }Tab
-    bspc node -f {next,prev}.local
-
-# Переключение рабочих столов
-alt + {1-9,0}
-    bspc desktop -f '^{1-9,10}'
-
-# Перемещение окон между рабочими столами
-super + shift + {1-9,0}
-    bspc node -d '^{1-9,10}'
-
-# Перемещение/выбор окна по направлению
-super + {_,shift + }{h,j,k,l}
-    bspc node -{f,s} {west,south,north,east}
-
-# ┌─────────────────────────────────────────────────┐
-# │              Размер и положение                 │
-# └─────────────────────────────────────────────────┘
-
-# Изменение размера
-super + ctrl + {h,j,k,l}
-    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-# Отмена разделения
-super + ctrl + {space,shift + space}
-    bspc {node -p cancel,desktop -c}
-
-# ┌─────────────────────────────────────────────────┐
-# │            Специальные функции                  │
-# └─────────────────────────────────────────────────┘
-
-# Флаги окон
-super + ctrl + {m,x,y,z}
-    bspc node -g {marked,locked,sticky,private}
-
-# Предварительный выбор
-super + ctrl + {1-9}
-    bspc node -o 0.{1-9}
-
-# Обмен с большим окном
-super + g
-    bspc node -s biggest.window
+Shift_L + alt
+    sh $HOME/bin/change_language.sh
