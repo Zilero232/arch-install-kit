@@ -1,27 +1,27 @@
 {
 	"label" : "lock",
 	"action" : "$HOME/bin/screen_lock.sh",
-	"text" : "Lock (L)",
+	"text" : "Lock",
 	"keybind" : "l"
 }
 
 {
 	"label" : "logout",
 	"action" : "systemctl suspend && $HOME/bin/screen_lock.sh",
-	"text" : "Logout (E)",
+	"text" : "Logout",
 	"keybind" : "e"
 }
 
 {
 	"label" : "shutdown",
 	"action" : "systemctl poweroff",
-	"text" : "Shutdown (S)",
+	"text" : "Shutdown",
 	"keybind" : "s"
 }
 
-{
+{	
 	"label" : "reboot",
 	"action" : "systemctl reboot",
-	"text" : "Restart (R)",
+	"text" : "Restart",
 	"keybind" : "r"
 }

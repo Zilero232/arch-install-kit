@@ -6,7 +6,7 @@ CLEAR='#ffffff22'  # Полупрозрачный белый
 DEFAULT='#bd93f9'  # Фиолетовый
 TEXT='#f8f8f2'     # Белый текст
 WRONG='#ff5555'    # Красный
-VERIFYING='#50fa7b'# Зеленый
+VERIFYING='#50fa7b' # Зеленый
 BACKGROUND='#282a36aa' # Фон с прозрачностью
 
 # Создаем скриншот

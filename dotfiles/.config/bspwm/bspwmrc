@@ -76,4 +76,4 @@ picom --config $HOME/.config/bspwm/picom_configurations/blur-shadow.conf &
 
 # Автозапуск пользовательских приложений
 flameshot &          # Скриншоты
-nm-applet            # Менеджер сети
+nm-applet             # Менеджер сети
