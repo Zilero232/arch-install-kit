@@ -1,4 +1,4 @@
-# Только специфичные для терминала команды
+# Terminal-specific commands only
 [[keyboard.bindings]]
 key = "V"
 mods = "Control|Shift"
@@ -9,7 +9,7 @@ key = "C"
 mods = "Control|Shift"
 action = "Copy"
 
-# Управление размером шрифта
+# Font size control
 [[keyboard.bindings]]
 key = "Plus"
 mods = "Control"
@@ -25,7 +25,7 @@ key = "Key0"
 mods = "Control"
 action = "ResetFontSize"
 
-# Поиск в терминале
+# Terminal search
 [[keyboard.bindings]]
 key = "F"
 mods = "Control|Shift"
@@ -36,7 +36,7 @@ key = "B"
 mods = "Control|Shift"
 action = "SearchBackward"
 
-# Прокрутка терминала
+# Terminal scrolling
 [[keyboard.bindings]]
 key = "PageUp"
 mods = "Shift"

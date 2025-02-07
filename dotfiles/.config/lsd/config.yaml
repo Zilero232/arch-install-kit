@@ -1,128 +1,45 @@
-# Классический режим (как ls)
-
-# Влияет на параметры color->when, sorting->dir-grouping, date и icons->when
+# Basic settings
 classic: false
 
-# Блоки информации для отображения в длинном формате (-l)
-
-# Порядок важен - элементы будут показаны в указанном порядке
+# Blocks
 blocks:
-  - permission   # Права доступа
-  - user         # Владелец
-  - group        # Группа
-  - size         # Размер
-  - date         # Дата
-  - name         # Имя файла
-  - inode        # Номер inode
-  - links        # Количество жёстких ссылок
-  - git          # Git статус
+  - permission
+  - user
+  - group
+  - size
+  - date
+  - name
 
-# Настройки цвета
+# Color
 color:
-  # Когда использовать цвета: never, auto, always
   when: auto
-  # Тема цветов: default или путь к файлу темы
-  theme: dracula
 
-# Настройки даты
-date:
-  # Формат даты: date (системный), relative (+1w), или strftime формат ('+%d.%m.%y %H:%M')
-  format: '+%d.%m.%y %H:%M'
-  # Относительное время для недавних файлов
-  relative: false
-
-# Разыменование символических ссылок
-dereference: false
- 
-# Что показывать
-display:
-  # all - все файлы, almost-all - скрытые без . и .., directory-only - только директории
-  mode: all
-
-# Настройки иконок
+# Icons
 icons:
-  # Когда показывать иконки: always, auto, never
   when: auto
-  # Тема иконок: fancy (требует Nerd Fonts), unicode
   theme: fancy
-  # Разделитель между иконкой и именем
-  separator: " "
-  # Размер отступа для иконок
-  padding: 1
 
-# Игнорируемые паттерны (как в .gitignore)
-ignore-globs:
-  - .git
-  - node_modules
-  - .cache
+# Layout
+layout: grid
 
-# Индикаторы типов файлов (/, *, @, |, =, >)
+# Sorting
+sorting:
+  dir-grouping: first
+
+# Date format
+date: "+%Y-%m-%d %H:%M"
+
+# Permission format
+permission: rwx
+
+# Size format
+size: default
+
+# Indicators
 indicators: false
 
-# Формат отображения
-layout: grid    # grid, tree, oneline
-
-# Настройки рекурсии
-recursion:
-  # Включить рекурсивный обход
-  enabled: false
-  # Глубина рекурсии (если не указано - бесконечная)
-  depth: 3
-
-# Формат размера
-size: default   # default, short, bytes
-
-# Формат прав доступа
-permission: rwx # rwx, octal
-
-# Настройки сортировки
-sorting:
-  # Колонка сортировки
-  column: name  # name, size, time, version, extension
-  # Обратная сортировка
-  reverse: false
-  # Группировка директорий
-  dir-grouping: first  # first, last, none
-
-# Отключить показ целей символических ссылок
-no-symlink: false
-
-# Показывать общий размер директорий
-total-size: true
-
-# Гиперссылки на файлы
-hyperlink: never  # always, auto, never
-
-# Стрелка для символических ссылок
-symlink-arrow: "⇒"
-
-# Показывать заголовки колонок
+# Header
 header: false
 
-# Настройки Git
-git:
-  # Показывать git статус
-  enabled: true
-  # Показывать игнорируемые файлы
-  ignore: true
-  # Показывать статус в дереве
-  in-tree: true
-
-# Стиль древовидного отображения
-tree:
-  # Отступ для уровней
-  indent: 2
-  # Символы для отрисовки дерева
-  chars:
-    branch: "├"
-    leaf: "└"
-    vertical: "│"
-    horizontal: "─"
-    missing: " "
-
-# Настройки производительности
-meta:
-  # Кэширование метаданных
-  cache: true
-  # Таймаут кэша в секундах
-  cache-ttl: 60
+# Symlink arrow
+symlink-arrow: ⇒

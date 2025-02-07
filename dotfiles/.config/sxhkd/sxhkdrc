@@ -1,153 +1,135 @@
-# ┌─────────────────────────────────────────────────┐
-# │            Основные горячие клавиши             │
-# └─────────────────────────────────────────────────┘
+#
+# BSPWM Hotkeys Configuration
+#
 
-# Запуск терминала
+#====================
+# Core Functionality
+#====================
+
+# Terminal
 super + Return
     alacritty
 
-# Запуск программ
+# Program launcher
 super + d
     rofi -show drun
 
-# Перезагрузка конфигурации sxhkd
+# Reload sxhkd configuration
 super + Escape
-    pkill -USR1 -x sxhkd
+    pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Configuration reloaded' -t 1500
 
-# ┌─────────────────────────────────────────────────┐
-# │            Управление окнами BSPWM              │   
-# └─────────────────────────────────────────────────┘
+#====================
+# BSPWM Controls
+#====================
 
-# Выход/перезапуск bspwm
-super + alt + {q,r}
+# Quit/Restart BSPWM
+ctrl + shift + {q,r}
     bspc {quit,wm -r}
 
-# Закрыть/убить окно
-super + {_,shift + }c
-    bspc node -{c,k}
+# Close window
+super + c
+    bspc node -c
 
-# Переключение между обычным и полноэкранным режимом
-super + m
-    bspc desktop -l next
+# Toggle floating/tiled mode
+super + space
+    bspc node -t "~"{floating,tiled}
 
-# ┌─────────────────────────────────────────────────┐
-# │               Состояния окон                    │
-# └─────────────────────────────────────────────────┘
+#====================
+# Window Management
+#====================
 
-# Установка состояния окна
-super + {t,shift + t,s,f}
-    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-# Установка флагов окна
-super + ctrl + {m,x,y,z}
-    bspc node -g {marked,locked,sticky,private}
-
-# ┌─────────────────────────────────────────────────┐
-# │         Перемещение и выбор окон                │
-# └─────────────────────────────────────────────────┘
-
-# Фокус/перемещение окна в заданном направлении
-super + {_,shift + }{h,j,k,l}
-    bspc node -{f,s} {west,south,north,east}
-
-# Переключение/перемещение на рабочий стол
+# Focus/Move window to workspace
 super + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} '^{1-9,10}'
 
-# ┌─────────────────────────────────────────────────┐
-# │            Разделение окон                      │
-# └─────────────────────────────────────────────────┘
+# Resize windows
+super + control {h,j,k,l}
+    bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20} 
 
-# Выбор направления разделения
-super + ctrl + {h,j,k,l}
-    bspc node -p {west,south,north,east}
+# Focus/Move window to direction
+super + {_,alt + }{h,j,k,l}
+    bspc node -{f,s} {west,south,north,east}
 
-# ┌─────────────────────────────────────────────────┐
-# │           Изменение размера окон                │
-# └─────────────────────────────────────────────────┘
+# Set window flags
+super + ctrl + {m,x,y,z}
+    bspc node -g {marked,locked,sticky,private}
 
-# Изменение размера окон
-super + ctrl + {h,j,k,l}
-    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# Swap with biggest window
+super + g
+    bspc node -s biggest.window
 
-# Изменение размера в противоположную сторону
-super + ctrl + shift + {h,j,k,l}
-    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+#====================
+# Applications
+#====================
 
-# ┌─────────────────────────────────────────────────┐
-# │              Запуск программ                    │
-# └─────────────────────────────────────────────────┘
+# Quick launch programs
+super + shift + {f,h,n,p,t,c,v,k}
+    {firefox, \
+    chromium, \
+    thunar, \
+    pavucontrol, \
+    telegram-desktop, \
+    cursor, \
+    virtualbox, \
+    alacritty -e calcurse}
 
-# Основные программы
-super + shift + {f,c,p,t,b,v,n,s}
-    {firefox, \                 # Браузер Firefox
-    chromium, \                 # Браузер Chromium
-    pavucontrol, \              # Управление звуком
-    telegram-desktop, \         # Телеграм
-    thunar, \                   # Файловый менеджер
-    cursor, \                   # Редактор кода
-    spotify}                    # Музыкальный плеер
+# Private browsing
+super + shift + ctrl + {f,h}
+    {firefox --private-window,\
+    chromium --incognito}
 
-# Браузеры в приватном режиме
-super + alt + {f,c}
-    {firefox --private-window, \      # Firefox в приватном режиме
-    chromium --incognito}             # Chromium в режиме инкогнито
+#====================
+# System Controls
+#====================
 
-# ┌─────────────────────────────────────────────────┐
-# │              Системные функции                  │
-# └─────────────────────────────────────────────────┘
-
-# Меню выключения
+# Power menu
 super + x
-    wlogout
+    sh $HOME/bin/power_menu.sh
 
-# Блокировка экрана
-super + l
+# Screen lock
+super + shift + l
     sh $HOME/bin/screen_lock.sh
 
-# ┌─────────────────────────────────────────────────┐
-# │              Интерфейс и внешний вид           │
-# └─────────────────────────────────────────────────┘
+#====================
+# UI Controls
+#====================
 
-# Скрыть/показать Polybar
+# Toggle Polybar
 super + p
     sh $HOME/bin/toggle_polybar.sh
 
-# Случайные обои
+# Random wallpaper
 super + w
     sh $HOME/bin/random_wallpaper.sh
 
-# ┌─────────────────────────────────────────────────┐
-# │                   Скриншоты                     │
-# └─────────────────────────────────────────────────┘
+#====================
+# Screenshots
+#====================
 
-# Снимок всего экрана
-Print
+# Full screen capture
+super + s
     flameshot full -c
 
-# Выбор области для снимка
+# Area selection
 super + shift + s
     flameshot gui
 
-# ┌─────────────────────────────────────────────────┐
-# │            Управление мультимедиа               │
-# └─────────────────────────────────────────────────┘
+#====================
+# Multimedia
+#====================
 
-# Управление громкостью
-XF86Audio{RaiseVolume,LowerVolume,Mute}
-    pamixer {-i 5, -d 5, -t}     # Увеличить/уменьшить/выключить звук
+# Volume control
+XF86Audio{Mute,RaiseVolume,LowerVolume}
+    pamixer {-t,-i 5,-d 5}
 
-# Управление яркостью экрана
+# Brightness control
 XF86MonBrightness{Up,Down}
-    brightnessctl set {+5%, 5%-}  # Увеличить/уменьшить яркость
+    brightnessctl set {+5%,5%-}
 
-# ┌─────────────────────────────────────────────────┐
-# │              Переключение языка                 │
-# └─────────────────────────────────────────────────┘
+#====================
+# Language Switch
+#====================
 
-# Переключение раскладки клавиатуры
-Alt_L + shift
-    sh $HOME/bin/change_language.sh
-
-Shift_L + alt
+# Toggle keyboard layout
+{Alt_L + shift, Shift_L + alt}
     sh $HOME/bin/change_language.sh

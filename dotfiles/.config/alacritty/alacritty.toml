@@ -1,72 +1,50 @@
-# Импорт темы
+# Main config with general settings
 [general]
 import = [
-    "/home/user/.config/alacritty/themes/custom.toml",
-    "/home/user/.config/alacritty/keybindings.toml"
+    "/home/zilero/.config/alacritty/themes/kanagawa_wave.toml",
+    "/home/zilero/.config/alacritty/keybindings.toml"
 ]
-
-# Цветовая схема
-[colors]
-draw_bold_text_with_bright_colors = true
 
 [env]
 TERM = "alacritty"
 
-# Настройки окна
+# Window settings
 [window]
-title = "Alacritty"       # Заголовок окна
-opacity = 0.95            # Прозрачность окна (0.0 - 1.0)
-dynamic_title = true      # Динамическое изменение заголовка
-decorations = "none"      # Убирает рамки окна
+dynamic_title = true
+decorations = "none"
 
-# Внутренние отступы окна
-[window.padding]          
-x = 10                    # Отступ по горизонтали
-y = 10                    # Отступ по вертикали
+[window.class]
+instance = "Alacritty"
+general = "Alacritty"
 
-# Классы окна для WM
-[window.class]           
-instance = "Alacritty"    # Имя экземпляра
-general = "Alacritty"     # Общее имя
-
-# Настройки шрифта
+# Font settings
 [font]
-size = 17.0                        # Размер шрифта
-builtin_box_drawing = true         # Встроенные символы рамок
+builtin_box_drawing = true
+size = 22.0
 
 [font.normal]
-family = "JetBrainsMono Nerd Font" # Основной шрифт
-style = "Regular"                  # Стиль обычного текста
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
 
 [font.bold]
-style = "Bold"                     # Стиль жирного текста
+style = "Bold"
 
 [font.italic]
-style = "Italic"                   # Стиль курсива
+style = "Italic"
 
 [font.bold_italic]
-style = "Bold Italic"              # Стиль жирного курсива
+style = "Bold Italic"
 
-# Настройки курсора
-[cursor]
-style = { shape = "Beam", blinking = "Always"} # Курсор
-unfocused_hollow = true  # Пустой курсор при потере фокуса
-
-# Настройки скролла
+# Scroll settings
 [scrolling]
-history = 10000                  # Размер истории в строках
-multiplier = 3                   # Множитель скорости скролла
+history = 10000
+multiplier = 6
 
-# Настройки выделения
+# Selection settings
 [selection]
-save_to_clipboard = true         # Автокопирование выделенного текста
-semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"  # Символы-разделители слов
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
-# Настройки оболочки
-[shell]
-program = "/usr/bin/fish"        # Путь к используемому шеллу
-
-# Настройки URL
-[url]
-launcher = { program = "chromium" }  # Программа для открытия URL
-modifiers = "Alt"                    # Модификатор для открытия URL
+# Shell settings
+[terminal.shell]
+program = "/usr/bin/fish"

@@ -1,196 +1,203 @@
-# Системное программное обеспечение Arch Linux
+# Arch Linux System Software
 
-## 1. Системные компоненты
+## 1. System Components
 
-### Графическая система
-- `xorg-server` - X Window System сервер
-- `xorg-xinit` - Инициализация X-сервера
-- `xorg-xbacklight` - Управление яркостью
-- `picom` - Композитный менеджер
+### Graphics System
+- `xorg-server` - X Window System server
+- `xorg-xinit` - X-server initialization
+- `xorg-xbacklight` - Brightness control
+- `arandr` - Monitor configuration GUI
+- `picom` - Composite manager
 
-### Дисплейный менеджер
-- `plymouth` - Загрузочный экран
-- `plymouth-theme-deus-ex-git` - Тема Plymouth [AUR]
+### Display Manager
+- `plymouth` - Boot splash screen
+- `plymouth-theme-deus-ex-git` - Plymouth theme [AUR]
 
-- `sddm` - Менеджер входа
-- `sddm-astronaut-theme` - Тема SDDM [AUR]
+- `sddm` - Login manager
+- `sddm-astronaut-theme` - SDDM theme [AUR]
 
-### Оконный менеджер
-- `bspwm` - Тайловый менеджер окон
-- `sxhkd` - Обработчик горячих клавиш
-- `polybar` - Статус-бар
-- `dunst` - Система уведомлений
-- `i3lock-color` - Блокировка экрана
-- `wlogout` - Меню выхода [AUR]
+### Window Manager
+- `bspwm` - Tiling window manager
+- `sxhkd` - Hotkey daemon
+- `polybar` - Status bar
+- `dunst` - Notification system
+- `i3lock-color` - Screen locker
+- `betterlockscreen` - Screen locker
+- `wlogout` - Logout menu [AUR]
 
-### Аудио система
-- `pulseaudio` - Звуковой сервер
-- `pulseaudio-alsa` - ALSA интеграция
-- `pulseaudio-bluetooth` - Bluetooth аудио
-- `alsa-plugins` - Плагины ALSA
-- `alsa-tools` - Инструменты ALSA
-- `alsa-utils` - Утилиты ALSA
-- `pavucontrol` - Звуковой микшер
-- `pamixer` - CLI управление звуком
-- `sound-theme-freedesktop` - Стандартные системные звуки
+### Audio System
+- `pipewire` - Modern audio server
+- `pipewire-pulse` - PulseAudio replacement
+- `pipewire-alsa` - ALSA integration
+- `pipewire-jack` - JACK integration
+- `wireplumber` - Session manager for PipeWire
+- `pavucontrol` - Audio mixer
+- `pamixer` - CLI audio control
+- `sound-theme-freedesktop` - Standard system sounds
 
-### Сетевая система
-- `networkmanager` - Управление сетью
-- `network-manager-applet` - GUI для сети
-- `dhcpcd` - DHCP клиент
-- `iwd` - WiFi демон
-- `openssh` - SSH сервер/клиент
-- `wireshark-qt` - Анализ сети
+### Network System
+- `networkmanager` - Network management
+- `network-manager-applet` - Network GUI
+- `dhcpcd` - DHCP client
+- `iwd` - WiFi daemon
+- `openssh` - SSH server/client
+- `wireshark-qt` - Network analysis
+- `net-tools` - Classic network utilities (netstat, ifconfig)
 
 ### Bluetooth
-- `bluez` - Bluetooth стек
-- `bluez-utils` - Утилиты Bluetooth
-- `blueman` - GUI менеджер
-- `bluez-hid2hci` - HID поддержка
+- `bluez` - Bluetooth stack
+- `bluez-utils` - Bluetooth utilities
+- `blueman` - GUI manager
+- `bluez-hid2hci` - HID support
 
-## 2. Управление системой
+## 2. System Management
 
-### Системные утилиты
-- `xfce4-settings` - Настройки системы
-- `timeshift` - Бэкапы системы
-- `bleachbit` - Очистка системы
-- `gnome-disk-utility` - Управление дисками
-- `reflector` - Управление зеркалами
-- `pacman-contrib` - Утилиты pacman
+### System Utilities
+- `xfce4-settings` - System settings
+- `timeshift` - System backups
+- `bleachbit` - System cleaner
+- `gnome-disk-utility` - Disk management
+- `reflector` - Mirror management
+- `pacman-contrib` - Pacman utilities
 
-### Мониторинг системы
-- `htop` - Просмотр процессов
-- `btop` - Мониторинг ресурсов
+### System Monitoring
+- `htop` - Process viewer
+- `btop` - Resource monitor
 
-### Управление питанием
-- `brightnessctl` - Управление яркостью
-- `upower` - Управление питанием
-- `tlp` - Энергосбережение
-- `tlp-rdw` - Радио устройства
+### Power Management
+- `brightnessctl` - Brightness control
+- `upower` - Power management
+- `tlp` - Power saving
+- `tlp-rdw` - Radio devices
 
-## 3. Пользовательское окружение
+## 3. User Environment
 
-### Терминалы
-- `xterm` - Базовый терминал
-- `alacritty` - Современный терминал
+### Virtualization
+- `virtualbox` - VirtualBox main package
 
-### Командная строка
-- `fish` - Командная оболочка
-- `tmux` - Мультиплексор
-- `lsd` - Улучшенный ls
-- `bat` - Улучшенный cat
+### Terminals
+- `xterm` - Basic terminal
+- `alacritty` - Modern terminal
 
-### Файловые менеджеры
-- `thunar` - GUI менеджер
-- `ranger` - CLI менеджер
-- `tree` - Просмотр каталогов
-- `ueberzug` - Превью изображений
-- `xclip` - Буфер обмена
+### Command Line
+- `fish` - Shell
+- `fisher` - Fish plugin manager
+- `tmux` - Terminal multiplexer
+- `lsd` - Enhanced ls
+- `bat` - Enhanced cat
 
-### Запуск приложений
-- `rofi` - Лаунчер
-- `rofi-calc` - Калькулятор
-- `rofi-emoji` - Эмодзи
+### File Managers
+- `thunar` - GUI manager
+- `thunar-archive-plugin` - Archives in Thunar
+- `ranger` - CLI manager
+- `tree` - Directory viewer
+- `ueberzug` - Image preview
+- `xclip` - Clipboard manager
 
-### Рабочий стол
-- `nitrogen` - Обои
-- `flameshot` - Скриншоты
-- `peek` - Запись GIF
-- `redshift` - Цветовая температура
-- `gpick` - Пипетка
-- `cheese` - Веб-камера
-- `touche` - Тачпад
-- `gnome-calculator` - Калькулятор
-- `gnome-clocks` - Часы
-- `obs-studio` - Запись экрана
+### Application Launchers
+- `rofi` - Launcher
+- `rofi-calc` - Calculator
+- `rofi-emoji` - Emoji picker
 
-## 4. Разработка
+### Desktop
+- `nitrogen` - Wallpaper manager
+- `flameshot` - Screenshots
+- `peek` - GIF recorder
+- `redshift` - Color temperature
+- `gpick` - Color picker
+- `cheese` - Webcam
+- `touche` - Touchpad
+- `gnome-calculator` - Calculator
+- `gnome-clocks` - Clocks
+- `obs-studio` - Screen recording
 
-### Редакторы
+## 4. Development
+
+### Editors
 - `code` - VS Code
-- `neovim` - Vim редактор
+- `neovim` - Vim editor
 - `cursor-bin` - AI IDE [AUR]
 - `phpstorm` - PHP IDE [AUR]
 
-### Инструменты разработки
-- `git` - Контроль версий
-- `docker` - Контейнеры
-- `docker-compose` - Управление контейнерами
-- `postman-bin` - API тестирование [AUR]
-- `shellcheck` - Проверка скриптов
-- `cloc` - Подсчёт кода
-- `fakeroot` - Root симуляция
-- `filezilla` - FTP клиент
-- `jq` - JSON утилита
-- `meson` - Сборка
-- `composer` - PHP зависимости
+### Development Tools
+- `git` - Version control
+- `docker` - Containers
+- `docker-compose` - Container management
+- `postman-bin` - API testing [AUR]
+- `shellcheck` - Script checker
+- `cloc` - Code counter
+- `fakeroot` - Root simulation
+- `filezilla` - FTP client
+- `jq` - JSON utility
+- `meson` - Build system
+- `composer` - PHP dependencies
 
-### Языки программирования
+### Programming Languages
 - Python:
-  - `python` - Интерпретатор
-  - `python-pip` - Пакетный менеджер
+  - `python` - Interpreter
+  - `python-pip` - Package manager
   - `bpython` - REPL
-  - `ipython` - Оболочка
+  - `ipython` - Shell
 - Node.js:
-  - `node` - Среда выполнения
-  - `npm` - Пакетный менеджер
-  - `nvm` - Версионирование [AUR]
+  - `node` - Runtime
+  - `npm` - Package manager
+  - `nvm` - Version manager [AUR]
 
-## 5. Приложения
+## 5. Applications
 
-### Интернет
-- `firefox` - Браузер
-- `chromium` - Браузер
+### Internet
+- `firefox` - Browser
+- `chromium` - Browser
 
-### Коммуникация
+### Communication
 - `telegram-desktop` - Telegram
 - `discord` - Discord
 - `slack-desktop` - Slack [AUR]
-- `zoom` - Платформа для видеоконференций [AUR]
+- `zoom` - Video conferencing platform [AUR]
 
-### Мультимедиа
-- Видео/Аудио:
-  - `vlc` - Медиаплеер
-	- `mpv` - Легковесный медиаплеер в дополнение к VLC
-  - `mpd` - Музыкальный сервер
-  - `ncmpcpp` - MPD клиент
+### Multimedia
+- Video/Audio:
+  - `vlc` - Media player
+  - `mpv` - Lightweight media player
+  - `mpd` - Music server
+  - `ncmpcpp` - MPD client
   - `spotify` - Spotify [AUR]
-  - `cava` - Визуализатор [AUR]
-- Графика:
-  - `pinta` - Редактор
-  - `gthumb` - Просмотрщик
+  - `cava` - Visualizer [AUR]
+- Graphics:
+  - `pinta` - Editor
+  - `gthumb` - Viewer
   - `figma-linux` - Figma [AUR]
 
-### Офис
-- `libreoffice-fresh` - Офисный пакет
-- `evince` - PDF просмотрщик
-- `zathura` - PDF просмотрщик
-- `obsidian` - Заметки [AUR]
+### Office
+- `libreoffice-fresh` - Office suite
+- `evince` - PDF viewer
+- `zathura` - PDF viewer
+- `obsidian` - Notes [AUR]
 
-### Утилиты
-- Архивация:
-  - `xarchiver` - GUI архиватор
-  - `zip`, `unzip` - ZIP архивы
-  - `p7zip` - 7z архивы
-  - `tar`, `gzip`, `bzip2` - Базовые архиваторы
-- Загрузки:
-  - `transmission-gtk` - Торрент-клиент
+### Utilities
+- Archiving:
+  - `xarchiver` - GUI archiver
+  - `zip`, `unzip` - ZIP archives
+  - `p7zip` - 7z archives
+  - `tar`, `gzip`, `bzip2` - Basic archivers
+- Downloads:
+  - `transmission-gtk` - Torrent client
 
-### Безопасность
-- `keepassxc` - Пароли
-- `gufw` - Файервол
-- `veracrypt` - Шифрование
+### Security
+- `keepassxc` - Password manager
+- `gufw` - Firewall
+- `veracrypt` - Encryption
 
-## 6. Оформление
+## 6. Theming
 
-### Темы
-- `dracula-gtk-theme` - GTK тема [AUR]
-- `dracula-icons-git` - Иконки [AUR]
-- `dracula-cursors-git` - Курсоры [AUR]
+### Themes
+- `dracula-gtk-theme` - GTK theme [AUR]
+- `dracula-icons-git` - Icons [AUR]
+- `dracula-cursors-git` - Cursors [AUR]
 
-### Шрифты
+### Fonts
 - `ttf-jetbrains-mono` - JetBrains Mono
-- `ttf-jetbrains-mono-nerd` - С иконками
+- `ttf-jetbrains-mono-nerd` - With icons
 - `ttf-fira-code` - Fira Code
 - `ttf-iosevka-nerd` - Iosevka
 - `noto-fonts` - Noto

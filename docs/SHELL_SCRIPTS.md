@@ -1,56 +1,92 @@
-# 🛠️ Пользовательские скрипты
+# 🛠️ Custom Scripts
 
-Коллекция полезных скриптов для оптимизации рабочего процесса в Linux.
+A collection of useful scripts to optimize workflow in Linux.
+
+## 🔋 battery_alert
+Battery level monitoring and notifications
+
+**📂 Location:** `~/bin/battery_alert.sh`  
+**⌨️ Hotkeys:** Runs automatically  
+
+**Features:**
+- Low battery warnings
+- Critical battery alerts
+- Customizable threshold levels
+- Power status monitoring
+- Automatic notifications
 
 ## 🔄 change_language
-Интеллектуальное переключение раскладки клавиатуры
+Smart keyboard layout switching
 
-**📂 Расположение:** `~/.local/bin/change_language`  
-**⌨️ Горячие клавиши:** `super + space`  
-**🔧 Зависимости:** `libnotify`
+**📂 Location:** `~/bin/change_language.sh`  
+**⌨️ Hotkeys:** `shift + alt`  
 
-**Возможности:**
-- Переключение между русской и английской раскладками
-- Мгновенные уведомления о смене языка
-- Автоматическое обновление индикатора в Polybar
-- Визуальная обратная связь
+**Features:**
+- Switch between Russian and English layouts
+- Instant language change notifications
+- Automatic Polybar indicator updates
+- Visual feedback
 
-## 🎯 toggle_polybar
-Элегантное управление видимостью статус-бара
+## ⚡ power_menu
+System power management menu
 
-**📂 Расположение:** `~/.local/bin/toggle_polybar`  
-**⌨️ Горячие клавиши:** `super + b`  
-**🔧 Зависимости:** `polybar`
+**📂 Location:** `~/bin/power_menu.sh`  
+**⌨️ Hotkeys:** `super + x`  
 
-**Возможности:**
-- Мгновенное скрытие/отображение панели
-- Плавная анимация переключения
-- Уведомления о текущем состоянии
-- Сохранение состояния между сессиями
-
-## 🔒 screen_lock
-Стильная блокировка экрана с размытием
-
-**📂 Расположение:** `~/.local/bin/screen_lock`  
-**⌨️ Горячие клавиши:** `super + l`  
-**🔧 Зависимости:** `i3lock-color`
-
-**Возможности:**
-- Создание скриншота текущего экрана
-- Применение эффекта размытия
-- Кастомизируемые цвета в стиле Dracula
-- Анимированные индикаторы
-- Защита от несанкционированного доступа
+**Features:**
+- Shutdown option
+- Restart option
+- Logout option
+- Lock screen option
+- Suspend option
+- Stylish rofi interface
 
 ## 🖼️ random_wallpaper
-Автоматическая смена обоев рабочего стола
+Automatic desktop wallpaper changer
 
-**📂 Расположение:** `~/.local/bin/random_wallpaper`  
-**⌨️ Горячие клавиши:** `super + w`  
-**🔧 Зависимости:** `nitrogen`, `libnotify`
+**📂 Location:** `~/bin/random_wallpaper.sh`  
+**⌨️ Hotkeys:** `super + w`  
 
-**Возможности:**
-- Случайный выбор изображений из указанной директории
-- Поддержка форматов JPG и PNG
-- Уведомления при смене обоев
-- Возможность настройки интервала смены
+**Features:**
+- Random image selection from specified directory
+- JPG and PNG format support
+- Wallpaper change notifications
+- Configurable change interval
+
+## 🔒 screen_lock
+Stylish screen locking with blur effect
+
+**📂 Location:** `~/bin/screen_lock.sh`  
+**⌨️ Hotkeys:** `super + shift + l`  
+
+**Features:**
+- Current screen snapshot
+- Blur effect application
+- Customizable colors
+- Animated indicators
+- Unauthorized access protection
+
+## 🎯 toggle_polybar
+Elegant status bar visibility management
+
+**📂 Location:** `~/bin/toggle_polybar.sh`  
+**⌨️ Hotkeys:** `super + p`  
+
+**Features:**
+- Instant panel hide/show
+- Smooth toggle animation
+- Status notifications
+- State persistence between sessions
+
+## 🔄 update_mirrors
+Pacman mirror list optimizer
+
+**📂 Location:** `~/bin/update_mirrors.sh`  
+**⌨️ Hotkeys:** Run manually  
+
+**Features:**
+- Updates pacman mirror list
+- Sorts mirrors by speed
+- Filters by country
+- Backup of old mirror list
+- Status notifications

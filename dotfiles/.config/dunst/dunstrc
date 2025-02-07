@@ -1,109 +1,83 @@
 [global]
-    ### Основные настройки отображения ###
-    monitor = 0                     # Показывать на основном мониторе
-    follow = mouse                  # Уведомления следуют за курсором мыши
+    ### Display Settings ###
+    monitor = 0
+    follow = mouse
 
-    ### Размеры и позиционирование ###
-    width = (250, 350)             # Минимальная и максимальная ширина
-    height = (50, 300)             # Минимальная и максимальная высота
-    origin = top-right             # Положение на экране
-    offset = 15x45                 # Отступ от краёв (15 пикселей справа, 45 сверху)
-    scale = 0                      # Автомасштабирование (0 = авто)
-    notification_limit = 0         # Максимальное количество уведомлений (0 = без лимита)
+    ### Sound Settings ###
+    script = $HOME/.config/dunst/scripts/notify_sounds.sh
 
-    ### Отступы и поля ###
-    padding = 15                   # Внутренний отступ
-    horizontal_padding = 15        # Горизонтальный отступ
-    text_icon_padding = 15         # Отступ между иконкой и текстом
+    ### Geometry ###
+    width = (300, 500)
+    height = (120, 200)
+    origin = top-right
+    offset = (10, 70)
+    scale = 0
+    notification_limit = 3
 
-    ### Настройки рамок ###
-    frame_width = 2                # Толщина рамки
-    frame_color = "#89B4FA"        # Цвет рамки (Catppuccin Mocha Blue)
-    separator_height = 2           # Высота разделителя между уведомлениями
-    separator_color = frame        # Цвет разделителя = цвет рамки
-    corner_radius = 10             # Радиус скругления углов
+    ### Padding ###
+    padding = 16
+    horizontal_padding = 16
+    text_icon_padding = 16
 
-    ### Настройки прогресс-бара ###
-    progress_bar = true            # Включить прогресс-бар
-    progress_bar_height = 10       # Высота прогресс-бара
-    progress_bar_frame_width = 1   # Толщина рамки прогресс-бара
-    progress_bar_min_width = 150   # Минимальная ширина прогресс-бара
-    progress_bar_max_width = 300   # Максимальная ширина прогресс-бара
+    ### Border ###
+    frame_width = 3
+    frame_color = "#BD93F9"
+    separator_height = 2
+    separator_color = "#44475A"
+    corner_radius = 15
+    gap_size = 12
 
-    ### Настройки текста ###
-    font = "JetBrainsMono Nerd Font 15 "  # Шрифт и размер
-    line_height = 0               # Высота строки (0 = авто)
-    markup = full                 # Поддержка разметки текста
-    format = "<b>%s</b>\n%b"      # Формат: жирный заголовок (%s) и текст (%b)
-    alignment = left              # Выравнивание текста
-    vertical_alignment = center   # Вертикальное выравнивание
-    show_age_threshold = 60       # Показывать время уведомления после 60 сек
-    word_wrap = yes               # Перенос длинных строк
-    ellipsize = end               # Обрезать длинный текст в конце
-    ignore_newline = no           # Учитывать переносы строк
-    stack_duplicates = true       # Группировать одинаковые уведомления
-    hide_duplicate_count = false  # Показывать количество повторов
-    show_indicators = yes         # Показывать индикаторы действий
+    ### Progress Bar ###
+    progress_bar = true
+    progress_bar_height = 10
+    progress_bar_frame_width = 0
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+    progress_bar_corner_radius = 5
 
-    ### История ###
-    sticky_history = yes          # Сохранять историю уведомлений
-    history_length = 20           # Количество сохраняемых уведомлений
+    ### Text ###
+    font = "JetBrainsMono Nerd Font Bold 16"
+    line_height = 4
+    markup = full
+    format = "<span foreground='#BD93F9'>󰂚</span> <span foreground='#FF79C6'><b>%s</b></span>\n<span foreground='#F8F8F2'>%b</span>"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    word_wrap = yes
+    ellipsize = end
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
 
-    ### Дополнительные настройки ###
-    browser = /usr/bin/xdg-open   # Браузер для открытия ссылок
-    always_run_script = true      # Всегда выполнять скрипты
-    title = Dunst                 # Заголовок окна
-    class = Dunst                 # Класс окна
-    ignore_dbusclose = false      # Разрешить закрытие через DBus
+    ### Icons ###
+    enable_recursive_icon_lookup = true
+    icon_position = left
+    min_icon_size = 48
+    max_icon_size = 64
 
-    ### Действия мыши ###
-    mouse_left_click = close_current               # ЛКМ - закрыть текущее
-    mouse_middle_click = do_action, close_current  # СКМ - выполнить действие и закрыть
-    mouse_right_click = context, close_all         # ПКМ - контекст и закрыть все
+    ### Mouse ###
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = context, close_all
 
-### Уровни важности ###
 [urgency_low]
-    background = "#1E1E2E"        # Фон (Catppuccin Mocha Base)
-    foreground = "#CDD6F4"        # Цвет текста
-    frame_color = "#89B4FA"       # Цвет рамки
-    highlight = "#89B4FA"         # Цвет выделения
-    timeout = 5                   # Время показа (сек)
-
-[urgency_normal]
-    background = "#1E1E2E"
-    foreground = "#CDD6F4"
-    frame_color = "#89B4FA"
-    highlight = "#89B4FA"
-    timeout = 7
-
-[urgency_critical]
-    background = "#1E1E2E"
-    foreground = "#F38BA8"        # Красный текст для критических
-    frame_color = "#F38BA8"       # Красная рамка
-    highlight = "#F38BA8"
-    timeout = 0                   # Не исчезать автоматически
-
-### Специальные правила для приложений ###
-[spotify]
-    appname = Spotify             # Правило для Spotify
-    format = "<b> Now Playing:</b>\n%s\n%b"  # Специальный формат
-    background = "#1E1E2E"
-    foreground = "#A6E3A1"        # Зеленый цвет для Spotify
-    frame_color = "#A6E3A1"
+    background = "#282A36EE"
+    foreground = "#F8F8F2"
+    frame_color = "#BD93F9"
+    highlight = "#BD93F9"
     timeout = 5
 
-[volume]
-    appname = Volume              # Правило для уведомлений громкости
-    format = "<b>Volume:</b> %s"
-    background = "#1E1E2E"
-    foreground = "#89B4FA"
-    frame_color = "#89B4FA"
-    timeout = 2
+[urgency_normal]
+    background = "#282A36EE"
+    foreground = "#F8F8F2"
+    frame_color = "#BD93F9"
+    highlight = "#BD93F9"
+    timeout = 5
 
-[battery]
-    appname = Battery             # Правило для уведомлений батареи
-    format = "<b>Battery:</b> %s"
-    background = "#1E1E2E"
-    foreground = "#FAB387"        # Персиковый цвет для батареи
-    frame_color = "#FAB387"
+[urgency_critical]
+    background = "#282A36EE"
+    foreground = "#FF5555"
+    frame_color = "#FF5555"
+    highlight = "#FF5555"
     timeout = 5

@@ -1,79 +1,117 @@
-#! /bin/sh
-
-# Запуск менеджера горячих клавиш (если не запущен)
-pgrep -x sxhkd > /dev/null || sxhkd &
+#!/bin/sh
 
 ###################
-# Базовые настройки
+# Helper Functions
 ###################
 
-# Настройка рабочих столов
-# Основной монитор
-bspc monitor primary -d 1 2 3 4 5 6 7
-# Дополнительный монитор (раскомментируйте и настройте при необходимости)
-# bspc monitor HDMI-1 -d 8 9 10
+notify() {
+    notify-send "BSPWM" "$1" -u normal
+}
 
-# Следование фокуса за курсором мыши
+###################
+# Process Management
+###################
+
+# Check and start key handler daemon
+if ! pgrep -x sxhkd >/dev/null; then
+    if command -v sxhkd >/dev/null 2>&1; then
+        sxhkd &
+        notify "Started sxhkd daemon"
+    else
+        notify "Warning: sxhkd is not installed"
+    fi
+fi
+
+###################
+# Basic Settings
+###################
+
+# Workspaces configuration
+bspc monitor $LAPTOP -d 1 2 3 4 5
+
+# Focus settings
 bspc config focus_follows_pointer true
 
-########################
-# Настройка внешнего вида
-########################
+###################
+# Visual Settings
+###################
 
-# Цвета рамок окон
-bspc config focused_border_color "#7899FA"  # Цвет рамки активного окна
-bspc config normal_border_color "#1f222b"   # Цвет рамки неактивного окна
-bspc config active_border_color "#bd93f9"   # Цвет рамки активного окна на неактивном мониторе
-bspc config presel_feedback_color "#6272a4" # Цвет предварительного выбора
+# Border colors
+bspc config focused_border_color "#7899FA"
+bspc config normal_border_color "#1f222b"
+bspc config active_border_color "#bd93f9"
+bspc config presel_feedback_color "#6272a4"
 
-# Размеры и отступы
-bspc config border_width 3                  # Уменьшенная ширина рамки для более современного вида
-bspc config window_gap 12                   # Оптимальный размер отступов между окнами
-bspc config borderless_monocle true         # Убрать рамки в режиме моно-окна
-bspc config gapless_monocle false           # Сохранять отступы в режиме моно-окна
+# Window appearance
+bspc config border_width 3
+bspc config window_gap 12
+bspc config borderless_monocle true
+bspc config gapless_monocle false
+bspc config split_ratio 0.52
 
-# Установка курсора мыши
+# Set default X cursor
 xsetroot -cursor_name left_ptr
 
-#########################
-# Настройка управления окнами
-#########################
+###################
+# Window Rules
+###################
 
-# Настройка действий мыши (с клавишей Super/Win)
-bspc config pointer_modifier mod4
-bspc config pointer_action1 move           # Левая кнопка - перемещение
-bspc config pointer_action2 resize_side    # Средняя кнопка - изменение размера (сторона)
-bspc config pointer_action3 resize_corner  # Правая кнопка - изменение размера (угол)
+# Floating windows
+bspc rule -a feh state=floating center=on
+bspc rule -a Pavucontrol state=floating center=on
+bspc rule -a Galculator state=floating center=on
+bspc rule -a mpv state=floating center=on
+bspc rule -a Lxappearance state=floating center=on
+bspc rule -a Nm-connection-editor state=floating center=on
+bspc rule -a Thunar state=floating center=on
+bspc rule -a wlogout state=floating sticky=true layer=above center=true
 
-######################
-# Правила для приложений
-######################
+###################
+# Autostart
+###################
 
-# Базовые правила
-bspc rule -a feh state=floating
-bspc rule -a Pavucontrol state=floating
-bspc rule -a Galculator state=floating
-bspc rule -a Firefox desktop='^2' follow=on
+# Load X resources
+[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-########################
-# Автозапуск приложений
-########################
+# Start bspwmbar
+if [[ -x ~/.config/bspwm/scripts/bspwm_launch.sh ]]; then
+    ~/.config/bspwm/scripts/bspwm_launch.sh &
+else
+    notify "Warning: bspwmbar launch script not found"
+fi
 
-# Загрузка ресурсов X
-xrdb merge ~/.Xresources
+# Start polybar
+if [[ -x ~/.config/polybar/scripts/polybar_launch.sh ]]; then
+    ~/.config/polybar/scripts/polybar_launch.sh &
+else
+    notify "Warning: polybar launch script not found"
+fi
 
-# Запуск основных скриптов
-~/.config/bspwm/scripts/launch.sh &
-~/.config/polybar/scripts/launch.sh
+# System services
+if command -v dunst >/dev/null 2>&1; then
+    dunst &
+fi
 
-# Запуск системных сервисов
-dunst -config $HOME/.config/bspwm/dunst/dunstrc &                      # Уведомления
-pkill battery-alert; ~/bin/battery_alert.sh &                          # Монитор батареи
-pgrep -x redshift > /dev/null || redshift -l 55.7:37.6 -t 6500:3000 &  # Настройка цветовой температуры
+if [[ -x ~/bin/battery_alert.sh ]]; then
+    pkill battery-alert
 
-# Запуск композитора
-picom --config $HOME/.config/bspwm/picom_configurations/blur-shadow.conf &
+    ~/bin/battery_alert.sh &
+fi
 
-# Автозапуск пользовательских приложений
-flameshot &          # Скриншоты
-nm-applet             # Менеджер сети
+if command -v redshift >/dev/null 2>&1; then
+    pgrep -x redshift >/dev/null || redshift -l 55.7:37.6 -t 6500:3000 &
+fi
+
+# Start compositor
+if command -v picom >/dev/null 2>&1; then
+    picom --config $HOME/.config/bspwm/picom/main.conf &
+fi
+
+# User applications
+if command -v flameshot >/dev/null 2>&1; then
+    flameshot &
+fi
+
+if command -v telegram-desktop >/dev/null 2>&1; then
+    telegram-desktop -startintray &
+fi

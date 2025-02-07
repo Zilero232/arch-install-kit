@@ -1,51 +1,29 @@
-# Версия с тремя раскладками
+#!/bin/bash
 
-#!/usr/bin/env bash
+# Check if required commands exist.
+if ! command -v setxkbmap &> /dev/null || ! command -v notify-send &> /dev/null; then
+    echo "Error: Required commands (setxkbmap or notify-send) not found"
 
-# Константы
-NOTIFY_TIME=800
-NOTIFY_ICON="input-keyboard"
-LAYOUTS=("us" "ru" "ua")
+    exit 1
+fi
 
-# Получаем текущую раскладку
-get_layout() {
-    setxkbmap -query | grep layout | awk '{print $2}'
-}
+# Get current keyboard layout.
+CURRENT_LAYOUT=$(setxkbmap -query | awk -F : 'NR==3{print $2}' | sed 's/ //g')
 
-# Отправляем уведомление
-send_notification() {
-    local layout=$1
-    local message="Keyboard: ${layout^^}"
-    
-    notify-send -i "$NOTIFY_ICON" "$message" -t "$NOTIFY_TIME" -h string:x-canonical-private-synchronous:keyboard
-}
+if [ "$CURRENT_LAYOUT" = "us" ]; then
+    if ! setxkbmap "ru"; then
+        notify-send "Keyboard Layout Error" "Failed to switch to Russian layout" -t 1500 -i input-keyboard
 
-# Меняем раскладку
-change_layout() {
-    local current_layout=$(get_layout)
-    local next_layout
-    
-    # Находим следующую раскладку
-    for i in "${!LAYOUTS[@]}"; do
-        if [ "${LAYOUTS[$i]}" = "$current_layout" ]; then
-            next_index=$(( (i + 1) % ${#LAYOUTS[@]} ))
-            next_layout=${LAYOUTS[$next_index]}
+        exit 1
+    fi
 
-            break
-        fi
-    done
-    
-    # Если текущая раскладка не найдена, используем первую
-    [ -z "$next_layout" ] && next_layout=${LAYOUTS[0]}
-    
-    setxkbmap "$next_layout" -option grp:caps_toggle
-    send_notification "$next_layout"
-}
+    notify-send "Keyboard Layout" "Switched to Russian Layout" -t 1500 -i input-keyboard
+else
+    if ! setxkbmap "us"; then
+        notify-send "Keyboard Layout Error" "Failed to switch to English layout" -t 1500 -i input-keyboard
+        
+        exit 1
+    fi
 
-# Основная функция
-main() {
-    change_layout
-}
-
-# Запуск скрипта
-main
+    notify-send "Keyboard Layout" "Switched to English Layout" -t 1500 -i input-keyboard
+fi
