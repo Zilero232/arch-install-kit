@@ -16,7 +16,6 @@ notify() {
 if ! pgrep -x sxhkd >/dev/null; then
     if command -v sxhkd >/dev/null 2>&1; then
         sxhkd &
-        notify "Started sxhkd daemon"
     else
         notify "Warning: sxhkd is not installed"
     fi
@@ -57,14 +56,15 @@ xsetroot -cursor_name left_ptr
 ###################
 
 # Floating windows
-bspc rule -a feh state=floating center=on
-bspc rule -a Pavucontrol state=floating center=on
-bspc rule -a Galculator state=floating center=on
-bspc rule -a mpv state=floating center=on
-bspc rule -a Lxappearance state=floating center=on
+bspc rule -a pavucontrol state=floating center=on
+bspc rule -a calcurse state=floating center=on
 bspc rule -a Nm-connection-editor state=floating center=on
 bspc rule -a Thunar state=floating center=on
-bspc rule -a wlogout state=floating sticky=true layer=above center=true
+bspc rule -a TelegramDesktop state=floating center=on
+
+# Default fullscreen windows
+bspc rule -a Thunar state=fullscreen
+bspc rule -a TelegramDesktop state=fullscreen
 
 ###################
 # Autostart

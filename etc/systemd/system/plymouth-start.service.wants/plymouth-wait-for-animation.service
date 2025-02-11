@@ -1,0 +1,16 @@
+[Unit]
+# Service description - ensures Plymouth boot animation completes
+Description=Waits for Plymouth animation to finish
+# This service must start before plymouth-quit and display-manager services
+Before=plymouth-quit.service display-manager.service
+
+[Service]
+# Service type - runs once and exits
+Type=oneshot
+# Command to execute - waits for 5 seconds
+# This allows time for Plymouth boot animation to complete
+ExecStart=/usr/bin/sleep 5
+
+[Install]
+# Indicates this service should start when plymouth-start.service is activated
+WantedBy=plymouth-start.service

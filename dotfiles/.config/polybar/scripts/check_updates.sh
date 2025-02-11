@@ -4,6 +4,7 @@
 check_command() {
     if ! command -v "$1" >/dev/null 2>&1; then
         echo "Error: $1 is not installed"
+        
         exit 1
     fi
 }
@@ -21,7 +22,16 @@ AUR=$(yay -Qua 2>/dev/null | wc -l)
 TOTAL=$((OFFICIAL + AUR))
 
 if [ "$TOTAL" -gt 0 ]; then
-    echo "%{F#7aa2f7}P%{F-}: $OFFICIAL %{F#e0af68}A%{F-}: $AUR"
+    OUTPUT=""
+    if [ "$OFFICIAL" -gt 0 ]; then
+        OUTPUT+="%{F#7aa2f7}P%{F-}: $OFFICIAL"
+    fi
+
+    if [ "$AUR" -gt 0 ]; then
+        [ -n "$OUTPUT" ] && OUTPUT+=" "
+        OUTPUT+="%{F#e0af68}A%{F-}: $AUR"
+    fi
+    echo "$OUTPUT"
 else
     echo "0"
 fi

@@ -1,100 +1,177 @@
+/************************************************
+ * ROFI Color theme and Configuration
+ * User: Zilero
+ * Copyright: None, feel free to use and modify
+ * Based on Catppuccin Mocha color scheme
+ ***********************************************/
+
 configuration {
-    modi: "run,drun,window";                  // Доступные режимы
-    font: "JetBrainsMono Nerd Font 14";       // Шрифт
-    show-icons: true;                         // Показывать иконки
-    icon-theme: "Papirus-dark";               // Тема иконок
-    terminal: "alacritty";                    // Терминал по умолчанию
-    drun-display-format: "{icon} {name}";     // Формат отображения приложений
-    location: 0;                              // 0 = центр экрана
-    disable-history: false;                   // История поиска включена
-    hide-scrollbar: true;                     // Скрыть полосу прокрутки
-    // Иконки и названия для разных режимов
-    display-drun: "Apps ";
-    display-run: "Run ";
-    display-window: "Window";
-    sidebar-mode: true;                       // Включить боковую панель
+    // Available modes
+    modi: "run,drun,window";
+    
+    // Font settings
+    font: "JetBrainsMono Nerd Font 18";
+    
+    // Icon settings
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    
+    // Basic settings
+    terminal: "alacritty";
+    drun-display-format: "{icon} {name}";
+    location: 0;                              // Center position
+    disable-history: false;
+    hide-scrollbar: false;
+    
+    // Mode display names with Nerd Font icons
+    display-drun: " Apps";                    // Apps mode
+    display-run: " Run";                      // Run mode
+    display-window: " Window";                // Window switcher
+    display-Network: " 󰤨 Network";            // Network mode
+    
+    // Enable sidebar mode for switching modes
+    sidebar-mode: true;
 }
 
-@theme "themes/catppuccin"
-
-// Наследование стилей для текста и иконок
-element-text, element-icon, mode-switcher {
-    background-color: inherit;
-    text-color: inherit;
+/* Color scheme */
+* {
+    bg: #1e1e2eee;            // Main background with transparency
+    bg-alt: #313244;          // Alternative background for elements
+    bg-selected: #cba6f7;     // Selected item background
+    
+    fg: #cdd6f4;              // Main text color
+    fg-alt: #7f849c;          // Alternative text color
+    fg-selected: #1e1e2e;     // Selected item text color
+    
+    // Reset all styles
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
 }
 
+/* Window style */
 window {
-    height: 360px;                // Высота окна
-    width: 50%;                   // Ширина окна
-    border: 3px;                  // Толщина границы
-    border-color: @border-col;    // Цвет границы
-    background-color: @bg-col;    // Цвет фона
+    fullscreen: true;
+    transparency: "real";
+    background-color: @bg;
+    padding: 90px 150px;
 }
 
+/* Main container */
 mainbox {
-    background-color: @bg-col;    // Цвет фона основного контейнера
+    padding: 20px;
+    background-color: transparent;
 }
 
+/* Search bar */
 inputbar {
-    children: [prompt, entry];    // Компоненты строки ввода
-    background-color: @bg-col;    // Цвет фона
-    border-radius: 5px;           // Скругление углов
-    padding: 2px;                 // Внутренние отступы
+    background-color: @bg-alt;
+    padding: 12px;
+    margin: 0px 0px 20px 0px;
+    border-radius: 8px;
+    font: "JetBrainsMono Nerd Font 20";
+    children: [prompt, entry];
 }
 
-prompt {
-    background-color: @blue;      // Синий фон для prompt
-    padding: 6px;                 // Внутренние отступы
-    text-color: @bg-col;          // Цвет текста
-    border-radius: 3px;           // Скругление углов
-    margin: 20px 0px 0px 20px;    // Внешние отступы
-}
-
+/* Search input field */
 entry {
-    padding: 6px;                 // Внутренние отступы
-    margin: 20px 0px 0px 10px;    // Внешние отступы
-    text-color: @fg-col;          // Цвет текста
-    background-color: @bg-col;    // Цвет фона
-    placeholder: "Search";        // Текст-подсказка
+    background-color: transparent;
+    text-color: @fg;
+    placeholder-color: @fg-alt;
+    placeholder: "Type to search...";
+    padding: 4px;
 }
 
+/* Prompt before search input */
+prompt {
+    background-color: transparent;
+    text-color: @fg;
+    padding: 4px;
+    margin: 0px 8px 0px 0px;
+}
+
+/* Grid of items */
 listview {
-    border: 0px 0px 0px;          // Границы списка
-    padding: 6px 0px 0px;         // Внутренние отступы
-    margin: 10px 0px 0px 20px;    // Внешние отступы
-    columns: 2;                   // Количество колонок
-    lines: 5;                     // Количество строк
-    background-color: @bg-col;    // Цвет фона
+    lines: 6;                 // Number of rows
+    columns: 5;               // Number of columns
+    spacing: 20px;            // Space between items
+    fixed-columns: true;
+    background-color: transparent;
 }
 
+/* Individual item style */
 element {
-    padding: 5px;                 // Отступы элементов списка
-    background-color: @bg-col;    // Цвет фона
-    text-color: @fg-col;          // Цвет текста
+    orientation: vertical;     // Icon above text
+    padding: 20px 10px;
+    border-radius: 8px;
+    background-color: transparent;
 }
 
+/* Normal item */
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+/* Alternate item (every second) */
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+/* Selected item */
+element selected.normal {
+    background-color: @bg-selected;
+    text-color: @fg-selected;
+}
+
+/* Application icon */
 element-icon {
-    size: 25px;                   // Размер иконок
+    size: 64px;              // Icon size
+    horizontal-align: 0.5;    // Center horizontally
+    background-color: transparent;
 }
 
-element selected {
-    background-color: @selected-col;  // Цвет фона выбранного элемента
-    text-color: @fg-col2;             // Цвет текста выбранного элемента
+/* Application name */
+element-text {
+    horizontal-align: 0.5;    // Center horizontally
+    vertical-align: 0.5;      // Center vertically
+    background-color: transparent;
+    text-color: inherit;
+    margin: 8px 0px 0px 0px;  // Space between icon and text
 }
 
+/* Mode switcher at the bottom */
 mode-switcher {
-    spacing: 0;                       // Отступы между кнопками режимов
+    spacing: 20px;
+    background-color: transparent;
+    margin: 20px 0px 0px 0px;
 }
 
+/* Mode switcher buttons */
 button {
-    padding: 10px;                    // Отступы кнопок
-    background-color: @bg-col-light;  // Цвет фона
-    text-color: @grey;                // Цвет текста
-    vertical-align: 0.5;              // Вертикальное выравнивание
-    horizontal-align: 0.5;            // Горизонтальное выравнивание
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: @bg-alt;
+    text-color: @fg;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
 }
 
+/* Selected mode button */
 button selected {
-    background-color: @bg-col;    // Цвет фона выбранной кнопки
-    text-color: @blue;            // Цвет текста выбранной кнопки
+    background-color: @bg-selected;
+    text-color: @fg-selected;
+}
+
+/* Scrollbar styling */
+scrollbar {
+    width: 4px;              // Bar width
+    border: 0;
+    handle-width: 8px;
+    padding: 0;
+    handle-color: @bg-selected;
+    background-color: @bg-alt;
+    margin: 0px 0px 0px 10px;
 }

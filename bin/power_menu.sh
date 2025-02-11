@@ -10,6 +10,7 @@ done
 
 # Launch with centered compact layout.
 wlogout \
+    --protocol layer-shell \
     --buttons-per-row 2 \
     --margin-top 300 \
     --margin-bottom 300 \

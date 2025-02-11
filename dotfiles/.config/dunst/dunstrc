@@ -8,16 +8,16 @@
 
     ### Geometry ###
     width = (300, 500)
-    height = (120, 200)
+    height = (50, 200)
     origin = top-right
-    offset = (10, 70)
+    offset = (10, 50)
     scale = 0
     notification_limit = 3
 
     ### Padding ###
-    padding = 16
-    horizontal_padding = 16
-    text_icon_padding = 16
+    padding = 10
+    horizontal_padding = 10
+    text_icon_padding = 10
 
     ### Border ###
     frame_width = 3
@@ -36,7 +36,7 @@
     progress_bar_corner_radius = 5
 
     ### Text ###
-    font = "JetBrainsMono Nerd Font Bold 16"
+    font = "JetBrainsMono Nerd Font Bold 12"
     line_height = 4
     markup = full
     format = "<span foreground='#BD93F9'>󰂚</span> <span foreground='#FF79C6'><b>%s</b></span>\n<span foreground='#F8F8F2'>%b</span>"
@@ -62,21 +62,21 @@
     mouse_right_click = context, close_all
 
 [urgency_low]
-    background = "#282A36EE"
+    background = "#282A36"
     foreground = "#F8F8F2"
     frame_color = "#BD93F9"
     highlight = "#BD93F9"
     timeout = 5
 
 [urgency_normal]
-    background = "#282A36EE"
+    background = "#282A36"
     foreground = "#F8F8F2"
     frame_color = "#BD93F9"
     highlight = "#BD93F9"
     timeout = 5
 
 [urgency_critical]
-    background = "#282A36EE"
+    background = "#282A36"
     foreground = "#FF5555"
     frame_color = "#FF5555"
     highlight = "#FF5555"

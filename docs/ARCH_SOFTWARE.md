@@ -43,6 +43,7 @@
 - `openssh` - SSH server/client
 - `wireshark-qt` - Network analysis
 - `net-tools` - Classic network utilities (netstat, ifconfig)
+- `wireguard-tools` - WireGuard VPN client/server tools
 
 ### Bluetooth
 - `bluez` - Bluetooth stack
@@ -118,9 +119,11 @@
 - `neovim` - Vim editor
 - `cursor-bin` - AI IDE [AUR]
 - `phpstorm` - PHP IDE [AUR]
+- `phpstorm-jre` - Java Runtime for PhpStorm [AUR]
 
 ### Development Tools
 - `git` - Version control
+- `github-cli` - GitHub CLI
 - `docker` - Containers
 - `docker-compose` - Container management
 - `postman-bin` - API testing [AUR]
@@ -147,7 +150,7 @@
 
 ### Internet
 - `firefox` - Browser
-- `chromium` - Browser
+- `google-chrome-stable` - Browser [AUR]
 
 ### Communication
 - `telegram-desktop` - Telegram

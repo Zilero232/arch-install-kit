@@ -63,20 +63,21 @@ super + g
 #====================
 
 # Quick launch programs
-super + shift + {f,h,n,p,t,c,v,k}
+super + shift + {f,h,n,z,t,c,p,v,k}
     {firefox, \
-    chromium, \
+    google-chrome-stable, \
     thunar, \
     pavucontrol, \
     telegram-desktop, \
     cursor, \
+    phpstorm, \
     virtualbox, \
     alacritty -e calcurse}
 
 # Private browsing
 super + shift + ctrl + {f,h}
     {firefox --private-window,\
-    chromium --incognito}
+    google-chrome-stable --incognito}
 
 #====================
 # System Controls
