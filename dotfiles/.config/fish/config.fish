@@ -1,11 +1,11 @@
 # =================
 # BASIC SETTINGS
 # =================
-set -U fish_greeting          # Disable greeting
-set -gx TERM xterm-256color   # 256 colors support
-set -gx EDITOR micro          # Default editor
-set -gx VISUAL micro          # Visual editor
-set -gx BROWSER firefox       # Default browser
+set -U fish_greeting                      # Disable greeting
+set -gx TERM xterm-256color               # 256 colors support
+set -gx EDITOR micro                      # Default editor
+set -gx VISUAL micro                      # Visual editor
+set -gx BROWSER google-chrome-stable      # Browser
 
 # ================
 # COLOR SETTINGS
@@ -81,5 +81,45 @@ function weather
         curl -s "wttr.in/$argv[1]?format=3"
     else
         curl -s "wttr.in/?format=3"
+    end
+end
+
+# Plymouth theme management
+function list-themes
+    if command -v plymouth-set-default-theme >/dev/null
+        plymouth-set-default-theme -l
+    else
+        echo "Plymouth is not installed. Please install plymouth first."
+    end
+end
+
+function set-theme
+    if test (count $argv) = 1
+        if command -v plymouth-set-default-theme >/dev/null
+            # Check if theme exists in the list
+            if plymouth-set-default-theme -l | string match -q -- $argv[1]
+                sudo plymouth-set-default-theme -R $argv[1]
+
+                echo "Theme '$argv[1]' has been set successfully."
+            else
+                echo "Theme '$argv[1]' not found. Use 'list-themes' to see available themes."
+            end
+        else
+            echo "Plymouth is not installed. Please install plymouth first."
+        end
+    else
+        echo "Usage: set-theme <theme-name>"
+        echo "Use 'list-themes' to see available themes."
+    end
+end
+
+# SDDM theme setup
+function set-sddm-theme
+    if test -f /usr/share/sddm/themes/sddm-astronaut-theme/setup.sh
+        sudo sh /usr/share/sddm/themes/sddm-astronaut-theme/setup.sh
+
+        echo "SDDM Astronaut theme has been set successfully."
+    else
+        echo "SDDM Astronaut theme is not installed. Please install it first."
     end
 end

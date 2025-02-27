@@ -10,7 +10,7 @@
     width = (300, 500)
     height = (50, 200)
     origin = top-right
-    offset = (10, 50)
+    offset = (10, 56)
     scale = 0
     notification_limit = 3
 

@@ -1,7 +1,7 @@
 {
   "name": "arch-install-kit",
   "version": "1.0.0",
-	"description": "Подробное руководство по установке Arch Linux, включая базовую установку, dual boot с Windows и использование archinstall",
+	"description": "🐧 Awesome Arch Linux tools by Artemev Alexandr",
 	"author": {
     "name": "Artemev Alexandr",
     "url": "https://github.com/Zilero232"
@@ -20,12 +20,12 @@
     "commit": "git cz"
   },
 	"bugs": {
-    "url": "https://github.com/yourusername/arch-install-guide/issues"
+    "url": "https://github.com/Zilero232/arch-install-kit/issues"
   },
-  "homepage": "https://github.com/yourusername/arch-install-guide",
+  "homepage": "https://github.com/Zilero232/arch-install-kit",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/arch-install-guide.git"
+    "url": "git+https://github.com/Zilero232/arch-install-kit.git"
   },
   "license": "MIT",
   "devDependencies": {

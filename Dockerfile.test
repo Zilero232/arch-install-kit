@@ -1,0 +1,34 @@
+# Используем официальный образ Arch Linux
+FROM archlinux:latest
+
+# Обновляем систему и устанавливаем базовые пакеты
+RUN pacman -Syu --noconfirm && \
+    pacman -S --noconfirm \
+    base-devel \
+    git \
+    sudo \
+    systemd \
+    which \
+    curl \
+    wget \
+    fish
+
+# Настраиваем systemd
+ENV container docker
+VOLUME [ "/sys/fs/cgroup" ]
+
+# Создаем тестового пользователя
+RUN useradd -m -G wheel tester && \
+    echo "tester ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    chown -R tester:tester /home/tester
+
+# Копируем файлы проекта
+COPY --chown=tester:tester . /app
+
+# Делаем скрипты исполняемыми
+RUN chmod +x /app/tests/*.sh
+
+WORKDIR /app
+
+# Запускаем systemd
+CMD ["/usr/lib/systemd/systemd"]

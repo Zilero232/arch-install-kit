@@ -1,73 +1,73 @@
-# Установка Arch Linux
+# Arch Linux Installation 🐧
 
-Данный файл содержит последовательность команд для установки Arch Linux.
+This file contains the sequence of commands for installing Arch Linux.
 
-## Подготовка к установке
+## Installation Preparation 🛠️
 
-### 1. Подключение к Wi-Fi
+### 1. Connecting to Wi-Fi 📡
 
 ```bash
-# Запуск менеджера Wi-Fi
+# Launch Wi-Fi manager
 iwctl
 
-# Просмотр устройств
+# View devices
 device list
 
-# Сканирование и подключение
-station устройство scan
-station устройство get-networks
-station устройство connect SSID
+# Scan and connect
+station device scan
+station device get-networks
+station device connect SSID
 
-# Выход из сервиса
+# Exit the service
 exit
 
-# Проверка подключения
+# Check connection
 ping google.org
 ```
 
-### 2. Разметка диска (UEFI/GPT)
+### 2. Disk Partitioning (UEFI/GPT) 💾
 
 ```bash
-# Просмотр текущих разделов
+# View current partitions
 lsblk
 
-# Запуск cfdisk
-# Внимание: /dev/sda используется как пример!
-# У вас может быть другое название диска (например, /dev/nvme0n1, /dev/vda или /dev/sdb)
-# Используйте команду lsblk для определения правильного имени вашего диска
+# Launch cfdisk
+# Warning: /dev/sda is used as an example!
+# You might have a different disk name (e.g., /dev/nvme0n1, /dev/vda or /dev/sdb)
+# Use lsblk command to determine your correct disk name
 cfdisk /dev/sda
 
-# В интерактивном меню создаем разделы:
-1. Выбираем GPT
-2. Создаем разделы:
-- /dev/sda1 - 100G, Linux filesystem (root)
-- /dev/sda2 - 700g, Linux filesystem (home)
-- /dev/sda3 - 1G, EFI System
-- /dev/sda4 - remaining, Linux swap
-3. Write (записать изменения)
-4. Quit (выход)
+# In the interactive menu create partitions:
+1. Select GPT
+2. Create partitions:
+- /dev/sda1 - (from 50 GB), Linux filesystem (root)
+- /dev/sda2 - (remaining space), Linux filesystem (home)
+- /dev/sda3 - (from 500 MB - 1 GB), EFI System
+- /dev/sda4 - (from 5 GB), Linux swap
+3. Write (save changes)
+4. Quit
 ```
-### 3. Форматирование разделов
+### 3. Formatting Partitions 📝
 
 ```bash
-# Root раздел
+# Root partition
 mkfs.ext4 /dev/sda1
 
-# Home раздел
+# Home partition
 mkfs.ext4 /dev/sda2
 
-# EFI раздел
+# EFI partition
 mkfs.fat -F32 /dev/sda3
 
-# Swap раздел
+# Swap partition
 mkswap /dev/sda4
 ```
-### 4. Активация swap и монтирование разделов
+### 4. Activating Swap and Mounting Partitions 🔄
 ```bash
-# Активация swap
+# Activate swap
 swapon /dev/sda4
 
-# Монтирование разделов
+# Mount partitions
 mount /dev/sda1 /mnt
 
 mkdir -p /mnt/{boot/EFI,home}
@@ -76,110 +76,110 @@ mount /dev/sda2 /mnt/home
 mount /dev/sda3 /mnt/boot/EFI
 ```
 
-### 5. Установка базовой системы
+### 5. Installing Base System ⚙️
 ```bash
-# Устанавливаем базовые софты
+# Install base software
 pacstrap -K /mnt base base-devel linux linux-firmware iwd dhcpcd networkmanager vim
 
-# Генерируем fstab
+# Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
-# Переход в новую систему
+# Change root to new system
 arch-chroot /mnt
 ```
 
-### 5. Настройка пользователей
+### 6. User Configuration 👥
 ```bash
-# Установка пароля root
+# Set root password
 passwd
 
-# Создание пользователя
-useradd -m -G wheel,users,video,audio,optical,storage,power,network -s /bin/bash zilero
-passwd zilero
+# Create user
+useradd -m -G wheel,users,video,audio,optical,storage,power,network -s /bin/bash (USER_NAME)
+passwd (USER_NAME)
 
-# Настройка sudo
+# Configure sudo
 EDITOR=vim visudo
-# Раскомментировать %wheel ALL=(ALL:ALL) ALL
+# Uncomment %wheel ALL=(ALL:ALL) ALL
 ```
 
-### 7. Настройка системы
+### 7. System Configuration 🖥️
 
 ```bash
-# Редактирование locale.gen
+# Edit locale.gen
 vim /etc/locale.gen
-# Раскомментировать ru_RU.UTF-8 и en_US.UTF-8
+# Uncomment your preferred locales (e.g., en_US.UTF-8)
 
-# Сгенерировать локали
+# Generate locales
 locale-gen
 
-# Выбрать язык по дефолту
+# Set default language
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
-# Настройка времени
-ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+# Configure time
+ln -sf /usr/share/zoneinfo/Your/Zone /etc/localtime
 hwclock --systohc
 
-# Настройка сети
+# Configure network
 vim /etc/hostname
 
-# Настройка hosts
+# Configure hosts
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1 localhost" >> /etc/hosts
 echo "127.0.1.1 archlinux.localdomain archlinux" >> /etc/hosts
 ```
 
-### 8. Установка загрузчика
+### 8. Bootloader Installation 🥾
 
 ```bash
-# Установка необходимых пакетов
+# Install required packages
 pacman -S grub efibootmgr os-prober
 
-# Редактирование grub
+# Edit grub
 vim /etc/default/grub
-# Раскомментировать "GRUB_DISABLE_OS_PROBER=false"
+# Uncomment "GRUB_DISABLE_OS_PROBER=false"
 
-# Установка GRUB
+# Install GRUB
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --efi-directory=/boot/EFI --recheck
 
-# Создание конфига
+# Create config
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# Выход и перезагрузка
+# Exit and reboot
 exit
 umount -R /mnt
 reboot
 ```
 
-## Настройка системы после первой загрузки
+## System Configuration After First Boot 🌟
 
 ```bash
-# Включение и запуск NetworkManager
+# Enable and start NetworkManager
 systemctl enable NetworkManager
 systemctl start NetworkManager
 
-# Подключение к Wi-Fi через NetworkManager
+# Connect to Wi-Fi using NetworkManager
 nmcli device wifi list
 nmcli device wifi connect SSID password PASSWORD
 
-# Установка Xorg и необходимых компонентов
-pacman -S xorg xorg-xinit xterm bspwm
+# Install Xorg and necessary components
+pacman -S xorg xorg-xinit xterm
 
-# Установка видеодрайверов (выберите соответствующий вашей видеокарте)
+# Install video drivers (choose appropriate for your graphics card)
 
-# Для Intel:
+# For Intel:
 pacman -S xf86-video-intel
-# Для NVIDIA:
+# For NVIDIA:
 pacman -S nvidia nvidia-utils
-# Для AMD:
+# For AMD:
 pacman -S xf86-video-amdgpu
 
-# Создание конфигурационного файла xinit
+# Create xinit configuration file
 cp /etc/X11/xinit/xinitrc ~/.xinitrc
 
-# Проверка работоспособности X сервера
+# Test X server
 startx
 ```
 
-## Дополнительная информация
-Подробное руководство по настройке системы после установки можно найти в файле SYSTEM_SETTINGS.md[#SYSTEM_SETTINGS.md]
+## Additional Information 📚
+Detailed guide for system configuration after installation can be found in [SYSTEM_SETTINGS.md](./SYSTEM_SETTINGS.md)

@@ -1,129 +1,129 @@
-# Быстрая установка Arch Linux через archinstall
+# Quick Arch Linux Installation Using `archinstall` 🚀
 
-Данный метод предлагает более простой способ установки Arch Linux с помощью скрипта archinstall.
+This method offers a simpler way to install Arch Linux using the archinstall script. ✨
 
-## Подготовка в Windows
+## Preparation in Windows 🖥️
 
-1. **Создание места для Arch Linux**
-   - Откройте "Управление дисками" в Windows
-   - Правый клик на основном разделе Windows → "Сжать том"
-   - Выделите минимум 50 ГБ (рекомендуется 100+ ГБ)
-   - Оставьте место неразмеченным
+1. **Creating Space for Arch Linux** 💾
+   - Open "Disk Management" in Windows
+   - Right-click on the main Windows partition → "Shrink Volume"
+   - Allocate minimum 50 GB (100+ GB recommended)
+   - Leave the space unallocated
 
-2. **Отключение быстрой загрузки Windows**
-   - Панель управления → Электропитание → Действия кнопок питания
-   - Отключите "Быстрый запуск"
+2. **Disable Windows Fast Startup** ⚡
+   - Control Panel → Power Options → Choose what the power buttons do
+   - Disable "Fast Startup"
 
-3. **Отключение Secure Boot в BIOS/UEFI**
-   - Перезагрузите компьютер и войдите в BIOS/UEFI
-   - Найдите параметр Secure Boot и отключите его
-   - Сохраните изменения и выйдите
+3. **Disable Secure Boot in BIOS/UEFI** 🔒
+   - Restart your computer and enter BIOS/UEFI
+   - Find Secure Boot setting and disable it
+   - Save changes and exit
 
-## Подготовка к установке
+## Installation Preparation 🛠️
 
-### 1. Подключение к Wi-Fi
+### 1. Connecting to Wi-Fi 📡
 
 ```bash
-# Запуск менеджера Wi-Fi
+# Launch Wi-Fi manager
 iwctl
 
-# Просмотр устройств
+# View devices
 device list
 
-# Сканирование и подключение
-station устройство scan
-station устройство get-networks
-station устройство connect SSID
+# Scan and connect
+station device scan
+station device get-networks
+station device connect SSID
 
-# Выход из сервиса
+# Exit the service
 exit
 
-# Проверка подключения
+# Check connection
 ping google.org
 ```
 
-### 2. Запуск archinstall
+### 2. Launch archinstall 🎯
 
 ```bash
-# Обновление системного времени
+# Update system time
 timedatectl set-ntp true
 
-# Запуск установщика
+# Launch installer
 archinstall
 ```
 
-## Настройка параметров установки
+## Installation Parameters Setup ⚙️
 
-В интерактивном меню archinstall выберите следующие параметры:
+In the archinstall interactive menu, select the following parameters:
 
-1. **Keyboards and language**
-   - Выберите `ru` для русской раскладки
-   - Добавьте `us` для английской раскладки
+1. **Keyboards and language** ⌨️
+   - Choose your preferred keyboard layout(s)
+   - Add additional layouts if needed
 
-2. **Mirror region**
-   - Выберите `Russia`
+2. **Mirror region** 🌍
+   - Select your region
 
-3. **Disk configuration**
-   - Выберите диск, где установлена Windows
-   - Выберите `Manual partitioning`
-   - Найдите свободное место, созданное ранее
-   - Создайте разделы:
+3. **Disk configuration** 💽
+   - Select the disk where Windows is installed
+   - Choose `Manual partitioning`
+   - Find the free space created earlier
+   - Create partitions:
      ```
-     /dev/sda1 - 1G - EFI (если нет)
-     /dev/sda2 - 80GB - swap
-     /dev/sda3 - 100GB - / (root)
-     /dev/sda4 - оставшееся место - /home
+     /dev/sda1 - 1G - EFI (if not exists)
+     /dev/sda2 - 100GB - / (root)
+     /dev/sda3 - remaining space - /home
+     /dev/sda4 - 5GB - swap
      ```
-   Рекомендуемые размеры разделов:
-   - EFI: 1G (если уже есть от Windows, использовать существующий)
-   - swap: равен объёму оперативной памяти (для гибернации)
+   Recommended partition sizes:
+   - EFI: 1G
    - root (/): 50-100GB
-   - home (/home): всё оставшееся место
+   - home (/home): all remaining space
+   - swap: equal to RAM size (for hibernation)
 
-4. **Bootloader**
-   - Выберите `GRUB`
+4. **Bootloader** 🥾
+   - Select `GRUB`
 
-5. **Swap**
-   - Рекомендуется включить
+5. **Swap** 💫
+   - Recommended to enable
 
-6. **Profile**
-   - Desktop environment: выберите желаемое окружение (например, GNOME, KDE, XFCE)
+6. **Profile** 👤
+   - Desktop environment: choose desired environment (e.g., GNOME, KDE, XFCE)
    - Audio: `pipewire`
 
-7. **User account**
-   - Создайте пользователя и задайте пароль
-   - Включите sudo для пользователя
+7. **User account** 🔑
+   - Create a user and set password
+   - Enable sudo for the user
 
-8. **Additional packages**
-   - Рекомендуемые пакеты: `iwd, vim`
+8. **Additional packages** 📦
+   - Recommended packages: `iwd, vim`
 
-9. **Network configuration**
-   - Выберите `NetworkManager`
+9. **Network configuration** 🌐
+   - Select `NetworkManager`
 
-10. **Timezone**
-    - Region: `Europe`
-    - City: `Moscow`
+10. **Timezone** ⏰
+    - Select your region and city
 
-11. **Нажмите `Install`** для начала установки
+11. **Click `Install`** to begin installation 🚀
 
-## После установки
+## Post Installation 🎉
 
 ```bash
-# После завершения установки перезагрузите систему
+# After installation is complete, reboot the system
 reboot
 ```
 
-### Первый запуск
+### First Boot 🌟
 
-1. Войдите в систему используя созданного пользователя
-2. Проверьте подключение к интернету
-3. Обновите систему:
+1. Log in using the created user account
+2. Check internet connection
+3. Update the system:
+
 ```bash
 sudo pacman -Syu
 ```
 
-## Примечания
+## Notes 📝
 
-- archinstall значительно упрощает процесс установки, автоматизируя многие шаги
-- Все основные компоненты (загрузчик, сеть, локализация) настраиваются автоматически
-- При необходимости более тонкой настройки рекомендуется использовать ручной метод установки
+- archinstall significantly simplifies the installation process by automating many steps ✅
+- All core components (bootloader, network, localization) are configured automatically 🔄
+- If you need more detailed configuration, it's recommended to use the [manual installation method](./INSTALL_MANUALLY.md) 📖

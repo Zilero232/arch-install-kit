@@ -64,12 +64,14 @@
 ### System Monitoring
 - `htop` - Process viewer
 - `btop` - Resource monitor
+- `cpupower` - CPU frequency control
+- `s-tui` - CPU stress test and monitoring [AUR]
 
 ### Power Management
 - `brightnessctl` - Brightness control
-- `upower` - Power management
 - `tlp` - Power saving
 - `tlp-rdw` - Radio devices
+- `xfce4-power-manager` - Power management
 
 ## 3. User Environment
 
@@ -118,8 +120,8 @@
 - `code` - VS Code
 - `neovim` - Vim editor
 - `cursor-bin` - AI IDE [AUR]
-- `phpstorm` - PHP IDE [AUR]
-- `phpstorm-jre` - Java Runtime for PhpStorm [AUR]
+- `phpstorm` - PHP IDE [AUR] [VPN]
+- `phpstorm-jre` - Java Runtime for PhpStorm [AUR] [VPN]
 
 ### Development Tools
 - `git` - Version control
@@ -134,6 +136,7 @@
 - `jq` - JSON utility
 - `meson` - Build system
 - `composer` - PHP dependencies
+- `meld` - Visual diff and merge tool
 
 ### Programming Languages
 - Python:
@@ -144,6 +147,7 @@
 - Node.js:
   - `node` - Runtime
   - `npm` - Package manager
+  - `npm-check-updates` - Check for npm package updates
   - `nvm` - Version manager [AUR]
 
 ## 5. Applications
@@ -151,12 +155,14 @@
 ### Internet
 - `firefox` - Browser
 - `google-chrome-stable` - Browser [AUR]
+- `anydesk` - Remote desktop software [AUR]
 
 ### Communication
 - `telegram-desktop` - Telegram
 - `discord` - Discord
 - `slack-desktop` - Slack [AUR]
 - `zoom` - Video conferencing platform [AUR]
+- `whatsapp-for-linux` - WhatsApp desktop client [AUR] [VPN]
 
 ### Multimedia
 - Video/Audio:
@@ -164,7 +170,7 @@
   - `mpv` - Lightweight media player
   - `mpd` - Music server
   - `ncmpcpp` - MPD client
-  - `spotify` - Spotify [AUR]
+  - `spotify` - Spotify [AUR] [VPN]
   - `cava` - Visualizer [AUR]
 - Graphics:
   - `pinta` - Editor
@@ -203,4 +209,6 @@
 - `ttf-jetbrains-mono-nerd` - With icons
 - `ttf-fira-code` - Fira Code
 - `ttf-iosevka-nerd` - Iosevka
-- `noto-fonts` - Noto
+- `ttf-font-awesome` - Font Awesome icons
+- `ttf-material-design-icons-git` - Google Material Design icons [AUR]
+- `ttf-material-icons-git` - Material Icons [AUR]

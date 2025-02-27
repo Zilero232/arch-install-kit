@@ -26,7 +26,7 @@ fi
 ###################
 
 # Workspaces configuration
-bspc monitor $LAPTOP -d 1 2 3 4 5
+bspc monitor -d 1 2 3 4 5
 
 # Focus settings
 bspc config focus_follows_pointer true
