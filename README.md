@@ -46,20 +46,20 @@ Welcome to my meticulously crafted Arch Linux configuration! This repository hou
 ## 📚 Documentation
 
 ### 📖 Installation Guides
-- [🤖 Automatic Installation](docs/install_auto.md)
+- [🤖 Automatic Installation](./docs/INSTALL_AUTO.md)
   > Streamlined installation process with automation scripts
 
-- [📝 Manual Installation](docs/install_manually.md)
+- [📝 Manual Installation](./docs/INSTALL_MANUALLY.md)
   > Detailed step-by-step guide for customized setup
 
 ### ⚙️ Configuration
-- [📦 Software Collection](docs/arch_software.md)
+- [📦 Software Collection](./docs/ARCH_SOFTWARE.md)
   > Curated list of essential software and tools
 
-- [🛠️ System Settings](docs/system_settings.md)
+- [🛠️ System Settings](./docs/SYSTEM_SETTINGS.md)
   > Optimized system configurations
 
-- [🔧 Shell Scripts](docs/shell_scripts.md)
+- [🔧 Shell Scripts](./docs/SHELL_SCRIPTS.md)
   > Utility scripts for system maintenance
 
 ## ✨ Features
