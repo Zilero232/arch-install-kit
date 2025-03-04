@@ -107,11 +107,17 @@ if command -v picom >/dev/null 2>&1; then
     picom --config $HOME/.config/bspwm/picom/main.conf &
 fi
 
-# User applications
+# Start power manager
+if command -v xfce4-power-manager >/dev/null 2>&1; then
+    xfce4-power-manager &
+fi
+
+# Start screenshots application
 if command -v flameshot >/dev/null 2>&1; then
     flameshot &
 fi
 
+# Start telegram social
 if command -v telegram-desktop >/dev/null 2>&1; then
     telegram-desktop -startintray &
 fi
