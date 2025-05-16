@@ -29,14 +29,14 @@ jobs:
       # Clone repository
       - uses: actions/checkout@v3
 
-      # Install Python and pip
-      - name: Install Python
-        run: |
-          # Update system
-          pacman -Syu --noconfirm
+      # # Install Python and pip
+      # - name: Install Python
+      #   run: |
+      #     # Update system
+      #     pacman -Syu --noconfirm
 
-          # Install Python and pip
-          pacman -S --noconfirm python python-pip
+      #     # Install Python and pip
+      #     pacman -S --noconfirm python python-pip
 
       # # Test full installation (all options = y)
       # - name: Test installation with all options
