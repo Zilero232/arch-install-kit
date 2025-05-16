@@ -1,0 +1,30 @@
+name: Installation Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-installation:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Python
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm python python-pip
+
+      - name: Test installation with all options
+        run: |
+          # Автоматически отвечаем "y" на все вопросы
+          yes | python install/index.py
+
+      - name: Test installation with minimal options
+        run: |
+          # Автоматически отвечаем "n" на все вопросы
+          yes n | python install/index.py
