@@ -1,30 +1,99 @@
+# Название workflow, отображается в GitHub Actions
 name: Installation Test
 
+# Триггеры запуска workflow
 on:
+  # Запуск при пуше в master ветку
   push:
     branches: [master]
+
+  # Запуск при создании/обновлении PR в master
   pull_request:
     branches: [master]
+    # Типы событий PR которые запускают workflow
+    types: [opened, synchronize, reopened]
 
+  # Еженедельный запуск по расписанию
+  schedule:
+    - cron: '0 0 * * 0' # Каждое воскресенье в 00:00 UTC
+
+# Определение jobs (задач) которые будут выполняться
 jobs:
-  test-installation:
+  # Проверка статуса PR
+  validate-pr:
+    # Выполняется только для PR
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    container: archlinux:base-devel
-
     steps:
+      - name: Check PR status
+        run: |
+          # Пропускаем проверки для черновиков PR
+          if [[ "${{ github.event.pull_request.draft }}" == "true" ]]; then
+            echo "PR is in draft state, skipping checks"
+            exit 0
+          fi
+
+  # Основной job для тестирования установки
+  test-installation:
+    runs-on: ubuntu-latest # ОС для запуска
+    container: archlinux:base-devel # Контейнер с Arch Linux
+    timeout-minutes: 30 # Максимальное время выполнения
+
+    # Шаги выполнения
+    steps:
+      # Клонирование репозитория
       - uses: actions/checkout@v3
 
+      # Установка Python и pip
       - name: Install Python
         run: |
+          # Обновление системы
           pacman -Syu --noconfirm
+          # Установка Python и pip
           pacman -S --noconfirm python python-pip
 
+      # Тест полной установки (все опции = y)
       - name: Test installation with all options
+        id: full_install # ID для использования в уведомлении
         run: |
-          # Автоматически отвечаем "y" на все вопросы
+          # yes | автоматически отвечает "y" на все вопросы
           yes | python install/index.py
 
+      # Тест минимальной установки (все опции = n)
       - name: Test installation with minimal options
+        id: min_install # ID для использования в уведомлении
         run: |
-          # Автоматически отвечаем "n" на все вопросы
+          # yes n | автоматически отвечает "n" на все вопросы
           yes n | python install/index.py
+
+      # Отправка уведомления в Telegram
+      - name: Send Telegram notification
+        if: always() # Выполнять всегда, даже при ошибках
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }} # ID чата из секретов
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }} # Токен бота из секретов
+          format: html # Формат сообщения
+          message: |
+            <b>Installation Arch Linux Script</b>
+
+            <b>Event:</b> ${{ github.event_name }}  # Тип события (push/pr/schedule)
+            <b>Branch:</b> ${{ github.ref }}  # Ветка
+            <b>Commit:</b> ${{ github.sha }}  # Хеш коммита
+
+            <b>Full Installation:</b> ${{ steps.full_install.outcome }}  # Результат полной установки
+            <b>Minimal Installation:</b> ${{ steps.min_install.outcome }}  # Результат минимальной установки
+
+            <b>Status:</b> ${{ job.status }}  # Общий статус job
+
+            <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">View Details</a>  # Ссылка на детали
+
+      # Финальная проверка статуса
+      - name: Check installation status
+        if: always() # Выполнять всегда
+        run: |
+          # Если job не успешен, выводим ошибку
+          if [[ "${{ job.status }}" != "success" ]]; then
+            echo "::error::Installation tests failed"
+            exit 1
+          fi
