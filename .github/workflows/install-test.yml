@@ -29,28 +29,28 @@ jobs:
       # Clone repository
       - uses: actions/checkout@v3
 
-      # # Install Python and pip
-      # - name: Install Python
-      #   run: |
-      #     # Update system
-      #     pacman -Syu --noconfirm
+      # Install Python and pip
+      - name: Install Python
+        run: |
+          # Update system
+          pacman -Syu --noconfirm
 
-      #     # Install Python and pip
-      #     pacman -S --noconfirm python python-pip
+          # Install Python and pip
+          pacman -S --noconfirm python python-pip
 
-      # # Test full installation (all options = y)
-      # - name: Test installation with all options
-      #   id: full_install # ID for notification
-      #   run: |
-      #     # yes | automatically answers "y" to all prompts
-      #     yes | python install/index.py
+      # Test full installation (all options = y)
+      - name: Test installation with all options
+        id: full_install # ID for notification
+        run: |
+          # yes | automatically answers "y" to all prompts
+          yes | python install/index.py
 
-      # # Test minimal installation (all options = n)
-      # - name: Test installation with minimal options
-      #   id: min_install # ID for notification
-      #   run: |
-      #     # yes n | automatically answers "n" to all prompts
-      #     yes n | python install/index.py
+      # Test minimal installation (all options = n)
+      - name: Test installation with minimal options
+        id: min_install # ID for notification
+        run: |
+          # yes n | automatically answers "n" to all prompts
+          yes n | python install/index.py
 
       # Send Telegram notification
       - name: Send Telegram notification
@@ -63,13 +63,13 @@ jobs:
           message: |
             <b>Installation Arch Linux Script</b>
 
-            <b>Event:</b> ${{ github.event_name }}  # Event type (push/pr/schedule)
-            <b>Branch:</b> ${{ github.ref }}  # Branch name
-            <b>Commit:</b> ${{ github.sha }}  # Commit hash
+            <b>Event:</b> ${{ github.event_name }}
+            <b>Branch:</b> ${{ github.ref }}
+            <b>Commit:</b> ${{ github.sha }}
 
-            <b>Full Installation:</b> ${{ steps.full_install.outcome }}  # Full installation result
-            <b>Minimal Installation:</b> ${{ steps.min_install.outcome }}  # Minimal installation result
+            <b>Full Installation:</b> ${{ steps.full_install.outcome }}
+            <b>Minimal Installation:</b> ${{ steps.min_install.outcome }}
 
-            <b>Status:</b> ${{ job.status }}  # Overall job status
+            <b>Status:</b> ${{ job.status }}
 
-            <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">View Details</a>  # Link to details
+            <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">View Details</a>
