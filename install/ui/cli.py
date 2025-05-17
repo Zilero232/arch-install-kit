@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import asyncio
+import os
 
 from core import Config, DriverType
 
@@ -12,6 +13,7 @@ class InstallOptions:
 class CLI:
     def __init__(self, config: Config):
         self.config = config
+        self.ci_mode = os.getenv("CI_MODE", "false").lower() == "true"
 
     async def get_install_options(self) -> InstallOptions:
         print("\n=== Arch Linux Installation ===\n")
@@ -33,6 +35,9 @@ class CLI:
         )
 
     async def _get_boolean_option(self, prompt: str) -> bool:
+        if self.ci_mode:
+            return os.getenv('CI_INSTALL_ALL') == 'true'            
+
         loop = asyncio.get_event_loop()
 
         while True:
@@ -48,6 +53,11 @@ class CLI:
             print("Please answer 'y' or 'n'")
         
     async def _get_driver_option(self) -> DriverType:
+        if self.ci_mode:
+            driver = os.getenv('CI_DRIVER', 'none').upper()
+
+            return DriverType[driver]
+
         print("\nSelect graphics driver:")
         print("1) NVIDIA")
         print("2) Intel")

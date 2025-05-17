@@ -41,16 +41,12 @@ jobs:
       # Test full installation (all options = y)
       - name: Test installation with all options
         id: full_install # ID for notification
-        run: |
-          # yes | automatically answers "y" to all prompts
-          yes | python install/index.py
+        run: CI_MODE=true CI_INSTALL_ALL=true CI_DRIVER=nvidia python install/index.py
 
       # Test minimal installation (all options = n)
       - name: Test installation with minimal options
         id: min_install # ID for notification
-        run: |
-          # yes n | automatically answers "n" to all prompts
-          yes n | python install/index.py
+        run: CI_MODE=true CI_INSTALL_ALL=false CI_DRIVER=none python install/index.py
 
       # Send Telegram notification
       - name: Send Telegram notification
