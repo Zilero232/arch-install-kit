@@ -105,7 +105,7 @@ class PackageManager:
         self, package: str, manager: PackageManagerType
     ) -> Optional[str]:
         commands = {
-            PackageManagerType.PACMAN: f"sudo pacman -S --noconfirm {package}",
+            PackageManagerType.PACMAN: f"sudo pacman -Syu --noconfirm {package}",
             PackageManagerType.AUR: f"yay -S --noconfirm {package}",
         }
 
