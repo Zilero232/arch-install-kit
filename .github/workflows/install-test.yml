@@ -36,7 +36,7 @@ jobs:
           pacman -Syu --noconfirm
 
           # Install Python and pip
-          pacman -S --noconfirm python python-pip
+          pacman -S --noconfirm python python-pip python-pyyaml
 
       # Test full installation (all options = y)
       - name: Test installation with all options
