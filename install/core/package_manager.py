@@ -43,7 +43,7 @@ class PackageManager:
 
         except Exception as e:
             self.logger.error(f"Error updating system: {e}")
-            
+
             return False
 
     # Install multiple packages
@@ -52,23 +52,15 @@ class PackageManager:
         packages: List[str],
         manager: PackageManagerType = PackageManagerType.PACMAN,
     ) -> List[PackageResult]:
-        # Create tasks for parallel installation
-        tasks = [
-            self._install_package(pkg, manager) 
-            for pkg in packages
-        ]
+        results = []
 
-        # Run all tasks in parallel
-        results = await asyncio.gather(*tasks)
-
-        # Log installation results
-        for result in results:
-            if result.success:
-                self.logger.success(f"Installed {result.package}")
+        for package in packages:
+            result = await self._install_package(package, manager)
+            results.append(result)
+            if not result.success:
+                self.logger.error(f"Failed to install {package}: {result.message}")
             else:
-                self.logger.error(
-                    f"Failed to install {result.package}: {result.message}"
-                )
+                self.logger.success(f"Installed {package}")
 
         return results
 
@@ -105,7 +97,7 @@ class PackageManager:
         self, package: str, manager: PackageManagerType
     ) -> Optional[str]:
         commands = {
-            PackageManagerType.PACMAN: f"sudo pacman -Syu --noconfirm {package}",
+            PackageManagerType.PACMAN: f"sudo pacman -S --noconfirm {package}",
             PackageManagerType.AUR: f"yay -S --noconfirm {package}",
         }
 
