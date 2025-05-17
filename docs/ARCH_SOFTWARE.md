@@ -3,6 +3,7 @@
 ## 1. System Components
 
 ### Graphics System
+
 - `xorg-server` - X Window System server
 - `xorg-xinit` - X-server initialization
 - `xorg-xbacklight` - Brightness control
@@ -10,6 +11,7 @@
 - `picom` - Composite manager
 
 ### Display Manager
+
 - `plymouth` - Boot splash screen
 - `plymouth-theme-deus-ex-git` - Plymouth theme [AUR]
 
@@ -17,15 +19,17 @@
 - `sddm-astronaut-theme` - SDDM theme [AUR]
 
 ### Window Manager
+
 - `bspwm` - Tiling window manager
 - `sxhkd` - Hotkey daemon
 - `polybar` - Status bar
 - `dunst` - Notification system
-- `i3lock-color` - Screen locker
-- `betterlockscreen` - Screen locker
+- `i3lock-color` - Screen locker [AUR]
+- `betterlockscreen` - Screen locker [AUR]
 - `wlogout` - Logout menu [AUR]
 
 ### Audio System
+
 - `pipewire` - Modern audio server
 - `pipewire-pulse` - PulseAudio replacement
 - `pipewire-alsa` - ALSA integration
@@ -36,6 +40,7 @@
 - `sound-theme-freedesktop` - Standard system sounds
 
 ### Network System
+
 - `networkmanager` - Network management
 - `network-manager-applet` - Network GUI
 - `dhcpcd` - DHCP client
@@ -46,6 +51,7 @@
 - `wireguard-tools` - WireGuard VPN client/server tools
 
 ### Bluetooth
+
 - `bluez` - Bluetooth stack
 - `bluez-utils` - Bluetooth utilities
 - `blueman` - GUI manager
@@ -54,6 +60,7 @@
 ## 2. System Management
 
 ### System Utilities
+
 - `xfce4-settings` - System settings
 - `timeshift` - System backups
 - `bleachbit` - System cleaner
@@ -62,12 +69,14 @@
 - `pacman-contrib` - Pacman utilities
 
 ### System Monitoring
+
 - `htop` - Process viewer
 - `btop` - Resource monitor
 - `cpupower` - CPU frequency control
 - `s-tui` - CPU stress test and monitoring [AUR]
 
 ### Power Management
+
 - `brightnessctl` - Brightness control
 - `tlp` - Power saving
 - `tlp-rdw` - Radio devices
@@ -76,13 +85,16 @@
 ## 3. User Environment
 
 ### Virtualization
+
 - `virtualbox` - VirtualBox main package
 
 ### Terminals
+
 - `xterm` - Basic terminal
 - `alacritty` - Modern terminal
 
 ### Command Line
+
 - `fish` - Shell
 - `fisher` - Fish plugin manager
 - `tmux` - Terminal multiplexer
@@ -90,6 +102,7 @@
 - `bat` - Enhanced cat
 
 ### File Managers
+
 - `thunar` - GUI manager
 - `thunar-archive-plugin` - Archives in Thunar
 - `ranger` - CLI manager
@@ -98,18 +111,19 @@
 - `xclip` - Clipboard manager
 
 ### Application Launchers
+
 - `rofi` - Launcher
 - `rofi-calc` - Calculator
 - `rofi-emoji` - Emoji picker
 
 ### Desktop
+
 - `nitrogen` - Wallpaper manager
 - `flameshot` - Screenshots
 - `peek` - GIF recorder
 - `redshift` - Color temperature
 - `gpick` - Color picker
 - `cheese` - Webcam
-- `touche` - Touchpad
 - `gnome-calculator` - Calculator
 - `gnome-clocks` - Clocks
 - `obs-studio` - Screen recording
@@ -117,6 +131,7 @@
 ## 4. Development
 
 ### Editors
+
 - `code` - VS Code
 - `neovim` - Vim editor
 - `cursor-bin` - AI IDE [AUR]
@@ -124,6 +139,7 @@
 - `phpstorm-jre` - Java Runtime for PhpStorm [AUR] [VPN]
 
 ### Development Tools
+
 - `git` - Version control
 - `github-cli` - GitHub CLI
 - `docker` - Containers
@@ -139,13 +155,14 @@
 - `meld` - Visual diff and merge tool
 
 ### Programming Languages
+
 - Python:
   - `python` - Interpreter
   - `python-pip` - Package manager
   - `bpython` - REPL
   - `ipython` - Shell
 - Node.js:
-  - `node` - Runtime
+  - `nodejs` - Runtime
   - `npm` - Package manager
   - `npm-check-updates` - Check for npm package updates
   - `nvm` - Version manager [AUR]
@@ -153,11 +170,13 @@
 ## 5. Applications
 
 ### Internet
+
 - `firefox` - Browser
 - `google-chrome-stable` - Browser [AUR]
 - `anydesk` - Remote desktop software [AUR]
 
 ### Communication
+
 - `telegram-desktop` - Telegram
 - `discord` - Discord
 - `slack-desktop` - Slack [AUR]
@@ -165,6 +184,7 @@
 - `whatsapp-for-linux` - WhatsApp desktop client [AUR] [VPN]
 
 ### Multimedia
+
 - Video/Audio:
   - `vlc` - Media player
   - `mpv` - Lightweight media player
@@ -173,17 +193,19 @@
   - `spotify` - Spotify [AUR] [VPN]
   - `cava` - Visualizer [AUR]
 - Graphics:
-  - `pinta` - Editor
+  - `pinta` - Editor [AUR]
   - `gthumb` - Viewer
   - `figma-linux` - Figma [AUR]
 
 ### Office
+
 - `libreoffice-fresh` - Office suite
 - `evince` - PDF viewer
 - `zathura` - PDF viewer
 - `obsidian` - Notes [AUR]
 
 ### Utilities
+
 - Archiving:
   - `xarchiver` - GUI archiver
   - `zip`, `unzip` - ZIP archives
@@ -193,6 +215,7 @@
   - `transmission-gtk` - Torrent client
 
 ### Security
+
 - `keepassxc` - Password manager
 - `gufw` - Firewall
 - `veracrypt` - Encryption
@@ -200,11 +223,13 @@
 ## 6. Theming
 
 ### Themes
+
 - `dracula-gtk-theme` - GTK theme [AUR]
 - `dracula-icons-git` - Icons [AUR]
 - `dracula-cursors-git` - Cursors [AUR]
 
 ### Fonts
+
 - `ttf-jetbrains-mono` - JetBrains Mono
 - `ttf-jetbrains-mono-nerd` - With icons
 - `ttf-fira-code` - Fira Code

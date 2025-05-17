@@ -94,7 +94,6 @@ packages:
       - redshift
       - gpick
       - cheese
-      - touche
       - gnome-calculator
       - gnome-clocks
       - obs-studio
@@ -123,7 +122,7 @@ packages:
       - python-pip
       - bpython
       - ipython
-      - node
+      - nodejs
       - npm
       - npm-check-updates
 
@@ -142,7 +141,6 @@ packages:
       - ncmpcpp
 
       # Graphics
-      - pinta
       - gthumb
 
       # Office
@@ -172,6 +170,7 @@ packages:
       - wlogout
       - s-tui
       - betterlockscreen
+      - i3lock-color
 
     desktop:
       - betterlockscreen
@@ -193,6 +192,7 @@ packages:
       - cava
       - figma-linux
       - obsidian
+      - pinta
 
   drivers:
     nvidia:
