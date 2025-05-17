@@ -125,7 +125,7 @@ class Config:
 
     # Public methods for packages
     def get_packages(self, manager: PackageManagerType) -> List[str]:
-        packages = self._configs["packages"]["packages"][manager]
+        packages = self._configs["packages"]["packages"][manager.value]
         
         return sum((
             packages.get("system", []),
