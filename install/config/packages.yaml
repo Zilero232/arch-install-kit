@@ -16,7 +16,6 @@ packages:
       - sxhkd
       - polybar
       - dunst
-      - i3lock-color
 
       # Audio System
       - pipewire
