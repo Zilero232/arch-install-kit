@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 import yaml
 
-from package_manager import PackageManagerType
+from .package_manager import PackageManagerType
 from utils import SystemUtils
 
 # Enums for type safety

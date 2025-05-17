@@ -1,9 +1,9 @@
+from pathlib import Path
 import asyncio
 import sys
-from pathlib import Path
 
 from core import (Config, SystemInstaller, PackageManager, setup_logger)
-from ui.cli import CLI
+from ui import CLI
 
 async def main():
     try:
