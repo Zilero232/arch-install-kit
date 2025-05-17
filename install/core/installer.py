@@ -45,8 +45,10 @@ class SystemInstaller:
 
         results = await self.package_manager.install_packages(pacman_packages, PackageManagerType.PACMAN)
 
-        if not all(r.success for r in results):
-            raise Exception("Failed to install some packages")
+        # Get failed packages
+        failed = [r.package for r in results if not r.success]
+        if failed:
+            raise Exception(f"Failed to install packages: {', '.join(failed)}")
 
     async def _install_aur_packages(self) -> None:
         # Install packages from AUR
@@ -56,8 +58,10 @@ class SystemInstaller:
 
         results = await self.package_manager.install_packages(aur_packages, PackageManagerType.AUR)
 
-        if not all(r.success for r in results):
-            raise Exception("Failed to install some packages")
+        # Get failed packages
+        failed = [r.package for r in results if not r.success]
+        if failed:
+            raise Exception(f"Failed to install packages: {', '.join(failed)}")
 
     async def _install_drivers(self, driver_type: DriverType) -> None:
         # Install graphics drivers
