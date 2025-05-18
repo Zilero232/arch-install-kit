@@ -84,7 +84,7 @@ class SystemInstaller:
             raise Exception(f"Failed to clone yay repository: {output}")
 
         # Set permissions
-        success, output = await SystemUtils.set_permissions("/tmp/yay", "755", recursive=True)
+        success, output = await SystemUtils.set_permissions ('/tmp/yay', '755', True)
         if not success:
             raise Exception(f"Failed to set permissions: {output}")
         
