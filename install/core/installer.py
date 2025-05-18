@@ -75,24 +75,24 @@ class SystemInstaller:
     async def _install_yay(self) -> None:
         self.logger.info("Installing yay...")
         
-        if not await SystemUtils.run_command(
-            "git -C /tmp clone https://aur.archlinux.org/yay.git"
-        ):
-            raise Exception("Failed to clone yay repository")
+        # Clone yay repository
+        success, output = await SystemUtils.run_command("git -C /tmp clone https://aur.archlinux.org/yay.git")
+        if not success:
+            raise Exception(f"Failed to clone yay repository: {output}")
         
         # Build and install yay
-        if not await SystemUtils.run_command(
-            "cd /tmp/yay && makepkg -si"
-        ):
-            raise Exception("Failed to build and install yay")
+        success, output = await SystemUtils.run_command("cd /tmp/yay && makepkg -si")
+        if not success:
+            raise Exception(f"Failed to build and install yay: {output}")
         
         # Wait for yay to be available
         if not await SystemUtils.wait_for_package_installation("yay"):
             raise Exception("Yay installation verification failed")
         
         # Cleanup
-        if not await SystemUtils.run_command("rm -rf /tmp/yay"):
-            self.logger.warning("Failed to cleanup yay build directory")
+        success, output = await SystemUtils.run_command("rm -rf /tmp/yay")
+        if not success:
+            self.logger.warning(f"Failed to cleanup yay build directory: {output}")
 
     # Install graphics drivers
     async def _install_drivers(self, driver_type: DriverType) -> None:
