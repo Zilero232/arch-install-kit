@@ -41,7 +41,7 @@ class SystemUtils:
     async def set_permissions(path: str, mode: str, recursive: bool = False) -> bool:
         cmd = f"sudo chmod {'-R' if recursive else ''} {mode} {path}"
         success, _ = await SystemUtils.run_command(cmd)
-
+    
         return success
 
     @staticmethod

@@ -84,9 +84,9 @@ class SystemInstaller:
             raise Exception(f"Failed to clone yay repository: {output}")
 
         # Set permissions
-        success, output = await SystemUtils.set_permissions ('/tmp/yay', '755', True)
+        success = await SystemUtils.set_permissions('/tmp/yay', '755', True)
         if not success:
-            raise Exception(f"Failed to set permissions: {output}")
+            raise Exception(f"Failed to set permissions")
         
         # Build and install yay
         success, output = await SystemUtils.run_command("cd /tmp/yay && makepkg -si")
