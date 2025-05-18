@@ -88,6 +88,11 @@ class SystemInstaller:
         if not success:
             raise Exception(f"Failed to set permissions")
         
+        # Set owner to current user
+        success = await SystemUtils.set_owner_current_user('/tmp/yay', True)
+        if not success:
+            raise Exception(f"Failed to set owner to current user")
+        
         # Build and install yay
         success, output = await SystemUtils.run_command("cd /tmp/yay && makepkg -si")
         if not success:

@@ -45,6 +45,13 @@ class SystemUtils:
         return success
 
     @staticmethod
+    async def set_owner_current_user(path: str, recursive: bool = False) -> Tuple[bool, str]:
+        cmd = f"chown {'-R' if recursive else ''} $USER:$USER {path}"
+
+        return await SystemUtils.run_command(cmd)
+
+
+    @staticmethod
     async def get_path(path: str) -> Path:
         return Path(path).expanduser()
     
