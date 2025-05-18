@@ -92,25 +92,22 @@ class SystemInstaller:
         try:
             # Clone yay repository
             success, output = await SystemUtils.run_command_with_wait(
-                ["git", "-C", "/tmp", "clone", "https://aur.archlinux.org/yay-bin.git"],
-                "/tmp"
+                ["git", "-C", "/tmp", "clone", "https://aur.archlinux.org/yay-bin.git"]
             )
             if not success:
                 raise Exception(f"Failed to clone yay repository: {output}")
 
             # Set owner and permissions
-            success, output = await SystemUtils.set_owner_current_user("/tmp/yay-bin", build_user, True)
+            success, output = await SystemUtils.run_command_with_wait(
+                ["chown", "-R", f"{build_user}:{build_user}", "/tmp/yay-bin"]
+            )
             if not success:
                 raise Exception(f"Failed to set owner: {output}")
                 
-            success, output = await SystemUtils.set_permissions("/tmp/yay-bin", "755", True)
-            if not success:
-                raise Exception(f"Failed to set permissions: {output}")
-            
             # Build and install yay as build user
             success, output = await SystemUtils.run_command_with_wait(
-                ["sudo", "-u", build_user, "bash", "-c", "cd /tmp/yay-bin && makepkg -si --noconfirm"],
-                "/tmp/yay-bin"
+                ["sudo", "-u", build_user, "makepkg", "-si", "--noconfirm"],
+                cwd="/tmp/yay-bin"  # Используем cwd вместо cd в команде
             )
             if not success:
                 raise Exception(f"Failed to build and install yay: {output}")
@@ -119,9 +116,11 @@ class SystemInstaller:
             if not await SystemUtils.wait_for_package_installation("yay"):
                 raise Exception("Yay installation verification failed")
 
+            self.logger.success("Yay installed successfully")
+
         finally:
             # Cleanup
-            success, output = await SystemUtils.run_command("rm -rf /tmp/yay-bin")
+            success, output = await SystemUtils.run_command_with_wait(["rm", "-rf", "/tmp/yay-bin"])
             if not success:
                 self.logger.warning(f"Failed to cleanup yay build directory: {output}")
 
