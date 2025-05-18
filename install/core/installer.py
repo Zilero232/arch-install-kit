@@ -91,7 +91,10 @@ class SystemInstaller:
 
         try:
             # Clone yay repository
-            success, output = await SystemUtils.run_command("git -C /tmp clone https://aur.archlinux.org/yay-bin.git")
+            success, output = await SystemUtils.run_command_with_wait(
+                ["git", "-C", "/tmp", "clone", "https://aur.archlinux.org/yay-bin.git"],
+                "/tmp"
+            )
             if not success:
                 raise Exception(f"Failed to clone yay repository: {output}")
 
@@ -105,7 +108,10 @@ class SystemInstaller:
                 raise Exception(f"Failed to set permissions: {output}")
             
             # Build and install yay as build user
-            success, output = await SystemUtils.run_command(f"sudo -u {build_user} bash -c 'cd /tmp/yay-bin && makepkg -si --noconfirm'")
+            success, output = await SystemUtils.run_command_with_wait(
+                ["sudo", "-u", build_user, "bash", "-c", "cd /tmp/yay-bin && makepkg -si --noconfirm"],
+                "/tmp/yay-bin"
+            )
             if not success:
                 raise Exception(f"Failed to build and install yay: {output}")
             
@@ -121,7 +127,7 @@ class SystemInstaller:
 
             # Remove build user if we created one
             if await UserUtils.is_root():
-                success, output = await UserUtils.cleanup_build_user()
+                success, output = await UserUtils.remove_build_user()
                 if not success:
                     self.logger.warning(f"Failed to cleanup build user: {output}")
 

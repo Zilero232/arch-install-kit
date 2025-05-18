@@ -24,6 +24,22 @@ class SystemUtils:
             return False, str(e)
 
     @staticmethod
+    async def run_command_with_wait(cmd: list[str], cwd: str = None) -> Tuple[bool, str]:
+        try:
+            process = await asyncio.create_subprocess_exec(
+                *cmd,
+                cwd=cwd,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )
+            
+            stdout, stderr = await process.communicate()
+            
+            return process.returncode == 0, stdout.decode() or stderr.decode()
+        except Exception as e:
+            return False, str(e)
+
+    @staticmethod
     async def wait_for_package_installation(package: str, max_attempts: int = 10, delay: int = 2) -> bool:
         for attempt in range(max_attempts):
             # Check if package is installed via pacman
