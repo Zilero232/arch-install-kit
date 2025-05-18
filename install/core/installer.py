@@ -83,18 +83,18 @@ class SystemInstaller:
         if not success:
             raise Exception(f"Failed to clone yay repository: {output}")
 
+        # Set owner to current user
+        success = await SystemUtils.set_owner_current_user('/tmp/yay', True)
+        if not success:
+            raise Exception(f"Failed to set owner to current user")
+
         # Set permissions
         success = await SystemUtils.set_permissions('/tmp/yay', '755', True)
         if not success:
             raise Exception(f"Failed to set permissions")
         
-        # Set owner to current user
-        success = await SystemUtils.set_owner_current_user('/tmp/yay', True)
-        if not success:
-            raise Exception(f"Failed to set owner to current user")
-        
         # Build and install yay
-        success, output = await SystemUtils.run_command("cd /tmp/yay && makepkg -si")
+        success, output = await SystemUtils.run_command("cd /tmp/yay && makepkg -si --noconfirm")
         if not success:
             raise Exception(f"Failed to build and install yay: {output}")
         
