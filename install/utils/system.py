@@ -22,21 +22,6 @@ class SystemUtils:
             return process.returncode == 0, stdout.decode() or stderr.decode()
         except Exception as e:
             return False, str(e)
-        
-    @staticmethod
-    async def run_command_with_wait(cmd: list[str], cwd: str = None) -> Tuple[bool, str]:
-        try:
-            process = await asyncio.create_subprocess_exec(
-                *cmd,
-                cwd=cwd,
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE,
-            )
-            
-            stdout, stderr = await process.communicate()
-            return process.returncode == 0, stdout.decode() or stderr.decode()
-        except Exception as e:
-            return False, str(e)
 
     @staticmethod
     async def get_path(path: str) -> Path:
