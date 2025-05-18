@@ -53,12 +53,12 @@ class SystemInstaller:
     # Install packages from AUR
     async def _install_aur_packages(self) -> None:
         # Check if yay is installed and get its path
-        success = await SystemUtils.run_command("which yay")
+        success, _ = await SystemUtils.run_command("which yay")
         if not success:
             await self._install_yay()
 
             # Get yay path after installation
-            success = await SystemUtils.run_command("which yay")
+            success, _ = await SystemUtils.run_command("which yay")
             if not success:
                 raise Exception("Yay installation failed or not found in PATH")
 

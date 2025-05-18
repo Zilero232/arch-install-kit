@@ -57,6 +57,7 @@ class PackageManager:
         for package in packages:
             result = await self._install_package(package, manager)
             results.append(result)
+            
             if not result.success:
                 self.logger.error(f"Failed to install {package}: {result.message}")
             else:
