@@ -43,12 +43,12 @@ class SystemInstaller:
 
         self.logger.info("Installing system packages...")
 
-        results = await self.package_manager.install_packages(pacman_packages, PackageManagerType.PACMAN)
+        # results = await self.package_manager.install_packages(pacman_packages, PackageManagerType.PACMAN)
 
-        # Get failed packages
-        failed = [r.package for r in results if not r.success]
-        if failed:
-            raise Exception(f"Failed to install packages: {', '.join(failed)}")
+        # # Get failed packages
+        # failed = [r.package for r in results if not r.success]
+        # if failed:
+        #     raise Exception(f"Failed to install packages: {', '.join(failed)}")
 
     # Install packages from AUR
     async def _install_aur_packages(self) -> None:
@@ -77,25 +77,21 @@ class SystemInstaller:
     async def _install_yay(self) -> None:
         self.logger.info("Installing yay...")
         
-       # Clone yay
-        current_dir = Path.cwd()
-        yay_dir = current_dir / "yay"
-
         if not await SystemUtils.run_command(
-            f"git -C {current_dir} clone https://aur.archlinux.org/yay.git"
+            "git -C /tmp clone https://aur.archlinux.org/yay.git"
         ):
             raise Exception("Failed to clone yay repository")
         
         # Build and install yay
         if not await SystemUtils.run_command(
-            f"cd {yay_dir} && makepkg -si"
+            "cd /tmp/yay && makepkg -si"
         ):
             raise Exception("Failed to build and install yay")
         
         self.logger.success("Yay installed successfully")
         
         # Cleanup
-        if not await SystemUtils.run_command(f"rm -rf {yay_dir}"):
+        if not await SystemUtils.run_command("rm -rf /tmp/yay"):
             self.logger.warning("Failed to cleanup yay build directory")
 
     # Install graphics drivers
