@@ -83,6 +83,8 @@ pacstrap -K /mnt base base-devel linux linux-firmware iwd dhcpcd networkmanager 
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
+
+# Check file fstab
 cat /mnt/etc/fstab
 
 # Change root to new system

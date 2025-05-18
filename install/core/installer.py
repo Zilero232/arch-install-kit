@@ -42,7 +42,6 @@ class SystemInstaller:
         # pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
         pacman_packages = [
             "git",
-            "fakeroot"
         ]
 
         self.logger.info("Installing system packages...")
@@ -83,6 +82,11 @@ class SystemInstaller:
         success, output = await SystemUtils.run_command("git -C /tmp clone https://aur.archlinux.org/yay.git")
         if not success:
             raise Exception(f"Failed to clone yay repository: {output}")
+
+        # Set permissions
+        success, output = await SystemUtils.set_permissions("/tmp/yay", "755", recursive=True)
+        if not success:
+            raise Exception(f"Failed to set permissions: {output}")
         
         # Build and install yay
         success, output = await SystemUtils.run_command("cd /tmp/yay && makepkg -si")
