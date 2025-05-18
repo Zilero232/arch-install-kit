@@ -39,11 +39,8 @@ class SystemInstaller:
 
     # Install system packages from pacman
     async def _install_system_packages(self) -> None:
-        # pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
-        pacman_packages = [
-            "git",
-        ]
-
+        pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
+        
         self.logger.info("Installing system packages...")
 
         results = await self.package_manager.install_packages(pacman_packages, PackageManagerType.PACMAN)
@@ -107,7 +104,7 @@ class SystemInstaller:
             # Build and install yay as build user
             success, output = await SystemUtils.run_command_with_wait(
                 ["sudo", "-u", build_user, "makepkg", "-si", "--noconfirm"],
-                cwd="/tmp/yay-bin"  # Используем cwd вместо cd в команде
+                cwd="/tmp/yay-bin"
             )
             if not success:
                 raise Exception(f"Failed to build and install yay: {output}")
