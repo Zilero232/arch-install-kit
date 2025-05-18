@@ -24,6 +24,20 @@ class SystemUtils:
             return False, str(e)
 
     @staticmethod
+    async def wait_for_package_installation(package: str, max_attempts: int = 10, delay: int = 2) -> bool:
+        for attempt in range(max_attempts):
+            # Check if package is installed via pacman
+            success, _ = await SystemUtils.run_command(f"pacman -Q {package}")
+            if success:
+                # Verify package is in PATH
+                success, _ = await SystemUtils.run_command(f"which {package}")
+                if success:
+                    return True
+                
+            await asyncio.sleep(delay)
+        return False
+
+    @staticmethod
     async def get_path(path: str) -> Path:
         return Path(path).expanduser()
     
@@ -53,3 +67,4 @@ class SystemUtils:
             return True
         except Exception as e:
             return False
+            

@@ -64,8 +64,6 @@ class SystemInstaller:
 
         aur_packages = self.config.get_packages(PackageManagerType.AUR)
 
-        self.logger.info("Installing AUR packages...")
-
         results = await self.package_manager.install_packages(aur_packages, PackageManagerType.AUR)
 
         # Get failed packages
@@ -88,7 +86,9 @@ class SystemInstaller:
         ):
             raise Exception("Failed to build and install yay")
         
-        self.logger.success("Yay installed successfully")
+        # Wait for yay to be available
+        if not await SystemUtils.wait_for_package_installation("yay"):
+            raise Exception("Yay installation verification failed")
         
         # Cleanup
         if not await SystemUtils.run_command("rm -rf /tmp/yay"):
