@@ -74,56 +74,56 @@ class SystemInstaller:
         if failed:
             raise Exception(f"Failed to install packages: {', '.join(failed)}")
         
-  async def _install_yay(self) -> None:
-    self.logger.info("Installing yay...")
-    
-    # Create build user if running as root
-    if await UserUtils.is_root():
-        success, output = await UserUtils.create_build_user()
-        if not success:
-            raise Exception(f"Failed to setup build user: {output}")
-        build_user = UserUtils.BUILD_USER
-    else:
-        success, output = await SystemUtils.run_command("whoami")
-        if not success:
-            raise Exception("Failed to get current username")
-        build_user = output.strip()
-
-    try:
-        # Clone yay repository
-        success, output = await SystemUtils.run_command("git -C /tmp clone https://aur.archlinux.org/yay-bin.git")
-        if not success:
-            raise Exception(f"Failed to clone yay repository: {output}")
-
-        # Set owner and permissions
-        success, output = await SystemUtils.set_owner_current_user("/tmp/yay-bin", build_user, True)
-        if not success:
-            raise Exception(f"Failed to set owner: {output}")
-            
-        success, output = await SystemUtils.set_permissions("/tmp/yay-bin", "755", True)
-        if not success:
-            raise Exception(f"Failed to set permissions: {output}")
+    async def _install_yay(self) -> None:
+        self.logger.info("Installing yay...")
         
-        # Build and install yay as build user
-        success, output = await SystemUtils.run_command(f"sudo -u {build_user} bash -c 'cd /tmp/yay-bin && makepkg -si --noconfirm'")
-        if not success:
-            raise Exception(f"Failed to build and install yay: {output}")
-        
-        # Wait for yay to be available
-        if not await SystemUtils.wait_for_package_installation("yay"):
-            raise Exception("Yay installation verification failed")
-
-    finally:
-        # Cleanup
-        success, output = await SystemUtils.run_command("rm -rf /tmp/yay-bin")
-        if not success:
-            self.logger.warning(f"Failed to cleanup yay build directory: {output}")
-
-        # Remove build user if we created one
+        # Create build user if running as root
         if await UserUtils.is_root():
-            success, output = await UserUtils.cleanup_build_user()
+            success, output = await UserUtils.create_build_user()
             if not success:
-                self.logger.warning(f"Failed to cleanup build user: {output}")
+                raise Exception(f"Failed to setup build user: {output}")
+            build_user = UserUtils.BUILD_USER
+        else:
+            success, output = await SystemUtils.run_command("whoami")
+            if not success:
+                raise Exception("Failed to get current username")
+            build_user = output.strip()
+
+        try:
+            # Clone yay repository
+            success, output = await SystemUtils.run_command("git -C /tmp clone https://aur.archlinux.org/yay-bin.git")
+            if not success:
+                raise Exception(f"Failed to clone yay repository: {output}")
+
+            # Set owner and permissions
+            success, output = await SystemUtils.set_owner_current_user("/tmp/yay-bin", build_user, True)
+            if not success:
+                raise Exception(f"Failed to set owner: {output}")
+                
+            success, output = await SystemUtils.set_permissions("/tmp/yay-bin", "755", True)
+            if not success:
+                raise Exception(f"Failed to set permissions: {output}")
+            
+            # Build and install yay as build user
+            success, output = await SystemUtils.run_command(f"sudo -u {build_user} bash -c 'cd /tmp/yay-bin && makepkg -si --noconfirm'")
+            if not success:
+                raise Exception(f"Failed to build and install yay: {output}")
+            
+            # Wait for yay to be available
+            if not await SystemUtils.wait_for_package_installation("yay"):
+                raise Exception("Yay installation verification failed")
+
+        finally:
+            # Cleanup
+            success, output = await SystemUtils.run_command("rm -rf /tmp/yay-bin")
+            if not success:
+                self.logger.warning(f"Failed to cleanup yay build directory: {output}")
+
+            # Remove build user if we created one
+            if await UserUtils.is_root():
+                success, output = await UserUtils.cleanup_build_user()
+                if not success:
+                    self.logger.warning(f"Failed to cleanup build user: {output}")
 
     # Install graphics drivers
     async def _install_drivers(self, driver_type: DriverType) -> None:
