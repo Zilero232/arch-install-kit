@@ -59,7 +59,6 @@ jobs:
           message: |
             <b>Installation Arch Linux Script</b>
 
-            <b>Date:</b> ${{ github.run_started_at }}
             <b>Event:</b> ${{ github.event_name }}
             <b>Branch:</b> ${{ github.ref }}
             <b>Commit:</b> ${{ github.sha }}

@@ -24,6 +24,7 @@ class SystemInstaller:
                     raise Exception("System update failed")
 
             await self._install_system_packages()
+            await self._install_yay()
             await self._install_aur_packages()
             await self._install_drivers(options.graphics_driver)
 
@@ -49,6 +50,22 @@ class SystemInstaller:
         failed = [r.package for r in results if not r.success]
         if failed:
             raise Exception(f"Failed to install packages: {', '.join(failed)}")
+        
+    async def _install_yay(self) -> None:
+        # Install yay AUR helper
+        self.logger.info("Installing yay...")
+        
+        # Clone and install yay
+        yay_dir = Path("/tmp/yay")
+        if not await SystemUtils.run_command(f"git clone https://aur.archlinux.org/yay.git {yay_dir}"):
+            raise Exception("Failed to clone yay repository")
+        
+        if not await SystemUtils.run_command(f"cd {yay_dir} && makepkg -si --noconfirm"):
+            raise Exception("Failed to build and install yay")
+        
+        # Cleanup
+        if not await SystemUtils.run_command(f"rm -rf {yay_dir}"):
+            self.logger.warning("Failed to cleanup yay build directory")
 
     async def _install_aur_packages(self) -> None:
         # Install packages from AUR
