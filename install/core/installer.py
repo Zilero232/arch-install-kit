@@ -39,16 +39,19 @@ class SystemInstaller:
 
     # Install system packages from pacman
     async def _install_system_packages(self) -> None:
-        pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
+        # pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
+        pacman_packages = [
+            "git",
+        ]
 
         self.logger.info("Installing system packages...")
 
-        # results = await self.package_manager.install_packages(pacman_packages, PackageManagerType.PACMAN)
+        results = await self.package_manager.install_packages(pacman_packages, PackageManagerType.PACMAN)
 
-        # # Get failed packages
-        # failed = [r.package for r in results if not r.success]
-        # if failed:
-        #     raise Exception(f"Failed to install packages: {', '.join(failed)}")
+        # Get failed packages
+        failed = [r.package for r in results if not r.success]
+        if failed:
+            raise Exception(f"Failed to install packages: {', '.join(failed)}")
 
     # Install packages from AUR
     async def _install_aur_packages(self) -> None:
