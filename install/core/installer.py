@@ -58,9 +58,9 @@ class SystemInstaller:
             await self._install_yay()
 
             # Get yay path after installation
-            success, _ = await SystemUtils.run_command("which yay")
+            success, output = await SystemUtils.run_command("which yay")
             if not success:
-                raise Exception("Yay installation failed or not found in PATH")
+                raise Exception(f"Yay installation failed: {output}")
 
         aur_packages = self.config.get_packages(PackageManagerType.AUR)
 
