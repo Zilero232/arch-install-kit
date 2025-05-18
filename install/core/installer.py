@@ -42,6 +42,7 @@ class SystemInstaller:
         # pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
         pacman_packages = [
             "git",
+            "fakeroot"
         ]
 
         self.logger.info("Installing system packages...")
