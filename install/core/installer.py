@@ -72,22 +72,23 @@ class SystemInstaller:
     async def _install_yay(self) -> None:
         self.logger.info("Installing yay...")
         
-        # Clone and install yay
-        yay_dir = Path("/tmp/yay")
+       # Clone yay
         if not await SystemUtils.run_command_with_wait(
-            ["git", "clone", "https://aur.archlinux.org/yay.git", str(yay_dir)]
+            ["git", "-C", "/tmp", "clone", "https://aur.archlinux.org/yay.git"]
         ):
             raise Exception("Failed to clone yay repository")
         
+        # Build and install yay
         if not await SystemUtils.run_command_with_wait(
-            ["cd", str(yay_dir), "&&", "makepkg", "-si", "--noconfirm"]
+            ["makepkg", "-si"],
+            cwd="/tmp/yay"
         ):
             raise Exception("Failed to build and install yay")
         
         self.logger.success("Yay installed successfully")
         
         # Cleanup
-        if not await SystemUtils.run_command(f"rm -rf {yay_dir}"):
+        if not await SystemUtils.run_command(f"rm -rf /tmp/yay"):
             self.logger.warning("Failed to cleanup yay build directory")
 
     # Install graphics drivers
