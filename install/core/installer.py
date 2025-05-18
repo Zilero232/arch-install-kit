@@ -25,10 +25,10 @@ class SystemInstaller:
 
             await self._install_system_packages()
             await self._install_aur_packages()
-            await self._install_drivers(options.graphics_driver)
+            # await self._install_drivers(options.graphics_driver)
 
-            if options.dotfiles:
-                await self._install_dotfiles()
+            # if options.dotfiles:
+            #     await self._install_dotfiles()
 
             return True
 
