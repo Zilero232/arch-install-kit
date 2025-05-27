@@ -75,6 +75,13 @@ class SystemInstaller:
         self.logger.info("Installing yay...")
 
         try:
+            # Create temporary build user
+            success, output = await SystemUtils.run_command_with_wait(
+                ["useradd", "-m", "-U", "builduser"]
+            )
+            if not success:
+                raise Exception(f"Failed to create build user: {output}")
+
             # Clone yay repository
             success, output = await SystemUtils.run_command_with_wait(
                 ["git", "-C", "/tmp", "clone", "https://aur.archlinux.org/yay-bin.git"]
@@ -82,13 +89,16 @@ class SystemInstaller:
             if not success:
                 raise Exception(f"Failed to clone yay repository: {output}")
                 
-            # Build and install yay
+             # Build and install yay as builduser
             success, output = await SystemUtils.run_command_with_wait(
-                  ["su", "-", "nobody", "-s", "/bin/bash", "-c", "cd /tmp/yay-bin && makepkg -si --noconfirm"],
+                ["su", "-", "builduser", "-s", "/bin/bash", "-c", "cd /tmp/yay-bin && makepkg -si --noconfirm"],
                 cwd="/tmp/yay-bin"
             )
             if not success:
                 raise Exception(f"Failed to build and install yay: {output}")
+            
+            # Cleanup build user
+            await SystemUtils.run_command_with_wait(["userdel", "-r", "builduser"])
             
             # Wait for yay to be available
             if not await SystemUtils.wait_for_package_installation("yay"):
