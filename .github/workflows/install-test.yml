@@ -23,7 +23,6 @@
       runs-on: ubuntu-latest # OS to run on
       container:
         image: archlinux:base-devel # Arch Linux container
-        options: --user 1000:1000 # Set user
         
       timeout-minutes: 30 # Maximum execution time
 

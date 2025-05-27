@@ -84,7 +84,7 @@ class SystemInstaller:
                 
             # Build and install yay
             success, output = await SystemUtils.run_command_with_wait(
-                ["makepkg", "-si", "--noconfirm"],
+                  ["su", "-", "nobody", "-s", "/bin/bash", "-c", "cd /tmp/yay-bin && makepkg -si --noconfirm"],
                 cwd="/tmp/yay-bin"
             )
             if not success:
