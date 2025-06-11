@@ -54,36 +54,44 @@ class SystemInstaller:
         self.logger.info("Preparing multilib...")
         
         try:
-            # Enable multilib repository with simpler approach
-            success, output = await SystemUtils.run_command_with_wait([
-                "sudo", "sed", "-i", "s/^#\\[multilib\\]/[multilib]/", "/etc/pacman.conf"
-            ])
-            if not success:
-                raise Exception(f"Failed to enable multilib section: {output}")
+            # Check if multilib section exists
+            success, output = await SystemUtils.run_command_with_wait(["grep", "-q", "\\[multilib\\]", "/etc/pacman.conf"])
             
-            # Enable multilib Include line with simpler approach
-            success, output = await SystemUtils.run_command_with_wait([
-                "sudo", "sed", "-i", "/^\\[multilib\\]$/,/^\\[/ s/^#\\(Include = \\/etc\\/pacman\\.d\\/mirrorlist\\)/\\1/", "/etc/pacman.conf"
-            ])
-            if not success:
-                raise Exception(f"Failed to enable multilib include line: {output}")
-            
-            # Check result after editing
-            success, output = await SystemUtils.run_command_with_wait(["cat", "/etc/pacman.conf"])
             if success:
-                self.logger.info(f"Updated pacman.conf content: {output}")
-
-            # Force update package database to include multilib
+                # Multilib section exists, uncomment it
+                self.logger.info("Multilib section found, uncommenting...")
+                
+                # Uncomment multilib section
+                success, output = await SystemUtils.run_command_with_wait([
+                    "sudo", "sed", "-i", "s/^#\\[multilib\\]/[multilib]/", "/etc/pacman.conf"
+                ])
+                if not success:
+                    raise Exception(f"Failed to uncomment multilib section: {output}")
+                
+                # Uncomment multilib Include line
+                success, output = await SystemUtils.run_command_with_wait([
+                    "sudo", "sed", "-i", "/^\\[multilib\\]$/,/^\\[/ s/^#\\(Include = \\/etc\\/pacman\\.d\\/mirrorlist\\)/\\1/", "/etc/pacman.conf"
+                ])
+                if not success:
+                    raise Exception(f"Failed to uncomment multilib include: {output}")
+                    
+            else:
+                # Multilib section doesn't exist, add it
+                self.logger.info("Multilib section not found, adding...")
+                
+                success, output = await SystemUtils.run_command_with_wait([
+                    "sudo", "sh", "-c", 'echo -e "\n[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf'
+                ])
+                if not success:
+                    raise Exception(f"Failed to add multilib section: {output}")
+            
+            # Force update package database
             success, output = await SystemUtils.run_command_with_wait(["sudo", "pacman", "-Sy"])
             if not success:
                 raise Exception(f"Failed to update package database: {output}")
             
-            # Check if multilib section exists
-            success, output = await SystemUtils.run_command_with_wait(["grep", "-A", "2", "\\[multilib\\]", "/etc/pacman.conf"])
-            if not success:
-                raise Exception(f"Multilib section not found in pacman.conf: {output}")
-            
             self.logger.success("Multilib repository prepared successfully")
+            
         except Exception as e:
             raise Exception(f"Multilib preparation error: {e}")
 
