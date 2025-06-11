@@ -186,8 +186,11 @@ class SystemInstaller:
 
     # Copy dotfiles to their destinations
     async def _copy_dotfiles(self) -> None:
-        for src, dotfile_config in self.config.get_all_dotfiles().items():
-            src_path = Path(src)
+        # Get the root directory of the project
+        project_root = Path.cwd()
+
+        for name, dotfile_config in self.config.get_all_dotfiles().items():
+            src_path = project_root / dotfile_config.source
             dst_path = SystemUtils.get_path(dotfile_config.dest)
     
             if dotfile_config.type == DotfileType.DIR:
