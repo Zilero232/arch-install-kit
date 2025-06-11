@@ -1,0 +1,26 @@
+install_options:
+  - name: 'dotfiles'
+    description: 'Install dotfiles and system configuration?'
+    type: 'boolean'
+    default: true
+
+  - name: 'update_system'
+    description: 'Update Arch Linux database and packages?'
+    type: 'boolean'
+    default: true
+
+  - name: 'graphics_driver'
+    description: 'Select graphics driver to install'
+    type: 'choice'
+    choices:
+      - name: 'nvidia'
+        description: 'NVIDIA proprietary driver'
+
+      - name: 'intel'
+        description: 'Intel integrated graphics'
+
+      - name: 'radeon'
+        description: 'AMD Radeon graphics'
+
+      - name: 'none'
+        description: 'Skip driver installation'

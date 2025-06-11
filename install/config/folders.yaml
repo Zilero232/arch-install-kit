@@ -1,0 +1,9 @@
+# Стандартные папки для создания
+default_folders:
+  - '~/Videos'
+  - '~/Documents'
+  - '~/Downloads'
+  - '~/Music'
+  - '~/Desktop'
+  - '~/Projects'
+  - '~/Screenshots'

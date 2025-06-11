@@ -1,0 +1,31 @@
+# Конфигурация dotfiles
+dotfiles:
+  config:
+    source: 'dotfiles/.config'
+    dest: '~/.config'
+    type: 'dir'
+
+  gtkrc:
+    source: 'dotfiles/.gtkrc-2'
+    dest: '~/.gtkrc-2'
+    type: 'file'
+
+  xinitrc:
+    source: 'dotfiles/.xinitrc'
+    dest: '~/.xinitrc'
+    type: 'file'
+
+  xresources:
+    source: 'dotfiles/.Xresources'
+    dest: '~/.Xresources'
+    type: 'file'
+
+  bin:
+    source: 'bin'
+    dest: '~/bin'
+    type: 'dir'
+
+  images:
+    source: 'assets/images'
+    dest: '~/Images'
+    type: 'dir'

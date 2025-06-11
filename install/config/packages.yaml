@@ -1,0 +1,214 @@
+packages:
+  pacman:
+    system:
+      # Graphics System
+      - xorg-server
+      - xorg-xinit
+      - xorg-xbacklight
+      - arandr
+      - picom
+
+      # Display Manager
+      - sddm
+
+      # Window Manager
+      - bspwm
+      - sxhkd
+      - polybar
+      - dunst
+
+      # Audio System
+      - pipewire
+      - pipewire-pulse
+      - pipewire-alsa
+      - pipewire-jack
+      - wireplumber
+      - pavucontrol
+      - pamixer
+      - sound-theme-freedesktop
+
+      # Network System
+      - networkmanager
+      - network-manager-applet
+      - dhcpcd
+      - iwd
+      - openssh
+      - wireshark-qt
+      - net-tools
+      - wireguard-tools
+
+      # Bluetooth
+      - bluez
+      - bluez-utils
+      - blueman
+      - bluez-hid2hci
+
+      # System Utilities
+      - xfce4-settings
+      - timeshift
+      - bleachbit
+      - gnome-disk-utility
+      - reflector
+      - pacman-contrib
+
+      # System Monitoring
+      - dysk
+      - cpupower
+
+      # Power Management
+      - brightnessctl
+      - tlp
+      - tlp-rdw
+      - xfce4-power-manager
+
+    desktop:
+      # Terminals
+      - xterm
+      - alacritty
+
+      # Command Line
+      - fish
+      - tmux
+      - lsd
+      - bat
+
+      # File Managers
+      - thunar
+      - thunar-archive-plugin
+      - ranger
+      - tree
+      - ueberzug
+      - xclip
+
+      # Application Launchers
+      - rofi
+      - rofi-calc
+      - rofi-emoji
+
+      # Desktop
+      - nitrogen
+      - flameshot
+      - peek
+      - redshift
+      - gpick
+      - cheese
+      - gnome-calculator
+      - gnome-clocks
+      - obs-studio
+
+    dev:
+      # Editors
+      - code
+      - neovim
+
+      # Development Tools
+      - git
+      - github-cli
+      - docker
+      - docker-compose
+      - shellcheck
+      - cloc
+      - fakeroot
+      - filezilla
+      - jq
+      - meson
+      - composer
+      - meld
+
+      # Programming Languages
+      - python
+      - python-pip
+      - bpython
+      - ipython
+      - nodejs
+      - npm
+      - npm-check-updates
+
+    apps:
+      # Internet
+      - firefox
+
+      # Communication
+      - telegram-desktop
+      - discord
+
+      # Multimedia
+      - vlc
+      - mpv
+      - mpd
+      - ncmpcpp
+
+      # Graphics
+      - gthumb
+
+      # Office
+      - libreoffice-fresh
+      - evince
+      - zathura
+
+      # Utilities
+      - xarchiver
+      - zip
+      - unzip
+      - p7zip
+      - tar
+      - gzip
+      - bzip2
+      - transmission-gtk
+
+      # Security
+      - keepassxc
+      - gufw
+      - veracrypt
+
+  aur:
+    system:
+      - neohtop
+      - plymouth-theme-deus-ex-git
+      - sddm-astronaut-theme
+      - wlogout
+      - s-tui
+      - betterlockscreen
+      - i3lock-color
+      - lazydocker
+
+    desktop:
+      - betterlockscreen
+
+    dev:
+      - cursor-bin
+      - phpstorm
+      - phpstorm-jre
+      - postman-bin
+      - nvm
+
+    apps:
+      - google-chrome-stable
+      - anydesk
+      - slack-desktop
+      - zoom
+      - whatsapp-for-linux
+      - spotify
+      - cava
+      - figma-linux
+      - obsidian
+      - pinta
+
+  drivers:
+    nvidia:
+      - nvidia
+      - nvidia-utils
+      - nvidia-settings
+      - lib32-nvidia-utils
+
+    intel:
+      - intel-ucode
+      - vulkan-intel
+      - lib32-vulkan-intel
+      - xf86-video-intel
+
+    radeon:
+      - xf86-video-amdgpu
+      - vulkan-radeon
+      - lib32-vulkan-radeon
+      - amd-ucode
