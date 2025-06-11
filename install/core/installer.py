@@ -176,26 +176,36 @@ class SystemInstaller:
         except Exception as e:
             raise Exception(f"Dotfiles installation error: {e}")
 
-    # Create default system folders
+     # Create default system folders
     async def _create_default_folders(self) -> None:
         for folder in self.config.get_default_folders():
             folder_path = SystemUtils.get_path(folder)
+            self.logger.info(f"Creating folder: {folder_path}")
 
             if not await SystemUtils.create_folder(folder_path):
                 raise Exception(f"Failed to create folder: {folder_path}")
+            else:
+                self.logger.success(f"Created folder: {folder_path}")
 
     # Copy dotfiles to their destinations
     async def _copy_dotfiles(self) -> None:
         # Get the root directory of the project
         project_root = Path.cwd()
+        self.logger.info(f"Project root: {project_root}")
 
         for name, dotfile_config in self.config.get_all_dotfiles().items():
             src_path = project_root / dotfile_config.source
             dst_path = SystemUtils.get_path(dotfile_config.dest)
+            
+            self.logger.info(f"Copying {name}: {src_path} → {dst_path}")
     
             if dotfile_config.type == DotfileType.DIR:
                 if not await SystemUtils.copy_folder(src_path, dst_path):
                     raise Exception(f"Failed to copy folder: {src_path} to {dst_path}")
+                else:
+                    self.logger.success(f"Copied folder: {src_path} → {dst_path}")
             else:
                 if not await SystemUtils.copy_file(src_path, dst_path):
                     raise Exception(f"Failed to copy file: {src_path} to {dst_path}")
+                else:
+                    self.logger.success(f"Copied file: {src_path} → {dst_path}")
