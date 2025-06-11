@@ -69,20 +69,20 @@ class SystemUtils:
 
 
     @staticmethod
-    async def get_path(path: str) -> Path:
+    def get_path(path: str) -> Path:
         return Path(path).expanduser()
     
     @staticmethod
-    async def create_folder(path: str) -> bool:
+    async def create_folder(path: Path) -> bool:
         try:
-            Path(path).mkdir(parents=True, exist_ok=True)
+            path.mkdir(parents=True, exist_ok=True)
 
             return True
         except Exception as e:
             return False
         
     @staticmethod
-    async def copy_folder(src: str, dst: str) -> bool:
+    async def copy_folder(src: Path, dst: Path) -> bool:
         try:
             shutil.copytree(src, dst, dirs_exist_ok=True)
 
@@ -91,7 +91,7 @@ class SystemUtils:
             return False
         
     @staticmethod
-    async def copy_file(src: str, dst: str) -> bool:
+    async def copy_file(src: Path, dst: Path) -> bool:
         try:
             shutil.copy2(src, dst)
 

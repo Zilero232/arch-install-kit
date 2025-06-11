@@ -179,7 +179,7 @@ class SystemInstaller:
     # Create default system folders
     async def _create_default_folders(self) -> None:
         for folder in self.config.get_default_folders():
-            folder_path = await SystemUtils.get_path(folder)
+            folder_path = SystemUtils.get_path(folder)
 
             if not await SystemUtils.create_folder(folder_path):
                 raise Exception(f"Failed to create folder: {folder_path}")
@@ -188,7 +188,7 @@ class SystemInstaller:
     async def _copy_dotfiles(self) -> None:
         for src, dst, type in self.config.get_all_dotfiles().items():
             src_path = Path(src)
-            dst_path = await SystemUtils.get_path(dst.dest)
+            dst_path = SystemUtils.get_path(dst.dest)
     
             if type == DotfileType.DIR:
                 if not await SystemUtils.copy_folder(src_path, dst_path):
