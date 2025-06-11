@@ -40,15 +40,29 @@
             # Install Python and pip
             pacman -S --noconfirm python python-pip python-pyyaml
 
+        # Create test user and switch to it
+        - name: Create test user
+          run: |
+            # Create test user with sudo privileges
+            useradd -m -G wheel testuser
+            echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+                
+            # Set ownership of repository to testuser
+            chown -R testuser:testuser /github/workspace
+
         # Test full installation (all options = y)
         - name: Test installation with all options
           id: full_install # ID for notification
-          run: CI_MODE=true CI_INSTALL_ALL=true CI_DRIVER=nvidia python install/index.py
+          run: | 
+            sudo -u testuser -i
+            CI_MODE=true CI_INSTALL_ALL=true CI_DRIVER=nvidia python install/index.py
 
         # Test minimal installation (all options = n)
         - name: Test installation with minimal options
           id: min_install # ID for notification
-          run: CI_MODE=true CI_INSTALL_ALL=false CI_DRIVER=none python install/index.py
+          run: |
+            sudo -u testuser -i
+            CI_MODE=true CI_INSTALL_ALL=false CI_DRIVER=none python install/index.py
 
         # Send Telegram notification
         - name: Send Telegram notification
