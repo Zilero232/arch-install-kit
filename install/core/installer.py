@@ -63,7 +63,8 @@ class SystemInstaller:
             if not success:
                 raise Exception(f"Yay installation failed: {output}")
 
-        aur_packages = self.config.get_packages(PackageManagerType.AUR)
+        # aur_packages = self.config.get_packages(PackageManagerType.AUR)
+        aur_packages = ["s-tui"]
 
         results = await self.package_manager.install_packages(aur_packages, PackageManagerType.AUR)
 
