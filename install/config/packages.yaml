@@ -204,8 +204,10 @@ packages:
       - intel-ucode
       - vulkan-intel
       - lib32-vulkan-intel
+      - xf86-video-intel
 
     radeon:
       - xf86-video-amdgpu
       - vulkan-radeon
       - lib32-vulkan-radeon
+      - amd-ucode
