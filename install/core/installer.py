@@ -55,14 +55,14 @@ class SystemInstaller:
         try:
             # Enable multilib repository
             success, output = await SystemUtils.run_command_with_wait(
-                ["sudo", "sed", "-i", "s/^#\[multilib\]/\[multilib\]/", "/etc/pacman.conf"]
+                ["sudo", "sed", "-i", r"s/^#\[multilib\]/\[multilib\]/", "/etc/pacman.conf"]
             )
             if not success:
                 raise Exception(f"Failed to prepare multilib: {output}")
             
             # Enable multilib Include line
             success, output = await SystemUtils.run_command_with_wait([
-                "sed", "-i", "/^\\[multilib\\]$/,/^\\[/ s/^#\\(Include = \\/etc\\/pacman\\.d\\/mirrorlist\\)/\\1/", "/etc/pacman.conf"
+                "sudo", "sed", "-i", r"/^\[multilib\]$/,/^\[/ s/^#\(Include = \/etc\/pacman\.d\/mirrorlist\)/\1/", "/etc/pacman.conf"
             ])
 
             if not success:
