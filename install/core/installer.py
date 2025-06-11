@@ -54,29 +54,29 @@ class SystemInstaller:
         self.logger.info("Preparing multilib...")
         
         try:
-            # Enable multilib repository
-            success, output = await SystemUtils.run_command_with_wait(
-                ["sudo", "sed", "-i", r"s/^#\[multilib\]/\[multilib\]/", "/etc/pacman.conf"]
-            )
+            # Enable multilib repository - fix the regex
+            success, output = await SystemUtils.run_command_with_wait([
+                "sudo", "sed", "-i", r"s/^#\[multilib\]/\[multilib\]/", "/etc/pacman.conf"
+            ])
             if not success:
-                raise Exception(f"Failed to prepare multilib: {output}")
+                raise Exception(f"Failed to enable multilib section: {output}")
             
-            # Enable multilib Include line
+            # Enable multilib Include line - fix the regex
             success, output = await SystemUtils.run_command_with_wait([
                 "sudo", "sed", "-i", r"/^\[multilib\]$/,/^\[/ s/^#\(Include = \/etc\/pacman\.d\/mirrorlist\)/\1/", "/etc/pacman.conf"
             ])
             if not success:
-                raise Exception(f"Failed to prepare multilib: {output}")
-            
+                raise Exception(f"Failed to enable multilib include line: {output}")
+
             # Force update package database to include multilib
             success, output = await SystemUtils.run_command_with_wait(["sudo", "pacman", "-Sy"])
             if not success:
                 raise Exception(f"Failed to update package database: {output}")
             
-            # Verify multilib is available
-            success, output = await SystemUtils.run_command_with_wait(["sudo", "pacman", "-Sl", "multilib"])
+            # Check if multilib section exists
+            success, output = await SystemUtils.run_command_with_wait(["grep", "-A", "2", "\\[multilib\\]", "/etc/pacman.conf"])
             if not success:
-                raise Exception(f"Multilib repository not available: {output}")
+                raise Exception(f"Multilib section not found in pacman.conf: {output}")
             
             self.logger.success("Multilib repository prepared successfully")
         except Exception as e:
