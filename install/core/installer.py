@@ -67,6 +67,11 @@ class SystemInstaller:
             ])
             if not success:
                 raise Exception(f"Failed to enable multilib include line: {output}")
+            
+            # Check result after editing
+            success, output = await SystemUtils.run_command_with_wait(["cat", "/etc/pacman.conf"])
+            if success:
+                self.logger.info(f"Updated pacman.conf content: {output}")
 
             # Force update package database to include multilib
             success, output = await SystemUtils.run_command_with_wait(["sudo", "pacman", "-Sy"])
