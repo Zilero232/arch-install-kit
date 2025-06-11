@@ -25,6 +25,8 @@ class SystemInstaller:
                 if not await self.package_manager.update_system():
                     raise Exception("System update failed")
             
+            await self._install_system_packages()
+
             # Check if yay is installed and get its path
             success, _ = await SystemUtils.run_command("which yay")
             if not success:
@@ -35,7 +37,6 @@ class SystemInstaller:
                 if not success:
                     raise Exception(f"Yay installation failed: {output}")
 
-            await self._install_system_packages()
             await self._install_aur_packages()
             await self._install_drivers(options.graphics_driver)
 
@@ -62,7 +63,7 @@ class SystemInstaller:
             
             # Enable multilib Include line
             success, output = await SystemUtils.run_command_with_wait([
-                "sudo", "sed", "-i", r"/^\[multilib\]$/,/^\[/ s/^#\(Include = \/etc\/pacman\.d\/mirrorlist\)/\1/", "/etc/pacman.conf"
+                "sed", "-i", r"/^\[multilib\]$/,/^\[/ s/^#\(Include = \/etc\/pacman\.d\/mirrorlist\)/\1/", "/etc/pacman.conf"
             ])
 
             if not success:
@@ -71,6 +72,22 @@ class SystemInstaller:
             self.logger.success("Multilib repository prepared successfully")
         except Exception as e:
             raise Exception(f"Multilib preparation error: {e}")
+
+    # Install system packages from pacman
+    async def _install_system_packages(self) -> None:
+        # pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
+        pacman_packages = ["git", "fakeroot"]
+        
+        self.logger.info("Installing system packages...")
+
+        results = await self.package_manager.install_packages(pacman_packages, PackageManagerType.PACMAN)
+
+        # Get failed packages
+        failed = [r.package for r in results if not r.success]
+
+        self.logger.success("System packages installed successfully")
+        if failed:
+            raise Exception(f"Failed to install packages: {', '.join(failed)}")
         
     async def _install_yay(self) -> None:
         self.logger.info("Installing yay...")
@@ -103,22 +120,6 @@ class SystemInstaller:
             success, output = await SystemUtils.run_command_with_wait(["rm", "-rf", "/tmp/yay-bin"])
             if not success:
                 self.logger.warning(f"Failed to cleanup yay build directory: {output}")
-
-    # Install system packages from pacman
-    async def _install_system_packages(self) -> None:
-        # pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
-        pacman_packages = ["git", "fakeroot"]
-        
-        self.logger.info("Installing system packages...")
-
-        results = await self.package_manager.install_packages(pacman_packages, PackageManagerType.PACMAN)
-
-        # Get failed packages
-        failed = [r.package for r in results if not r.success]
-
-        self.logger.success("System packages installed successfully")
-        if failed:
-            raise Exception(f"Failed to install packages: {', '.join(failed)}")
 
 
     # Install packages from AUR
