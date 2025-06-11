@@ -54,16 +54,16 @@ class SystemInstaller:
         self.logger.info("Preparing multilib...")
         
         try:
-            # Enable multilib repository - fix the regex
+            # Enable multilib repository with simpler approach
             success, output = await SystemUtils.run_command_with_wait([
-                "sudo", "sed", "-i", r"s/^#\[multilib\]/\[multilib\]/", "/etc/pacman.conf"
+                "sudo", "sed", "-i", "s/^#\\[multilib\\]/[multilib]/", "/etc/pacman.conf"
             ])
             if not success:
                 raise Exception(f"Failed to enable multilib section: {output}")
             
-            # Enable multilib Include line - fix the regex
+            # Enable multilib Include line with simpler approach
             success, output = await SystemUtils.run_command_with_wait([
-                "sudo", "sed", "-i", r"/^\[multilib\]$/,/^\[/ s/^#\(Include = \/etc\/pacman\.d\/mirrorlist\)/\1/", "/etc/pacman.conf"
+                "sudo", "sed", "-i", "/^\\[multilib\\]$/,/^\\[/ s/^#\\(Include = \\/etc\\/pacman\\.d\\/mirrorlist\\)/\\1/", "/etc/pacman.conf"
             ])
             if not success:
                 raise Exception(f"Failed to enable multilib include line: {output}")
