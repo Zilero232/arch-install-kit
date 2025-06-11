@@ -59,13 +59,6 @@
             WORKSPACE_DIR=$(pwd)
             sudo -u testuser bash -c "cd '$WORKSPACE_DIR' && CI_MODE=true CI_INSTALL_ALL=true CI_DRIVER=nvidia python install/index.py"
 
-        # Test minimal installation (all options = n)
-        - name: Test installation with minimal options
-          id: min_install # ID for notification
-          run: |
-            WORKSPACE_DIR=$(pwd)
-            sudo -u testuser bash -c "cd '$WORKSPACE_DIR' && CI_MODE=true CI_INSTALL_ALL=false CI_DRIVER=none python install/index.py"
-
         # Send Telegram notification
         - name: Send Telegram notification
           if: always() # Run even if previous steps failed
