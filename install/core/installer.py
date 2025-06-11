@@ -186,11 +186,11 @@ class SystemInstaller:
 
     # Copy dotfiles to their destinations
     async def _copy_dotfiles(self) -> None:
-        for src, dst, type in self.config.get_all_dotfiles().items():
+        for src, dotfile_config in self.config.get_all_dotfiles().items():
             src_path = Path(src)
-            dst_path = SystemUtils.get_path(dst.dest)
+            dst_path = SystemUtils.get_path(dotfile_config.dest)
     
-            if type == DotfileType.DIR:
+            if dotfile_config.type == DotfileType.DIR:
                 if not await SystemUtils.copy_folder(src_path, dst_path):
                     raise Exception(f"Failed to copy folder: {src_path} to {dst_path}")
             else:
