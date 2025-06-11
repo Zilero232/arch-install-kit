@@ -70,8 +70,9 @@
 
 ### System Monitoring
 
-- `htop` - Process viewer
-- `btop` - Resource monitor
+
+- `neohtop` - System Monitoring [AUR]
+- `dysk` - Disk Check
 - `cpupower` - CPU frequency control
 - `s-tui` - CPU stress test and monitoring [AUR]
 
@@ -144,6 +145,7 @@
 - `github-cli` - GitHub CLI
 - `docker` - Containers
 - `docker-compose` - Container management
+- `lazydocker` - Tool for management [AUR]
 - `postman-bin` - API testing [AUR]
 - `shellcheck` - Script checker
 - `cloc` - Code counter

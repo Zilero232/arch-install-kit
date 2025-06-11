@@ -52,8 +52,7 @@ packages:
       - pacman-contrib
 
       # System Monitoring
-      - htop
-      - btop
+      - dysk
       - cpupower
 
       # Power Management
@@ -164,12 +163,14 @@ packages:
 
   aur:
     system:
+      - neohtop
       - plymouth-theme-deus-ex-git
       - sddm-astronaut-theme
       - wlogout
       - s-tui
       - betterlockscreen
       - i3lock-color
+      - lazydocker
 
     desktop:
       - betterlockscreen

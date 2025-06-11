@@ -92,8 +92,7 @@ class SystemInstaller:
 
     # Install system packages from pacman
     async def _install_system_packages(self) -> None:
-        # pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
-        pacman_packages = ["git", "fakeroot"]
+        pacman_packages = self.config.get_packages(PackageManagerType.PACMAN)
         
         self.logger.info("Installing system packages...")
 
@@ -140,8 +139,7 @@ class SystemInstaller:
 
     # Install packages from AUR
     async def _install_aur_packages(self) -> None:
-        # aur_packages = self.config.get_packages(PackageManagerType.AUR)
-        aur_packages = ["s-tui"]
+        aur_packages = self.config.get_packages(PackageManagerType.AUR)
 
         self.logger.info("Installing AUR packages...")
 
@@ -180,7 +178,6 @@ class SystemInstaller:
     async def _create_default_folders(self) -> None:
         for folder in self.config.get_default_folders():
             folder_path = SystemUtils.get_path(folder)
-            self.logger.info(f"Creating folder: {folder_path}")
 
             if not await SystemUtils.create_folder(folder_path):
                 raise Exception(f"Failed to create folder: {folder_path}")
@@ -193,11 +190,9 @@ class SystemInstaller:
         project_root = Path.cwd()
         self.logger.info(f"Project root: {project_root}")
 
-        for name, dotfile_config in self.config.get_all_dotfiles().items():
+        for _, dotfile_config in self.config.get_all_dotfiles().items():
             src_path = project_root / dotfile_config.source
             dst_path = SystemUtils.get_path(dotfile_config.dest)
-            
-            self.logger.info(f"Copying {name}: {src_path} → {dst_path}")
     
             if dotfile_config.type == DotfileType.DIR:
                 if not await SystemUtils.copy_folder(src_path, dst_path):
