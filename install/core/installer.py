@@ -65,9 +65,18 @@ class SystemInstaller:
             success, output = await SystemUtils.run_command_with_wait([
                 "sudo", "sed", "-i", r"/^\[multilib\]$/,/^\[/ s/^#\(Include = \/etc\/pacman\.d\/mirrorlist\)/\1/", "/etc/pacman.conf"
             ])
-
             if not success:
                 raise Exception(f"Failed to prepare multilib: {output}")
+            
+            # Force update package database to include multilib
+            success, output = await SystemUtils.run_command_with_wait(["sudo", "pacman", "-Sy"])
+            if not success:
+                raise Exception(f"Failed to update package database: {output}")
+            
+            # Verify multilib is available
+            success, output = await SystemUtils.run_command_with_wait(["sudo", "pacman", "-Sl", "multilib"])
+            if not success:
+                raise Exception(f"Multilib repository not available: {output}")
             
             self.logger.success("Multilib repository prepared successfully")
         except Exception as e:
@@ -157,8 +166,7 @@ class SystemInstaller:
             await self._create_default_folders()
             await self._copy_dotfiles()
         except Exception as e:
-            self.logger.error(f"Dotfiles installation error: {e}")
-            raise
+            raise Exception(f"Dotfiles installation error: {e}")
 
     # Create default system folders
     async def _create_default_folders(self) -> None:
