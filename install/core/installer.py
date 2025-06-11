@@ -63,7 +63,7 @@ class SystemInstaller:
             
             # Enable multilib Include line
             success, output = await SystemUtils.run_command_with_wait([
-                "sed", "-i", r"/^\[multilib\]$/,/^\[/ s/^#\(Include = \/etc\/pacman\.d\/mirrorlist\)/\1/", "/etc/pacman.conf"
+                "sudo", "sed", "-i", r"/^\[multilib\]$/,/^\[/ s/^#\(Include = \/etc\/pacman\.d\/mirrorlist\)/\1/", "/etc/pacman.conf"
             ])
 
             if not success:
@@ -99,7 +99,6 @@ class SystemInstaller:
             )
             if not success:
                 raise Exception(f"Failed to clone yay repository: {output}")
-                
                 
              # Build and install yay
             success, output = await SystemUtils.run_command_with_wait(
