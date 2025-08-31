@@ -4,11 +4,13 @@
 
 ### Graphics System
 
-- `xorg-server` - X Window System server
-- `xorg-xinit` - X-server initialization
-- `xorg-xbacklight` - Brightness control
-- `arandr` - Monitor configuration GUI
-- `picom` - Composite manager
+- `wayland` - Wayland display server protocol
+- `xorg-xwayland` - X11 compatibility for Wayland
+- `qt5-wayland` - Qt5 Wayland support
+- `qt6-wayland` - Qt6 Wayland support
+- `wl-clipboard` - Command-line clipboard utilities
+- `hyprland` - Dynamic tiling Wayland compositor
+- `xdg-desktop-portal-hyprland` - XDG Desktop Portal for Hyprland
 
 ### Display Manager
 
@@ -20,13 +22,10 @@
 
 ### Window Manager
 
-- `bspwm` - Tiling window manager
-- `sxhkd` - Hotkey daemon
-- `polybar` - Status bar
-- `dunst` - Notification system
-- `i3lock-color` - Screen locker [AUR]
-- `betterlockscreen` - Screen locker [AUR]
-- `wlogout` - Logout menu [AUR]
+- `waybar` - Highly customizable Wayland bar
+- `swaync` - Notification daemon for Wayland
+- `wlogout` - Logout menu for Wayland
+- `nwg-look` - GTK settings editor for Wayland
 
 ### Audio System
 
@@ -61,7 +60,6 @@
 
 ### System Utilities
 
-- `xfce4-settings` - System settings
 - `timeshift` - System backups
 - `bleachbit` - System cleaner
 - `gnome-disk-utility` - Disk management
@@ -69,7 +67,6 @@
 - `pacman-contrib` - Pacman utilities
 
 ### System Monitoring
-
 
 - `neohtop` - System Monitoring [AUR]
 - `dysk` - Disk Check
@@ -81,7 +78,6 @@
 - `brightnessctl` - Brightness control
 - `tlp` - Power saving
 - `tlp-rdw` - Radio devices
-- `xfce4-power-manager` - Power management
 
 ## 3. User Environment
 
@@ -91,7 +87,6 @@
 
 ### Terminals
 
-- `xterm` - Basic terminal
 - `alacritty` - Modern terminal
 
 ### Command Line
@@ -101,6 +96,7 @@
 - `tmux` - Terminal multiplexer
 - `lsd` - Enhanced ls
 - `bat` - Enhanced cat
+- `fastfetch` - System information
 
 ### File Managers
 
@@ -109,7 +105,6 @@
 - `ranger` - CLI manager
 - `tree` - Directory viewer
 - `ueberzug` - Image preview
-- `xclip` - Clipboard manager
 
 ### Application Launchers
 
@@ -119,12 +114,12 @@
 
 ### Desktop
 
-- `nitrogen` - Wallpaper manager
+- `hyprpaper` - Wallpaper utility for Hyprland  
 - `flameshot` - Screenshots
 - `peek` - GIF recorder
 - `redshift` - Color temperature
 - `gpick` - Color picker
-- `cheese` - Webcam
+- `gnome-calendar` - Calendar
 - `gnome-calculator` - Calculator
 - `gnome-clocks` - Clocks
 - `obs-studio` - Screen recording
@@ -192,7 +187,6 @@
   - `mpv` - Lightweight media player
   - `mpd` - Music server
   - `ncmpcpp` - MPD client
-  - `spotify` - Spotify [AUR] [VPN]
   - `cava` - Visualizer [AUR]
 - Graphics:
   - `pinta` - Editor [AUR]
@@ -226,9 +220,9 @@
 
 ### Themes
 
-- `dracula-gtk-theme` - GTK theme [AUR]
-- `dracula-icons-git` - Icons [AUR]
-- `dracula-cursors-git` - Cursors [AUR]
+- `kanagawa-gtk-theme-git` - GTK theme [AUR]
+- `kanagawa-icon-theme-git` - Icons [AUR]
+- `xcursor-hackneyed-dark` - Cursors [AUR]
 
 ### Fonts
 

@@ -1,18 +1,7 @@
 #!/bin/bash
+res_w=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .width')
+res_h=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .height')
+h_scale=$(hyprctl -j monitors | jq '.[] | select (.focused == true) | .scale' | sed 's/\.//')
+w_margin=$((res_h * 27 / h_scale))
 
-# Kill any running instances.
-killall -q wlogout
-
-# Wait until processes have been shut down.
-while pgrep -u $UID -x wlogout >/dev/null; do 
-    sleep 0.5
-done
-
-# Launch with centered compact layout.
-wlogout \
-    --protocol layer-shell \
-    --buttons-per-row 2 \
-    --margin-top 300 \
-    --margin-bottom 300 \
-    --margin-left 500 \
-    --margin-right 500
+wlogout -b 5 -T $w_margin -B $w_margin

@@ -1,34 +1,7 @@
 # 🛠️ Custom Scripts
 
-A collection of useful scripts to optimize workflow in Linux.
-
-## 🔋 battery_alert
-Battery level monitoring and notifications
-
-**📂 Location:** `~/bin/battery_alert.sh`  
-**⌨️ Hotkeys:** Runs automatically  
-
-**Features:**
-- Low battery warnings
-- Critical battery alerts
-- Customizable threshold levels
-- Power status monitoring
-- Automatic notifications
-
-## 🔄 change_language
-Smart keyboard layout switching
-
-**📂 Location:** `~/bin/change_language.sh`  
-**⌨️ Hotkeys:** `shift + alt`  
-
-**Features:**
-- Switch between Russian and English layouts
-- Instant language change notifications
-- Automatic Polybar indicator updates
-- Visual feedback
-
 ## ⚡ power_menu
-System power management menu
+System power management menu using wlogout
 
 **📂 Location:** `~/bin/power_menu.sh`  
 **⌨️ Hotkeys:** `super + x`  
@@ -39,7 +12,7 @@ System power management menu
 - Logout option
 - Lock screen option
 - Suspend option
-- Stylish rofi interface
+- Stylish wlogout interface
 
 ## 🖼️ random_wallpaper
 Automatic desktop wallpaper changer
@@ -52,24 +25,25 @@ Automatic desktop wallpaper changer
 - JPG and PNG format support
 - Wallpaper change notifications
 - Configurable change interval
+- Hyprland support via hyprpaper
 
-## 🔒 screen_lock
-Stylish screen locking with blur effect
+## 🎮 wallpaperengine
+Wallpaper Engine Integration
 
-**📂 Location:** `~/bin/screen_lock.sh`  
-**⌨️ Hotkeys:** `super + shift + l`  
+**📂 Location:** `~/bin/wallpaperengine.sh`  
+**⌨️ Hotkeys:** Run manually  
 
 **Features:**
-- Current screen snapshot
-- Blur effect application
-- Customizable colors
-- Animated indicators
-- Unauthorized access protection
+- Animated wallpapers support
+- Steam Workshop integration
+- Automatic startup with system
+- Low resource consumption
+- Hardware acceleration support
 
-## 🎯 toggle_polybar
-Elegant status bar visibility management
+## 🎯 toggle_waybar
+Waybar visibility management
 
-**📂 Location:** `~/bin/toggle_polybar.sh`  
+**📂 Location:** `~/bin/toggle_waybar.sh`  
 **⌨️ Hotkeys:** `super + p`  
 
 **Features:**
@@ -90,3 +64,40 @@ Pacman mirror list optimizer
 - Filters by country
 - Backup of old mirror list
 - Status notifications
+
+## 🎨 plymouth_theme
+Plymouth theme setup and configuration
+
+**📂 Location:** `~/bin/plymouth_theme.sh`  
+**⌨️ Hotkeys:** Run manually  
+
+**Features:**
+- Custom Plymouth theme installation
+- Resolution and color scheme configuration
+- GRUB integration
+- Theme preview functionality
+- Automatic configuration updates
+
+## 🖥️ sddm_theme
+SDDM theme setup and configuration
+
+**📂 Location:** `~/bin/sddm_theme.sh`  
+**⌨️ Hotkeys:** Run manually  
+
+**Features:**
+- Custom SDDM theme installation
+- Background and UI element customization
+- Automatic configuration updates
+- HiDPI display support
+
+## 🎮 anti_afk
+Anti-AFK script
+
+**📂 Location:** `~/bin/anti_afk.sh`  
+**⌨️ Hotkeys:** Run manually  
+
+**Features:**
+- User activity simulation
+- Configurable action intervals
+- Hotkey stop functionality
+- Minimal resource usage
