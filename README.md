@@ -34,31 +34,11 @@
 [![Last Commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/commits/main)
 [![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/blob/main/LICENSE)
 
+</div>
+
 <br>
 
 ![Hyprland Preview](./assets/screenshots/hyrpland_preview.png)
-
-</div>
-
-## ✨ Features
-
-- 🎨 **Modern Design** - Hyprland with Catppuccin theme
-- ⚡ **High Performance** - Optimized for speed and responsiveness
-- 🛠️ **Developer Tools** - Full development environment
-- 🔒 **Security Focus** - Enhanced system security
-- 🤖 **Automation** - Streamlined installation process
-
-## 🖥️ System Components
-
-| Category | Software |
-|----------|----------|
-| 🪟 Window Manager | [Hyprland](https://hyprland.org) |
-| 📟 Terminal | [Alacritty](https://alacritty.org) |
-| 🐚 Shell | [Fish](https://fishshell.com) |
-| 📝 Editor | [Vim](https://www.vim.org) |
-| 📂 File Manager | [Thunar](https://docs.xfce.org/xfce/thunar/start) / [Ranger](https://github.com/ranger/ranger) |
-| 📊 Status Bar | [Waybar](https://github.com/Alexays/Waybar) |
-| 🚀 Launcher | [Rofi](https://github.com/davatorium/rofi) |
 
 ## 📸 Gallery
 
@@ -88,6 +68,18 @@
 
 </details>
 
+## 🖥️ System Components
+
+| Category | Software |
+|----------|----------|
+| 🪟 Window Manager | [Hyprland](https://hyprland.org) |
+| 📟 Terminal | [Alacritty](https://alacritty.org) |
+| 🐚 Shell | [Fish](https://fishshell.com) |
+| 📝 Editor | [Vim](https://www.vim.org) |
+| 📂 File Manager | [Thunar](https://docs.xfce.org/xfce/thunar/start) / [Ranger](https://github.com/ranger/ranger) |
+| 📊 Status Bar | [Waybar](https://github.com/Alexays/Waybar) |
+| 🚀 Launcher | [Rofi](https://github.com/davatorium/rofi) |
+
 ## 📚 Documentation
 
 - [🤖 **Automatic Install**](./docs/INSTALL_AUTO.md) - Quick setup guide
@@ -96,12 +88,6 @@
 - [⚙️ **System Config**](./docs/SYSTEM_SETTINGS.md) - Configuration details
 - [🔧 **Shell Scripts**](./docs/SHELL_SCRIPTS.md) - Utility scripts
 - [🐟 **Fish Shell**](./docs/FISH_SHELL.md) - Shell configuration
-
-## ⚡ Requirements
-
-- 💿 Arch Linux base system
-- 🌐 Active internet connection
-- 💻 Basic terminal knowledge
 
 ## 🤝 Contributing
 
