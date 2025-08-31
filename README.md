@@ -41,6 +41,12 @@
 <details>
 <summary>🎬 Click to see more screenshots</summary>
 
+### 📊 Hyprland Preview
+![Hyprland Preview](./assets/screenshots/hyrpland_preview.png)
+
+### 📊 Waybar Preview  
+![Waybar Preview](./assets/screenshots/waybar_preview.png)
+
 ### 🖥️ Calendar and Calculator View
 ![Calendar and Calculator](./assets/screenshots/calendar_calculator.png)
 
