@@ -1,79 +1,93 @@
+/* -----------------------------------------------------
+ * Import Pywal colors
+ * ----------------------------------------------------- */
+@import 'colors.css';
+
+/* -----------------------------------------------------
+ * General
+ * ----------------------------------------------------- */
+
 * {
-    background-image: none;
-    font-size: 30px;
+	font-family: 'JetBrains Mono', sans-serif;
+	background-image: none;
+	transition: 20ms;
+	box-shadow: none;
 }
 
 window {
-    background-color: rgba(0, 0, 0, 0.5);
+	background: @blur_background;
+	background-size: cover;
+	font-size: 16pt;
 }
 
 button {
-    color: #f8f8f2;
-    background-color: rgba(68, 71, 90, 0.7);
-    outline-style: none;
-    border: none;
-    border-width: 0px;		
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 10%;
-    border-radius: 0px;
-    box-shadow: none;
-    text-shadow: none;
-    animation: gradient_f 20s ease-in infinite;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20%;
+	animation: gradient_f 20s ease-in infinite;
+	border-radius: 80px; /* Increased border radius for a more rounded look */
+	border: 0px;
+	transition: all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682),
+		box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+	color: @foreground;
 }
 
 button:focus {
-    background-color: rgba(189, 147, 249, 0.7);
-    background-size: 20%;
+	background-size: 22%;
+	border: 0px;
 }
 
 button:hover {
-    background-color: rgba(98, 114, 164, 0.7);
-    background-size: 25%;
-    border-radius: 15px;
-    transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+	background-color: @button_hover_background_color;
+	opacity: 0.8;
+	color: @button_hover_text_color;
+	background-size: 30%;
+	margin: 30px;
+	border-radius: 80px;
+	box-shadow: 0 0 50px @button_hover_shadow;
 }
 
-button:hover#lock {
-    border-radius: 15px 15px 0px 15px;
-    margin: 10px 0px 0px 10px;
+/* Adjust the size of the icon or content inside the button */
+button span {
+	font-size: 1.2em; /* Increase the font size */
 }
 
-button:hover#logout {
-    border-radius: 15px 0px 15px 15px;
-    margin: 0px 0px 10px 10px;
-}
-
-button:hover#shutdown {
-    border-radius: 15px 15px 15px 0px;
-    margin: 10px 10px 0px 0px;
-}
-
-button:hover#reboot {
-    border-radius: 0px 15px 15px 15px;
-    margin: 0px 10px 10px 0px;
-}
+/* -----------------------------------------------------
+ * Buttons
+ * ----------------------------------------------------- */
 
 #lock {
-    background-image: image(url("/usr/share/wlogout/icons/lock.png"));
-    border-radius: 40px 0px 0px 0px;
-    margin : 20px 0px 0px 30px;
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url('icons/lock.png'));
 }
 
 #logout {
-    background-image: image(url("/usr/share/wlogout/icons/logout.png"));
-    border-radius: 0px 0px 0px 40px;
-    margin : 0px 0px 20px 30px;
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url('icons/logout.png'));
+}
+
+#suspend {
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url('icons/suspend.png'));
+}
+
+#hibernate {
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url('icons/hibernate.png'));
 }
 
 #shutdown {
-    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"));
-    border-radius: 0px 40px 0px 0px;
-    margin : 20px 30px 0px 0px;
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url('icons/shutdown.png'));
 }
 
 #reboot {
-    background-image: image(url("/usr/share/wlogout/icons/reboot.png"));
-    border-radius: 0px 0px 40px 0px;
-    margin : 0px 30px 20px 0px;
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url('icons/reboot.png'));
 }

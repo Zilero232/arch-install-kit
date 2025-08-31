@@ -1,0 +1,8 @@
+/*
+* Css Colors
+*/
+@define-color blur_background rgba(26, 17, 15, 0.9);
+
+@define-color button_hover_text_color #55200c;
+@define-color button_hover_background_color #ffb59d;
+@define-color button_hover_shadow #000000;

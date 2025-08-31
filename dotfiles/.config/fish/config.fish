@@ -3,8 +3,8 @@
 # =================
 set -U fish_greeting                      # Disable greeting
 set -gx TERM xterm-256color               # 256 colors support
-set -gx EDITOR micro                      # Default editor
-set -gx VISUAL micro                      # Visual editor
+set -gx EDITOR vim                        # Default editor
+set -gx VISUAL vim                        # Visual editor
 set -gx BROWSER google-chrome-stable      # Browser
 
 # ================
@@ -25,32 +25,39 @@ set fish_color_escape magenta
 set fish_color_autosuggestion brblack
 set fish_color_valid_path --underline
 
-# ===========
-# PATH
-# ===========
-if test -d ~/.local/bin
-    set -gx PATH ~/.local/bin $PATH
-end
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
 
 # =======
 # ALIASES
 # =======
 
-# Basic
-alias cls="clear"
+# Packages management
+alias n="npm"
+alias y="yarn"
+alias p="pnpm"
+alias c="composer"
+alias m="make"
+alias t="tmux"
 alias g="git"
-alias n="nvim"
-alias m="micro"
+alias h="history"
 
 # System management
 alias syslog="sudo dmesg --level=err,warn"
 alias journal="journalctl -xef"
 alias vacuum="journalctl --vacuum-size=100M"
-alias update="sudo pacman -Syu"
 
 # Network
 alias myip="curl ifconfig.me"
 alias ports="netstat -tulanp"
+
+# Plymouth theme management
+alias plymouth_theme_list="~/bin/plymouth_theme.sh list"
+alias plymouth_theme_set="~/bin/plymouth_theme.sh set"
+
+# SDDM theme management
+alias sddm_theme="~/bin/sddm_theme.sh"
 
 # =========
 # FUNCTIONS
@@ -75,51 +82,5 @@ function pack
     end
 end
 
-# Show weather
-function weather
-    if test -n "$argv[1]"
-        curl -s "wttr.in/$argv[1]?format=3"
-    else
-        curl -s "wttr.in/?format=3"
-    end
-end
-
-# Plymouth theme management
-function list-themes
-    if command -v plymouth-set-default-theme >/dev/null
-        plymouth-set-default-theme -l
-    else
-        echo "Plymouth is not installed. Please install plymouth first."
-    end
-end
-
-function set-theme
-    if test (count $argv) = 1
-        if command -v plymouth-set-default-theme >/dev/null
-            # Check if theme exists in the list
-            if plymouth-set-default-theme -l | string match -q -- $argv[1]
-                sudo plymouth-set-default-theme -R $argv[1]
-
-                echo "Theme '$argv[1]' has been set successfully."
-            else
-                echo "Theme '$argv[1]' not found. Use 'list-themes' to see available themes."
-            end
-        else
-            echo "Plymouth is not installed. Please install plymouth first."
-        end
-    else
-        echo "Usage: set-theme <theme-name>"
-        echo "Use 'list-themes' to see available themes."
-    end
-end
-
-# SDDM theme setup
-function set-sddm-theme
-    if test -f /usr/share/sddm/themes/sddm-astronaut-theme/setup.sh
-        sudo sh /usr/share/sddm/themes/sddm-astronaut-theme/setup.sh
-
-        echo "SDDM Astronaut theme has been set successfully."
-    else
-        echo "SDDM Astronaut theme is not installed. Please install it first."
-    end
-end
+# oh-my-posh custom prompt
+oh-my-posh init fish --config $HOME/.config/ohmyposh/config.json | source

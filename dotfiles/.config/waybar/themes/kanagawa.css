@@ -1,0 +1,60 @@
+/*
+* Kanagawa palette
+*/
+
+/* Base colors */
+@define-color base   #1f1f28;
+@define-color mantle #16161d;
+@define-color crust  #0d0d14;
+
+/* Text colors */
+@define-color text     #dcd7ba;
+@define-color subtext0 #a89984;
+@define-color subtext1 #c8c093;
+
+/* Surface colors */
+@define-color surface0 #2a2a37;
+@define-color surface1 #363646;
+@define-color surface2 #43436f;
+
+/* Overlay colors */
+@define-color overlay0 #565575;
+@define-color overlay1 #727169;
+@define-color overlay2 #8b8b8b;
+
+/* Accent colors */
+@define-color blue      #7aa89f;
+@define-color lavender  #a4b9ef;
+@define-color sapphire  #7fb4ca;
+@define-color sky       #7dc4e4;
+@define-color teal      #6a9589;
+@define-color green     #76946a;
+@define-color yellow    #dca561;
+@define-color peach     #ffa066;
+@define-color maroon    #e46876;
+@define-color red       #e82424;
+@define-color mauve     #957fb8;
+@define-color pink      #d27e99;
+@define-color flamingo  #e82424;
+@define-color rosewater #dcd7ba;
+
+/* Additional styling variables - using solid colors instead of rgba */
+@define-color background-primary   #1f1f28;
+@define-color background-secondary #2a2a37;
+@define-color background-hover     #363646;
+@define-color border-color         #565575;
+
+/* Status colors */
+@define-color success @green;
+@define-color warning @yellow;
+@define-color error   @red;
+@define-color info    @blue;
+
+/* Module-specific background colors */
+@define-color bg-workspaces #2a2a37;
+@define-color bg-clock      #7aa89f;
+@define-color bg-system     #363646;
+@define-color bg-network    #363646;
+@define-color bg-audio      #363646;
+@define-color bg-launcher   #957fb8;
+@define-color bg-power      #e82424;

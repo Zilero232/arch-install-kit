@@ -32,14 +32,14 @@ Welcome to my meticulously crafted Arch Linux configuration! This repository hou
 ### 💻 CLI File Manager
 ![CLI File Manager](./assets/screenshots/file_manager_cli.png)
 
-### 🎵 Music Visualization
-![Music with Cava](./assets/screenshots/music_cava.png)
+### 💻 Application manager
+![Application manager](./assets/screenshots/application_manager.png)
 
 ### 📊 System Information
 ![System Info](./assets/screenshots/system_information.png)
 
-### 📈 Task Manager
-![Task Manager](./assets/screenshots/task_manager.png)
+### 📈 Several Terminals
+![Task Manager](./assets/screenshots/several_terminals.png)
 
 </details>
 
@@ -71,17 +71,19 @@ Welcome to my meticulously crafted Arch Linux configuration! This repository hou
 - 🤖 Automation scripts
 
 ## 🖥️ System Components
-
+ 
 | Category | Software |
 |----------|----------|
-| 🪟 Window Manager | bspwm |
+| 🪟 Window Manager | Hyprland |
 | 📟 Terminal | Alacritty |
 | 🐚 Shell | fish |
 | 📝 Editor | Vim / Neovim |
 | 📂 File Manager | thunar / ranger |
-| 📊 Status Bar | Polybar |
-| 🔔 Notifications | Dunst |
+| 📊 Status Bar | Waybar |
+| 🔔 Notifications | swaync |
 | 🚀 Launcher | Rofi |
+| 🎨 Display Manager | SDDM |
+| 🎮 Boot Splash | Plymouth |
 
 ## ⚡ Requirements
 

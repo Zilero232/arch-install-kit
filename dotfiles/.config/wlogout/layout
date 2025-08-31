@@ -1,27 +1,30 @@
 {
 	"label" : "lock",
-	"action" : "$HOME/bin/screen_lock.sh",
-	"text" : "Lock (L)",
+	"action" : "hyprlock",
+	"text" : "Lock",
 	"keybind" : "l"
 }
-
 {
 	"label" : "logout",
-	"action" : "systemctl suspend && $HOME/bin/screen_lock.sh",
-	"text" : "Logout (E)",
+	"action" : "hyprctl dispatch exit",
+	"text" : "Log Out",
 	"keybind" : "e"
 }
-
 {
-	"label" : "shutdown",
-	"action" : "systemctl poweroff",
-	"text" : "Shutdown (S)",
-	"keybind" : "s"
+	"label" : "suspend",
+	"action" : "systemctl suspend",
+	"text" : "Suspend",
+	"keybind" : "u"
 }
-
 {
 	"label" : "reboot",
 	"action" : "systemctl reboot",
-	"text" : "Restart (R)",
+	"text" : "Restart",
 	"keybind" : "r"
+}
+{
+	"label" : "shutdown",
+	"action" : "systemctl poweroff",
+	"text" : "Power Off",
+	"keybind" : "s"
 }

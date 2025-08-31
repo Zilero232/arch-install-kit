@@ -1,0 +1,142 @@
+/* Color scheme - Kanagawa style */
+* {
+    bg: #1f1f23ee;            // Main background with transparency (Sumi Ink)
+    bg-alt: #2a2a37;          // Alternative background (Sumi Ink 2)
+    bg-selected: #7aa89f;     // Selected item background (Carp Yellow)
+    
+    fg: #dcd7ba;              // Main text color (Fuji White)
+    fg-alt: #727169;          // Alternative text color (Old White)
+    fg-selected: #1f1f23;     // Selected item text color (Sumi Ink)
+    
+    // Reset all styles
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+}
+
+/* Window style */
+window {
+    fullscreen: true;
+    transparency: "real";
+    background-color: @bg;
+    padding: 90px 150px;
+}
+
+/* Main container */
+mainbox {
+    padding: 20px;
+    background-color: transparent;
+}
+
+/* Search bar */
+inputbar {
+    background-color: @bg-alt;
+    padding: 12px;
+    margin: 0px 0px 20px 0px;
+    border-radius: 8px;
+    font: "JetBrainsMono Nerd Font 20";
+    children: [prompt, entry];
+}
+
+/* Search input field */
+entry {
+    background-color: transparent;
+    text-color: @fg;
+    placeholder-color: @fg-alt;
+    placeholder: "Type to search...";
+    padding: 4px;
+}
+
+/* Prompt before search input */
+prompt {
+    background-color: transparent;
+    text-color: @fg;
+    padding: 4px;
+    margin: 0px 8px 0px 0px;
+}
+
+/* Grid of items */
+listview {
+    lines: 6;                 // Number of rows
+    columns: 5;               // Number of columns
+    spacing: 20px;            // Space between items
+    fixed-columns: true;
+    background-color: transparent;
+}
+
+/* Individual item style */
+element {
+    orientation: vertical;     // Icon above text
+    padding: 20px 10px;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+/* Normal item */
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+/* Alternate item (every second) */
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+/* Selected item */
+element selected.normal {
+    background-color: @bg-selected;
+    text-color: @fg-selected;
+}
+
+/* Application icon */
+element-icon {
+    size: 64px;              // Icon size
+    horizontal-align: 0.5;    // Center horizontally
+    background-color: transparent;
+}
+
+/* Application name */
+element-text {
+    horizontal-align: 0.5;    // Center horizontally
+    vertical-align: 0.5;      // Center vertically
+    background-color: transparent;
+    text-color: inherit;
+    margin: 8px 0px 0px 0px;  // Space between icon and text
+}
+
+/* Mode switcher at the bottom */
+mode-switcher {
+    spacing: 20px;
+    background-color: transparent;
+    margin: 20px 0px 0px 0px;
+}
+
+/* Mode switcher buttons */
+button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: @bg-alt;
+    text-color: @fg;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+/* Selected mode button */
+button selected {
+    background-color: @bg-selected;
+    text-color: @fg-selected;
+}
+
+/* Scrollbar styling */
+scrollbar {
+    width: 4px;              // Bar width
+    border: 0;
+    handle-width: 8px;
+    padding: 0;
+    handle-color: @bg-selected;
+    background-color: @bg-alt;
+    margin: 0px 0px 0px 10px;
+}
