@@ -1,18 +1,42 @@
 <div align="center">
 
-# 🌟 Arch Install Kit
+# 🚀 Arch Install Kit
 ### *Meticulously crafted Arch Linux configuration for developers*
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=4000&pause=1000&color=89B4FA&center=true&vCenter=true&width=600&lines=Modern+Hyprland+Setup;Developer-Focused+Environment;Beautiful+%26+Functional;Automated+Installation" alt="Typing SVG" />
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&duration=3500&pause=900&color=89B4FA&center=true&vCenter=true&width=760&lines=Modern+Hyprland+Setup;Beautiful+%26+Functional+Desktop;Developer-Focused+Environment;Fully+Automated+Installation" alt="Typing SVG" />
 
+<br>
+
+<a href="./docs/INSTALL_AUTO.md">
+  <img alt="Quick Install" src="https://img.shields.io/badge/Quick%20Install-1e1e2e?style=for-the-badge&logo=arch-linux&logoColor=89B4FA">
+</a>
+<a href="./docs/INSTALL_MANUALLY.md">
+  <img alt="Manual Install" src="https://img.shields.io/badge/Manual%20Install-1e1e2e?style=for-the-badge&logo=markdown&logoColor=94E2D5">
+</a>
+<a href="./docs/ARCH_SOFTWARE.md">
+  <img alt="Software List" src="https://img.shields.io/badge/Software%20List-1e1e2e?style=for-the-badge&logo=discover&logoColor=FAB387">
+</a>
+
+<br><br>
+
+### 🛠️ Tech Stack
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-2E3440?style=for-the-badge&logo=linux&logoColor=81A1C1)](https://hyprland.org)
+[![Waybar](https://img.shields.io/badge/Waybar-1f2335?style=for-the-badge&logo=gnome&logoColor=8AADF4)](https://github.com/Alexays/Waybar)
+[![Rofi](https://img.shields.io/badge/Rofi-0f1419?style=for-the-badge&logo=rofi&logoColor=EBA0AC)](https://github.com/davatorium/rofi)
 [![Vim](https://img.shields.io/badge/Vim-019733?style=for-the-badge&logo=vim&logoColor=white)](https://www.vim.org)
 [![Alacritty](https://img.shields.io/badge/Alacritty-F46D01?style=for-the-badge&logo=alacritty&logoColor=white)](https://alacritty.org)
 
+<br>
+
+### 📊 Project Stats
 [![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=c9cbff&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/stargazers)
 [![Last Commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/commits/main)
 [![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/blob/main/LICENSE)
+
+<br>
+
+![Hyprland Preview](./assets/screenshots/hyrpland_preview.png)
 
 </div>
 
@@ -41,9 +65,6 @@
 <details>
 <summary>🎬 Click to see more screenshots</summary>
 
-### 📊 Hyprland Preview
-![Hyprland Preview](./assets/screenshots/hyrpland_preview.png)
-
 ### 📊 Waybar Preview  
 ![Waybar Preview](./assets/screenshots/waybar_preview.png)
 
@@ -59,8 +80,8 @@
 ### 💻 Application Manager
 ![Application manager](./assets/screenshots/application_manager.png)
 
-### 📈 Task Manager
-![Task Manager](./assets/screenshots/task_manager.png)
+### 🔓 Wlogout Menu
+![Wlogout](./assets/screenshots/wlogout_preview.png)
 
 ### 📈 Several Terminals
 ![Several Terminals](./assets/screenshots/several_terminals.png)
