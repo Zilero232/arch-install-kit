@@ -1,27 +1,45 @@
-# 🎯 Arch Linux Configuration by Artemev Alexandr
-
 <div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red.svg)](https://borodin.site)
-[![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=flat)](https://archlinux.org)
-[![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=social)](https://github.com/Zilero232/arch-install-kit)
-[![Last Commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit)](https://github.com/Zilero232/arch-install-kit/commits/main)
-[![Issues](https://img.shields.io/github/issues/Zilero232/arch-install-kit)](https://github.com/Zilero232/arch-install-kit/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/Zilero232/arch-install-kit)](https://github.com/Zilero232/arch-install-kit/pulls)
-[![Maintenance](https://img.shields.io/maintenance/yes/2024)](https://github.com/Zilero232/arch-install-kit)
-[![GitHub followers](https://img.shields.io/github/followers/Zilero232?style=social)](https://github.com/Zilero232)
+# 🌟 Arch Install Kit
+### *Meticulously crafted Arch Linux configuration for developers*
+
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=4000&pause=1000&color=89B4FA&center=true&vCenter=true&width=600&lines=Modern+Hyprland+Setup;Developer-Focused+Environment;Beautiful+%26+Functional;Automated+Installation" alt="Typing SVG" />
+
+[![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
+[![Hyprland](https://img.shields.io/badge/Hyprland-2E3440?style=for-the-badge&logo=linux&logoColor=81A1C1)](https://hyprland.org)
+[![Vim](https://img.shields.io/badge/Vim-019733?style=for-the-badge&logo=vim&logoColor=white)](https://www.vim.org)
+[![Alacritty](https://img.shields.io/badge/Alacritty-F46D01?style=for-the-badge&logo=alacritty&logoColor=white)](https://alacritty.org)
+
+[![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=c9cbff&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/commits/main)
+[![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/blob/main/LICENSE)
 
 </div>
 
-## 🌟 Overview
+## ✨ Features
 
-Welcome to my meticulously crafted Arch Linux configuration! This repository houses my personal setup, designed for maximum productivity and aesthetic appeal.
+- 🎨 **Modern Design** - Hyprland with Catppuccin theme
+- ⚡ **High Performance** - Optimized for speed and responsiveness
+- 🛠️ **Developer Tools** - Full development environment
+- 🔒 **Security Focus** - Enhanced system security
+- 🤖 **Automation** - Streamlined installation process
 
-## 📸 Screenshots
+## 🖥️ System Components
+
+| Category | Software |
+|----------|----------|
+| 🪟 Window Manager | [Hyprland](https://hyprland.org) |
+| 📟 Terminal | [Alacritty](https://alacritty.org) |
+| 🐚 Shell | [Fish](https://fishshell.com) |
+| 📝 Editor | [Vim](https://www.vim.org) |
+| 📂 File Manager | [Thunar](https://docs.xfce.org/xfce/thunar/start) / [Ranger](https://github.com/ranger/ranger) |
+| 📊 Status Bar | [Waybar](https://github.com/Alexays/Waybar) |
+| 🚀 Launcher | [Rofi](https://github.com/davatorium/rofi) |
+
+## 📸 Gallery
 
 <details>
-<summary>✨ Click to see the magic!</summary>
+<summary>🎬 Click to see more screenshots</summary>
 
 ### 🖥️ Calendar and Calculator View
 ![Calendar and Calculator](./assets/screenshots/calendar_calculator.png)
@@ -32,58 +50,25 @@ Welcome to my meticulously crafted Arch Linux configuration! This repository hou
 ### 💻 CLI File Manager
 ![CLI File Manager](./assets/screenshots/file_manager_cli.png)
 
-### 💻 Application manager
+### 💻 Application Manager
 ![Application manager](./assets/screenshots/application_manager.png)
 
-### 📊 System Information
-![System Info](./assets/screenshots/system_information.png)
+### 📈 Task Manager
+![Task Manager](./assets/screenshots/task_manager.png)
 
 ### 📈 Several Terminals
-![Task Manager](./assets/screenshots/several_terminals.png)
+![Several Terminals](./assets/screenshots/several_terminals.png)
 
 </details>
 
 ## 📚 Documentation
 
-### 📖 Installation Guides
-- [🤖 Automatic Installation](./docs/INSTALL_AUTO.md)
-  > Streamlined installation process with automation scripts
-
-- [📝 Manual Installation](./docs/INSTALL_MANUALLY.md)
-  > Detailed step-by-step guide for customized setup
-
-### ⚙️ Configuration
-- [📦 Software Collection](./docs/ARCH_SOFTWARE.md)
-  > Curated list of essential software and tools
-
-- [🛠️ System Settings](./docs/SYSTEM_SETTINGS.md)
-  > Optimized system configurations
-
-- [🔧 Shell Scripts](./docs/SHELL_SCRIPTS.md)
-  > Utility scripts for system maintenance
-
-## ✨ Features
-
-- 🎨 Minimal and elegant design
-- ⚡ Performance optimizations
-- 🔒 Security enhancements
-- 🎯 Developer-focused tools
-- 🤖 Automation scripts
-
-## 🖥️ System Components
- 
-| Category | Software |
-|----------|----------|
-| 🪟 Window Manager | Hyprland |
-| 📟 Terminal | Alacritty |
-| 🐚 Shell | fish |
-| 📝 Editor | Vim / Neovim |
-| 📂 File Manager | thunar / ranger |
-| 📊 Status Bar | Waybar |
-| 🔔 Notifications | swaync |
-| 🚀 Launcher | Rofi |
-| 🎨 Display Manager | SDDM |
-| 🎮 Boot Splash | Plymouth |
+- [🤖 **Automatic Install**](./docs/INSTALL_AUTO.md) - Quick setup guide
+- [📝 **Manual Install**](./docs/INSTALL_MANUALLY.md) - Detailed installation steps
+- [📦 **Software List**](./docs/ARCH_SOFTWARE.md) - Available packages
+- [⚙️ **System Config**](./docs/SYSTEM_SETTINGS.md) - Configuration details
+- [🔧 **Shell Scripts**](./docs/SHELL_SCRIPTS.md) - Utility scripts
+- [🐟 **Fish Shell**](./docs/FISH_SHELL.md) - Shell configuration
 
 ## ⚡ Requirements
 
@@ -93,43 +78,31 @@ Welcome to my meticulously crafted Arch Linux configuration! This repository hou
 
 ## 🤝 Contributing
 
-We'd love for you to contribute to `arch-install-kit`! Whether it's reporting bugs, suggesting features, or submitting pull requests, your help is always appreciated.
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing`)
+3. Commit changes (`git commit -am 'Add amazing feature'`)
+4. Push branch (`git push origin feature/amazing`)
+5. Open a Pull Request
 
-### How to contribute:
+## 👤 Author
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Make your changes.
-4. Commit your changes (`git commit -am 'Add new feature'`).
-5. Push to the branch (`git push origin feature/your-feature`).
-6. Open a pull request.
+<p align="center">
+  <a href="https://career.habr.com/zilero">
+    <img width="100px" src="https://avatars.githubusercontent.com/u/68345676?s=400&u=eb7df22c29a8aca48def78ec54a7526601c9fd8f&v=4" alt="Avatar"/>
+    <br/>
+    <sub><b>Artemev Alexandr</b></sub>
+  </a>
+</p>
 
-## 📜 Code of Conduct
-
-Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) when participating in this project to ensure a welcoming and productive atmosphere.
-
-## 🔒 Security Policy
-
-Security is our priority. If you encounter any issues, please read our full [Security Policy](SECURITY.md) to report vulnerabilities safely and responsibly.
-
-## 👥 Team
-
-These folks keep the project moving and are resources for help.
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="11%">
-        <a href="https://career.habr.com/zilero">
-          <img src="https://avatars.githubusercontent.com/u/68345676?s=400&u=eb7df22c29a8aca48def78ec54a7526601c9fd8f&v=4" width="100" height="100" alt="Artemev Alexandr - Avatar">
-          <br />
-          Artemev A. A.
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<p align="center">
+  <a href="https://github.com/Zilero232" alt="Github">
+    <img src="https://img.shields.io/badge/-Github-181717?style=for-the-badge&logo=github&logoColor=white"/>
+  </a>
+  <a href="https://career.habr.com/zilero" alt="Habr">
+    <img src="https://img.shields.io/badge/-Habr-65A3BE?style=for-the-badge&logo=habr&logoColor=white"/>
+  </a>
+</p>
 
 ## 📄 License
 
-License `arch-install-kit` is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
