@@ -97,6 +97,7 @@
 - `lsd` - Enhanced ls
 - `bat` - Enhanced cat
 - `fastfetch` - System information
+- `oh-my-posh` - PowerShell prompt theme engine [AUR]
 
 ### File Managers
 
@@ -133,6 +134,7 @@
 - `cursor-bin` - AI IDE [AUR]
 - `phpstorm` - PHP IDE [AUR] [VPN]
 - `phpstorm-jre` - Java Runtime for PhpStorm [AUR] [VPN]
+- `android-studio` - Android development IDE [AUR]
 
 ### Development Tools
 
@@ -150,6 +152,8 @@
 - `meson` - Build system
 - `composer` - PHP dependencies
 - `meld` - Visual diff and merge tool
+- `dbeaver` - Database management tool [AUR]
+- `tableplus` - Modern database client [AUR]
 
 ### Programming Languages
 
@@ -163,6 +167,9 @@
   - `npm` - Package manager
   - `npm-check-updates` - Check for npm package updates
   - `nvm` - Version manager [AUR]
+- Databases:
+  - `postgresql` - PostgreSQL database server
+  - `postgresql-libs` - PostgreSQL client libraries
 
 ## 5. Applications
 
@@ -192,6 +199,8 @@
   - `pinta` - Editor [AUR]
   - `gthumb` - Viewer
   - `figma-linux` - Figma [AUR]
+- Gaming:
+  - `steam` - Gaming platform [multilib]
 
 ### Office
 
