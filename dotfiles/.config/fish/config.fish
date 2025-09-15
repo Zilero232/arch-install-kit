@@ -37,6 +37,7 @@ set --export PATH $BUN_INSTALL/bin $PATH
 alias n="npm"
 alias y="yarn"
 alias p="pnpm"
+alias b="bun"
 alias c="composer"
 alias m="make"
 alias t="tmux"
