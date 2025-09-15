@@ -29,11 +29,11 @@
 
 ### Audio System
 
-- `pipewire` - Modern audio server
-- `pipewire-pulse` - PulseAudio replacement
-- `pipewire-alsa` - ALSA integration
-- `pipewire-jack` - JACK integration
-- `wireplumber` - Session manager for PipeWire
+### Audio System
+
+- `pulseaudio` - Audio server
+- `pulseaudio-alsa` - ALSA integration
+- `pulseaudio-jack` - JACK integration
 - `pavucontrol` - Audio mixer
 - `pamixer` - CLI audio control
 - `sound-theme-freedesktop` - Standard system sounds
