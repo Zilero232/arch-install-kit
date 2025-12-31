@@ -87,15 +87,15 @@ In the archinstall interactive menu, select the following parameters:
    - Recommended to enable
 
 6. **Profile** 👤
-   - Desktop environment: choose desired environment (e.g., GNOME, KDE, XFCE)
-   - Audio: `pipewire`
+   - Type: `Minimal`
+   - Audio: `No audio server` (will be installed later)
 
 7. **User account** 🔑
    - Create a user and set password
    - Enable sudo for the user
 
 8. **Additional packages** 📦
-   - Recommended packages: `iwd, vim`
+   - Recommended packages: `git vim base-devel`
 
 9. **Network configuration** 🌐
    - Select `NetworkManager`
@@ -114,11 +114,13 @@ reboot
 
 ### First Boot 🌟
 
-1. Log in using the created user account
-2. Check internet connection
-3. Update the system:
-
 ```bash
+# Log in using the created user account
+
+# Check internet connection
+ping -c 3 google.com
+
+# Update the system
 sudo pacman -Syu
 ```
 
@@ -127,3 +129,11 @@ sudo pacman -Syu
 - archinstall significantly simplifies the installation process by automating many steps ✅
 - All core components (bootloader, network, localization) are configured automatically 🔄
 - If you need more detailed configuration, it's recommended to use the [manual installation method](./INSTALL_MANUALLY.md) 📖
+
+---
+
+## 📖 Next Steps
+
+After installing Arch Linux, proceed with dotfiles configuration:
+
+➡️ [**Config Setup Guide**](./CONFIG_SETUP.md) - Install Hyprland and transfer dotfiles

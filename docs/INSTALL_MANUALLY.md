@@ -79,7 +79,7 @@ mount /dev/sda3 /mnt/boot/EFI
 ### 5. Installing Base System ⚙️
 ```bash
 # Install base software
-pacstrap -K /mnt base base-devel linux linux-firmware iwd dhcpcd networkmanager vim
+pacstrap -K /mnt base base-devel linux linux-firmware networkmanager vim git
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -164,24 +164,14 @@ systemctl start NetworkManager
 nmcli device wifi list
 nmcli device wifi connect SSID password PASSWORD
 
-# Install Xorg and necessary components
-pacman -S xorg xorg-xinit xterm
-
-# Install video drivers (choose appropriate for your graphics card)
-
-# For Intel:
-pacman -S xf86-video-intel
-# For NVIDIA:
-pacman -S nvidia nvidia-utils
-# For AMD:
-pacman -S xf86-video-amdgpu
-
-# Create xinit configuration file
-cp /etc/X11/xinit/xinitrc ~/.xinitrc
-
-# Test X server
-startx
+# Update the system
+sudo pacman -Syu
 ```
 
-## Additional Information 📚
-Detailed guide for system configuration after installation can be found in [SYSTEM_SETTINGS.md](./SYSTEM_SETTINGS.md)
+---
+
+## 📖 Next Steps
+
+After installing Arch Linux, proceed with dotfiles configuration:
+
+➡️ [**Config Setup Guide**](./CONFIG_SETUP.md) - Install Hyprland and transfer dotfiles

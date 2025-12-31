@@ -84,8 +84,8 @@
 
 - [🤖 **Automatic Install**](./docs/INSTALL_AUTO.md) - Quick setup guide
 - [📝 **Manual Install**](./docs/INSTALL_MANUALLY.md) - Detailed installation steps
+- [⚙️ **Config Setup**](./docs/CONFIG_SETUP.md) - Transfer dotfiles to new system
 - [📦 **Software List**](./docs/ARCH_SOFTWARE.md) - Available packages
-- [⚙️ **System Config**](./docs/SYSTEM_SETTINGS.md) - Configuration details
 - [🔧 **Shell Scripts**](./docs/SHELL_SCRIPTS.md) - Utility scripts
 - [🐟 **Fish Shell**](./docs/FISH_SHELL.md) - Shell configuration
 

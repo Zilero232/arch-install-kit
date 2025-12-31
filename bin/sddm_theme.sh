@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -f /usr/share/sddm/themes/sddm-astronaut-theme/setup.sh ]; then
-    if sudo sh /usr/share/sddm/themes/sddm-astronaut-theme/setup.sh; then
+    if sh /usr/share/sddm/themes/sddm-astronaut-theme/setup.sh; then
         echo "SDDM Astronaut theme has been set successfully."
 
         notify-send "SDDM Astronaut theme has been set successfully" "dialog-ok"
