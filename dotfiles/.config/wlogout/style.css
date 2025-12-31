@@ -1,11 +1,15 @@
-/* -----------------------------------------------------
- * Import Pywal colors
- * ----------------------------------------------------- */
-@import 'colors.css';
+/*
+* Css Colors
+*/
+@define-color blur_background rgba(26, 17, 15, 0.9);
+
+@define-color button_hover_text_color #55200c;
+@define-color button_hover_background_color #ffb59d;
+@define-color button_hover_shadow #000000;
 
 /* -----------------------------------------------------
- * General
- * ----------------------------------------------------- */
+* General
+* ----------------------------------------------------- */
 
 * {
 	font-family: 'JetBrains Mono', sans-serif;
@@ -53,8 +57,8 @@ button span {
 }
 
 /* -----------------------------------------------------
- * Buttons
- * ----------------------------------------------------- */
+* Buttons
+* ----------------------------------------------------- */
 
 #lock {
 	margin: 10px;
