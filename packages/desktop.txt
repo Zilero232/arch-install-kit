@@ -4,4 +4,5 @@ rofi rofi-calc rofi-emoji
 alacritty fish fisher oh-my-posh-bin tmux lsd bat fastfetch
 thunar thunar-archive-plugin gvfs ranger tree ueberzugpp
 calcurse neohtop-bin s-tui
+wttrbar waybar-module-pacman-updates-git waypaper  # weather, updates, wallpaper picker
 firefox google-chrome telegram-desktop

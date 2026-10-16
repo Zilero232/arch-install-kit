@@ -68,7 +68,7 @@ The `dotfiles` module deploys them in one of two ways:
 - **copy** (default) — `rsync --backup`: replaced files go to `~/.config-backup/<date>/`;
 - **symlinks** (`--link`) — [GNU Stow](https://www.gnu.org/software/stow/): `~/.config/hypr` points into the repo, so edits show up in `git status` right away.
 
-Secrets never land in the repo: the weather key lives in `~/.config/waybar/weather.env`, which is in `.gitignore`.
+No secrets live in the repo, and none are needed: the weather module works without an API key.
 
 ## Services
 

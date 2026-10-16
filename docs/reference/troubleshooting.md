@@ -20,12 +20,12 @@
 
 ## Bar and apps
 
-| Symptom                  | What to do                                                               |
-| ------------------------ | ------------------------------------------------------------------------ |
-| No icons in Waybar       | no Nerd Font installed: `yay -S ttf-jetbrains-mono-nerd && fc-cache -fv` |
-| A Waybar module is empty | run its script by hand, e.g. `~/.config/waybar/scripts/check_updates.sh` |
-| Weather doesn't show     | check the key in `~/.config/waybar/weather.env`                          |
-| No sound                 | `systemctl --user status pipewire wireplumber`, `wpctl status`           |
+| Symptom                  | What to do                                                                |
+| ------------------------ | ------------------------------------------------------------------------- |
+| No icons in Waybar       | no Nerd Font installed: `yay -S ttf-jetbrains-mono-nerd && fc-cache -fv`  |
+| A Waybar module is empty | run its command by hand, e.g. `wttrbar` or `waybar-module-pacman-updates` |
+| Weather doesn't show     | wttr.in may be rate-limiting; try `curl wttr.in` and wait a bit           |
+| No sound                 | `systemctl --user status pipewire wireplumber`, `wpctl status`            |
 
 ## Boot
 

@@ -18,15 +18,15 @@ Config: [`dotfiles/.config/fish`](https://github.com/Zilero232/arch-install-kit/
 
 ## System
 
-| Command                                             | What it does                         |
-| --------------------------------------------------- | ------------------------------------ |
-| `syslog`                                            | kernel errors and warnings (`dmesg`) |
-| `journal`                                           | follow the systemd journal           |
-| `vacuum`                                            | shrink the journal to 100 MB         |
-| `myip`                                              | your public IP                       |
-| `ports`                                             | listening ports (`ss -tulpn`)        |
-| `plymouth_theme_list` / `plymouth_theme_set <name>` | boot splash themes                   |
-| `sddm_theme_list` / `sddm_theme_set <variant>`      | SDDM Astronaut variants              |
+| Command                                             | What it does                                    |
+| --------------------------------------------------- | ----------------------------------------------- |
+| `syslog`                                            | kernel errors and warnings (`dmesg`)            |
+| `journal`                                           | follow the systemd journal                      |
+| `vacuum`                                            | shrink the journal to 100 MB                    |
+| `myip`                                              | your public IP                                  |
+| `ports`                                             | listening ports (`ss -tulpn`)                   |
+| `plymouth_theme_list` / `plymouth_theme_set <name>` | boot splash themes (set rebuilds the initramfs) |
+| `sddm_theme_list` / `sddm_theme_set <variant>`      | SDDM Astronaut variants                         |
 
 ## Functions
 

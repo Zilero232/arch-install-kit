@@ -21,23 +21,20 @@
   },
 
   "custom/weather": {
-    "exec": "~/.config/waybar/scripts/openweathermap.sh",
-    "interval": 600,
+    "exec": "wttrbar --nerd --custom-indicator '{ICON} {temp_C}°C'",
+    "return-type": "json",
+    "interval": 1800,
     "format": "{}",
-    "tooltip": false
+    "tooltip": true
   },
 
-  // Pending pacman/AUR updates; click to upgrade
+  // Pending pacman/AUR updates (list in the tooltip); click to upgrade
   "custom/updates": {
-    "format": "{}",
+    "exec": "waybar-module-pacman-updates --no-zero-output --interval-seconds 5 --network-interval-seconds 300",
     "return-type": "json",
-    "escape": true,
-    "tooltip": true,
-    "exec": "~/.config/waybar/scripts/check_updates.sh",
-    "interval": 1800,
-    "signal": 1,
-    "hide-empty-text": true,
-    "on-click": "~/.config/waybar/scripts/update_system.sh"
+    "format": "{icon} {}",
+    "format-icons": { "has-updates": "󰚰", "updated": "" },
+    "on-click": "alacritty -e yay"
   },
 
   // Audio spectrum; click: previous, middle: play/pause, right: next

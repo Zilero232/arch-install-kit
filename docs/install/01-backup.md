@@ -38,7 +38,6 @@ cd ~/reinstall-backup
 cp -a ~/.ssh ssh                         # keys — the most important part
 cp -a ~/.gnupg gnupg 2>/dev/null
 cp ~/.gitconfig gitconfig 2>/dev/null
-cp ~/.config/waybar/weather.env . 2>/dev/null
 cp ~/.local/share/fish/fish_history . 2>/dev/null
 cp -a ~/Images images                    # your own wallpapers
 ```

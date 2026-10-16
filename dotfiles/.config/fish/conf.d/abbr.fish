@@ -23,7 +23,7 @@ abbr -a myip curl ifconfig.me
 abbr -a ports ss -tulpn
 
 # --- Boot and login themes (scripts in ~/bin) ---
-abbr -a plymouth_theme_list ~/bin/plymouth_theme.sh list
-abbr -a plymouth_theme_set ~/bin/plymouth_theme.sh set
+abbr -a plymouth_theme_list plymouth-set-default-theme -l
+abbr -a plymouth_theme_set sudo plymouth-set-default-theme -R  # rebuilds the initramfs
 abbr -a sddm_theme_list ~/bin/sddm_theme.sh list
 abbr -a sddm_theme_set ~/bin/sddm_theme.sh set

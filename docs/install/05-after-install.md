@@ -14,15 +14,9 @@ SDDM → **Hyprland** session → log in.
 hyprctl monitors all
 ```
 
-Then adjust `~/.config/hypr/conf/monitor.conf` and `~/.config/hypr/scripts/monitor-auto.sh`.
+Then adjust `~/.config/hypr/conf/monitor.conf`. An external `DP-1` mirrors the laptop while it's plugged in; the rules apply on hotplug, no script involved.
 
-**Waybar weather.** Grab a free key at [openweathermap.org](https://home.openweathermap.org/api_keys) and add it:
-
-```bash
-nano ~/.config/waybar/weather.env
-# OPENWEATHER_API_KEY=your_key
-# OPENWEATHER_CITY_ID=468902    # city ID from openweathermap.org
-```
+**Waybar weather.** Works out of the box: [wttrbar](https://github.com/bjesus/wttrbar) finds your location by IP. To pin a city, add `--location <City>` to `custom/weather` in `~/.config/waybar/modules.jsonc`.
 
 **Live wallpapers.** You need Steam and a purchased copy of Wallpaper Engine. Without it, static wallpapers from `~/Images` are used automatically via hyprpaper.
 
@@ -40,7 +34,6 @@ cd ~/reinstall-backup
 cp -a ssh ~/.ssh && chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_*
 cp -a gnupg ~/.gnupg 2>/dev/null && chmod 700 ~/.gnupg
 cp gitconfig ~/.gitconfig 2>/dev/null
-cp weather.env ~/.config/waybar/ 2>/dev/null
 cp fish_history ~/.local/share/fish/ 2>/dev/null
 cp --update=none images/* ~/Images/
 ```

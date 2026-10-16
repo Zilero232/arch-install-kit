@@ -14,7 +14,13 @@ fail() {
 
 main() {
     if ! command -v linux-wallpaperengine >/dev/null; then
-        command -v hyprpaper >/dev/null && exec hyprpaper
+        if command -v hyprpaper >/dev/null; then
+            hyprpaper &
+            sleep 1
+            # Bring back the last wallpaper picked with waypaper (Super+W)
+            waypaper --restore || true
+            exit 0
+        fi
         fail "Neither linux-wallpaperengine nor hyprpaper is installed"
     fi
 

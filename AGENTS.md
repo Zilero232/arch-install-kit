@@ -11,6 +11,7 @@ Read first: [docs/reference/structure.md](docs/reference/structure.md).
 ## Rules
 
 - **Readability over cleverness.** Short functions, clear names, comments that say _why_. No dense one-liners.
+- **A script is the last resort.** If a package or a built-in feature does the job (waybar signals, systemd timers, Hyprland rules), use it.
 - **Prefer existing tools** (yay, rsync, stow, hyprctl, systemd drop-ins) over custom code.
 - **Every system change goes through `run`** (dry-run) and is idempotent; back up with `backup_once` before editing `/etc` files, prefer drop-in files.
 - **Packages:** add to the right `packages/<group>.txt`; verify the name exists (archlinux.org/packages, AUR RPC). Wayland-native tools only — no X11 utilities (xdotool, redshift, flameshot…). Drivers/microcode belong to `modules/40-gpu.sh`, not the lists.
@@ -24,7 +25,7 @@ Everything should read as if one careful person wrote it. Based on the [Google S
 **Bash**
 
 - Shebang `#!/usr/bin/env bash`, then a one-line `# Purpose.` comment, then `# Usage: …` lines if the script takes arguments.
-- Standalone scripts (`install.sh`, `dotfiles/bin/`, `waybar/scripts/`, `hypr/scripts/`): header, blank line, `set -euo pipefail`, `readonly` UPPER_SNAKE constants, functions, `main()` last, file ends with `main "$@"`. `install.sh` drops `-e` on purpose: it handles module failures itself.
+- Standalone scripts (`install.sh`, `dotfiles/bin/`, `waybar/scripts/`): header, blank line, `set -euo pipefail`, `readonly` UPPER_SNAKE constants, functions, `main()` last, file ends with `main "$@"`. `install.sh` drops `-e` on purpose: it handles module failures itself.
 - `lib/` and `modules/` are sourced: no `set` line and no `main`. Globals are UPPER_SNAKE at the top of the file (not `readonly`, so a file can be sourced again). Modules run under `set -Eeuo pipefail` (`run_module`), so the last line of a function is `if …; then …; fi`, never `cond && action`.
 - 4-space indent, `snake_case` names, `local` for every function variable (assign `$(…)` on a separate line), `[[ ]]` for tests, `(( ))` for numbers, `$(…)` never backticks, quote every expansion, no space after redirects (`>/dev/null`, `<<EOF`).
 - Function comment: one line above the function, only when the name doesn't tell the whole story (arguments, side effects, why).

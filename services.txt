@@ -5,6 +5,7 @@ bluetooth.service                 system   bluez
 sddm.service                      system   sddm
 fstrim.timer                      system   util-linux
 docker.service                    system   docker
+reflector.timer                   system   reflector
 tlp.service                       system   tlp
 NetworkManager-dispatcher.service system   tlp-rdw
 mpd.socket                        user     mpd

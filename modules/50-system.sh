@@ -7,6 +7,9 @@ if ! grep -q '^ru_RU.UTF-8' /etc/locale.gen; then
     run sudo locale-gen
 fi
 
+# Weekly mirror refresh (reflector.timer is enabled by the services module)
+write_root_file /etc/xdg/reflector/reflector.conf <"$KIT_DIR/etc/xdg/reflector/reflector.conf"
+
 for group in video input; do
     if ! id -nG "$USER" | grep -qw "$group"; then
         run sudo usermod -aG "$group" "$USER"
