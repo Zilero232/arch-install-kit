@@ -1,3 +1,6 @@
-# Removed before installing: they fight with pipewire / swaync / the Wayland stack
+# Removed before installing: they fight with pipewire / swaync / power-profiles-daemon / the Wayland stack
 pulseaudio pulseaudio-bluetooth jack2
 dunst mako
+
+# TLP and power-profiles-daemon both manage power; the kit uses power-profiles-daemon
+tlp tlp-rdw

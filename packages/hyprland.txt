@@ -2,7 +2,8 @@
 wayland xorg-xwayland qt5-wayland qt6-wayland
 hyprland hyprpaper hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
 xdg-desktop-portal-hyprland xdg-desktop-portal-gtk qt5ct qt6ct
-wl-clipboard cliphist hyprshot grim slurp wf-recorder
+wl-clipboard wl-clip-persist cliphist hyprshot satty grim slurp wf-recorder
+swayosd tesseract-data-eng tesseract-data-rus  # volume/brightness OSD, OCR
 
 # SDDM theme runs on X11, hence xorg-server
 sddm xorg-server sddm-astronaut-theme

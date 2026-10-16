@@ -1,2 +1,2 @@
 # Players, music, images, recording
-vlc mpv mpd ncmpcpp pinta gthumb obs-studio
+mpv mpd ncmpcpp pinta gthumb obs-studio

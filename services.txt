@@ -6,6 +6,9 @@ sddm.service                      system   sddm
 fstrim.timer                      system   util-linux
 docker.service                    system   docker
 reflector.timer                   system   reflector
-tlp.service                       system   tlp
-NetworkManager-dispatcher.service system   tlp-rdw
+power-profiles-daemon.service     system   power-profiles-daemon
+ufw.service                       system   ufw
+paccache.timer                    system   pacman-contrib
+fwupd-refresh.timer               system   fwupd
+swayosd-libinput-backend.service  system   swayosd
 mpd.socket                        user     mpd

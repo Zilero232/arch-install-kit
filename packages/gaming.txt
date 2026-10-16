@@ -1,2 +1,2 @@
 # Needs multilib (enabled by the pacman module)
-steam
+steam gamemode lib32-gamemode mangohud lib32-mangohud gamescope

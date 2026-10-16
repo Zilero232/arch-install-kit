@@ -1,3 +1,3 @@
-# JetBrainsMono Nerd Font is used by waybar, rofi, alacritty and GTK
-ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-hack-nerd ttf-fira-code ttf-iosevka-nerd
-woff2-font-awesome noto-fonts noto-fonts-emoji noto-fonts-cjk
+# JetBrainsMono Nerd Font is used by waybar, rofi, alacritty and GTK; Fira Code and JetBrains Mono by the editor
+ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code
+noto-fonts noto-fonts-emoji noto-fonts-cjk

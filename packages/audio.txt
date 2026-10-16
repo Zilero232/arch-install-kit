@@ -1,3 +1,3 @@
 # PipeWire stack (pipewire-audio brings bluetooth audio)
 pipewire pipewire-pulse pipewire-alsa pipewire-jack pipewire-audio wireplumber
-pavucontrol pamixer playerctl cava sound-theme-freedesktop
+pavucontrol playerctl cava sound-theme-freedesktop
