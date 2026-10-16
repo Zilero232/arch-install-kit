@@ -7,309 +7,273 @@
 * {
 	border: none;
 	border-radius: 0;
-	font-family: 'JetBrains Mono', 'Hack Nerd Font', 'UbuntuMono', monospace;
-	font-size: 14px;
+	font-family: 'JetBrainsMono Nerd Font Propo', 'JetBrainsMono Nerd Font', monospace;
+	font-size: 13px;
 	font-weight: 600;
 	min-height: 0;
 	padding: 0;
 	margin: 0;
 }
 
+/* The bar itself is invisible; each side is a floating island */
 window#waybar {
-	background: rgba(15, 15, 20, 0.3);
-	border-bottom: 1px solid rgba(149, 127, 184, 0.3);
+	background: transparent;
+	color: @text;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+	background: alpha(@mantle, 0.85);
+	border: 1px solid alpha(@border-color, 0.5);
+	border-radius: 14px;
+	padding: 0 6px;
+}
+
+/* Every module looks the same; only the text colour tells them apart */
+#window,
+#custom-launcher,
+#custom-weather,
+#custom-updates,
+#custom-cava,
+#clock,
+#memory,
+#cpu,
+#temperature,
+#idle_inhibitor,
+#battery,
+#language,
+#backlight,
+#pulseaudio,
+#network,
+#custom-notification,
+#power-profiles-daemon,
+#tray {
+	padding: 0 9px;
+	margin: 4px 0;
+	border-radius: 10px;
+	color: @text;
+}
+
+#custom-launcher:hover,
+#custom-weather:hover,
+#custom-updates:hover,
+#custom-cava:hover,
+#clock:hover,
+#memory:hover,
+#cpu:hover,
+#temperature:hover,
+#idle_inhibitor:hover,
+#battery:hover,
+#language:hover,
+#backlight:hover,
+#pulseaudio:hover,
+#network:hover,
+#custom-notification:hover,
+#power-profiles-daemon:hover,
+#custom-updates:hover {
+	background: @background-hover;
 }
 
 /* --- Tooltips --- */
 tooltip {
-	background: @background-primary;
+	background: @base;
 	color: @text;
 	border: 1px solid @border-color;
-	border-radius: 8px;
-	padding: 8px 12px;
+	border-radius: 10px;
 }
 
 tooltip label {
 	color: @text;
-	font-size: 12px;
+	padding: 4px 6px;
 }
 
-/* --- Workspaces --- */
+/* --- Left: launcher, workspaces, weather, updates, cava --- */
+#custom-launcher {
+	color: @mauve;
+	font-size: 16px;
+	padding: 0 12px 0 8px;
+}
+
 #workspaces {
-	background: @background-primary;
-	padding: 4px;
-	margin: 6px 2px;
-	border-radius: 12px;
-	border: 2px solid @border-color;
+	margin: 4px 2px;
 }
 
 #workspaces button {
-	padding: 6px 10px;
+	min-width: 22px;
+	padding: 0 6px;
 	margin: 0 2px;
-	background: @background-primary;
-	color: @subtext0;
 	border-radius: 8px;
-	font-weight: bold;
-	border: 1px solid @border-color;
+	color: @overlay1;
+	background: transparent;
+}
+
+#workspaces button.empty {
+	color: @surface2;
+}
+
+#workspaces button.active {
+	background: @mauve;
+	color: @base;
+}
+
+#workspaces button.urgent {
+	background: @maroon;
+	color: @base;
 }
 
 #workspaces button:hover {
 	background: @background-hover;
-	color: @lavender;
-	border-color: @mauve;
-}
-
-#workspaces button.active,
-#workspaces button.focused {
-	background: @mauve;
-	color: @base;
-	font-weight: bold;
-	opacity: 1;
-	border-color: @pink;
-}
-
-#workspaces button.empty {
-	opacity: 0.3;
-	background: @background-secondary;
-}
-
-#workspaces button.urgent {
-	background: @error;
-	color: @base;
-	border-color: @maroon;
-}
-
-/* --- Clock --- */
-#clock {
-	background: @blue;
-	color: @base;
-	font-weight: bold;
-	margin: 6px 2px 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
-	font-size: 15px;
-}
-
-/* --- System monitoring modules --- */
-#memory {
-	background: @background-primary;
-	color: @green;
-	border-left: 4px solid @green;
-	border-radius: 12px 0 0 12px;
-	margin: 6px 0;
-	padding: 8px 12px;
-}
-
-#cpu {
-	background: @background-primary;
-	color: @blue;
-	border-left: 4px solid @blue;
-	margin: 6px 0px 6px 0;
-	padding: 8px 12px;
-}
-
-#temperature {
-	background: @background-primary;
-	color: @teal;
-	border-left: 4px solid @teal;
-	border-radius: 0 12px 12px 0;
-	margin: 6px 2px 6px 0;
-	padding: 8px 12px;
-}
-
-#temperature.critical {
-	background: @error;
-	color: @base;
-	border-left: 4px solid @maroon;
-}
-
-/* --- Battery --- */
-#battery {
-	background: @background-primary;
-	color: @green;
-	border-left: 4px solid @green;
-	margin: 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
-}
-
-#battery.charging {
-	color: @yellow;
-	border-left: 4px solid @yellow;
-}
-
-#battery.warning {
-	background: @warning;
-	color: @base;
-	border-left: 4px solid @peach;
-}
-
-#battery.critical:not(.charging) {
-	background: @error;
-	color: @base;
-	border-left: 4px solid @maroon;
-}
-
-/* --- Audio and backlight --- */
-#backlight {
-	background: @background-primary;
-	color: @yellow;
-	border-left: 4px solid @yellow;
-	border-radius: 12px 0 0 12px;
-	margin: 6px 0 6px 2px;
-	padding: 8px 12px;
-}
-
-#pulseaudio {
-	background: @background-primary;
-	color: @yellow;
-	border-left: 4px solid @yellow;
-	border-radius: 0 12px 12px 0;
-	margin: 6px 2px 6px 0;
-	padding: 8px 12px;
-}
-
-#pulseaudio.muted {
-	color: @subtext0;
-	border-left: 4px solid @subtext0;
-}
-
-/* --- Network --- */
-#network {
-	background: @background-primary;
-	color: @green;
-	border-left: 4px solid @green;
-	margin: 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
-}
-
-#network.disconnected {
-	color: @error;
-	border-left: 4px solid @error;
-}
-
-#network.disabled {
-	color: @subtext0;
-	border-left: 4px solid @subtext0;
-}
-
-/* --- Language and keyboard state --- */
-#language {
-	background: @background-primary;
-	color: @mauve;
-	border-left: 4px solid @mauve;
-	margin: 6px 0 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px 0 0 12px;
-}
-
-#keyboard-state {
-	background: @background-primary;
-	color: @mauve;
-	border-left: 4px solid @mauve;
-	margin: 6px 2px 6px 0;
-	padding: 8px 12px;
-	border-radius: 0 12px 12px 0;
-}
-
-/* --- Custom modules --- */
-#custom-launcher {
-	background: @mauve;
-	color: @base;
-	font-size: 16px;
-	font-weight: bold;
-	margin: 6px 2px 6px 8px;
-	padding: 8px 14px 8px 10px;
-	border-radius: 12px;
-	border: 2px solid @pink;
+	color: @text;
+	box-shadow: none;
 }
 
 #custom-weather {
-	background: @background-primary;
-	color: @blue;
-	border-left: 4px solid @blue;
-	margin: 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
+	color: @sapphire;
 }
 
 #custom-updates {
-	background: @background-primary;
 	color: @yellow;
-	border-left: 4px solid @yellow;
-	margin: 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
-}
-
-#custom-notification {
-	background: @background-primary;
-	color: @lavender;
-	border-left: 4px solid @lavender;
-	margin: 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
 }
 
 #custom-cava {
-	background: @background-primary;
+	color: @pink;
+}
+
+#window {
+	color: @subtext1;
+	font-weight: normal;
+}
+
+/* Hide the window title pill on an empty workspace */
+window#waybar.empty #window {
+	padding: 0;
+	margin: 0;
+}
+
+/* --- Centre: weather, clock, cava --- */
+#clock {
+	color: @text;
+	font-weight: bold;
+}
+
+/* --- Right: system, devices, notifications, tray --- */
+/* System drawer: CPU stays visible, the rest slides out on hover */
+.system-child {
+	padding: 0 9px;
+}
+#memory {
 	color: @green;
-	border-left: 4px solid @green;
-	margin: 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
 }
 
-/* --- Tray --- */
-#tray {
-	background: @background-secondary;
-	padding: 6px 10px;
-	margin: 6px 8px 6px 2px;
-	border-radius: 12px;
-	border: 1px solid @border-color;
+#cpu {
+	color: @sapphire;
 }
 
-#tray > .passive {
-	opacity: 0.7;
+#temperature {
+	color: @blue;
 }
 
-#tray > .needs-attention {
-	background-color: @error;
-	border-radius: 6px;
-	color: @base;
+#temperature.critical {
+	color: @red;
 }
 
-/* --- Idle inhibitor --- */
 #idle_inhibitor {
-	background: @background-primary;
-	color: @yellow;
-	border-left: 4px solid @yellow;
-	margin: 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
+	color: @overlay1;
 }
 
 #idle_inhibitor.activated {
-	background: @yellow;
-	border-left: 4px solid @background-primary;
+	color: @yellow;
+}
+
+#battery {
+	color: @green;
+}
+
+#battery.charging,
+#battery.plugged {
+	color: @yellow;
+}
+
+#battery.warning:not(.charging) {
+	color: @peach;
+}
+
+#battery.critical:not(.charging) {
+	background: @red;
 	color: @base;
 }
 
-/* --- Hover effects --- */
-#clock:hover,
-#battery:hover,
-#cpu:hover,
-#memory:hover,
-#temperature:hover,
-#backlight:hover,
-#network:hover,
-#pulseaudio:hover,
-#custom-launcher:hover,
-#custom-notification:hover,
-#custom-weather:hover,
-#custom-updates:hover,
-#language:hover,
-#custom-cava:hover {
-	opacity: 0.8;
+#language {
+	color: @mauve;
+}
+
+#backlight {
+	color: @yellow;
+}
+
+#pulseaudio {
+	color: @lavender;
+}
+
+#pulseaudio.muted {
+	color: @overlay1;
+}
+
+#network {
+	color: @blue;
+}
+
+#network.disconnected,
+#network.disabled {
+	color: @overlay1;
+}
+
+#custom-notification {
+	color: @overlay1;
+}
+
+#custom-notification.notification,
+#custom-notification.inhibited-notification {
+	color: @pink;
+}
+
+#custom-notification.dnd-none,
+#custom-notification.dnd-notification,
+#custom-notification.dnd-inhibited-none,
+#custom-notification.dnd-inhibited-notification {
+	color: @maroon;
+}
+
+#power-profiles-daemon {
+	color: @sapphire;
+}
+
+#power-profiles-daemon.performance {
+	color: @peach;
+}
+
+#power-profiles-daemon.power-saver {
+	color: @green;
+}
+
+#privacy-item {
+	padding: 0 6px;
+	margin: 4px 0;
+	border-radius: 10px;
+	background: @maroon;
+	color: @base;
+}
+
+#tray {
+	padding: 0 6px;
+}
+
+#tray > .passive {
+	-gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+	background: @maroon;
+	border-radius: 6px;
 }

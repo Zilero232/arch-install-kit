@@ -31,6 +31,8 @@ build_sed_script() {
     for ((i = 0; i < ${#BARS}; i++)); do
         script+=";s/$i/${BARS:$i:1}/g"
     done
+    # Silence is a row of the lowest bar: print an empty line so waybar hides the module
+    script+=";s/^${BARS:0:1}*\$//"
     echo "$script"
 }
 

@@ -4,33 +4,27 @@
 
   "layer": "top",
   "position": "top",
-  "height": 40,
+  "height": 34,
+  "margin-top": 6,
+  "margin-left": 10,
+  "margin-right": 10,
+  "spacing": 0,
 
-  "modules-left": [
-    "custom/launcher",
-    "hyprland/workspaces",
-    "custom/weather",
-    "custom/updates",
-    "custom/cava"
-  ],
+  "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
 
-  "modules-center": [
-    "memory",
-    "cpu",
-    "temperature"
-  ],
+  "modules-center": ["custom/weather", "clock", "custom/cava"],
 
   "modules-right": [
-    "idle_inhibitor",
-    "battery",
+    "privacy",
+    "tray",
+    "group/system",
     "hyprland/language",
-    "keyboard-state",
     "backlight",
     "pulseaudio",
     "network",
-    "clock",
-    "custom/notification",
-    "tray"
+    "battery",
+    "custom/updates",
+    "custom/notification"
   ],
 
   "include": "~/.config/waybar/modules.jsonc"

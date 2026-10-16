@@ -1,18 +1,18 @@
 {
   // Module settings, in bar order: left, centre, right.
+  // Every icon comes from the Material Design set (U+F0000+) so they share one baseline.
 
   // --- Left ---
   "custom/launcher": {
-    "format": "",
+    "format": "󰣇",
     "on-click": "rofi -show drun",
     "tooltip": false
   },
 
   "hyprland/workspaces": {
-    "on-scroll-up": "hyprctl dispatch workspace r-1",
-    "on-scroll-down": "hyprctl dispatch workspace r+1",
+    "on-scroll-up": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'r-1' })\"",
+    "on-scroll-down": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'r+1' })\"",
     "on-click": "activate",
-    "active-only": false,
     "all-outputs": true,
     "format": "{name}",
     "persistent-workspaces": {
@@ -20,142 +20,40 @@
     }
   },
 
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 45,
+    "separate-outputs": true,
+    "rewrite": {
+      "(.*) — Mozilla Firefox": "󰈹  $1",
+      "(.*) - Google Chrome": "󰊯  $1",
+      "(.*) - Visual Studio Code": "󰨞  $1"
+    }
+  },
+
+  // --- Centre ---
   "custom/weather": {
-    "exec": "wttrbar --nerd --custom-indicator '{ICON} {temp_C}°C'",
+    "exec": "wttrbar --nerd --custom-indicator '{ICON} {temp_C}°'",
     "return-type": "json",
     "interval": 1800,
     "format": "{}",
     "tooltip": true
   },
 
-  // Pending pacman/AUR updates (list in the tooltip); click to upgrade
-  "custom/updates": {
-    "exec": "waybar-module-pacman-updates --no-zero-output --interval-seconds 5 --network-interval-seconds 300",
-    "return-type": "json",
-    "format": "{icon} {}",
-    "format-icons": { "has-updates": "󰚰", "updated": "" },
-    "on-click": "alacritty -e yay"
-  },
-
-  // Audio spectrum; click: previous, middle: play/pause, right: next
-  "custom/cava": {
-    "exec": "~/.config/waybar/scripts/cava.sh",
-    "restart-interval": 5,
-    "format": "♪ {}",
-    "on-click-middle": "playerctl play-pause",
-    "on-click-right": "playerctl next",
-    "on-click": "playerctl previous"
-  },
-
-  // --- Centre ---
-  // Memory / CPU / temperature; click opens NeoHtop
-  "memory": {
-    "format": " {: >3}%",
-    "on-click": "NeoHtop"
-  },
-  "cpu": {
-    "format": "󰘚 {usage: >3}%",
-    "on-click": "NeoHtop"
-  },
-  "temperature": {
-    // hwmonN numbering changes between boots; these device paths do not (Intel, AMD)
-    "hwmon-path-abs": [
-      "/sys/devices/platform/coretemp.0/hwmon",
-      "/sys/devices/pci0000:00/0000:00:18.3/hwmon"
-    ],
-    "input-filename": "temp1_input",
-    "critical-threshold": 80,
-    "format": "  {temperatureC}°C",
-    "on-click": "NeoHtop"
-  },
-
-  // --- Right ---
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "󰌾",
-      "deactivated": "󰌵"
-    },
-    "tooltip-format-activated": "Idle inhibitor: ON",
-    "tooltip-format-deactivated": "Idle inhibitor: OFF"
-  },
-
-  "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "{icon} {capacity: >3}%",
-    "format-icons": ["", "", "", "", ""]
-  },
-
-  "hyprland/language": {
-    "format": "󰌌 {short}",
-    "tooltip-format": "Language: {long}"
-  },
-
-  "keyboard-state": {
-    "capslock": true,
-    "format": "{name} {icon} ",
-    "format-icons": {
-      "locked": " ",
-      "unlocked": ""
-    }
-  },
-
-  "backlight": {
-    "format": "{icon} {percent: >3}%",
-    "format-icons": ["", ""],
-    "on-scroll-down": "brightnessctl set 5%-",
-    "on-scroll-up": "brightnessctl set +5%"
-  },
-
-  "pulseaudio": {
-    "scroll-step": 2,
-    "format": "{icon} {volume: >3}%",
-    "format-bluetooth": "{icon} {volume: >3}%",
-    "format-muted": " muted",
-    "format-icons": {
-      "headphones": "",
-      "handsfree": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", ""]
-    },
-    "on-click": "pavucontrol"
-  },
-
-  "network": {
-    "format": "{ifname}",
-    "format-wifi": " {essid} ({signalStrength}%)",
-    "format-ethernet": "  {ifname}",
-    "format-disconnected": "Disconnected ⚠",
-    "tooltip-format": " {ifname} via {gwaddri}",
-    "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}GHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
-    "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
-    "tooltip-format-disconnected": "Disconnected",
-    "max-length": 50,
-    "on-click": "nm-connection-editor",
-    "on-click-right": "nm-connection-editor"
-  },
-
   "clock": {
-    "format": "  {:%H:%M %a}",
-    "format-alt": "  {:%d/%m/%Y  %H:%M:%S}",
+    "format": "{:%a %d %b  %H:%M}",
+    "format-alt": "{:%d.%m.%Y  %H:%M:%S}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "month",
-      "mode-mon-col": 3,
       "weeks-pos": "right",
       "on-scroll": 1,
       "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        "months": "<span color='#dcd7ba'><b>{}</b></span>",
+        "days": "<span color='#c8c093'>{}</span>",
+        "weeks": "<span color='#7aa89f'><b>W{}</b></span>",
+        "weekdays": "<span color='#957fb8'><b>{}</b></span>",
+        "today": "<span color='#d27e99'><b><u>{}</u></b></span>"
       }
     },
     "actions": {
@@ -166,19 +64,165 @@
     "interval": 1
   },
 
-  // Notifications (SwayNC); left: panel, right: do not disturb
-  "custom/notification": {
-    "tooltip-format": "Left: Notifications\nRight: Do not disturb",
+  // Audio spectrum, hidden in silence; click: previous, middle: play/pause, right: next
+  "custom/cava": {
+    "exec": "~/.config/waybar/scripts/cava.sh",
+    "restart-interval": 5,
+    "format": "󰝚 {}",
+    "on-click-middle": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click": "playerctl previous"
+  },
+
+  // --- Right ---
+  // Shows only while the screen is shared or the mic is in use
+  "privacy": {
+    "icon-size": 14,
+    "modules": [
+      { "type": "screenshare", "tooltip": true },
+      { "type": "audio-in", "tooltip": true }
+    ],
+    // cava listens to the speaker monitor for the visualizer, not the mic
+    "ignore": [{ "type": "audio-in", "name": "cava" }]
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8,
+    "show-passive-items": true
+  },
+
+  // CPU is always visible; hover to slide out memory, temperature, power profile and idle inhibitor
+  "group/system": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "system-child",
+      "transition-left-to-right": false
+    },
+    "modules": ["cpu", "memory", "temperature", "power-profiles-daemon", "idle_inhibitor"]
+  },
+
+  "cpu": {
+    "format": "󰘚 {usage}%",
+    "interval": 5,
+    "on-click": "NeoHtop"
+  },
+
+  "memory": {
+    "format": "󰍛 {}%",
+    "tooltip-format": "{used:0.1f} / {total:0.1f} GiB",
+    "on-click": "NeoHtop"
+  },
+
+  "temperature": {
+    // hwmonN numbering changes between boots; these device paths do not (Intel, AMD)
+    "hwmon-path-abs": [
+      "/sys/devices/platform/coretemp.0/hwmon",
+      "/sys/devices/pci0000:00/0000:00:18.3/hwmon"
+    ],
+    "input-filename": "temp1_input",
+    "critical-threshold": 80,
+    "format": "󰔏 {temperatureC}°",
+    "on-click": "NeoHtop"
+  },
+
+  // Click cycles power-saver / balanced / performance
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "format-icons": {
+      "default": "󰗑",
+      "performance": "󰓅",
+      "balanced": "󰗑",
+      "power-saver": "󰌪"
+    }
+  },
+
+  "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "notification": "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
-      "none": "",
-      "dnd-notification": "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
-      "dnd-none": "",
-      "inhibited-notification": "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
-      "inhibited-none": "",
-      "dnd-inhibited-notification": "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
-      "dnd-inhibited-none": ""
+      "activated": "󰅶",
+      "deactivated": "󰛊"
+    },
+    "tooltip-format-activated": "Screen stays on",
+    "tooltip-format-deactivated": "Screen locks when idle"
+  },
+
+  "hyprland/language": {
+    "format": "󰌌 {}",
+    "format-en": "EN",
+    "format-ru": "RU",
+    "tooltip-format": "{long} (Ctrl+Shift)"
+  },
+
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "on-scroll-down": "brightnessctl set 5%-",
+    "on-scroll-up": "brightnessctl set +5%"
+  },
+
+  "pulseaudio": {
+    "scroll-step": 2,
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "󰂰 {volume}%",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "headphone": "󰋋",
+      "headset": "󰋋",
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+
+  "network": {
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤮",
+    "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)\nIP: {ipaddr}\nUp: {bandwidthUpBits}  Down: {bandwidthDownBits}",
+    "tooltip-format-ethernet": "{ifname}\nIP: {ipaddr}\nUp: {bandwidthUpBits}  Down: {bandwidthDownBits}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "nm-connection-editor",
+    "on-click-right": "alacritty -e nmtui"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "tooltip-format": "{timeTo}",
+    "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"]
+  },
+
+  // Pending pacman/AUR updates (list in the tooltip); click to upgrade; hidden when there are none
+  "custom/updates": {
+    "exec": "waybar-module-pacman-updates --no-zero-output --interval-seconds 5 --network-interval-seconds 300",
+    "return-type": "json",
+    "format": "{icon}{}",
+    "format-icons": { "has-updates": "󰚰 ", "updated": "" },
+    "on-click": "alacritty -e yay"
+  },
+
+  // Notifications (SwayNC); left: panel, right: do not disturb
+  "custom/notification": {
+    "tooltip-format": "Left: notifications\nRight: do not disturb",
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂚",
+      "dnd-notification": "󰂛",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󱅫",
+      "inhibited-none": "󰂚",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰂛"
     },
     "return-type": "json",
     "exec-if": "command -v swaync-client",
@@ -186,13 +230,5 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
-  },
-
-  "tray": {
-    "icon-size": 20,
-    "spacing": 10,
-    "show-passive-items": true,
-    "reverse-direction": false,
-    "smooth-scrolling-threshold": 1.0
   }
 }
