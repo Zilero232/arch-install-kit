@@ -1,121 +1,96 @@
 <div align="center">
 
-# 🚀 Arch Install Kit
-### *Meticulously crafted Arch Linux configuration for developers*
+# Arch Install Kit
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&duration=3500&pause=900&color=89B4FA&center=true&vCenter=true&width=760&lines=Modern+Hyprland+Setup;Beautiful+%26+Functional+Desktop;Developer-Focused+Environment;Fully+Automated+Installation" alt="Typing SVG" />
+**A Hyprland setup for Arch Linux that installs with a single command**
 
-<br>
-
-<a href="./docs/INSTALL_AUTO.md">
-  <img alt="Quick Install" src="https://img.shields.io/badge/Quick%20Install-1e1e2e?style=for-the-badge&logo=arch-linux&logoColor=89B4FA">
-</a>
-<a href="./docs/INSTALL_MANUALLY.md">
-  <img alt="Manual Install" src="https://img.shields.io/badge/Manual%20Install-1e1e2e?style=for-the-badge&logo=markdown&logoColor=94E2D5">
-</a>
-<a href="./docs/ARCH_SOFTWARE.md">
-  <img alt="Software List" src="https://img.shields.io/badge/Software%20List-1e1e2e?style=for-the-badge&logo=discover&logoColor=FAB387">
-</a>
-
-<br><br>
-
-### 🛠️ Tech Stack
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
-[![Hyprland](https://img.shields.io/badge/Hyprland-2E3440?style=for-the-badge&logo=linux&logoColor=81A1C1)](https://hyprland.org)
+[![Hyprland](https://img.shields.io/badge/Hyprland-2E3440?style=for-the-badge&logo=linux&logoColor=81A1C1)](https://hypr.land)
 [![Waybar](https://img.shields.io/badge/Waybar-1f2335?style=for-the-badge&logo=gnome&logoColor=8AADF4)](https://github.com/Alexays/Waybar)
-[![Rofi](https://img.shields.io/badge/Rofi-0f1419?style=for-the-badge&logo=rofi&logoColor=EBA0AC)](https://github.com/davatorium/rofi)
-[![Vim](https://img.shields.io/badge/Vim-019733?style=for-the-badge&logo=vim&logoColor=white)](https://www.vim.org)
-[![Alacritty](https://img.shields.io/badge/Alacritty-F46D01?style=for-the-badge&logo=alacritty&logoColor=white)](https://alacritty.org)
+[![Fish](https://img.shields.io/badge/Fish-34C534?style=for-the-badge&logo=gnometerminal&logoColor=white)](https://fishshell.com)
 
-<br>
+[![Last Commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit?style=flat-square&color=B5E8E0&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/commits/master)
+[![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=flat-square&color=c9cbff&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/stargazers)
+[![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=flat-square&color=F2CDCD&labelColor=302D41)](./LICENSE)
 
-### 📊 Project Stats
-[![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=c9cbff&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/stargazers)
-[![Last Commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/commits/main)
-[![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/blob/main/LICENSE)
+![Hyprland](./assets/screenshots/hyrpland_preview.png)
 
 </div>
 
-<br>
+## ⚡ Quick start
 
-![Hyprland Preview](./assets/screenshots/hyrpland_preview.png)
+On a fresh Arch install (archinstall, **Minimal** profile), as your regular user:
 
-## 📸 Gallery
+```bash
+sudo pacman -S --needed git
+git clone https://github.com/Zilero232/arch-install-kit.git ~/arch-install-kit
+cd ~/arch-install-kit
+./install.sh
+```
+
+The script installs packages and drivers, deploys the configs, and sets up boot and services. Reboot and you're in Hyprland.
+
+No Arch yet? Start with the [step-by-step guide](./docs/README.md): from a USB stick to a ready-to-use desktop.
+
+## ✨ What's inside
+
+|                  |                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------- |
+| 🪟 Compositor    | [Hyprland](https://hypr.land) + hyprlock, hypridle, hyprpaper, hyprsunset                               |
+| 📊 Bar           | [Waybar](https://github.com/Alexays/Waybar): weather, updates, audio visualizer                         |
+| 🚀 Launcher      | [Rofi](https://github.com/davatorium/rofi): apps, calculator, emoji, clipboard history                  |
+| 🔔 Notifications | [SwayNC](https://github.com/ErikReider/SwayNotificationCenter)                                          |
+| 📟 Terminal      | [Alacritty](https://alacritty.org) + [Fish](https://fishshell.com) + [Oh My Posh](https://ohmyposh.dev) |
+| 📂 Files         | Thunar, Ranger                                                                                          |
+| 🎨 Theme         | Kanagawa (GTK, icons, terminal, bar), Hackneyed cursor                                                  |
+| 🔐 Login         | SDDM Astronaut, Plymouth splash                                                                         |
+| 🖼️ Wallpapers    | Wallpaper Engine or 270+ static ones from `assets/images`                                               |
+
+## 🛠️ Installer
+
+```text
+./install.sh                 everything: desktop + apps
+./install.sh --minimal       desktop only
+./install.sh --groups dev    desktop + chosen groups
+./install.sh --only dotfiles update configs only
+./install.sh --link          symlink configs to the repo
+./install.sh --dry-run       show the plan without changing anything
+```
+
+- **Modular:** every step is its own file in [`modules/`](./modules), and any of them can be run on its own.
+- **Safe:** re-running breaks nothing, and replaced files get backed up.
+- **Picks drivers for you:** Intel, AMD, NVIDIA, CPU microcode.
+- **Packages** are plain per-group lists in [`packages/`](./packages).
+
+More: [running and options](./docs/install/04-run-installer.md) · [how it works](./docs/reference/structure.md).
+
+## 📸 Screenshots
 
 <details>
-<summary>🎬 Click to see more screenshots</summary>
+<summary>Show</summary>
 
-### 📊 Waybar Preview  
-![Waybar Preview](./assets/screenshots/waybar_preview.png)
-
-### 🖥️ Calendar and Calculator View
-![Calendar and Calculator](./assets/screenshots/calendar_calculator.png)
-
-### 📂 File Explorer
-![File Explorer](./assets/screenshots/file_explorer.png)
-
-### 💻 CLI File Manager
-![CLI File Manager](./assets/screenshots/file_manager_cli.png)
-
-### 💻 Application Manager
-![Application manager](./assets/screenshots/application_manager.png)
-
-### 🔓 Wlogout Menu
-![Wlogout](./assets/screenshots/wlogout_preview.png)
-
-### 📈 Several Terminals
-![Several Terminals](./assets/screenshots/several_terminals.png)
+|                                                           |                                                           |
+| --------------------------------------------------------- | --------------------------------------------------------- |
+| ![Waybar](./assets/screenshots/waybar_preview.png)        | ![Rofi](./assets/screenshots/application_manager.png)     |
+| ![Terminals](./assets/screenshots/several_terminals.png)  | ![Files](./assets/screenshots/file_explorer.png)          |
+| ![Ranger](./assets/screenshots/file_manager_cli.png)      | ![Calendar](./assets/screenshots/calendar_calculator.png) |
+| ![Fastfetch](./assets/screenshots/system_information.png) | ![Wlogout](./assets/screenshots/wlogout_preview.png)      |
 
 </details>
 
-## 🖥️ System Components
-
-| Category | Software |
-|----------|----------|
-| 🪟 Window Manager | [Hyprland](https://hyprland.org) |
-| 📟 Terminal | [Alacritty](https://alacritty.org) |
-| 🐚 Shell | [Fish](https://fishshell.com) |
-| 📝 Editor | [Vim](https://www.vim.org) |
-| 📂 File Manager | [Thunar](https://docs.xfce.org/xfce/thunar/start) / [Ranger](https://github.com/ranger/ranger) |
-| 📊 Status Bar | [Waybar](https://github.com/Alexays/Waybar) |
-| 🚀 Launcher | [Rofi](https://github.com/davatorium/rofi) |
-
 ## 📚 Documentation
 
-- [🤖 **Automatic Install**](./docs/INSTALL_AUTO.md) - Quick setup guide
-- [📝 **Manual Install**](./docs/INSTALL_MANUALLY.md) - Detailed installation steps
-- [⚙️ **Config Setup**](./docs/CONFIG_SETUP.md) - Transfer dotfiles to new system
-- [📦 **Software List**](./docs/ARCH_SOFTWARE.md) - Available packages
-- [🔧 **Shell Scripts**](./docs/SHELL_SCRIPTS.md) - Utility scripts
-- [🐟 **Fish Shell**](./docs/FISH_SHELL.md) - Shell configuration
+- [Step-by-step install](./docs/README.md#-installation--step-by-step) — backup, USB stick, archinstall, install.sh
+- [Keybindings](./docs/usage/keybindings.md)
+- [Packages](./docs/reference/packages.md)
+- [When something breaks](./docs/reference/troubleshooting.md)
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing`)
-3. Commit changes (`git commit -am 'Add amazing feature'`)
-4. Push branch (`git push origin feature/amazing`)
-5. Open a Pull Request
+Guidelines, code style and commit format live in [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## 👤 Author
 
-<p align="center">
-  <a href="https://career.habr.com/zilero">
-    <img width="100px" src="https://avatars.githubusercontent.com/u/68345676?s=400&u=eb7df22c29a8aca48def78ec54a7526601c9fd8f&v=4" alt="Avatar"/>
-    <br/>
-    <sub><b>Artemev Alexandr</b></sub>
-  </a>
-</p>
+**Artemev Alexandr** — [GitHub](https://github.com/Zilero232) · [Habr Career](https://career.habr.com/zilero)
 
-<p align="center">
-  <a href="https://github.com/Zilero232" alt="Github">
-    <img src="https://img.shields.io/badge/-Github-181717?style=for-the-badge&logo=github&logoColor=white"/>
-  </a>
-  <a href="https://career.habr.com/zilero" alt="Habr">
-    <img src="https://img.shields.io/badge/-Habr-65A3BE?style=for-the-badge&logo=habr&logoColor=white"/>
-  </a>
-</p>
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Licensed under [MIT](./LICENSE).

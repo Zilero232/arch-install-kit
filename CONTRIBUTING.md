@@ -1,43 +1,74 @@
-# Contributing to `arch-install-kit`
+# Contributing
 
-Thank you for your interest in contributing to `arch-install-kit`! We welcome contributions that enhance the functionality of the project or improve the documentation. By contributing, you're helping make this project better for everyone.
+Thanks for your interest in the project! Here's everything you need for a smooth contribution.
 
-Please follow the guidelines below to help us make the process smooth for both you and the maintainers.
-
-## Table of Contents
-
-- [Reporting Bugs](#reporting-bugs)
-- [Suggesting Enhancements](#suggesting-enhancements)
-- [Making Changes](#making-changes)
-- [Code Style](#code-style)
-- [Commit Message Guidelines](#commit-message-guidelines)
-- [Pull Request Process](#pull-request-process)
-- [License](#license)
-
-## Reporting Bugs
-
-If you find a bug or issue, please open an issue on the GitHub repository. When reporting a bug, please include the following details:
-
-- **Steps to reproduce**: A clear and concise description of what you did to encounter the issue.
-- **Expected behavior**: What you expected to happen.
-- **Actual behavior**: What actually happened.
-- **Environment**: Information about your environment (OS, Node.js version, etc.).
-
-## Suggesting Enhancements
-
-We love ideas for making `arch-install-kit` even better! If you have a suggestion or feature request, feel free to open an issue and describe:
-
-- The problem you're trying to solve.
-- How your idea will help improve the project.
-
-## Making Changes
-
-To get started with contributing code, please fork the repository and create a new branch for your changes. You can do this by running the following commands:
+## Setup
 
 ```bash
-# Fork the repository
 git clone https://github.com/Zilero232/arch-install-kit.git
-
-# Create a new branch
-git checkout -b feature/my-new-feature
+cd arch-install-kit
+bun install        # commitlint, husky (git hooks), shellcheck, prettier
 ```
+
+The hooks enable themselves: before each commit the scripts are checked and Markdown/JSON/YAML gets formatted, and commitlint validates the commit message.
+
+## Before you write code
+
+- Read [how the repo is laid out](./docs/reference/structure.md) — it has the rules for modules and dotfiles.
+- Need a new package? Add it to the matching [`packages/<group>.txt`](./docs/reference/packages.md) and double-check the name with `yay -Ss`.
+- Look for an existing solution first (a package, a tool, a drop-in file) before writing your own.
+
+## Style
+
+- **Readability beats brevity.** Short functions, clear names, comments explain _why_.
+- Bash: `#!/bin/bash`, 4-space indent, quoted variables, `snake_case` functions.
+- Anything that changes the system goes through `run`, so `--dry-run` keeps working.
+- No absolute `/home/<user>` paths and no secrets in configs.
+
+Checks:
+
+```bash
+bun run lint              # shellcheck
+./install.sh --dry-run    # on Arch: what would change
+```
+
+## Commits
+
+Format: gitmoji + conventional commits:
+
+```text
+<emoji> <type>(<scope>): <what changed, lowercase>
+```
+
+```text
+✨ feat(hypr): add clipboard history on Super+V
+🐛 fix(installer): skip plymouth when not installed
+📝 docs: describe --link mode
+📦️ build(packages): replace redshift with hyprsunset
+```
+
+| Type     | Emoji | When                            |
+| -------- | ----- | ------------------------------- |
+| feat     | ✨    | new feature                     |
+| fix      | 🐛    | bug fix                         |
+| docs     | 📝    | documentation                   |
+| style    | 💄    | look and feel, themes           |
+| refactor | ♻️    | rework without behavior changes |
+| perf     | ⚡️    | performance                     |
+| build    | 📦️    | packages and dependencies       |
+| chore    | 🔧    | configs, small stuff            |
+
+Scopes: `installer`, `packages`, `hypr`, `waybar`, `rofi`, `shell`, `dotfiles`, `scripts`, `login`, `docs`, `deps`.
+
+Don't feel like remembering the format? `bun run commit` walks you through it.
+
+## Pull requests
+
+1. Branch off `master`: `git checkout -b feat/clipboard-history`.
+2. One logical change per PR.
+3. Changed flags, packages or keybindings? Update the [docs](./docs).
+4. In the description: what and why, and how you tested it.
+
+## Bugs and ideas
+
+[Issues](https://github.com/Zilero232/arch-install-kit/issues): what you did, what you expected, what you got, the log `~/.local/state/arch-install-kit/install-*.log`, and the output of `hyprctl version`.
