@@ -8,7 +8,7 @@ configuration {
     terminal: "alacritty";
 
     /* Look */
-    font: "JetBrainsMono Nerd Font 18";
+    font: "JetBrainsMono Nerd Font 12";
     show-icons: true;
     icon-theme: "Papirus-Dark"; /* same as GTK */
     drun-display-format: "{name}";

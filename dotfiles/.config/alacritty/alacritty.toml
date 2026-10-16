@@ -26,7 +26,7 @@ general = "Alacritty"
 # --- Font ---
 [font]
 builtin_box_drawing = true
-size = 22.0
+size = 12.0
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
