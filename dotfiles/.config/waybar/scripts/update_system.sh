@@ -1,45 +1,52 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Runs pacman + yay upgrades in a terminal and reports the result via notifications
+# (click on the custom/updates module).
+set -euo pipefail
 
-# Configuration
-TERMINAL="alacritty -e"
-NOTIFY_TIMEOUT=5000
+readonly TERMINAL=(alacritty -e)
+readonly NOTIFY_TIMEOUT=5000
+readonly ICON_UPDATE="󰚰"
+readonly ICON_SUCCESS="󰄬"
+readonly ICON_ERROR="󰅚"
 
-# Notification icons
-ICON_UPDATE="󰚰"
-ICON_SUCCESS="󰄬"
-ICON_ERROR="󰅚"
-
-# Helper function for notifications
 notify() {
-    local title="$1"
-    local message="$2"
-    local urgency="$3"
-    local icon="$4"
-
-    notify-send "$icon $title" "$message" -u "$urgency" -t $NOTIFY_TIMEOUT
+    local icon=$1 title=$2 message=$3 urgency=${4:-normal}
+    notify-send "$icon $title" "$message" -u "$urgency" -t "$NOTIFY_TIMEOUT"
 }
 
-# Check for official updates
-OFFICIAL=$(checkupdates 2>/dev/null | wc -l)
+count_updates() {
+    { "$@" 2> /dev/null || true; } | wc -l
+}
 
-# Check for AUR updates
-AUR=$(yay -Qua 2>/dev/null | wc -l)
+run_upgrade() {
+    "${TERMINAL[@]}" bash -c 'sudo pacman -Syu --noconfirm && yay -Sua --noconfirm'
+}
 
-# Calculate total updates
-TOTAL=$((OFFICIAL + AUR))
+# Ask waybar to re-run check_updates.sh ("signal": 1)
+refresh_waybar() {
+    pkill -RTMIN+1 -x waybar || true
+}
 
-if [ "$TOTAL" -gt 0 ]; then
-    notify "System Update" "Found updates:\n• Official: $OFFICIAL\n• AUR: $AUR\nStarting update..." "normal" "$ICON_UPDATE"
-    
-    # Update everything in one terminal session with exit code check
-    $TERMINAL bash -c 'sudo pacman -Syu --noconfirm && yay -Sua --noconfirm; exit_code=$?; exit $exit_code'
-    UPDATE_EXIT_CODE=$?
+main() {
+    local official aur
+    official=$(count_updates checkupdates)
+    aur=$(count_updates yay -Qua)
 
-    if [ $UPDATE_EXIT_CODE -eq 0 ]; then
-        notify "Update Complete" "System has been successfully updated\n• Official: $OFFICIAL\n• AUR: $AUR" "normal" "$ICON_SUCCESS"
-    else
-        notify "Error" "Update process was interrupted or failed" "critical" "$ICON_ERROR"
+    if [[ $((official + aur)) -eq 0 ]]; then
+        notify "$ICON_SUCCESS" "System Update" "Your system is up to date"
+        exit 0
     fi
-else
-    notify "System Update" "Your system is up to date" "normal" "$ICON_SUCCESS"
-fi
+
+    local summary="• Official: $official\n• AUR: $aur"
+    notify "$ICON_UPDATE" "System Update" "Found updates:\n$summary\nStarting update..."
+
+    if run_upgrade; then
+        refresh_waybar
+        notify "$ICON_SUCCESS" "Update Complete" "System has been successfully updated\n$summary"
+    else
+        refresh_waybar
+        notify "$ICON_ERROR" "Error" "Update process was interrupted or failed" critical
+    fi
+}
+
+main "$@"

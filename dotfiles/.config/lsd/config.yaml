@@ -1,4 +1,5 @@
-# Basic settings
+# lsd (ls replacement). https://github.com/lsd-rs/lsd#config-file-content
+
 classic: false
 
 # Blocks

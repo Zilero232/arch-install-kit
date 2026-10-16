@@ -1,44 +1,46 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Watches the DP-1 port: mirrors the laptop panel onto an external monitor when one is
+# plugged in, restores the native laptop mode when it is unplugged. Started from autostart.
+set -euo pipefail
 
-# Function to apply monitor configuration
-apply_monitor_config() {
-    if is_dp1_connected; then
-        # External monitor connected - set both to same resolution with mirroring
-        hyprctl keyword monitor "eDP-1, 2560x1440@120, 0x0, 1"
-        hyprctl keyword monitor "DP-1, 2560x1440@165, 0x0, 1, mirror, eDP-1"
-    else
-        # No external monitor - enable laptop screen with specified resolution
-        hyprctl keyword monitor "eDP-1, 2560x1600@120,0x0,1"
-        hyprctl keyword monitor "DP-1, disable"
-    fi
-}
+readonly POLL_SECONDS=5
 
-# Function to check if DP-1 is physically connected
-is_dp1_connected() {
+dp1_connected() {
+    local status_file
     for status_file in /sys/class/drm/card*/card*-DP-1/status; do
-        if [ -f "$status_file" ]; then
-            if grep -q "^connected" "$status_file" 2>/dev/null; then
-                return 0  # found connected DP-1
-            fi
+        if [[ -f "$status_file" ]] && grep -q '^connected' "$status_file"; then
+            return 0
         fi
     done
-
-    return 1  # not found or not connected
+    return 1
 }
 
-# Monitor loop - check every 5 seconds
-while true; do
-    if is_dp1_connected; then
-        current_state=0
-    else
-        current_state=1
-    fi
+use_external_mirror() {
+    hyprctl keyword monitor "eDP-1, 2560x1440@120, 0x0, 1"
+    hyprctl keyword monitor "DP-1, 2560x1440@165, 0x0, 1, mirror, eDP-1"
+}
 
-    if [ "$current_state" != "$previous_state" ]; then
-        apply_monitor_config
+use_laptop_only() {
+    hyprctl keyword monitor "eDP-1, 2560x1600@120, 0x0, 1"
+    hyprctl keyword monitor "DP-1, disable"
+}
 
-        previous_state=$current_state
-    fi
+main() {
+    local previous="" current
+    while true; do
+        if dp1_connected; then current="external"; else current="laptop"; fi
 
-    sleep 5
-done
+        if [[ "$current" != "$previous" ]]; then
+            if [[ "$current" == "external" ]]; then
+                use_external_mirror || true
+            else
+                use_laptop_only || true
+            fi
+            previous="$current"
+        fi
+
+        sleep "$POLL_SECONDS"
+    done
+}
+
+main "$@"

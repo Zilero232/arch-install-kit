@@ -1,26 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Streams the cava audio spectrum as a line of bar glyphs for the custom/cava module.
+# Adapted from a community waybar script (original author unknown).
+set -euo pipefail
 
-# Not my own work. Credit to original author
+readonly BARS="▁▂▃▄▅▆▇█"
+readonly CONFIG_FILE="/tmp/bar_cava_config"
 
-#----- Optimized bars animation without much CPU usage increase --------
-bar="▁▂▃▄▅▆▇█"
-dict="s/;//g"
-
-# Calculate the length of the bar outside the loop
-bar_length=${#bar}
-
-# Create dictionary to replace char with bar
-for ((i = 0; i < bar_length; i++)); do
-    dict+=";s/$i/${bar:$i:1}/g"
-done
-
-# Create cava config
-config_file="/tmp/bar_cava_config"
-cat >"$config_file" <<EOF
+write_cava_config() {
+    cat > "$CONFIG_FILE" << EOF
 [general]
-# Older systems show significant CPU use with default framerate
-# Setting maximum framerate to 30  
-# You can increase the value if you wish
 framerate = 60
 bars = 14
 
@@ -34,9 +22,21 @@ raw_target = /dev/stdout
 data_format = ascii
 ascii_max_range = 7
 EOF
+}
 
-# Kill cava if it's already running
-pkill -f "cava -p $config_file"
+# sed script that turns cava's digits 0-7 into bar glyphs and drops the separators
+build_sed_script() {
+    local script="s/;//g" i
+    for ((i = 0; i < ${#BARS}; i++)); do
+        script+=";s/$i/${BARS:$i:1}/g"
+    done
+    echo "$script"
+}
 
-# Read stdout from cava and perform substitution in a single sed command
-cava -p "$config_file" | sed -u "$dict"
+main() {
+    write_cava_config
+    pkill -f "cava -p $CONFIG_FILE" || true
+    cava -p "$CONFIG_FILE" | sed -u "$(build_sed_script)"
+}
+
+main "$@"

@@ -5,7 +5,6 @@
 	"control-center-margin-top": 10,
 	"control-center-margin-bottom": 10,
 	"control-center-margin-right": 10,
-	"notification-icon-size": 64,
 	"notification-body-image-height": 100,
 	"notification-body-image-width": 200,
 	"timeout": 10,
@@ -29,21 +28,8 @@
 		"mpris"
 	],
 	"widget-config": {
-		"title": {
-			"text": "Notification Center",
-			"clear-all-button": true,
-			"button-text": "󰆴 Clear"
-		},
-		"dnd": {
-			"text": "Do Not Disturb"
-		},
-		"label": {
-			"max-lines": 1,
-			"text": "Notification Center"
-		},
 		"mpris": {
 			"image-size": 100,
-			"image-radius": 0,
 			"blacklist": [
 				"kew",
 				"firefox",

@@ -1,19 +1,24 @@
+/* SwayNC notifications and control centre (Kanagawa colours). */
+
+/* --- Colours --- */
 @define-color cc-bg #16161d;
 @define-color noti-border-color #dcd7ba;
 @define-color noti-bg #11111b;
 @define-color noti-bg-darker #2b2b39;
 @define-color noti-bg-hover #1b1b2b;
-@define-color noti-bg-focus #1b1b1b;
-@define-color noti-close-bg #dcd7ba;
-@define-color noti-close-bg-hover #dcd7ba;
 @define-color text-color #dcd7ba;
 @define-color text-color-disabled #828282;
-@define-color bg-selected #7e9cd8;
 @define-color border-green #76946a;
 @define-color red-base #c34043;
 @define-color red-hover #e46876;
 @define-color green-base #98bb6c;
 @define-color blue-base #7e9cd8;
+
+/* --- Base --- */
+
+:root {
+  --notification-icon-size: 64px;
+}
 
 * {
   font-family: "JetBrainsMono NFM SemiBold", monospace;
@@ -32,6 +37,7 @@
   padding: 0;
 }
 
+/* Square corners everywhere */
 .notification,
 .notification-content,
 .notification-action,
@@ -54,6 +60,8 @@
 .widget-mpris-album-art {
   border-radius: 0;
 }
+
+/* --- Notifications --- */
 
 .notification {
   background: @cc-bg;
@@ -145,10 +153,14 @@
   text-shadow: none;
 }
 
+/* --- Control centre --- */
+
 .control-center {
   background: @cc-bg;
   border: 2px solid @border-green;
 }
+
+/* --- Widgets --- */
 
 .widget-title {
   color: @blue-base;

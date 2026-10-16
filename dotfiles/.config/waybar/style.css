@@ -1,16 +1,9 @@
-/* =============================================================================
-*
-* Waybar configuration - Modern Style (Simplified)
-*
-* Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
-*
-* =========================================================================== */
+/* Waybar style (Kanagawa). Colours come from themes/kanagawa.css.
+ * https://github.com/Alexays/Waybar/wiki/Styling */
 
 @import 'themes/kanagawa.css';
 
-/* -----------------------------------------------------------------------------
-* Base styles
-* -------------------------------------------------------------------------- */
+/* --- Base styles --- */
 
 * {
 	border: none;
@@ -25,12 +18,10 @@
 
 window#waybar {
 	background: rgba(15, 15, 20, 0.3);
-  border-bottom: 1px solid rgba(149, 127, 184, 0.3);
+	border-bottom: 1px solid rgba(149, 127, 184, 0.3);
 }
 
-/* -----------------------------------------------------------------------------
-* Tooltips
-* -------------------------------------------------------------------------- */
+/* --- Tooltips --- */
 
 tooltip {
 	background: @background-primary;
@@ -45,9 +36,7 @@ tooltip label {
 	font-size: 12px;
 }
 
-/* -----------------------------------------------------------------------------
-* Workspaces
-* -------------------------------------------------------------------------- */
+/* --- Workspaces --- */
 
 #workspaces {
 	background: @background-primary;
@@ -93,22 +82,7 @@ tooltip label {
 	border-color: @maroon;
 }
 
-/* -----------------------------------------------------------------------------
-* Window title
-* -------------------------------------------------------------------------- */
-
-#window {
-	background: @background-secondary;
-	color: @text;
-	padding: 8px 16px;
-	border-radius: 12px;
-	border: 1px solid @border-color;
-	font-weight: 500;
-}
-
-/* -----------------------------------------------------------------------------
-* Clock
-* -------------------------------------------------------------------------- */
+/* --- Clock --- */
 
 #clock {
 	background: @blue;
@@ -120,9 +94,7 @@ tooltip label {
 	font-size: 15px;
 }
 
-/* -----------------------------------------------------------------------------
-* System monitoring modules
-* -------------------------------------------------------------------------- */
+/* --- System monitoring modules --- */
 
 #memory {
 	background: @background-primary;
@@ -156,9 +128,7 @@ tooltip label {
 	border-left: 4px solid @maroon;
 }
 
-/* -----------------------------------------------------------------------------
-* Battery
-* -------------------------------------------------------------------------- */
+/* --- Battery --- */
 
 #battery {
 	background: @background-primary;
@@ -186,9 +156,7 @@ tooltip label {
 	border-left: 4px solid @maroon;
 }
 
-/* -----------------------------------------------------------------------------
-* Audio and Backlight
-* -------------------------------------------------------------------------- */
+/* --- Audio and Backlight --- */
 
 #backlight {
 	background: @background-primary;
@@ -213,9 +181,7 @@ tooltip label {
 	border-left: 4px solid @subtext0;
 }
 
-/* -----------------------------------------------------------------------------
-* Network
-* -------------------------------------------------------------------------- */
+/* --- Network --- */
 
 #network {
 	background: @background-primary;
@@ -236,9 +202,7 @@ tooltip label {
 	border-left: 4px solid @subtext0;
 }
 
-/* -----------------------------------------------------------------------------
-* Language
-* -------------------------------------------------------------------------- */
+/* --- Language and keyboard state --- */
 
 #language {
 	background: @background-primary;
@@ -258,9 +222,7 @@ tooltip label {
 	border-radius: 0 12px 12px 0;
 }
 
-/* -----------------------------------------------------------------------------
-* Custom modules
-* -------------------------------------------------------------------------- */
+/* --- Custom modules --- */
 
 #custom-launcher {
 	background: @mauve;
@@ -291,26 +253,6 @@ tooltip label {
 	border-radius: 12px;
 }
 
-#custom-updates.has-updates {
-	background: @warning;
-	color: @base;
-	border-left: 4px solid @peach;
-}
-
-#custom-vpn {
-	background: @background-primary;
-	color: @teal;
-	border-left: 4px solid @teal;
-	margin: 6px 2px;
-	padding: 8px 12px;
-	border-radius: 12px;
-}
-
-#custom-vpn.connected {
-	color: @success;
-	border-left: 4px solid @success;
-}
-
 #custom-notification {
 	background: @background-primary;
 	color: @lavender;
@@ -329,9 +271,7 @@ tooltip label {
 	border-radius: 12px;
 }
 
-/* -----------------------------------------------------------------------------
-* Tray
-* -------------------------------------------------------------------------- */
+/* --- Tray --- */
 
 #tray {
 	background: @background-secondary;
@@ -351,9 +291,7 @@ tooltip label {
 	color: @base;
 }
 
-/* -----------------------------------------------------------------------------
-* Idle inhibitor
-* -------------------------------------------------------------------------- */
+/* --- Idle inhibitor --- */
 
 #idle_inhibitor {
 	background: @background-primary;
@@ -370,18 +308,7 @@ tooltip label {
 	color: @base;
 }
 
-#mode {
-	background: @warning;
-	color: @base;
-	font-weight: bold;
-	padding: 8px 16px;
-	margin: 6px 8px;
-	border-radius: 12px;
-}
-
-/* -----------------------------------------------------------------------------
-* Hover effects
-* -------------------------------------------------------------------------- */
+/* --- Hover effects --- */
 
 #clock:hover,
 #battery:hover,
@@ -395,7 +322,6 @@ tooltip label {
 #custom-notification:hover,
 #custom-weather:hover,
 #custom-updates:hover,
-#custom-vpn:hover,
 #language:hover,
 #custom-cava:hover {
 	opacity: 0.8;

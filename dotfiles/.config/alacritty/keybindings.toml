@@ -1,4 +1,6 @@
-# Terminal-specific commands only
+# Alacritty shortcuts (window management lives in Hyprland).
+
+# --- Clipboard ---
 [[keyboard.bindings]]
 key = "V"
 mods = "Control|Shift"
@@ -9,23 +11,28 @@ key = "C"
 mods = "Control|Shift"
 action = "Copy"
 
-# Font size control
+# --- Font size ---
 [[keyboard.bindings]]
-key = "Plus"
+key = "+"
 mods = "Control"
 action = "IncreaseFontSize"
 
 [[keyboard.bindings]]
-key = "Minus"
+key = "="
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "-"
 mods = "Control"
 action = "DecreaseFontSize"
 
 [[keyboard.bindings]]
-key = "Key0"
+key = "0"
 mods = "Control"
 action = "ResetFontSize"
 
-# Terminal search
+# --- Search ---
 [[keyboard.bindings]]
 key = "F"
 mods = "Control|Shift"
@@ -36,7 +43,7 @@ key = "B"
 mods = "Control|Shift"
 action = "SearchBackward"
 
-# Terminal scrolling
+# --- Scrolling ---
 [[keyboard.bindings]]
 key = "PageUp"
 mods = "Shift"

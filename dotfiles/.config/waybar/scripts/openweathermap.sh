@@ -1,97 +1,88 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Prints current weather ("icon temp feels-like") from OpenWeatherMap for custom/weather.
+# Credentials live outside the repo in ~/.config/waybar/weather.env:
+#   OPENWEATHER_API_KEY=...
+#   OPENWEATHER_CITY_ID=...
+set -euo pipefail
 
-# Configuration
-API_KEY="ed9e1f66545f2f25d7bb0655c4116045"
-CITY_ID="468902"
-UNITS="metric"
-LANG="en"
+readonly ENV_FILE="$HOME/.config/waybar/weather.env"
+readonly UNITS="metric"
+readonly LANGUAGE="en"
+readonly API_URL="https://api.openweathermap.org/data/2.5/weather"
 
-# Function to check if API key is valid
-check_api_key() {
-    local test_request=$(curl -s "api.openweathermap.org/data/2.5/weather?q=London&appid=$API_KEY")
-    if [[ $test_request == *"Invalid API key"* ]]; then
-        echo "󰖙 Invalid API key"
-        
-        exit 1
-    fi
-}
+# Nerd Font icon for an OpenWeatherMap condition
+# Args: <main condition> <day|night> <detailed description>
+weather_icon() {
+    local condition=$1 period=$2 description=$3
 
-# Function to get weather icon based on conditions and time
-get_icon() {
-    local condition=$1
-    local is_day=$2
-    
-    case $condition in
-        "Clear")
-            if [ "$is_day" = "true" ]; then
-                echo "󰖙"  # Clear day
-            else
-                echo "󰖔"  # Clear night
-            fi
+    case "$condition" in
+        Clear)
+            if [[ "$period" == "day" ]]; then echo "󰖙"; else echo "󰖔"; fi
             ;;
-        "Clouds")
-            case $3 in
-                "few clouds") echo "󰖕" ;;  # Few clouds
-                "scattered clouds") echo "󰖕" ;;  # Scattered clouds
-                *) echo "󰖐" ;;  # Cloudy
+        Clouds)
+            case "$description" in
+                "few clouds" | "scattered clouds") echo "󰖕" ;;
+                *) echo "󰖐" ;;
             esac
             ;;
-        "Rain")
-            if [[ $3 == *"light"* ]]; then
-                echo "󰖖"  # Light rain
-            else
-                echo "󰖗"  # Rain
-            fi
+        Rain)
+            if [[ "$description" == *light* ]]; then echo "󰖖"; else echo "󰖗"; fi
             ;;
-        "Drizzle")
-            echo "󰖖"  # Drizzle
-            ;;
-        "Thunderstorm")
-            echo "󰖓"  # Thunderstorm
-            ;;
-        "Snow")
-            echo "󰖘"  # Snow
-            ;;
-        "Mist"|"Fog"|"Haze")
-            echo "󰖑"  # Mist
-            ;;
-        *)
-            echo "󰖜"  # Default icon
-            ;;
+        Drizzle) echo "󰖖" ;;
+        Thunderstorm) echo "󰖓" ;;
+        Snow) echo "󰖘" ;;
+        Mist | Fog | Haze) echo "󰖑" ;;
+        *) echo "󰖜" ;;
     esac
 }
 
-# Check API key first
-check_api_key
+fetch_weather() {
+    local api_key=$1 city_id=$2
+    curl -sf --max-time 10 \
+        "$API_URL?id=$city_id&appid=$api_key&units=$UNITS&lang=$LANGUAGE" || true
+}
 
-# Get weather data
-WEATHER_DATA=$(curl -s "api.openweathermap.org/data/2.5/weather?id=$CITY_ID&appid=$API_KEY&units=$UNITS&lang=$LANG")
+field() {
+    jq -r "$1" <<< "$2"
+}
 
-if [ -n "$WEATHER_DATA" ]; then
-    # Extract data
-    TEMP=$(echo $WEATHER_DATA | jq -r '.main.temp')
-    DESCRIPTION=$(echo $WEATHER_DATA | jq -r '.weather[0].main')
-    DETAILED_DESC=$(echo $WEATHER_DATA | jq -r '.weather[0].description')
-    FEELS_LIKE=$(echo $WEATHER_DATA | jq -r '.main.feels_like')
-    SUNRISE=$(echo $WEATHER_DATA | jq -r '.sys.sunrise')
-    SUNSET=$(echo $WEATHER_DATA | jq -r '.sys.sunset')
-    
-    # Determine if it's day or night
-    CURRENT_TIME=$(date +%s)
-    IS_DAY="true"
-    if [ $CURRENT_TIME -lt $SUNRISE ] || [ $CURRENT_TIME -gt $SUNSET ]; then
-        IS_DAY="false"
+round() {
+    LC_ALL=C printf "%.0f" "$1"
+}
+
+main() {
+    if [[ -f "$ENV_FILE" ]]; then
+        # shellcheck source=/dev/null
+        source "$ENV_FILE"
     fi
-    
-    # Round temperatures
-    TEMP=$(printf "%.0f" $TEMP)
-    FEELS_LIKE=$(printf "%.0f" $FEELS_LIKE)
-    
-    # Get weather icon
-    ICON=$(get_icon "$DESCRIPTION" "$IS_DAY" "$DETAILED_DESC")
-    
-    # Format output
-    echo "$ICON $TEMP°C 󰤾 $FEELS_LIKE°C"
-else
-    echo "󰖙 Weather unavailable"
-fi
+
+    local api_key="${OPENWEATHER_API_KEY:-}" city_id="${OPENWEATHER_CITY_ID:-}"
+    if [[ -z "$api_key" || -z "$city_id" ]]; then
+        echo "󰖐" # not configured: neutral icon only
+        exit 0
+    fi
+
+    local data
+    data=$(fetch_weather "$api_key" "$city_id")
+    if [[ -z "$data" ]] || ! jq -e '.main.temp' <<< "$data" > /dev/null 2>&1; then
+        echo "󰖙 Weather unavailable"
+        exit 0
+    fi
+
+    local temp feels_like condition description sunrise sunset now period="day"
+    temp=$(round "$(field '.main.temp' "$data")")
+    feels_like=$(round "$(field '.main.feels_like' "$data")")
+    condition=$(field '.weather[0].main' "$data")
+    description=$(field '.weather[0].description' "$data")
+    sunrise=$(field '.sys.sunrise' "$data")
+    sunset=$(field '.sys.sunset' "$data")
+    now=$(date +%s)
+
+    if [[ "$now" -lt "$sunrise" || "$now" -gt "$sunset" ]]; then
+        period="night"
+    fi
+
+    echo "$(weather_icon "$condition" "$period" "$description") $temp°C 󰤾 $feels_like°C"
+}
+
+main "$@"

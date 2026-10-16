@@ -1,15 +1,13 @@
-/*
-* Css Colors
-*/
+/* wlogout power menu (Super+X). Buttons: layout, icons: icons/. */
+
+/* --- Colours --- */
 @define-color blur_background rgba(26, 17, 15, 0.9);
 
 @define-color button_hover_text_color #55200c;
 @define-color button_hover_background_color #ffb59d;
 @define-color button_hover_shadow #000000;
 
-/* -----------------------------------------------------
-* General
-* ----------------------------------------------------- */
+/* --- Base --- */
 
 * {
 	font-family: 'JetBrains Mono', sans-serif;
@@ -28,8 +26,7 @@ button {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 20%;
-	animation: gradient_f 20s ease-in infinite;
-	border-radius: 80px; /* Increased border radius for a more rounded look */
+	border-radius: 80px;
 	border: 0px;
 	transition: all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682),
 		box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
@@ -51,14 +48,11 @@ button:hover {
 	box-shadow: 0 0 50px @button_hover_shadow;
 }
 
-/* Adjust the size of the icon or content inside the button */
 button span {
-	font-size: 1.2em; /* Increase the font size */
+	font-size: 1.2em;
 }
 
-/* -----------------------------------------------------
-* Buttons
-* ----------------------------------------------------- */
+/* --- Buttons --- */
 
 #lock {
 	margin: 10px;

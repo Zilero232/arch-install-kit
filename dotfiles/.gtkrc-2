@@ -1,7 +1,7 @@
 # DO NOT EDIT! This file will be overwritten by nwg-look.
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
-include "/home/zilero/.gtkrc-2.0.mine"
+include ".gtkrc-2.0.mine"
 gtk-theme-name="Kanagawa-Orange-Dark"
 gtk-icon-theme-name="Kanagawa"
 gtk-font-name="JetBrainsMono Nerd Font 12"

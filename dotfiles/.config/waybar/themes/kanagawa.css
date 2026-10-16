@@ -1,6 +1,4 @@
-/*
-* Kanagawa palette
-*/
+/* Kanagawa palette for Waybar (imported by style.css). */
 
 /* Base colors */
 @define-color base   #1f1f28;
@@ -38,7 +36,7 @@
 @define-color flamingo  #e82424;
 @define-color rosewater #dcd7ba;
 
-/* Additional styling variables - using solid colors instead of rgba */
+/* Surfaces */
 @define-color background-primary   #1f1f28;
 @define-color background-secondary #2a2a37;
 @define-color background-hover     #363646;
@@ -49,12 +47,3 @@
 @define-color warning @yellow;
 @define-color error   @red;
 @define-color info    @blue;
-
-/* Module-specific background colors */
-@define-color bg-workspaces #2a2a37;
-@define-color bg-clock      #7aa89f;
-@define-color bg-system     #363646;
-@define-color bg-network    #363646;
-@define-color bg-audio      #363646;
-@define-color bg-launcher   #957fb8;
-@define-color bg-power      #e82424;

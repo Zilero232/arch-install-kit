@@ -1,14 +1,13 @@
-/* Color scheme - Kanagawa style */
+/* Rofi theme: Kanagawa colours, fullscreen app grid. */
 * {
-    bg: #1f1f23ee;            // Main background with transparency (Sumi Ink)
-    bg-alt: #2a2a37;          // Alternative background (Sumi Ink 2)
-    bg-selected: #7aa89f;     // Selected item background (Carp Yellow)
-    
-    fg: #dcd7ba;              // Main text color (Fuji White)
-    fg-alt: #727169;          // Alternative text color (Old White)
-    fg-selected: #1f1f23;     // Selected item text color (Sumi Ink)
-    
-    // Reset all styles
+    bg: #1f1f23ee;            // sumiInk, translucent
+    bg-alt: #2a2a37;          // sumiInk4
+    bg-selected: #7aa89f;     // waveAqua2
+    fg: #dcd7ba;              // fujiWhite
+    fg-alt: #727169;          // fujiGray
+    fg-selected: #1f1f23;     // sumiInk
+
+    /* Reset */
     border: 0;
     margin: 0;
     padding: 0;
@@ -58,16 +57,16 @@ prompt {
 
 /* Grid of items */
 listview {
-    lines: 6;                 // Number of rows
-    columns: 5;               // Number of columns
-    spacing: 20px;            // Space between items
+    lines: 6;
+    columns: 5;
+    spacing: 20px;
     fixed-columns: true;
     background-color: transparent;
 }
 
 /* Individual item style */
 element {
-    orientation: vertical;     // Icon above text
+    orientation: vertical;
     padding: 20px 10px;
     border-radius: 8px;
     background-color: transparent;
@@ -93,18 +92,18 @@ element selected.normal {
 
 /* Application icon */
 element-icon {
-    size: 64px;              // Icon size
-    horizontal-align: 0.5;    // Center horizontally
+    size: 64px;
+    horizontal-align: 0.5;
     background-color: transparent;
 }
 
 /* Application name */
 element-text {
-    horizontal-align: 0.5;    // Center horizontally
-    vertical-align: 0.5;      // Center vertically
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
     background-color: transparent;
     text-color: inherit;
-    margin: 8px 0px 0px 0px;  // Space between icon and text
+    margin: 8px 0px 0px 0px;
 }
 
 /* Mode switcher at the bottom */
@@ -132,7 +131,7 @@ button selected {
 
 /* Scrollbar styling */
 scrollbar {
-    width: 4px;              // Bar width
+    width: 4px;
     border: 0;
     handle-width: 8px;
     padding: 0;

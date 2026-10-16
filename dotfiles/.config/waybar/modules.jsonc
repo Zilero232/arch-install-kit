@@ -1,4 +1,8 @@
 {
+  // Module settings, in bar order: left, centre, right.
+
+  // --- Left ---
+
   // Launcher
   "custom/launcher": {
     "format": "",
@@ -14,11 +18,6 @@
     "active-only": false,
     "all-outputs": true,
     "format": "{}",
-    "format-icons": {
-      "urgent": "",
-      "active": "",
-      "default": ""
-    },
     "persistent-workspaces": {
       "*": 5
     }
@@ -32,7 +31,7 @@
     "tooltip": false
   },
 
-  // Check updates pacman or aur
+  // Pending pacman/AUR updates; click to upgrade
   "custom/updates": {
     "format": "{}",
     "return-type": "json",
@@ -45,30 +44,34 @@
     "on-click": "~/.config/waybar/scripts/update_system.sh"
   },
 
-  // CAVA Audio Visualizer
+  // Audio spectrum; click: previous, middle: play/pause, right: next
   "custom/cava": {
     "exec": "~/.config/waybar/scripts/cava.sh",
     "format": "♪ {}",
     "on-click-middle": "playerctl play-pause",
     "on-click-right": "playerctl next",
-    "on-click-left": "playerctl previous"
+    "on-click": "playerctl previous"
   },
 
-  // Memory / CPU / Temp
+  // --- Centre ---
+
+  // Memory / CPU / temperature; click opens NeoHtop
   "memory": {
     "format": " {: >3}%",
-    "on-click": "neohtop"
+    "on-click": "NeoHtop"
   },
   "cpu": {
     "format": "󰘚 {usage: >3}%",
-    "on-click": "neohtop"
+    "on-click": "NeoHtop"
   },
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
     "critical-threshold": 80,
     "format": "  {temperatureC}°C",
-    "on-click": "neohtop"
+    "on-click": "NeoHtop"
   },
+
+  // --- Right ---
 
   // Idle inhibitor
   "idle_inhibitor": {
@@ -99,7 +102,6 @@
 
   // Keyboard state
   "keyboard-state": {
-    //"numlock": true,
     "capslock": true,
     "format": "{name} {icon} ",
     "format-icons": {
@@ -118,7 +120,7 @@
 
   // Audio
   "pulseaudio": {
-    "scroll-step": 1,
+    "scroll-step": 2,
     "format": "{icon} {volume: >3}%",
     "format-bluetooth": "{icon} {volume: >3}%",
     "format-muted": " muted",
@@ -131,9 +133,7 @@
       "car": "",
       "default": ["", ""]
     },
-    "on-click": "pavucontrol",
-    "on-scroll-up": "pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob",
-    "on-scroll-down": "pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob"
+    "on-click": "pavucontrol"
   },
 
   // Network
@@ -149,16 +149,6 @@
     "max-length": 50,
     "on-click": "nm-connection-editor",
     "on-click-right": "nm-connection-editor"
-  },
-
-  // VPN (nmcli, JSON)
-  "custom/vpn": {
-    "format": "{}",
-    "exec": "~/.config/waybar/scripts/vpn_status.sh",
-    "on-click": "~/.config/waybar/scripts/vpn_status.sh --toggle",
-    "interval": 5,
-    "return-type": "text",
-    "tooltip": true
   },
 
   // Clock
@@ -183,7 +173,7 @@
     "interval": 1
   },
 
-  // Notifications (SwayNC)
+  // Notifications (SwayNC); left: panel, right: do not disturb
   "custom/notification": {
     "tooltip-format": "Left: Notifications\nRight: Do not disturb",
     "format": "{icon}",

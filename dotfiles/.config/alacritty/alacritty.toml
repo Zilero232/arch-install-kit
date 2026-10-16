@@ -1,14 +1,19 @@
-# Main config with general settings
+# Alacritty. https://alacritty.org/config-alacritty.html
+# Colours: themes/kanagawa_wave.toml, shortcuts: keybindings.toml
+
 [general]
 import = [
-    "/home/zilero/.config/alacritty/themes/kanagawa_wave.toml",
-    "/home/zilero/.config/alacritty/keybindings.toml"
+    "~/.config/alacritty/themes/kanagawa_wave.toml",
+    "~/.config/alacritty/keybindings.toml",
 ]
 
 [env]
 TERM = "alacritty"
 
-# Window settings
+[terminal.shell]
+program = "/usr/bin/fish"
+
+# --- Window ---
 [window]
 dynamic_title = true
 decorations = "none"
@@ -17,7 +22,7 @@ decorations = "none"
 instance = "Alacritty"
 general = "Alacritty"
 
-# Font settings
+# --- Font ---
 [font]
 builtin_box_drawing = true
 size = 22.0
@@ -35,16 +40,11 @@ style = "Italic"
 [font.bold_italic]
 style = "Bold Italic"
 
-# Scroll settings
+# --- Scrolling and selection ---
 [scrolling]
 history = 10000
 multiplier = 6
 
-# Selection settings
 [selection]
 save_to_clipboard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
-
-# Shell settings
-[terminal.shell]
-program = "/usr/bin/fish"

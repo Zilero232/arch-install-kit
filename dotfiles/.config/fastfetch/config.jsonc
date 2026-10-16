@@ -81,13 +81,13 @@
     {
       "type": "battery",
       "key": "   Battery",
-      "keyColor": "38;5;228" // Light Yellow
+      "keyColor": "38;5;228"
     },
     "break",
     {
       "type": "title",
       "key": "   User",
-      "keyColor": "38;5;250" // Black
+      "keyColor": "38;5;250"
     },
     {
       "type": "custom",
@@ -97,24 +97,24 @@
       "type": "cpu",
       "format": "{1}",
       "key": "   CPU",
-      "keyColor": "38;5;118" // Bright Green
+      "keyColor": "38;5;118"
     },
     {
       "type": "gpu",
       "format": "{2}",
       "key": "   GPU",
-      "keyColor": "38;5;220" // Yellow
+      "keyColor": "38;5;220"
     },
     {
       "type": "gpu",
       "format": "{3}",
       "key": "   GPU Driver",
-      "keyColor": "38;5;27" // Cyan
+      "keyColor": "38;5;27"
     },
     {
       "type": "memory",
       "key": "   Memory",
-      "keyColor": "38;5;99" // Pinkish Purple
+      "keyColor": "38;5;99"
     },
     {
       "type": "custom",

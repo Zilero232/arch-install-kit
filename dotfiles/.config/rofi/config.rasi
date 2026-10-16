@@ -1,39 +1,25 @@
-/************************************************
- * ROFI Color theme and Configuration
- * User: Zilero
- * Copyright: None, feel free to use and modify
- * Based on Catppuccin Mocha color scheme
- ***********************************************/
+/* Rofi launcher (Super+D, Super+V). Theme and colours: colors.rasi
+ * https://github.com/davatorium/rofi/blob/next/doc/rofi.1.markdown */
 
-
-/* ---- Load colors ---- */
 @theme "~/.config/rofi/colors.rasi"
 
-/* ---- Configuration ---- */
 configuration {
-    // Available modes
-    modi: "run,drun,window";
-    
-    // Font settings
+    modes: "run,drun,window";
+    terminal: "alacritty";
+
+    /* Look */
     font: "JetBrainsMono Nerd Font 18";
-    
-    // Icon settings
     show-icons: true;
     icon-theme: "Papirus-Dark";
-    
-    // Basic settings
-    terminal: "alacritty";
     drun-display-format: "{icon} {name}";
-    location: 0;                              // Center position
-    disable-history: false;
+    location: 0; /* centre */
     hide-scrollbar: false;
-    
-    // Mode display names with Nerd Font icons
-    display-drun: " Apps";                    // Apps mode
-    display-run: " Run";                      // Run mode
-    display-window: " Window";                // Window switcher
-    display-Network: " 󰤨 Network";            // Network mode
-    
-    // Enable sidebar mode for switching modes
+
+    /* Mode switcher labels */
     sidebar-mode: true;
+    display-drun: " Apps";
+    display-run: " Run";
+    display-window: " Window";
+
+    disable-history: false;
 }

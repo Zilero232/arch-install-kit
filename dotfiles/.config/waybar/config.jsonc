@@ -1,10 +1,11 @@
 {
-  "style": "~/.config/waybar/style.css",
-  
+  // Bar layout. Module settings live in modules.jsonc, styling in style.css.
+  // https://github.com/Alexays/Waybar/wiki/Configuration
+
   "layer": "top",
   "position": "top",
   "height": 40,
-  
+
   "modules-left": [
     "custom/launcher",
     "hyprland/workspaces",
@@ -12,13 +13,13 @@
     "custom/updates",
     "custom/cava"
   ],
-  
+
   "modules-center": [
     "memory",
     "cpu",
     "temperature"
   ],
-  
+
   "modules-right": [
     "idle_inhibitor",
     "battery",
@@ -27,7 +28,6 @@
     "backlight",
     "pulseaudio",
     "network",
-    "custom/vpn",
     "clock",
     "custom/notification",
     "tray"

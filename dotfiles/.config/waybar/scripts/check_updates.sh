@@ -1,39 +1,48 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Prints pending pacman/AUR update counts as waybar JSON (custom/updates module).
+# Needs checkupdates (pacman-contrib); yay is optional.
+set -euo pipefail
 
-# Check if necessary commands exist
-check_command() {
-    if ! command -v "$1" >/dev/null 2>&1; then
-        echo "Error: $1 is not installed"
-        exit 1
+readonly ICON_OFFICIAL="󰏗"
+readonly ICON_AUR="󰚰"
+
+count_official() {
+    # checkupdates exits 2 when there is nothing to update
+    { checkupdates 2> /dev/null || true; } | wc -l
+}
+
+count_aur() {
+    if command -v yay > /dev/null; then
+        { yay -Qua 2> /dev/null || true; } | wc -l
+    else
+        echo 0
     fi
 }
 
-check_command checkupdates
-check_command yay
-
-# Get official repo updates
-OFFICIAL=$(checkupdates 2>/dev/null | wc -l)
-
-# Get AUR updates
-AUR=$(yay -Qua 2>/dev/null | wc -l)
-
-# Calculate total updates
-TOTAL=$((OFFICIAL + AUR))
-
-if [ "$TOTAL" -gt 0 ]; then
-    OUTPUT=""
-    if [ "$OFFICIAL" -gt 0 ]; then
-        OUTPUT+="󰏗 $OFFICIAL"
+main() {
+    if ! command -v checkupdates > /dev/null; then
+        echo '{"text": ""}'
+        exit 0
     fi
 
-    if [ "$AUR" -gt 0 ]; then
-        [ -n "$OUTPUT" ] && OUTPUT+=" "
-        OUTPUT+="󰚰 $AUR"
+    local official aur parts=()
+    official=$(count_official)
+    aur=$(count_aur)
+
+    if [[ $((official + aur)) -eq 0 ]]; then
+        echo '{"text": ""}'
+        exit 0
     fi
-    
-    # Формируем JSON для waybar
-    echo "{\"text\": \"$OUTPUT\", \"tooltip\": \"Official: $OFFICIAL\\nAUR: $AUR\"}"
-else
-    # Пустой вывод для waybar
-    echo "{\"text\": \"\"}"
-fi
+
+    if [[ "$official" -gt 0 ]]; then
+        parts+=("$ICON_OFFICIAL $official")
+    fi
+    if [[ "$aur" -gt 0 ]]; then
+        parts+=("$ICON_AUR $aur")
+    fi
+
+    # "\\n" stays literal on purpose: it is the newline escape inside the JSON tooltip
+    printf '{"text": "%s", "tooltip": "Official: %s\\nAUR: %s"}\n' "${parts[*]}" "$official" "$aur"
+}
+
+main "$@"
