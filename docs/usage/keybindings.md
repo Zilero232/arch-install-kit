@@ -1,6 +1,6 @@
 # Keybindings
 
-`Super` is the Windows key. Source: [`hypr/conf/bindings.conf`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/bindings.conf). Every bind has a description, so `hyprctl binds` lists them too.
+`Super` is the Windows key. Source: [`hypr/conf/bindings.lua`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/bindings.lua). Every bind has a description, so `hyprctl binds` lists them too.
 
 ## Apps
 
@@ -14,7 +14,7 @@
 | `Super + Shift + Ctrl + F` | Firefox, private window   |
 | `Super + Shift + Ctrl + H` | Chrome, incognito         |
 | `Super + Shift + T`        | Telegram                  |
-| `Super + Shift + C`        | Cursor                    |
+| `Super + Shift + C`        | VS Code                   |
 | `Super + Shift + P`        | PhpStorm                  |
 | `Super + Shift + V`        | VirtualBox                |
 | `Super + Shift + K`        | calendar (calcurse)       |
@@ -22,15 +22,24 @@
 
 ## Tools
 
-| Keys                | Action                                   |
-| ------------------- | ---------------------------------------- |
-| `Super + S`         | screenshot of the screen → clipboard     |
-| `Super + Shift + S` | screenshot of a region → `~/Screenshots` |
-| `Super + V`         | clipboard history                        |
-| `Super + C`         | color picker → clipboard                 |
-| `Super + W`         | random wallpaper                         |
-| `Super + P`         | show / hide Waybar                       |
-| `Super + O`         | show / hide Telegram and the audio mixer |
+| Keys                | Action                                                                 |
+| ------------------- | ---------------------------------------------------------------------- |
+| `PrtSc`             | region → annotate in satty (Enter copies and saves to `~/Screenshots`) |
+| `Shift + PrtSc`     | whole screen → annotate in satty                                       |
+| `Super + S`         | screenshot of the screen → clipboard                                   |
+| `Super + Shift + S` | screenshot of a region → `~/Screenshots`                               |
+| `Super + V`         | clipboard history                                                      |
+| `Super + C`         | color picker → clipboard                                               |
+| `Super + .`         | emoji picker                                                           |
+| `Super + =`         | calculator                                                             |
+| `Super + Shift + O` | copy text from a screen region (OCR, English and Russian)              |
+| `Super + Shift + R` | start / stop recording a region → `~/Videos`                           |
+| `Super + W`         | random static wallpaper from `~/Images`                                |
+| `Super + Ctrl + W`  | pick a wallpaper in waypaper                                           |
+| `Super + Shift + W` | back to the live Wallpaper Engine scene                                |
+| `Super + N`         | notification centre                                                    |
+| `Super + P`         | show / hide Waybar                                                     |
+| `Super + O`         | show / hide Telegram and the audio mixer                               |
 
 ## Session
 
@@ -79,6 +88,8 @@
 
 ## Keyboard layout
 
-| Keys          | Action                |
-| ------------- | --------------------- |
-| `Alt + Shift` | switch layout (us/ru) |
+| Keys           | Action                |
+| -------------- | --------------------- |
+| `Ctrl + Shift` | switch layout (us/ru) |
+
+Like on Windows, the layout switches when you let go of Ctrl+Shift, and only if you pressed nothing else in between, so `Ctrl + Shift + T`, `Ctrl + Shift + ←` and `Ctrl + Shift + C` keep working ([`hypr/conf/layout_switch.lua`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/layout_switch.lua)).

@@ -15,7 +15,7 @@ arch-install-kit/
 ├── packages/             # package lists per group
 ├── services.txt          # which systemd units to enable
 ├── dotfiles/             # mirror of $HOME: .config/, bin/, .gtkrc-2.0
-├── etc/                  # system files (SDDM theme, Plymouth)
+├── etc/                  # system files (SDDM, Plymouth, reflector, polkit rules)
 ├── assets/               # wallpapers and screenshots
 └── docs/                 # documentation
 ```

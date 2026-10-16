@@ -8,16 +8,18 @@ SDDM → **Hyprland** session → log in.
 
 ## 5.1. Tune it for your hardware
 
-**Monitors.** Nothing to do: every monitor gets its preferred mode and is placed automatically, including ones you plug in later. If you want a fixed layout or refresh rate, list your outputs with `hyprctl monitors all` and add rules to `~/.config/hypr/conf/monitor.conf`.
+**Monitors.** Nothing to do: every monitor gets its preferred mode, a scale that matches its pixel density (1.6 on a 13" 2560×1600 panel) and is placed automatically, including ones you plug in later. If you want a fixed layout, refresh rate or scale, list your outputs with `hyprctl monitors all` and add rules to `~/.config/hypr/conf/monitors.lua`.
 
 **Waybar weather.** Works out of the box: [wttrbar](https://github.com/bjesus/wttrbar) finds your location by IP. To pin a city, add `--location <City>` to `custom/weather` in `~/.config/waybar/modules.jsonc`.
 
 **Live wallpapers.** You need Steam and a purchased copy of Wallpaper Engine. Without it, static wallpapers from `~/Images` are used automatically via hyprpaper.
 
 1. Steam → install **Wallpaper Engine**.
-2. Subscribe to wallpapers in the Workshop and put their IDs at the top of `~/bin/wallpaperengine.sh`.
+2. Subscribe to a wallpaper in the Workshop and put its ID at the top of `~/bin/wallpaper.sh`.
 
-**Themes.** Open `nwg-look` and check the `Kanagawa` GTK theme, icons and the `Hackneyed` cursor.
+`Super + W` switches to a random static picture and `Super + Shift + W` back to the live scene; the last choice is kept after a reboot.
+
+**Themes.** Open `nwg-look` and check the `Kanagawa-Purple-Dark` GTK theme, `Papirus-Dark` icons and the `Hackneyed` cursor.
 
 ## 5.2. Restore your data from the backup
 

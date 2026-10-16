@@ -4,23 +4,23 @@ The lists live in [`packages/`](https://github.com/Zilero232/arch-install-kit/tr
 
 ## Groups
 
-| Group                                                                                         | What's inside                                                                  | Installed  |
-| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ---------- |
-| [`base`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/base.txt)         | networking, Bluetooth, power (TLP), archivers, backups, build tools            | always     |
-| [`hyprland`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/hyprland.txt) | Hyprland and its ecosystem, portals, clipboard, screenshots, SDDM, Plymouth    | always     |
-| [`desktop`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/desktop.txt)   | Waybar, Rofi, notifications, terminal, fish, file managers, browsers, Telegram | always     |
-| [`audio`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/audio.txt)       | PipeWire, mixers, media player control, visualizer                             | always     |
-| [`fonts`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/fonts.txt)       | Nerd Fonts, Noto, emoji                                                        | always     |
-| [`themes`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/themes.txt)     | Kanagawa GTK theme and icons, Hackneyed cursor, gowall                         | always     |
-| [`apps`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/apps.txt)         | password manager, Incy proxy client, disks, calendar, messengers               | by default |
-| [`dev`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/dev.txt)           | IDEs, Docker, languages, databases, VirtualBox                                 | by default |
-| [`media`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/media.txt)       | players, music, graphics, OBS                                                  | by default |
-| [`office`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/office.txt)     | LibreOffice, PDF, Obsidian                                                     | by default |
-| [`gaming`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/gaming.txt)     | Steam                                                                          | by default |
+| Group                                                                                         | What's inside                                                                                             | Installed  |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ---------- |
+| [`base`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/base.txt)         | networking, Bluetooth, firewall, keyring, power profiles, battery alerts, zram, firmware updates, backups | always     |
+| [`hyprland`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/hyprland.txt) | Hyprland and its ecosystem, portals, clipboard, screenshots + satty, OSD, OCR, SDDM, Plymouth             | always     |
+| [`desktop`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/desktop.txt)   | Waybar, Rofi, notifications, terminal, fish, file managers, browsers, Telegram                            | always     |
+| [`audio`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/audio.txt)       | PipeWire, mixers, media player control, visualizer                                                        | always     |
+| [`fonts`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/fonts.txt)       | Nerd Fonts, Noto, emoji                                                                                   | always     |
+| [`themes`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/themes.txt)     | Kanagawa GTK theme, Papirus icons (violet folders), Hackneyed cursor, gowall                              | always     |
+| [`apps`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/apps.txt)         | password manager, Incy proxy client, disks, calendar, messengers                                          | by default |
+| [`dev`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/dev.txt)           | IDEs, Docker, languages, databases, VirtualBox                                                            | by default |
+| [`media`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/media.txt)       | players, music, graphics, OBS                                                                             | by default |
+| [`office`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/office.txt)     | LibreOffice, PDF, Obsidian                                                                                | by default |
+| [`gaming`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/gaming.txt)     | Steam                                                                                                     | by default |
 
 `--minimal` installs only the "always" groups; `--groups dev,media` installs those plus the ones you list.
 
-[`conflicts.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/conflicts.txt) lists packages that get removed **before** installation (PulseAudio, other notification daemons).
+[`conflicts.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/conflicts.txt) lists packages that get removed **before** installation (PulseAudio, other notification daemons, TLP).
 
 ## Format
 
@@ -45,18 +45,19 @@ Why `.txt` and not JSON/YAML: the file is read by plain bash on a freshly instal
 
 This is a Wayland setup, so X11 tools are swapped for native ones:
 
-| Before                       | After                                | Why                                  |
-| ---------------------------- | ------------------------------------ | ------------------------------------ |
-| flameshot                    | hyprshot + grim + slurp              | native Hyprland screenshots          |
-| redshift                     | hyprsunset                           | night light on Wayland               |
-| gpick                        | hyprpicker                           | color picker                         |
-| peek                         | wf-recorder                          | screen recording                     |
-| xdotool                      | `hyprctl dispatch`                   | cursor/window control                |
-| polkit-gnome                 | hyprpolkitagent                      | password prompt dialog               |
-| ueberzug                     | ueberzugpp                           | image previews in ranger             |
-| p7zip                        | 7zip                                 | p7zip was dropped from the repos     |
-| ttf-font-awesome             | woff2-font-awesome                   | renamed in the repos                 |
-| virtualbox-host-modules-arch | virtualbox-host-dkms + linux-headers | modules are now DKMS-only            |
-| neohtop                      | neohtop-bin                          | the original AUR package is orphaned |
+| Before                       | After                          | Why                                  |
+| ---------------------------- | ------------------------------ | ------------------------------------ |
+| flameshot                    | hyprshot + satty               | native screenshots with annotation   |
+| redshift                     | hyprsunset                     | night light on Wayland               |
+| gpick                        | hyprpicker                     | color picker                         |
+| peek                         | wf-recorder                    | screen recording                     |
+| xdotool                      | `hyprctl dispatch 'hl.dsp.…'`  | cursor/window control                |
+| polkit-gnome                 | hyprpolkitagent                | password prompt dialog               |
+| ueberzug                     | ueberzugpp                     | image previews in ranger             |
+| p7zip                        | 7zip                           | p7zip was dropped from the repos     |
+| virtualbox-host-modules-arch | virtualbox-host-dkms + headers | modules are now DKMS-only            |
+| neohtop                      | neohtop-bin                    | the original AUR package is orphaned |
+| tlp                          | power-profiles-daemon          | profiles in Waybar, amd/intel pstate |
+| network-manager-applet       | nm-connection-editor           | only the editor was used             |
 
 `xorg-server` stays: the SDDM theme runs on X11.
