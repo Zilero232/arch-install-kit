@@ -16,7 +16,7 @@ local PRESSED = 1
 
 local mod_down = false
 local shift_down = false
-local armed = false -- Alt/Ctrl and Shift were held together and nothing else was pressed
+local armed = false -- Alt/Ctrl and Shift were held together and nothing else was pressed since
 
 local function switch_layout()
     hl.exec_cmd("hyprctl switchxkblayout all next")
@@ -39,16 +39,20 @@ hl.on("input.keyboard.key", function(keycode, _, state)
         else
             shift_down = true
         end
-        armed = mod_down and shift_down
-    elseif state == RELEASED then
-        if armed then
-            switch_layout()
-            armed = false
+        if mod_down and shift_down then
+            armed = true
         end
+    elseif state == RELEASED then
         if is_mod then
             mod_down = false
         else
             shift_down = false
+        end
+        -- Switch only once both keys are up: switching while Alt/Ctrl is still held
+        -- leaves that modifier stuck in the focused app, so typing turns into shortcuts
+        if armed and not mod_down and not shift_down then
+            armed = false
+            switch_layout()
         end
     end
 end)
