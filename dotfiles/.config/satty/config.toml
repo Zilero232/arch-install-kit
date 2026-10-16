@@ -1,0 +1,19 @@
+# Satty: screenshot annotation after PrtSc. https://github.com/gabm/Satty#configuration-file
+
+[general]
+app-id = "com.gabm.satty"
+resize = { mode = "smart" }
+floating-hack = true
+initial-tool = "arrow"
+corner-roundness = 12
+annotation-size-factor = 2
+copy-command = "wl-copy"
+output-filename = "~/Screenshots/screenshot-%Y-%m-%d_%H-%M-%S.png"
+# Enter copies and saves, then closes; Ctrl+C copies only; Esc discards
+actions-on-enter = ["save-to-clipboard", "save-to-file"]
+actions-on-escape = ["exit"]
+early-exit = ["all"]
+disable-notifications = false
+
+[font]
+family = "JetBrainsMono Nerd Font"

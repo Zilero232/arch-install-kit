@@ -20,6 +20,10 @@ random_offset() {
     echo $((RANDOM % (MAX_OFFSET * 2 + 1) - MAX_OFFSET))
 }
 
+move_cursor() {
+    hyprctl dispatch "hl.dsp.cursor.move({ x = $1, y = $2 })" >/dev/null
+}
+
 nudge_cursor() {
     local x y dx dy
     read -r x y < <(hyprctl -j cursorpos | jq -r '"\(.x) \(.y)"')
@@ -27,9 +31,9 @@ nudge_cursor() {
     dy=$(random_offset)
 
     echo "Moving cursor by $dx, $dy"
-    hyprctl dispatch movecursor "$((x + dx))" "$((y + dy))" >/dev/null
+    move_cursor "$((x + dx))" "$((y + dy))"
     sleep 2
-    hyprctl dispatch movecursor "$x" "$y" >/dev/null
+    move_cursor "$x" "$y"
 }
 
 main() {

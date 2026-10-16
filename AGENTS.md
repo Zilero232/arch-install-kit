@@ -15,7 +15,7 @@ Read first: [docs/reference/structure.md](docs/reference/structure.md).
 - **Prefer existing tools** (yay, rsync, stow, hyprctl, systemd drop-ins) over custom code.
 - **Every system change goes through `run`** (dry-run) and is idempotent; back up with `backup_once` before editing `/etc` files, prefer drop-in files.
 - **Packages:** add to the right `packages/<group>.txt`; verify the name exists (archlinux.org/packages, AUR RPC). Wayland-native tools only — no X11 utilities (xdotool, redshift, flameshot…). Drivers/microcode belong to `modules/40-gpu.sh`, not the lists.
-- **Dotfiles:** Hyprland 0.5x hyprlang `.conf` syntax (check https://wiki.hypr.land); no absolute `/home/<user>` paths — use `~` or `$HOME`; no secrets in the repo.
+- **Dotfiles:** Hyprland 0.56+ Lua config (`hyprland.lua` + `conf/*.lua`; check https://wiki.hypr.land and `/usr/share/hypr/stubs/hl.meta.lua`; verify with `Hyprland --verify-config -c ~/.config/hypr/hyprland.lua`). hyprlock, hypridle, hyprpaper and hyprsunset keep their hyprlang `.conf` files; no absolute `/home/<user>` paths — use `~` or `$HOME`; no secrets in the repo.
 - **Docs:** when behaviour, flags, packages or keybindings change, update the matching page in `docs/` (keybindings → `docs/usage/keybindings.md`).
 
 ## House style
