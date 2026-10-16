@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Thunar custom actions (right-click menu). https://docs.xfce.org/xfce/thunar/custom-actions -->
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<unique-id>kit-open-terminal</unique-id>
+	<command>alacritty --working-directory %f</command>
+	<description>Open Alacritty in this folder</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>com.visualstudio.code</icon>
+	<name>Open in VS Code</name>
+	<unique-id>kit-open-code</unique-id>
+	<command>code %f</command>
+	<description>Open this folder or file in VS Code</description>
+	<patterns>*</patterns>
+	<directories/>
+	<text-files/>
+</action>
+</actions>

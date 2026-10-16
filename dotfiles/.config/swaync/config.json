@@ -1,26 +1,38 @@
 {
 	"$schema": "/etc/xdg/swaync/configSchema.json",
+	"ignore-gtk-theme": true,
+	"cssPriority": "user",
 	"positionX": "right",
 	"positionY": "top",
-	"control-center-margin-top": 10,
-	"control-center-margin-bottom": 10,
-	"control-center-margin-right": 10,
-	"notification-body-image-height": 100,
-	"notification-body-image-width": 200,
-	"timeout": 10,
-	"timeout-low": 5,
-	"timeout-critical": 0,
-	"fit-to-screen": false,
-	"control-center-width": 500,
-	"control-center-height": 1033,
-	"notification-window-width": 500,
-	"keyboard-shortcuts": true,
+	"layer": "overlay",
+	"control-center-layer": "top",
+	"layer-shell": true,
+	"layer-shell-cover-screen": true,
+	"control-center-exclusive-zone": true,
+	"control-center-margin-top": 8,
+	"control-center-margin-bottom": 8,
+	"control-center-margin-right": 8,
+	"control-center-margin-left": 0,
+	"control-center-width": 420,
+	"control-center-height": 900,
+	"fit-to-screen": true,
+	"notification-window-width": 380,
+	"notification-2fa-action": true,
+	"notification-inline-replies": true,
+	"notification-body-image-height": 120,
+	"notification-body-image-width": 240,
+	"notification-grouping": true,
+	"relative-timestamps": true,
 	"image-visibility": "when-available",
+	"timeout": 8,
+	"timeout-low": 4,
+	"timeout-critical": 0,
 	"transition-time": 200,
+	"keyboard-shortcuts": true,
 	"hide-on-clear": false,
 	"hide-on-action": true,
 	"script-fail-notify": true,
-	"text-empty": "Nothing here",
+	"text-empty": "All caught up",
 	"widgets": [
 		"title",
 		"dnd",
@@ -31,26 +43,93 @@
 		"notifications"
 	],
 	"widget-config": {
-		"mpris": {
-			"blacklist": [
-				"kew",
-				"firefox",
-				"spotify"
+		"title": {
+			"text": "Notifications",
+			"clear-all-button": true,
+			"button-text": "󰹏  Clear"
+		},
+		"dnd": {
+			"text": "Do not disturb"
+		},
+		"buttons-grid": {
+			"buttons-per-row": 5,
+			"actions": [
+				{
+					"label": "󰖩",
+					"command": "sh -c 'swaync-client -cp; nm-connection-editor'"
+				},
+				{
+					"label": "󰂯",
+					"command": "sh -c 'swaync-client -cp; blueman-manager'"
+				},
+				{
+					"label": "󰖔",
+					"type": "toggle",
+					"command": "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then hyprctl hyprsunset temperature 3000; else hyprctl hyprsunset temperature 6000 && hyprctl hyprsunset identity; fi'",
+					"update-command": "sh -c 'if [ \"$(hyprctl hyprsunset temperature)\" -lt 6000 ] 2>/dev/null; then echo true; else echo false; fi'"
+				},
+				{
+					"label": "󰍭",
+					"type": "toggle",
+					"command": "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1; else wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0; fi'",
+					"update-command": "sh -c 'if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED; then echo true; else echo false; fi'"
+				},
+				{
+					"label": "󰙪",
+					"command": "sh -c 'swaync-client -cp; pavucontrol'"
+				},
+				{
+					"label": "󰹑",
+					"command": "sh -c 'swaync-client -cp; sleep 0.3; if command -v satty >/dev/null; then hyprshot -m region --raw | satty --filename -; else hyprshot -m region -o ~/Screenshots; fi'"
+				},
+				{
+					"label": "󰈊",
+					"command": "sh -c 'swaync-client -cp; sleep 0.3; hyprpicker -a'"
+				},
+				{
+					"label": "󰸉",
+					"command": "sh -c '~/bin/wallpaper.sh random'"
+				},
+				{
+					"label": "󰌾",
+					"command": "sh -c 'swaync-client -cp; hyprlock'"
+				},
+				{
+					"label": "󰐥",
+					"command": "sh -c 'swaync-client -cp; ~/bin/power_menu.sh'"
+				}
 			]
 		},
 		"volume": {
-			"label": "󰕾"
+			"label": "󰕾",
+			"show-per-app": true,
+			"show-per-app-icon": true,
+			"show-per-app-label": false,
+			"expand-button-label": "󰅀",
+			"collapse-button-label": "󰅃",
+			"empty-list-label": "Nothing is playing",
+			"animation-type": "slide_down",
+			"animation-duration": 200
 		},
 		"backlight": {
-			"label": "󰃟"
+			"label": "󰃟",
+			"device": "amdgpu_bl1",
+			"subsystem": "backlight",
+			"min": 5
 		},
-		"buttons-grid": {
-			"actions": [
-				{
-					"label": "󰂯",
-					"command": "blueman-manager"
-				}
+		"mpris": {
+			"show-album-art": "always",
+			"autohide": true,
+			"loop-carousel": true,
+			"blacklist": [
+				"kew",
+				"firefox",
+				"spotify",
+				"playerctld"
 			]
+		},
+		"notifications": {
+			"vexpand": true
 		}
 	}
 }

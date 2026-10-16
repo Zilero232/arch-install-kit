@@ -1,0 +1,9 @@
+/* GTK 3 tweaks on top of the Kanagawa theme. https://docs.gtk.org/gtk3/css-overview.html */
+
+/* --- Thunar --- */
+/* The theme paints the selected sidebar entry light beige with light text; use the violet accent */
+.thunar .sidebar .view:selected,
+.thunar .sidebar row:selected {
+	background-color: #957fb8;
+	color: #1f1f28;
+}

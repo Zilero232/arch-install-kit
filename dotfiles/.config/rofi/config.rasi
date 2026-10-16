@@ -10,7 +10,7 @@ configuration {
     /* Look */
     font: "JetBrainsMono Nerd Font 18";
     show-icons: true;
-    icon-theme: "Kanagawa"; /* kanagawa-icon-theme-git, same as GTK */
+    icon-theme: "Papirus-Dark"; /* same as GTK */
     drun-display-format: "{name}";
     location: 0; /* centre */
 
