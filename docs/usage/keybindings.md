@@ -88,8 +88,8 @@
 
 ## Keyboard layout
 
-| Keys           | Action                |
-| -------------- | --------------------- |
-| `Ctrl + Shift` | switch layout (us/ru) |
+| Keys                            | Action                |
+| ------------------------------- | --------------------- |
+| `Alt + Shift` or `Ctrl + Shift` | switch layout (us/ru) |
 
-Like on Windows, the layout switches when you let go of Ctrl+Shift, and only if you pressed nothing else in between, so `Ctrl + Shift + T`, `Ctrl + Shift + ←` and `Ctrl + Shift + C` keep working ([`hypr/conf/layout_switch.lua`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/layout_switch.lua)).
+Like on Windows, the layout switches when you let go of the keys, and only if you pressed nothing else in between, so `Ctrl + Shift + T`, `Ctrl + Shift + ←` and `Alt + Shift + Tab` keep working ([`hypr/conf/layout_switch.lua`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/layout_switch.lua)).

@@ -1,5 +1,5 @@
 -- Keyboard, mouse, touchpad. https://wiki.hypr.land/Configuring/Variables/#input
--- The us/ru switch is Ctrl+Shift, handled in layout_switch.lua.
+-- The us/ru switch is Alt+Shift or Ctrl+Shift, handled in layout_switch.lua.
 
 hl.config({
     input = {
