@@ -13,8 +13,8 @@ done < <(sed 's/#.*//; /^[[:space:]]*$/d' "$KIT_DIR/services.txt")
 # Boot does not wait for the network
 run sudo systemctl mask NetworkManager-wait-online.service
 
-# TLP manages radio devices itself and conflicts with systemd-rfkill
-if is_installed tlp; then
-    run sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
+# Earlier versions masked rfkill for TLP; power-profiles-daemon needs it back
+if [[ "$(systemctl is-enabled systemd-rfkill.socket 2>/dev/null)" == masked ]]; then
+    run sudo systemctl unmask systemd-rfkill.service systemd-rfkill.socket
 fi
 ok "Services enabled"

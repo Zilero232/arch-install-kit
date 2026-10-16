@@ -1,0 +1,53 @@
+// INCY VPN: connect without a password prompt. https://polkit.pages.freedesktop.org/polkit/polkit.8.html
+// The helper runs whatever binary it is given as root, so only the exact calls the
+// INCY app makes are allowed: the bundled xray and paths under /var/tmp/incy-xray/.
+// Anything else still asks for the password.
+
+// --- Allowed calls ---
+var INCY_HELPER = "/usr/lib/incy/incy-helper-linux.sh";
+var INCY_XRAY = "/opt/incy/lib/app/resources/bin/xray";
+var INCY_STATE_DIR = "/var/tmp/incy-xray/";
+var INCY_COMMANDS = [
+    "start-xray-tun", "stop-xray-tun", "teardown",
+    "setup-routes", "setup-routes-dns", "cleanup-routes",
+    "dns-set", "dns-restore",
+    "standalone-up", "standalone-apply", "standalone-down"
+];
+
+// Path arguments must be the bundled xray or live under the state dir; other
+// arguments (interface names, marks, IPs, CIDRs) must be plain tokens.
+function incyArgIsSafe(arg) {
+    if (arg.indexOf("..") !== -1) {
+        return false;
+    }
+    if (arg.charAt(0) === "/") {
+        return arg === INCY_XRAY || arg.indexOf(INCY_STATE_DIR) === 0;
+    }
+    return /^[A-Za-z0-9_.,:\/~-]+$/.test(arg);
+}
+
+function incyCallIsSafe(commandLine) {
+    var argv = commandLine.split(" ");
+    if (argv[0] !== INCY_HELPER || INCY_COMMANDS.indexOf(argv[1]) === -1) {
+        return false;
+    }
+    // start-xray-tun's first argument is the binary it runs as root
+    if (argv[1] === "start-xray-tun" && argv[2] !== INCY_XRAY) {
+        return false;
+    }
+    return argv.slice(2).every(incyArgIsSafe);
+}
+
+// --- Rule ---
+polkit.addRule(function (action, subject) {
+    if (action.id !== "cc.incy.vpn.run-helper") {
+        return polkit.Result.NOT_HANDLED;
+    }
+    if (!subject.local || !subject.active || !subject.isInGroup("wheel")) {
+        return polkit.Result.NOT_HANDLED;
+    }
+    if (incyCallIsSafe(action.lookup("command_line") || "")) {
+        return polkit.Result.YES;
+    }
+    return polkit.Result.NOT_HANDLED;
+});

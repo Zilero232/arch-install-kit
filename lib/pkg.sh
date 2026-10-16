@@ -13,15 +13,28 @@ is_installed() {
     pacman -Qq "$1" &>/dev/null
 }
 
-# One transaction first; if a single package breaks it, retry one by one and record failures
+# One transaction first; if a single package breaks it, retry one by one
 pkg_install() {
     (($#)) || return 0
-    run yay -S "${YAY_FLAGS[@]}" "$@" && return 0
+    if ! run yay -S "${YAY_FLAGS[@]}" "$@"; then
+        warn "Batch install failed, retrying one by one"
+        local pkg
+        for pkg in "$@"; do
+            run yay -S "${YAY_FLAGS[@]}" "$pkg" || true
+        done
+    fi
+    pkg_record_missing "$@"
+}
 
-    warn "Batch install failed, retrying one by one"
+# yay can exit 0 even when an AUR build fails (e.g. a blocked download),
+# so ask pacman what actually got installed and record the rest
+pkg_record_missing() {
     local pkg
+    if ((DRY_RUN)); then
+        return 0
+    fi
     for pkg in "$@"; do
-        if ! run yay -S "${YAY_FLAGS[@]}" "$pkg"; then
+        if ! is_installed "$pkg"; then
             echo "$pkg" >>"$FAILED_FILE"
             warn "failed: $pkg"
         fi

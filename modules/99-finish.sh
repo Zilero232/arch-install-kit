@@ -11,7 +11,7 @@ cat <<'TXT'
 
 Next steps:
   1. reboot  ->  SDDM  ->  Hyprland
-  2. hyprctl monitors all  ->  adjust ~/.config/hypr/conf/monitor.conf
+  2. hyprctl monitors all  ->  adjust ~/.config/hypr/conf/monitors.lua
   3. Steam  ->  Wallpaper Engine (otherwise hyprpaper is used)
   4. nwg-look  ->  check GTK theme, icons, cursor
   5. sudo timeshift --create --comments "fresh install"
