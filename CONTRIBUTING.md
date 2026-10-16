@@ -20,9 +20,13 @@ The hooks enable themselves: before each commit the scripts are checked and Mark
 
 ## Style
 
-- **Readability beats brevity.** Short functions, clear names, comments explain _why_.
-- Bash: `#!/bin/bash`, 4-space indent, quoted variables, `snake_case` functions.
+Write so that the whole repo reads as if one careful person wrote it. The full house style is in [AGENTS.md](./AGENTS.md#house-style); the short version:
+
+- **Readability beats brevity.** Short functions, clear names, comments explain _why_, never restate the line.
+- **Bash** ([Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html), trimmed): `#!/usr/bin/env bash`, a one-line purpose comment (plus `# Usage:` if it takes arguments), 4-space indent, `snake_case`, `local` variables, `[[ ]]`, quoted expansions. Standalone scripts use `set -euo pipefail`, `readonly` constants and end with `main "$@"`; `lib/` and `modules/` are sourced and have neither.
 - Anything that changes the system goes through `run`, so `--dry-run` keeps working.
+- **Configs:** first line says what the file is (plus an upstream docs link), sections look like `# --- Name ---` (`/* --- Name --- */` in CSS/rasi).
+- **Docs:** second person, sentence-case headings, a language on every code block; install pages end with a **Next:** link.
 - No absolute `/home/<user>` paths and no secrets in configs.
 
 Checks:

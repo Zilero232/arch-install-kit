@@ -3,5 +3,5 @@ bun.lock
 assets
 # App configs keep their own upstream formatting
 dotfiles
-docs/.vitepress/dist
-docs/.vitepress/cache
+website/.vitepress/dist
+website/.vitepress/cache

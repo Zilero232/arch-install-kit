@@ -35,9 +35,9 @@
     "lint": "shellcheck -x $(git ls-files '*.sh')",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs",
+    "docs:dev": "vitepress dev website",
+    "docs:build": "vitepress build website",
+    "docs:preview": "vitepress preview website",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -47,7 +47,10 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.10",
+    "sharp": "^0.35.5",
     "shellcheck": "^4.1.0",
+    "svgo": "^4.1.0",
+    "vite-plugin-image-optimizer": "^2.0.3",
     "vitepress": "^1.6.4"
   }
 }

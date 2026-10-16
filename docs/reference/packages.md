@@ -11,7 +11,7 @@ The lists live in [`packages/`](https://github.com/Zilero232/arch-install-kit/tr
 | [`desktop`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/desktop.txt)   | Waybar, Rofi, notifications, terminal, fish, file managers, browsers, Telegram | always     |
 | [`audio`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/audio.txt)       | PipeWire, mixers, media player control, visualizer                             | always     |
 | [`fonts`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/fonts.txt)       | Nerd Fonts, Noto, emoji                                                        | always     |
-| [`themes`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/themes.txt)     | Kanagawa GTK theme and icons, Hackneyed cursor                                 | always     |
+| [`themes`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/themes.txt)     | Kanagawa GTK theme and icons, Hackneyed cursor, gowall                         | always     |
 | [`apps`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/apps.txt)         | password manager, Incy proxy client, disks, calendar, messengers               | by default |
 | [`dev`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/dev.txt)           | IDEs, Docker, languages, databases, VirtualBox                                 | by default |
 | [`media`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/media.txt)       | players, music, graphics, OBS                                                  | by default |

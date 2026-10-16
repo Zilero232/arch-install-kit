@@ -10,7 +10,8 @@ Everything in [`dotfiles/bin`](https://github.com/Zilero232/arch-install-kit/tre
 | `toggle_waybar.sh`    | `Super + P` | hides or shows Waybar                                                          |
 | `update_mirrors.sh`   | —           | picks the fastest pacman mirrors with reflector (keeps a backup of the list)   |
 | `plymouth_theme.sh`   | —           | `list` / `set <theme>` for the boot splash                                     |
-| `sddm_theme.sh`       | —           | runs the SDDM Astronaut theme picker                                           |
+| `sddm_theme.sh`       | —           | `list` / `set <variant>` for the SDDM Astronaut login screen                   |
+| `gtk_theme.sh`        | autostart   | applies the GTK theme, icons, cursor and font from `gtk-3.0/settings.ini`      |
 | `anti_afk.sh`         | —           | nudges the cursor every 30–60 s so apps don't mark you as away; `Ctrl+C` stops |
 
 ## Waybar scripts

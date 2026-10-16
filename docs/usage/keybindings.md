@@ -30,6 +30,7 @@
 | `Super + C`         | color picker → clipboard                 |
 | `Super + W`         | random wallpaper                         |
 | `Super + P`         | show / hide Waybar                       |
+| `Super + O`         | show / hide Telegram and the audio mixer |
 
 ## Session
 

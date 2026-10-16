@@ -2,8 +2,8 @@
 node_modules/
 
 # --- Docs site (VitePress) ---
-docs/.vitepress/dist/
-docs/.vitepress/cache/
+website/.vitepress/dist/
+website/.vitepress/cache/
 
 # --- Secrets and runtime files written into linked dotfiles (./install.sh --link) ---
 dotfiles/.config/waybar/weather.env

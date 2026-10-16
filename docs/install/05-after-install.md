@@ -73,3 +73,7 @@ sudo timeshift --create --comments "fresh install"
 ```
 
 Something not working? See [troubleshooting](../reference/troubleshooting.md).
+
+---
+
+**Next:** [Keybindings →](../usage/keybindings.md)

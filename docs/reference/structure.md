@@ -7,13 +7,14 @@ arch-install-kit/
 │   ├── log.sh            #   output and log file
 │   ├── run.sh            #   run (with --dry-run), module runner
 │   ├── sudo.sh           #   refuse root, sudo handling
+│   ├── ui.sh             #   gum prompts: group picker, confirmation
 │   ├── pkg.sh            #   reading lists, installing via yay
 │   ├── hw.sh             #   CPU, GPU, bootloader, kernels
 │   └── fs.sh             #   backups, deploying dotfiles
 ├── modules/              # install steps, run in numeric order
 ├── packages/             # package lists per group
 ├── services.txt          # which systemd units to enable
-├── dotfiles/             # mirror of $HOME: .config/, bin/, .gtkrc-2
+├── dotfiles/             # mirror of $HOME: .config/, bin/, .gtkrc-2.0
 ├── etc/                  # system files (SDDM theme, Plymouth)
 ├── assets/               # wallpapers and screenshots
 └── docs/                 # documentation
@@ -23,8 +24,10 @@ arch-install-kit/
 
 1. Sources every `lib/*.sh`.
 2. Parses the flags (`--minimal`, `--only`, `--dry-run`…).
-3. Runs `modules/NN-name.sh` one by one. Each module runs in its own subshell in strict mode (`set -Eeuo pipefail`), so an error only stops that module.
-4. If a critical module fails (`preflight`, `pacman`, `aur-helper`), the install aborts. Anything else can be re-run with `--only`.
+3. Installs its own dependencies from `packages/bootstrap.txt` (`pkg_bootstrap`).
+4. Unless `--yes` is given or there's no terminal, lets you pick optional groups and confirm the plan (`lib/ui.sh`, gum).
+5. Runs `modules/NN-name.sh` one by one. Each module runs in its own subshell in strict mode (`set -Eeuo pipefail`), so an error only stops that module.
+6. If a critical module fails (`preflight`, `pacman`, `aur-helper`), the install aborts. Anything else can be re-run with `--only`.
 
 ## Module rules
 
@@ -38,7 +41,7 @@ arch-install-kit/
 
 ```bash
 cat > modules/55-example.sh <<'EOF'
-#!/bin/bash
+#!/usr/bin/env bash
 # One line: what this module does.
 
 if ! is_installed example; then
@@ -58,7 +61,7 @@ It shows up in `./install.sh --help` right away and is available as `--only exam
 | ------------------------ | ----------------- |
 | `dotfiles/.config/hypr/` | `~/.config/hypr/` |
 | `dotfiles/bin/`          | `~/bin/`          |
-| `dotfiles/.gtkrc-2`      | `~/.gtkrc-2`      |
+| `dotfiles/.gtkrc-2.0`    | `~/.gtkrc-2.0`    |
 
 The `dotfiles` module deploys them in one of two ways:
 

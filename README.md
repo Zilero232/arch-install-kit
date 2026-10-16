@@ -4,6 +4,10 @@
 
 **A Hyprland setup for Arch Linux that installs with a single command**
 
+### [🌊 zilero232.github.io/arch-install-kit](https://zilero232.github.io/arch-install-kit/)
+
+The website has the full step-by-step guide, keybindings and search.
+
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-2E3440?style=for-the-badge&logo=linux&logoColor=81A1C1)](https://hypr.land)
 [![Waybar](https://img.shields.io/badge/Waybar-1f2335?style=for-the-badge&logo=gnome&logoColor=8AADF4)](https://github.com/Alexays/Waybar)
@@ -12,6 +16,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit?style=flat-square&color=B5E8E0&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/commits/master)
 [![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=flat-square&color=c9cbff&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/stargazers)
 [![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=flat-square&color=F2CDCD&labelColor=302D41)](./LICENSE)
+[![Docs](https://img.shields.io/github/actions/workflow/status/Zilero232/arch-install-kit/docs.yml?branch=master&label=website&style=flat-square&color=7E9CD8&labelColor=302D41)](https://zilero232.github.io/arch-install-kit/)
 
 ![Hyprland](./assets/screenshots/hyrpland_preview.png)
 
@@ -80,7 +85,9 @@ More: [running and options](./docs/install/04-run-installer.md) · [how it works
 
 ## 📚 Documentation
 
-- [Step-by-step install](./docs/README.md#-installation--step-by-step) — backup, USB stick, archinstall, install.sh
+Best read on the [website](https://zilero232.github.io/arch-install-kit/) (search, dark theme, sidebar). The same pages live in [`docs/`](./docs):
+
+- [Step-by-step install](./docs/README.md#installation--step-by-step) — backup, USB stick, archinstall, install.sh
 - [Keybindings](./docs/usage/keybindings.md)
 - [Packages](./docs/reference/packages.md)
 - [When something breaks](./docs/reference/troubleshooting.md)

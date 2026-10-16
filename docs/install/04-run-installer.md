@@ -9,11 +9,18 @@ cd ~/arch-install-kit
 ./install.sh
 ```
 
-The script asks for your sudo password once and then runs on its own: 20–60 minutes, depending on your connection and how many AUR packages it builds.
+What you'll see:
+
+1. **sudo password** — asked once, kept alive for the whole run.
+2. **Installer dependencies** — `git`, `rsync`, `stow`, `jq`, [`gum`](https://github.com/charmbracelet/gum) and a few more from [`packages/bootstrap.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/bootstrap.txt).
+3. **Pick optional groups** — a checklist (space toggles, enter confirms); everything is ticked by default.
+4. **Plan and confirmation** — a summary box and _Start?_
+
+After that it runs on its own: 20–60 minutes, depending on your connection and how many AUR packages it builds.
 
 > Run it **as your regular user**, not with `sudo` — the script calls sudo itself where needed.
 
-## What happens, step by step
+## 4.1. What happens, step by step
 
 | Module       | What it does                                                                                                   |
 | ------------ | -------------------------------------------------------------------------------------------------------------- |
@@ -30,7 +37,7 @@ The script asks for your sudo password once and then runs on its own: 20–60 mi
 | `services`   | enables services from [`services.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/services.txt) |
 | `finish`     | shows what failed to install and what to do next                                                               |
 
-## Options
+## 4.2. Options
 
 ```bash
 ./install.sh --help
@@ -45,17 +52,19 @@ The script asks for your sudo password once and then runs on its own: 20–60 mi
 | `--link`             | symlinks to the repo instead of copies — edits show up in `git status` right away |
 | `--no-plymouth`      | no boot splash                                                                    |
 | `--dry-run`          | show what would be done without changing anything                                 |
+| `-y`, `--yes`        | no questions (for unattended runs): all groups unless `--minimal` / `--groups`    |
 
 Examples:
 
 ```bash
 ./install.sh --dry-run                 # preview the plan
+./install.sh --yes                     # everything, no questions
 ./install.sh --minimal --link          # desktop only, configs as symlinks
 ./install.sh --only dotfiles           # update configs after git pull
 ./install.sh --only packages --groups gaming   # add Steam later
 ```
 
-## Re-running
+## 4.3. Re-running
 
 You can run the script as many times as you like:
 

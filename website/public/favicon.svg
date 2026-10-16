@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Kanagawa wave on sumiInk: the palette the whole setup uses -->
+  <rect width="64" height="64" rx="14" fill="#1F1F28"/>
+  <path d="M6 46c7-1 11-9 18-11 6-2 9 4 15 3 9-1 11-17 21-19-7 5-8 15-14 22-6 6-14 8-21 5-6-2-11 0-19 6z" fill="#7E9CD8"/>
+  <path d="M41 25c4-5 10-7 15-6-5 2-8 5-10 10" fill="none" stroke="#DCD7BA" stroke-width="3" stroke-linecap="round"/>
+  <path d="M10 54h44" stroke="#7AA89F" stroke-width="3" stroke-linecap="round"/>
+</svg>

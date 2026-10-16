@@ -1,0 +1,69 @@
+/*
+ * Kanagawa palette, the same one the desktop uses: https://github.com/rebelot/kanagawa.nvim
+ * Dark = "wave", light = "lotus".
+ */
+
+:root {
+  --kw-sans: 'Onest', system-ui, sans-serif;
+  --kw-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* lotus */
+  --kw-ink-0: #e7dba0;
+  --kw-ink-1: #f2ecbc;
+  --kw-ink-2: #e5ddb0;
+  --kw-fg: #545464;
+  --kw-muted: #716e61;
+  --kw-line: #d5cea3;
+  --kw-blue: #4d699b;
+  --kw-blue-bright: #5d7ab0;
+  --kw-aqua: #597b75;
+  --kw-violet: #624c83;
+  --kw-yellow: #77713f;
+  --kw-pink: #b35b79;
+  --kw-green: #6f894e;
+
+  --vp-font-family-base: var(--kw-sans);
+  --vp-font-family-mono: var(--kw-mono);
+
+  --vp-c-bg: var(--kw-ink-1);
+  --vp-c-bg-alt: var(--kw-ink-2);
+  --vp-c-bg-soft: var(--kw-ink-2);
+  --vp-c-bg-elv: var(--kw-ink-1);
+  --vp-c-text-1: var(--kw-fg);
+  --vp-c-text-2: var(--kw-muted);
+  --vp-c-divider: var(--kw-line);
+  --vp-c-gutter: var(--kw-line);
+  --vp-c-brand-1: var(--kw-blue);
+  --vp-c-brand-2: var(--kw-blue-bright);
+  --vp-c-brand-3: var(--kw-blue);
+  --vp-c-brand-soft: rgba(77, 105, 155, 0.14);
+  --vp-code-block-bg: var(--kw-ink-2);
+}
+
+.dark {
+  /* wave */
+  --kw-ink-0: #16161d;
+  --kw-ink-1: #1f1f28;
+  --kw-ink-2: #2a2a37;
+  --kw-fg: #dcd7ba;
+  --kw-muted: #a6a69c;
+  --kw-line: #363646;
+  --kw-blue: #7e9cd8;
+  --kw-blue-bright: #9cb4e4;
+  --kw-aqua: #7aa89f;
+  --kw-violet: #957fb8;
+  --kw-yellow: #e6c384;
+  --kw-pink: #d27e99;
+  --kw-green: #98bb6c;
+
+  --vp-c-brand-soft: rgba(126, 156, 216, 0.16);
+  --vp-code-block-bg: var(--kw-ink-0);
+}
+
+/* Docs pages: headings in the terminal font, like the desktop */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 {
+  font-family: var(--kw-mono);
+  letter-spacing: -0.01em;
+}

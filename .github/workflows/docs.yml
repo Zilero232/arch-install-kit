@@ -3,7 +3,7 @@ name: Docs
 on:
   push:
     branches: [master]
-    paths: ['docs/**', 'assets/screenshots/**', 'package.json', 'bun.lock']
+    paths: ['docs/**', 'website/**', 'assets/screenshots/**', 'package.json', 'bun.lock']
   workflow_dispatch:
 
 permissions:
@@ -27,7 +27,7 @@ jobs:
       - run: bun run docs:build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: website/.vitepress/dist
 
   deploy:
     needs: build

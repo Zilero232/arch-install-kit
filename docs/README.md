@@ -1,6 +1,6 @@
 # Documentation
 
-## 🚀 Installation — step by step
+## Installation — step by step
 
 | Step                                                   |                                                 |
 | ------------------------------------------------------ | ----------------------------------------------- |
@@ -10,7 +10,7 @@
 | [4. Running install.sh](./install/04-run-installer.md) | one command, options, re-running                |
 | [5. After installation](./install/05-after-install.md) | monitors, weather, wallpapers, checks           |
 
-## 🖥️ Usage
+## Usage
 
 |                                       |                                      |
 | ------------------------------------- | ------------------------------------ |
@@ -18,7 +18,7 @@
 | [Fish](./usage/fish.md)               | terminal abbreviations and functions |
 | [Scripts](./usage/scripts.md)         | what lives in `~/bin`                |
 
-## 📚 Reference
+## Reference
 
 |                                                           |                                                         |
 | --------------------------------------------------------- | ------------------------------------------------------- |

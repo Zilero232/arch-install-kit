@@ -24,9 +24,9 @@ Config: [`dotfiles/.config/fish`](https://github.com/Zilero232/arch-install-kit/
 | `journal`                                           | follow the systemd journal           |
 | `vacuum`                                            | shrink the journal to 100 MB         |
 | `myip`                                              | your public IP                       |
-| `ports`                                             | listening ports                      |
+| `ports`                                             | listening ports (`ss -tulpn`)        |
 | `plymouth_theme_list` / `plymouth_theme_set <name>` | boot splash themes                   |
-| `sddm_theme`                                        | pick the SDDM Astronaut variant      |
+| `sddm_theme_list` / `sddm_theme_set <variant>`      | SDDM Astronaut variants              |
 
 ## Functions
 
@@ -38,4 +38,4 @@ Config: [`dotfiles/.config/fish`](https://github.com/Zilero232/arch-install-kit/
 
 ## Environment
 
-`EDITOR`/`VISUAL` = vim, `BROWSER` = google-chrome-stable, `~/.bun/bin` is on `PATH`. Tool versions (node, bun, python…) are managed by [mise](https://mise.jdx.dev): `mise use -g node@lts`, or a `mise.toml` per project.
+`EDITOR`/`VISUAL` = nvim, `BROWSER` = google-chrome-stable, `~/.bun/bin` is on `PATH`. Tool versions (node, bun, python…) are managed by [mise](https://mise.jdx.dev): `mise use -g node@lts`, or a `mise.toml` per project.
