@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Summary of what needs attention.
 
-if [ -s "$FAILED_FILE" ]; then
+if [[ -s "$FAILED_FILE" ]]; then
     warn "Not installed (check the name with: yay -Ss <name>):"
     sort -u "$FAILED_FILE" | sed 's/^/    /'
 fi

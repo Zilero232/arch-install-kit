@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # pacman.conf: multilib (Steam, lib32 drivers), colors, parallel downloads.
 
 backup_once /etc/pacman.conf

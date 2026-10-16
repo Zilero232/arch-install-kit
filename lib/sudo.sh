@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Root guard and sudo keepalive for long installs.
 
 require_not_root() {
-    [ "$EUID" -ne 0 ] || die "Run as your user, not root: sudo is used where needed"
+    [[ "$EUID" -ne 0 ]] || die "Run as your user, not root: sudo is used where needed"
 }
 
+# Asks for the password once and refreshes the sudo timestamp until the installer exits
 sudo_keepalive() {
     sudo -v || die "sudo is required"
     while true; do

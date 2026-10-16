@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # CPU microcode and GPU drivers for whatever hardware is detected.
 
 pkgs=()

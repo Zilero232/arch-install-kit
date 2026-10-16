@@ -1,8 +1,10 @@
-# unit                 scope    enabled only if this package is installed
-NetworkManager.service system   networkmanager
-bluetooth.service      system   bluez
-sddm.service           system   sddm
-fstrim.timer           system   util-linux
-docker.service         system   docker
-tlp.service            system   tlp
-NetworkManager-dispatcher.service system tlp-rdw
+# Systemd units the services module enables; a unit is skipped when its package is missing.
+# unit                            scope    package
+NetworkManager.service            system   networkmanager
+bluetooth.service                 system   bluez
+sddm.service                      system   sddm
+fstrim.timer                      system   util-linux
+docker.service                    system   docker
+tlp.service                       system   tlp
+NetworkManager-dispatcher.service system   tlp-rdw
+mpd.socket                        user     mpd

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Dry-run aware command execution and module runner.
 
 DRY_RUN="${DRY_RUN:-0}"
@@ -12,7 +12,7 @@ run() {
     "$@"
 }
 
-# Writes stdin to a root-owned file
+# write_root_file <dest> [mode]: writes stdin to a root-owned file (default mode 644)
 write_root_file() {
     local dest="$1" mode="${2:-644}" tmp
     tmp="$(mktemp)"

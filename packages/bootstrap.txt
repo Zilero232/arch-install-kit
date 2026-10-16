@@ -1,0 +1,3 @@
+# What install.sh itself needs; installed with pacman before any module runs
+git base-devel curl rsync stow jq pciutils
+gum   # interactive group picker and confirmation

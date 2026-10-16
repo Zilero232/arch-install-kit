@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Package lists and installation. yay resolves both repo and AUR packages.
 
 PACKAGES_DIR="$KIT_DIR/packages"
@@ -29,15 +29,33 @@ pkg_install() {
     return 0
 }
 
+# Installs one group: packages/<group>.txt
 pkg_install_list() {
     local file="$PACKAGES_DIR/$1.txt" pkgs
-    [ -f "$file" ] || die "No package list: $file"
+    [[ -f "$file" ]] || die "No package list: $file"
 
     mapfile -t pkgs < <(read_pkgs "$file")
     info "$1: ${#pkgs[@]} packages"
     pkg_install "${pkgs[@]}"
 }
 
+# Installer prerequisites from packages/bootstrap.txt (all from the official repos)
+pkg_bootstrap() {
+    local pkg missing=()
+    while read -r pkg; do
+        if ! is_installed "$pkg"; then
+            missing+=("$pkg")
+        fi
+    done < <(read_pkgs "$PACKAGES_DIR/bootstrap.txt")
+
+    if ((${#missing[@]})); then
+        step "Installing installer dependencies: ${missing[*]}"
+        # -Syu, not -S: installing on a stale database would be a partial upgrade
+        run sudo pacman -Syu --needed --noconfirm "${missing[@]}" || die "Cannot install: ${missing[*]}"
+    fi
+}
+
+# Uninstalls whatever from packages/conflicts.txt is present
 pkg_remove_conflicts() {
     local pkg found=()
     while read -r pkg; do

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Locale, user groups and small system defaults.
 
 if ! grep -q '^ru_RU.UTF-8' /etc/locale.gen; then

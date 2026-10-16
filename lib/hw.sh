@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Hardware and boot setup detection.
 
 gpu_info() {
@@ -15,7 +15,7 @@ cpu_vendor() {
 
 # grub | systemd-boot | unknown
 bootloader() {
-    if [ -f /etc/default/grub ] && [ -d /boot/grub ]; then
+    if [[ -f /etc/default/grub ]] && [[ -d /boot/grub ]]; then
         echo grub
     elif bootctl is-installed &>/dev/null; then
         echo systemd-boot

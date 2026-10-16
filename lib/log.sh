@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Colored terminal output; the log file gets the same text without ANSI codes.
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/arch-install-kit"
 LOG_FILE="$STATE_DIR/install-$(date +%F-%H%M%S).log"
 FAILED_FILE="$STATE_DIR/failed-packages"
 
+# From here on all output also goes to LOG_FILE, with colour codes stripped
 setup_log() {
     mkdir -p "$STATE_DIR"
     : >"$FAILED_FILE"

@@ -1,2 +1,2 @@
-# Kanagawa GTK + icons, Hackneyed cursor (names used in gtk-*/settings.ini)
-kanagawa-gtk-theme-git kanagawa-icon-theme-git xcursor-hackneyed-dark
+# Kanagawa GTK + icons, Hackneyed cursor (names used in gtk-*/settings.ini); gowall recolours wallpapers
+kanagawa-gtk-theme-git kanagawa-icon-theme-git xcursor-hackneyed-dark gowall

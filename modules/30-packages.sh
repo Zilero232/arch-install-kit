@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Removes conflicting packages, then installs every selected group from packages/.
 
 pkg_remove_conflicts
