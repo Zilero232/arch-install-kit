@@ -1,0 +1,3 @@
+# Removed before installing: they fight with pipewire / swaync / the Wayland stack
+pulseaudio pulseaudio-bluetooth jack2
+dunst mako

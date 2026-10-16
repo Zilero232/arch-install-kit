@@ -1,0 +1,2 @@
+# Documents and notes (zathura needs a backend)
+libreoffice-fresh evince zathura zathura-pdf-mupdf obsidian

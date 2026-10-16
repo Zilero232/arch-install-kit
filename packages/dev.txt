@@ -1,0 +1,15 @@
+# Editors and IDEs
+code neovim cursor-bin phpstorm phpstorm-jre android-studio
+
+# Tools
+github-cli shellcheck cloc meson meld filezilla dbeaver postman-bin wireshark-qt
+docker docker-compose docker-buildx lazydocker
+
+# Languages (per-project versions: mise)
+mise
+python python-pip bpython ipython
+nodejs npm npm-check-updates composer
+postgresql postgresql-libs
+
+# VirtualBox modules are DKMS now and need kernel headers
+virtualbox virtualbox-host-dkms linux-headers

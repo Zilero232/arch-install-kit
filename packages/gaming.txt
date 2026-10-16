@@ -1,0 +1,2 @@
+# Needs multilib (enabled by the pacman module)
+steam

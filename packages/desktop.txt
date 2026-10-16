@@ -1,0 +1,7 @@
+# Bar, launcher, terminal, shell, files and the apps bound to hotkeys
+waybar swaync wlogout nwg-look libnotify
+rofi rofi-calc rofi-emoji
+alacritty fish fisher oh-my-posh-bin tmux lsd bat fastfetch
+thunar thunar-archive-plugin gvfs ranger tree ueberzugpp
+calcurse neohtop-bin s-tui
+firefox google-chrome telegram-desktop

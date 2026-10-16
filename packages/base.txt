@@ -1,0 +1,7 @@
+# System essentials: build tools, network, bluetooth, power, boot, backups
+base-devel git rsync stow curl jq pciutils xdg-user-dirs
+pacman-contrib reflector timeshift os-prober ntfs-3g
+networkmanager network-manager-applet openssh net-tools
+bluez bluez-utils blueman
+brightnessctl tlp tlp-rdw
+unzip zip 7zip

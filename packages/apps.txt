@@ -1,0 +1,6 @@
+# Everyday apps and utilities
+incy-bin keepassxc veracrypt gufw
+bleachbit gnome-disk-utility dysk cpupower
+gnome-calendar gnome-calculator gnome-clocks
+xarchiver transmission-gtk
+discord zoom anydesk-bin
