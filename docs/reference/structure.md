@@ -57,11 +57,12 @@ It shows up in `./install.sh --help` right away and is available as `--only exam
 
 `dotfiles/` mirrors your home folder:
 
-| In the repo              | Ends up in        |
-| ------------------------ | ----------------- |
-| `dotfiles/.config/hypr/` | `~/.config/hypr/` |
-| `dotfiles/bin/`          | `~/bin/`          |
-| `dotfiles/.gtkrc-2.0`    | `~/.gtkrc-2.0`    |
+| In the repo                           | Ends up in                                                           |
+| ------------------------------------- | -------------------------------------------------------------------- |
+| `dotfiles/.config/hypr/`              | `~/.config/hypr/`                                                    |
+| `dotfiles/bin/`                       | `~/bin/`                                                             |
+| `dotfiles/.gtkrc-2.0`                 | `~/.gtkrc-2.0`                                                       |
+| `dotfiles/.local/share/applications/` | `~/.local/share/applications/` (hides helper apps from the launcher) |
 
 The `dotfiles` module deploys them in one of two ways:
 

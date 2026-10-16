@@ -18,9 +18,11 @@ dotfiles_copy() {
 }
 
 # Paths that stow turns into symlinks: ~/.config/<app>, ~/bin, ~/.gtkrc-2.0 ...
+# ~/.local holds app data and state, so only its individual files are linked
 dotfiles_targets() {
-    find "$KIT_DIR/dotfiles" -mindepth 1 -maxdepth 1 ! -name .config -printf '%P\n'
+    find "$KIT_DIR/dotfiles" -mindepth 1 -maxdepth 1 ! -name .config ! -name .local -printf '%P\n'
     find "$KIT_DIR/dotfiles/.config" -mindepth 1 -maxdepth 1 -printf '.config/%P\n'
+    find "$KIT_DIR/dotfiles/.local" -type f -printf '.local/%P\n'
 }
 
 # Link mode: GNU stow symlinks dotfiles/ into $HOME; real files in the way are moved aside first
@@ -33,5 +35,7 @@ dotfiles_link() {
         fi
     done < <(dotfiles_targets)
 
+    # A real directory here stops stow from folding it into a symlink into the repo
+    run mkdir -p "$HOME/.local/share/applications"
     run stow --restow -d "$KIT_DIR" -t "$HOME" dotfiles
 }

@@ -1,0 +1,5 @@
+# Hidden from the app launcher: a helper pulled in as a dependency. https://specifications.freedesktop.org/desktop-entry-spec/latest/
+[Desktop Entry]
+Type=Application
+Name=java-java-openjdk
+NoDisplay=true
