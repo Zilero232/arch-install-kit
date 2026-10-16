@@ -1,24 +1,21 @@
 <div align="center">
 
+<img src="./website/public/favicon.svg" width="88" alt="" />
+
 # Arch Install Kit
 
-**A Hyprland setup for Arch Linux that installs with a single command**
+A Hyprland setup for Arch Linux that installs with a single command.
 
-### [🌊 zilero232.github.io/arch-install-kit](https://zilero232.github.io/arch-install-kit/)
+[![Website](https://img.shields.io/badge/website-zilero232.github.io-7E9CD8?style=for-the-badge&labelColor=1F1F28)](https://zilero232.github.io/arch-install-kit/)
+[![Install guide](https://img.shields.io/badge/install-guide-7AA89F?style=for-the-badge&labelColor=1F1F28)](https://zilero232.github.io/arch-install-kit/install/01-backup)
+[![Keybindings](https://img.shields.io/badge/keybindings-reference-957FB8?style=for-the-badge&labelColor=1F1F28)](https://zilero232.github.io/arch-install-kit/usage/keybindings)
 
-The website has the full step-by-step guide, keybindings and search.
+[![Last commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit?style=flat-square&labelColor=1F1F28&color=E6C384)](https://github.com/Zilero232/arch-install-kit/commits/master)
+[![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=flat-square&labelColor=1F1F28&color=D27E99)](https://github.com/Zilero232/arch-install-kit/stargazers)
+[![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=flat-square&labelColor=1F1F28&color=98BB6C)](./LICENSE)
+[![Deploy](https://img.shields.io/github/actions/workflow/status/Zilero232/arch-install-kit/docs.yml?branch=master&label=deploy&style=flat-square&labelColor=1F1F28&color=7E9CD8)](https://github.com/Zilero232/arch-install-kit/actions/workflows/docs.yml)
 
-[![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
-[![Hyprland](https://img.shields.io/badge/Hyprland-2E3440?style=for-the-badge&logo=linux&logoColor=81A1C1)](https://hypr.land)
-[![Waybar](https://img.shields.io/badge/Waybar-1f2335?style=for-the-badge&logo=gnome&logoColor=8AADF4)](https://github.com/Alexays/Waybar)
-[![Fish](https://img.shields.io/badge/Fish-34C534?style=for-the-badge&logo=gnometerminal&logoColor=white)](https://fishshell.com)
-
-[![Last Commit](https://img.shields.io/github/last-commit/Zilero232/arch-install-kit?style=flat-square&color=B5E8E0&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/commits/master)
-[![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=flat-square&color=c9cbff&labelColor=302D41)](https://github.com/Zilero232/arch-install-kit/stargazers)
-[![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=flat-square&color=F2CDCD&labelColor=302D41)](./LICENSE)
-[![Docs](https://img.shields.io/github/actions/workflow/status/Zilero232/arch-install-kit/docs.yml?branch=master&label=website&style=flat-square&color=7E9CD8&labelColor=302D41)](https://zilero232.github.io/arch-install-kit/)
-
-![Hyprland](./assets/screenshots/hyrpland_preview.png)
+![Hyprland desktop](./assets/screenshots/hyrpland_preview.png)
 
 </div>
 

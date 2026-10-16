@@ -8,13 +8,7 @@ SDDM → **Hyprland** session → log in.
 
 ## 5.1. Tune it for your hardware
 
-**Monitors.** The config targets an `eDP-1 2560x1600@120` laptop panel plus an external `DP-1`. Check yours:
-
-```bash
-hyprctl monitors all
-```
-
-Then adjust `~/.config/hypr/conf/monitor.conf`. An external `DP-1` mirrors the laptop while it's plugged in; the rules apply on hotplug, no script involved.
+**Monitors.** Nothing to do: every monitor gets its preferred mode and is placed automatically, including ones you plug in later. If you want a fixed layout or refresh rate, list your outputs with `hyprctl monitors all` and add rules to `~/.config/hypr/conf/monitor.conf`.
 
 **Waybar weather.** Works out of the box: [wttrbar](https://github.com/bjesus/wttrbar) finds your location by IP. To pin a city, add `--location <City>` to `custom/weather` in `~/.config/waybar/modules.jsonc`.
 

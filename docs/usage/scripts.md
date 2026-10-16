@@ -21,5 +21,5 @@ Only what no package does yet is a script. Everything in [`dotfiles/bin`](https:
 | Weather in Waybar         | [wttrbar](https://github.com/bjesus/wttrbar) — no API key, location by IP                                  |
 | Pending updates in Waybar | [waybar-module-pacman-updates](https://github.com/coffebar/waybar-module-pacman-updates); click runs `yay` |
 | Fastest mirrors           | `reflector.timer`, weekly, settings in `/etc/xdg/reflector/reflector.conf`                                 |
-| External monitor          | Hyprland monitor rules apply on hotplug (`hypr/conf/monitor.conf`)                                         |
+| Monitors                  | automatic: preferred mode, auto placement, hotplug (`hypr/conf/monitor.conf`)                              |
 | Boot splash theme         | `plymouth_theme_list` / `plymouth_theme_set <name>` in fish                                                |
