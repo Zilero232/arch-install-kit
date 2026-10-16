@@ -1,0 +1,9 @@
+{
+  // Line length and table layout are handled by prettier
+  "MD013": false,
+  "MD060": false,
+  // README uses centered header and <details> galleries
+  "MD033": false,
+  "MD041": false,
+  "MD036": false,
+}

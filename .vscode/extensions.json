@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "timonwong.shellcheck",
+    "foxundermoon.shell-format",
+    "esbenp.prettier-vscode",
+    "davidanson.vscode-markdownlint",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "vue.volar"
+  ]
+}

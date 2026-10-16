@@ -1,0 +1,16 @@
+name: Lint
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2 # installs bun from mise.toml
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run format:check

@@ -1,6 +1,45 @@
-node_modules
-yarn.lock
-__pycache__
-.idea
-yay
-test.py
+# --- Dependencies ---
+node_modules/
+
+# --- Docs site (VitePress) ---
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+
+# --- Secrets and runtime files written into linked dotfiles (./install.sh --link) ---
+dotfiles/.config/waybar/weather.env
+*.env
+!.env.example
+
+# --- Logs and backups ---
+*.log
+*.kit.bak
+*.bak
+*.orig
+
+# --- AI agents (keep shared rules) ---
+.agents/
+.claude/*
+!.claude/rules/
+!.claude/agents/
+
+# --- Editors ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Python caches (ranger plugins) ---
+__pycache__/
+
+# --- Fish state written into linked dotfiles (fisher plugins, universal vars) ---
+dotfiles/.config/fish/fish_variables
+dotfiles/.config/fish/completions/
+
+# --- mise local overrides ---
+mise.local.toml

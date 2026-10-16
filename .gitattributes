@@ -1,0 +1,6 @@
+# Scripts and configs run on Linux: always LF, even when edited on Windows
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary

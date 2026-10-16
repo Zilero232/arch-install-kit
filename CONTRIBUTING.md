@@ -58,7 +58,7 @@ Format: gitmoji + conventional commits:
 | build    | 📦️    | packages and dependencies       |
 | chore    | 🔧    | configs, small stuff            |
 
-Scopes: `installer`, `packages`, `hypr`, `waybar`, `rofi`, `shell`, `dotfiles`, `scripts`, `login`, `docs`, `deps`.
+Scopes: `installer`, `packages`, `hypr`, `waybar`, `rofi`, `shell`, `dotfiles`, `scripts`, `login`, `docs`, `tooling`, `deps`.
 
 Don't feel like remembering the format? `bun run commit` walks you through it.
 

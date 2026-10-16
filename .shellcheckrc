@@ -1,0 +1,6 @@
+# Modules are sourced by install.sh, helpers come from lib/
+external-sources=true
+# SC1091: sourced paths are resolved at runtime
+# SC2034: variables are used by sourced modules
+# SC2317: functions called indirectly (traps, sourced files) look unreachable
+disable=SC1091,SC2034,SC2317
