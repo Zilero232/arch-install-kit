@@ -1,4 +1,6 @@
 {
+  // fastfetch system info layout. https://github.com/fastfetch-cli/fastfetch/wiki/Configuration
+
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "builtin",
@@ -75,8 +77,7 @@
     },
     {
       "type": "custom",
-      "format": "  󰊤  GitHub : Zilero232",
-      "keyColor": "\u001b[38;5;75m"
+      "format": "  \u001b[38;5;75m󰊤  GitHub\u001b[0m : Zilero232"
     },
     {
       "type": "battery",

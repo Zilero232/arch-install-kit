@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Starts the animated Wallpaper Engine background on every monitor; falls back to
 # the static hyprpaper wallpaper when linux-wallpaperengine is not installed.
+
 set -euo pipefail
 
 readonly WALLPAPER_ID="3162872709" # Steam Workshop id
@@ -12,8 +13,8 @@ fail() {
 }
 
 main() {
-    if ! command -v linux-wallpaperengine > /dev/null; then
-        command -v hyprpaper > /dev/null && exec hyprpaper
+    if ! command -v linux-wallpaperengine >/dev/null; then
+        command -v hyprpaper >/dev/null && exec hyprpaper
         fail "Neither linux-wallpaperengine nor hyprpaper is installed"
     fi
 

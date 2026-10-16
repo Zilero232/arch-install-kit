@@ -1,14 +1,15 @@
-/* wlogout power menu (Super+X). Buttons: layout, icons: icons/. */
+/* wlogout power menu (Super+X). Buttons: layout, icons: icons/.
+ * https://github.com/ArtsyMacaw/wlogout */
 
 /* --- Colours --- */
 @define-color blur_background rgba(26, 17, 15, 0.9);
+@define-color foreground #dcd7ba;
 
 @define-color button_hover_text_color #55200c;
 @define-color button_hover_background_color #ffb59d;
 @define-color button_hover_shadow #000000;
 
 /* --- Base --- */
-
 * {
 	font-family: 'JetBrains Mono', sans-serif;
 	background-image: none;
@@ -53,7 +54,6 @@ button span {
 }
 
 /* --- Buttons --- */
-
 #lock {
 	margin: 10px;
 	border-radius: 20px;

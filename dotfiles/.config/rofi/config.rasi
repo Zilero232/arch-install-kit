@@ -10,10 +10,9 @@ configuration {
     /* Look */
     font: "JetBrainsMono Nerd Font 18";
     show-icons: true;
-    icon-theme: "Papirus-Dark";
-    drun-display-format: "{icon} {name}";
+    icon-theme: "Kanagawa"; /* kanagawa-icon-theme-git, same as GTK */
+    drun-display-format: "{name}";
     location: 0; /* centre */
-    hide-scrollbar: false;
 
     /* Mode switcher labels */
     sidebar-mode: true;

@@ -1,4 +1,5 @@
-/* SwayNC notifications and control centre (Kanagawa colours). */
+/* SwayNC notifications and control centre (Kanagawa colours).
+ * https://github.com/ErikReider/SwayNotificationCenter */
 
 /* --- Colours --- */
 @define-color cc-bg #16161d;
@@ -15,9 +16,9 @@
 @define-color blue-base #7e9cd8;
 
 /* --- Base --- */
-
 :root {
   --notification-icon-size: 64px;
+  --mpris-album-art-icon-size: 100px;
 }
 
 * {
@@ -47,11 +48,11 @@
 .widget-title,
 .widget-title>button,
 .widget-dnd,
-.widget-dnd>switch,
-.widget-dnd>switch slider,
+.widget-dnd switch,
+.widget-dnd switch slider,
 .widget-label>label,
 .widget-buttons-grid,
-.widget-buttons-grid>flowbox>flowboxchild>button,
+.widget-buttons-grid flowboxchild>button,
 .widget-volume,
 .widget-backlight,
 .widget-mpris,
@@ -62,7 +63,6 @@
 }
 
 /* --- Notifications --- */
-
 .notification {
   background: @cc-bg;
   border: 2px solid @border-green;
@@ -82,7 +82,8 @@
   border: none;
 }
 
-.notification:hover .close-button {
+/* The close button is a sibling of .notification, not a child */
+.notification-background:hover .close-button {
   opacity: 1;
 }
 
@@ -154,14 +155,12 @@
 }
 
 /* --- Control centre --- */
-
 .control-center {
   background: @cc-bg;
   border: 2px solid @border-green;
 }
 
 /* --- Widgets --- */
-
 .widget-title {
   color: @blue-base;
   background: @noti-bg-darker;
@@ -190,12 +189,12 @@
   color: @blue-base;
 }
 
-.widget-dnd>switch {
+.widget-dnd switch {
   background: @blue-base;
   border-radius: 0;
 }
 
-.widget-dnd>switch:checked {
+.widget-dnd switch:checked {
   background: @red-base;
   border: 1px solid @red-base;
 }
@@ -213,19 +212,19 @@
   background: @noti-bg-darker;
 }
 
-.widget-buttons-grid>flowbox>flowboxchild>button {
+.widget-buttons-grid flowboxchild>button {
   margin: 3px;
   background: @cc-bg;
   color: @text-color;
   transition: background-color 0.15s ease-in-out;
 }
 
-.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+.widget-buttons-grid flowboxchild>button:hover {
   background: @blue-base;
   color: @cc-bg;
 }
 
-.widget-buttons-grid>flowbox>flowboxchild>button:checked {
+.widget-buttons-grid flowboxchild>button.toggle:checked {
   background: @green-base;
   color: @cc-bg;
 }

@@ -2,31 +2,27 @@
   // Module settings, in bar order: left, centre, right.
 
   // --- Left ---
-
-  // Launcher
   "custom/launcher": {
     "format": "",
     "on-click": "rofi -show drun",
     "tooltip": false
   },
 
-  // Workspaces (Hyprland)
   "hyprland/workspaces": {
     "on-scroll-up": "hyprctl dispatch workspace r-1",
     "on-scroll-down": "hyprctl dispatch workspace r+1",
     "on-click": "activate",
     "active-only": false,
     "all-outputs": true,
-    "format": "{}",
+    "format": "{name}",
     "persistent-workspaces": {
       "*": 5
     }
   },
 
-  // Weather
   "custom/weather": {
     "exec": "~/.config/waybar/scripts/openweathermap.sh",
-    "interval": 1800,
+    "interval": 600,
     "format": "{}",
     "tooltip": false
   },
@@ -47,6 +43,7 @@
   // Audio spectrum; click: previous, middle: play/pause, right: next
   "custom/cava": {
     "exec": "~/.config/waybar/scripts/cava.sh",
+    "restart-interval": 5,
     "format": "♪ {}",
     "on-click-middle": "playerctl play-pause",
     "on-click-right": "playerctl next",
@@ -54,7 +51,6 @@
   },
 
   // --- Centre ---
-
   // Memory / CPU / temperature; click opens NeoHtop
   "memory": {
     "format": " {: >3}%",
@@ -65,15 +61,18 @@
     "on-click": "NeoHtop"
   },
   "temperature": {
-    "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+    // hwmonN numbering changes between boots; these device paths do not (Intel, AMD)
+    "hwmon-path-abs": [
+      "/sys/devices/platform/coretemp.0/hwmon",
+      "/sys/devices/pci0000:00/0000:00:18.3/hwmon"
+    ],
+    "input-filename": "temp1_input",
     "critical-threshold": 80,
     "format": "  {temperatureC}°C",
     "on-click": "NeoHtop"
   },
 
   // --- Right ---
-
-  // Idle inhibitor
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
@@ -84,7 +83,6 @@
     "tooltip-format-deactivated": "Idle inhibitor: OFF"
   },
 
-  // Battery
   "battery": {
     "states": {
       "warning": 30,
@@ -94,13 +92,11 @@
     "format-icons": ["", "", "", "", ""]
   },
 
-  // Language (Hyprland)
   "hyprland/language": {
     "format": "󰌌 {short}",
     "tooltip-format": "Language: {long}"
   },
 
-  // Keyboard state
   "keyboard-state": {
     "capslock": true,
     "format": "{name} {icon} ",
@@ -110,7 +106,6 @@
     }
   },
 
-  // Backlight
   "backlight": {
     "format": "{icon} {percent: >3}%",
     "format-icons": ["", ""],
@@ -118,7 +113,6 @@
     "on-scroll-up": "brightnessctl set +5%"
   },
 
-  // Audio
   "pulseaudio": {
     "scroll-step": 2,
     "format": "{icon} {volume: >3}%",
@@ -136,14 +130,13 @@
     "on-click": "pavucontrol"
   },
 
-  // Network
   "network": {
     "format": "{ifname}",
     "format-wifi": " {essid} ({signalStrength}%)",
     "format-ethernet": "  {ifname}",
     "format-disconnected": "Disconnected ⚠",
     "tooltip-format": " {ifname} via {gwaddri}",
-    "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}GHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
     "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
@@ -151,7 +144,6 @@
     "on-click-right": "nm-connection-editor"
   },
 
-  // Clock
   "clock": {
     "format": "  {:%H:%M %a}",
     "format-alt": "  {:%d/%m/%Y  %H:%M:%S}",
@@ -161,7 +153,6 @@
       "mode-mon-col": 3,
       "weeks-pos": "right",
       "on-scroll": 1,
-      "on-click-right": "mode",
       "format": {
         "months": "<span color='#ffead3'><b>{}</b></span>",
         "days": "<span color='#ecc6d9'><b>{}</b></span>",
@@ -169,6 +160,11 @@
         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
         "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
     },
     "interval": 1
   },
@@ -188,14 +184,13 @@
       "dnd-inhibited-none": ""
     },
     "return-type": "json",
-    "exec-if": "which swaync-client",
+    "exec-if": "command -v swaync-client",
     "exec": "swaync-client -swb",
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
   },
 
-  // Tray
   "tray": {
     "icon-size": 20,
     "spacing": 10,

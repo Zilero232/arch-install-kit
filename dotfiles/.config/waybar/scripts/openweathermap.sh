@@ -3,6 +3,7 @@
 # Credentials live outside the repo in ~/.config/waybar/weather.env:
 #   OPENWEATHER_API_KEY=...
 #   OPENWEATHER_CITY_ID=...
+
 set -euo pipefail
 
 readonly ENV_FILE="$HOME/.config/waybar/weather.env"
@@ -42,8 +43,17 @@ fetch_weather() {
         "$API_URL?id=$city_id&appid=$api_key&units=$UNITS&lang=$LANGUAGE" || true
 }
 
-field() {
-    jq -r "$1" <<< "$2"
+# One tab-separated line: temp feels_like condition description sunrise sunset.
+# Empty output when a numeric field is missing; no field is empty (IFS=tab would merge it).
+parse_weather() {
+    jq -r '
+        [.main.temp, .main.feels_like, .sys.sunrise, .sys.sunset] as $nums
+        | if ($nums | all(type == "number")) then
+            [.main.temp, .main.feels_like,
+             (.weather[0].main // "Unknown"), (.weather[0].description // "-"),
+             .sys.sunrise, .sys.sunset] | @tsv
+          else empty end
+    ' <<<"$1" 2>/dev/null || true
 }
 
 round() {
@@ -62,27 +72,24 @@ main() {
         exit 0
     fi
 
-    local data
-    data=$(fetch_weather "$api_key" "$city_id")
-    if [[ -z "$data" ]] || ! jq -e '.main.temp' <<< "$data" > /dev/null 2>&1; then
+    # Offline, bad key or malformed reply: show a placeholder instead of failing
+    local parsed
+    parsed=$(parse_weather "$(fetch_weather "$api_key" "$city_id")")
+    if [[ -z "$parsed" ]]; then
         echo "󰖙 Weather unavailable"
         exit 0
     fi
 
     local temp feels_like condition description sunrise sunset now period="day"
-    temp=$(round "$(field '.main.temp' "$data")")
-    feels_like=$(round "$(field '.main.feels_like' "$data")")
-    condition=$(field '.weather[0].main' "$data")
-    description=$(field '.weather[0].description' "$data")
-    sunrise=$(field '.sys.sunrise' "$data")
-    sunset=$(field '.sys.sunset' "$data")
+    IFS=$'\t' read -r temp feels_like condition description sunrise sunset <<<"$parsed"
     now=$(date +%s)
 
     if [[ "$now" -lt "$sunrise" || "$now" -gt "$sunset" ]]; then
         period="night"
     fi
 
-    echo "$(weather_icon "$condition" "$period" "$description") $temp°C 󰤾 $feels_like°C"
+    echo "$(weather_icon "$condition" "$period" "$description")" \
+        "$(round "$temp")°C 󰤾 $(round "$feels_like")°C"
 }
 
 main "$@"

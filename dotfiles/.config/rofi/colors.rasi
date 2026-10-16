@@ -1,20 +1,23 @@
-/* Rofi theme: Kanagawa colours, fullscreen app grid. */
-* {
-    bg: #1f1f23ee;            // sumiInk, translucent
-    bg-alt: #2a2a37;          // sumiInk4
-    bg-selected: #7aa89f;     // waveAqua2
-    fg: #dcd7ba;              // fujiWhite
-    fg-alt: #727169;          // fujiGray
-    fg-selected: #1f1f23;     // sumiInk
+/* Rofi theme: Kanagawa colours, fullscreen app grid.
+ * https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown */
 
-    /* Reset */
+/* --- Colours --- */
+* {
+    bg: #1f1f23ee;            /* sumiInk, translucent */
+    bg-alt: #2a2a37;          /* sumiInk4 */
+    bg-selected: #7aa89f;     /* waveAqua2 */
+    fg: #dcd7ba;              /* fujiWhite */
+    fg-alt: #727169;          /* fujiGray */
+    fg-selected: #1f1f23;     /* sumiInk */
+
+    /* Reset rofi defaults */
     border: 0;
     margin: 0;
     padding: 0;
     spacing: 0;
 }
 
-/* Window style */
+/* --- Window --- */
 window {
     fullscreen: true;
     transparency: "real";
@@ -22,13 +25,12 @@ window {
     padding: 90px 150px;
 }
 
-/* Main container */
 mainbox {
     padding: 20px;
     background-color: transparent;
 }
 
-/* Search bar */
+/* --- Search bar --- */
 inputbar {
     background-color: @bg-alt;
     padding: 12px;
@@ -38,7 +40,6 @@ inputbar {
     children: [prompt, entry];
 }
 
-/* Search input field */
 entry {
     background-color: transparent;
     text-color: @fg;
@@ -47,7 +48,6 @@ entry {
     padding: 4px;
 }
 
-/* Prompt before search input */
 prompt {
     background-color: transparent;
     text-color: @fg;
@@ -55,7 +55,7 @@ prompt {
     margin: 0px 8px 0px 0px;
 }
 
-/* Grid of items */
+/* --- App grid --- */
 listview {
     lines: 6;
     columns: 5;
@@ -64,7 +64,6 @@ listview {
     background-color: transparent;
 }
 
-/* Individual item style */
 element {
     orientation: vertical;
     padding: 20px 10px;
@@ -72,32 +71,27 @@ element {
     background-color: transparent;
 }
 
-/* Normal item */
 element normal.normal {
     background-color: transparent;
     text-color: @fg;
 }
 
-/* Alternate item (every second) */
 element alternate.normal {
     background-color: transparent;
     text-color: @fg;
 }
 
-/* Selected item */
 element selected.normal {
     background-color: @bg-selected;
     text-color: @fg-selected;
 }
 
-/* Application icon */
 element-icon {
     size: 64px;
     horizontal-align: 0.5;
     background-color: transparent;
 }
 
-/* Application name */
 element-text {
     horizontal-align: 0.5;
     vertical-align: 0.5;
@@ -106,14 +100,13 @@ element-text {
     margin: 8px 0px 0px 0px;
 }
 
-/* Mode switcher at the bottom */
+/* --- Mode switcher --- */
 mode-switcher {
     spacing: 20px;
     background-color: transparent;
     margin: 20px 0px 0px 0px;
 }
 
-/* Mode switcher buttons */
 button {
     padding: 8px 16px;
     border-radius: 8px;
@@ -123,13 +116,12 @@ button {
     horizontal-align: 0.5;
 }
 
-/* Selected mode button */
 button selected {
     background-color: @bg-selected;
     text-color: @fg-selected;
 }
 
-/* Scrollbar styling */
+/* --- Scrollbar --- */
 scrollbar {
     width: 4px;
     border: 0;

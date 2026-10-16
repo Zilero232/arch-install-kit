@@ -4,7 +4,6 @@
 @import 'themes/kanagawa.css';
 
 /* --- Base styles --- */
-
 * {
 	border: none;
 	border-radius: 0;
@@ -22,7 +21,6 @@ window#waybar {
 }
 
 /* --- Tooltips --- */
-
 tooltip {
 	background: @background-primary;
 	color: @text;
@@ -37,7 +35,6 @@ tooltip label {
 }
 
 /* --- Workspaces --- */
-
 #workspaces {
 	background: @background-primary;
 	padding: 4px;
@@ -83,7 +80,6 @@ tooltip label {
 }
 
 /* --- Clock --- */
-
 #clock {
 	background: @blue;
 	color: @base;
@@ -95,7 +91,6 @@ tooltip label {
 }
 
 /* --- System monitoring modules --- */
-
 #memory {
 	background: @background-primary;
 	color: @green;
@@ -129,7 +124,6 @@ tooltip label {
 }
 
 /* --- Battery --- */
-
 #battery {
 	background: @background-primary;
 	color: @green;
@@ -156,8 +150,7 @@ tooltip label {
 	border-left: 4px solid @maroon;
 }
 
-/* --- Audio and Backlight --- */
-
+/* --- Audio and backlight --- */
 #backlight {
 	background: @background-primary;
 	color: @yellow;
@@ -182,7 +175,6 @@ tooltip label {
 }
 
 /* --- Network --- */
-
 #network {
 	background: @background-primary;
 	color: @green;
@@ -203,7 +195,6 @@ tooltip label {
 }
 
 /* --- Language and keyboard state --- */
-
 #language {
 	background: @background-primary;
 	color: @mauve;
@@ -223,7 +214,6 @@ tooltip label {
 }
 
 /* --- Custom modules --- */
-
 #custom-launcher {
 	background: @mauve;
 	color: @base;
@@ -272,7 +262,6 @@ tooltip label {
 }
 
 /* --- Tray --- */
-
 #tray {
 	background: @background-secondary;
 	padding: 6px 10px;
@@ -292,7 +281,6 @@ tooltip label {
 }
 
 /* --- Idle inhibitor --- */
-
 #idle_inhibitor {
 	background: @background-primary;
 	color: @yellow;
@@ -309,7 +297,6 @@ tooltip label {
 }
 
 /* --- Hover effects --- */
-
 #clock:hover,
 #battery:hover,
 #cpu:hover,

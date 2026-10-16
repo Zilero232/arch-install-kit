@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Opens wlogout with vertical margins sized to the focused monitor (Super+X).
+
 set -euo pipefail
 
 readonly BUTTONS_PER_ROW=5

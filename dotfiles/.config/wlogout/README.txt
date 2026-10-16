@@ -1,8 +1,9 @@
-Select Logout Command depending on your setup:
+Lock runs "loginctl lock-session", so hypridle starts hyprlock (lock_cmd) and never a second copy.
 
-Use for Display Manager e.g., sddm (DEFAULT)
-sleep 1; hyprctl dispatch exit
+Pick the logout command in layout for your login setup:
 
-Use for Arch Linux text based login
-sleep 1; loginctl terminate-user $USER
+Display manager, e.g. sddm (default)
+hyprctl dispatch exit
 
+Text console login
+loginctl terminate-user $USER

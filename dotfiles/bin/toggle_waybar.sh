@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Shows Waybar if it is hidden, hides it if it is running (Super+P).
+
 set -euo pipefail
 
 fail() {
@@ -13,18 +14,18 @@ hide_waybar() {
 }
 
 show_waybar() {
-    waybar > /dev/null 2>&1 &
+    waybar >/dev/null 2>&1 &
     disown
     sleep 0.5 # give waybar time to start
 
-    pgrep -x waybar > /dev/null || fail "Failed to launch waybar"
+    pgrep -x waybar >/dev/null || fail "Failed to launch waybar"
     notify-send "Waybar" "Successfully launched" -i window-new
 }
 
 main() {
-    command -v waybar > /dev/null || fail "Waybar not found"
+    command -v waybar >/dev/null || fail "Waybar not found"
 
-    if pgrep -x waybar > /dev/null; then
+    if pgrep -x waybar >/dev/null; then
         hide_waybar
     else
         show_waybar

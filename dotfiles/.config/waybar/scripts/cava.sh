@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # Streams the cava audio spectrum as a line of bar glyphs for the custom/cava module.
 # Adapted from a community waybar script (original author unknown).
+
 set -euo pipefail
 
 readonly BARS="▁▂▃▄▅▆▇█"
 readonly CONFIG_FILE="/tmp/bar_cava_config"
 
 write_cava_config() {
-    cat > "$CONFIG_FILE" << EOF
+    cat >"$CONFIG_FILE" <<EOF
 [general]
 framerate = 60
 bars = 14

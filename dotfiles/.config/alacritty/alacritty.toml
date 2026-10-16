@@ -1,6 +1,7 @@
 # Alacritty. https://alacritty.org/config-alacritty.html
 # Colours: themes/kanagawa_wave.toml, shortcuts: keybindings.toml
 
+# --- Imports, environment and shell ---
 [general]
 import = [
     "~/.config/alacritty/themes/kanagawa_wave.toml",

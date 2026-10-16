@@ -2,7 +2,6 @@
 
 classic: false
 
-# Blocks
 blocks:
   - permission
   - user
@@ -11,36 +10,26 @@ blocks:
   - date
   - name
 
-# Color
 color:
   when: auto
 
-# Icons
 icons:
   when: auto
   theme: fancy
 
-# Layout
 layout: grid
 
-# Sorting
 sorting:
   dir-grouping: first
 
-# Date format
 date: "+%Y-%m-%d %H:%M"
 
-# Permission format
 permission: rwx
 
-# Size format
 size: default
 
-# Indicators
 indicators: false
 
-# Header
 header: false
 
-# Symlink arrow
 symlink-arrow: ⇒

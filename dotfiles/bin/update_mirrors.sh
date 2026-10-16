@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Refreshes the pacman mirror list with reflector (fastest HTTPS mirrors nearby).
 # The previous list is kept in mirrorlist.backup and restored on failure.
+
 set -euo pipefail
 
 readonly MIRRORLIST=/etc/pacman.d/mirrorlist

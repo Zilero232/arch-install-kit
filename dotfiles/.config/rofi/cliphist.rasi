@@ -1,0 +1,24 @@
+/* Clipboard history list (Super+V): the app grid from colors.rasi as one text column.
+ * Usage: cliphist list | rofi -dmenu -theme cliphist | cliphist decode | wl-copy */
+
+@import "colors.rasi"
+
+inputbar {
+    children: [entry];
+}
+
+listview {
+    lines: 12;
+    columns: 1;
+    spacing: 6px;
+}
+
+element {
+    orientation: horizontal;
+    padding: 10px 16px;
+}
+
+element-text {
+    horizontal-align: 0;
+    margin: 0;
+}

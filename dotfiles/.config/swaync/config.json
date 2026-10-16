@@ -22,14 +22,16 @@
 	"script-fail-notify": true,
 	"text-empty": "Nothing here",
 	"widgets": [
+		"title",
+		"dnd",
 		"buttons-grid",
 		"volume",
 		"backlight",
-		"mpris"
+		"mpris",
+		"notifications"
 	],
 	"widget-config": {
 		"mpris": {
-			"image-size": 100,
 			"blacklist": [
 				"kew",
 				"firefox",

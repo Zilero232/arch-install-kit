@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 # Watches the DP-1 port: mirrors the laptop panel onto an external monitor when one is
-# plugged in, restores the native laptop mode when it is unplugged. Started from autostart.
+# plugged in, restores the native laptop mode when it is unplugged. Started from autostart;
+# exits together with the Hyprland session that launched it.
+
 set -euo pipefail
 
 readonly POLL_SECONDS=5
+readonly HYPR_SOCKET="${XDG_RUNTIME_DIR:-}/hypr/${HYPRLAND_INSTANCE_SIGNATURE:-}/.socket.sock"
+
+hyprland_running() {
+    [[ -S "$HYPR_SOCKET" ]]
+}
 
 dp1_connected() {
     local status_file
@@ -27,7 +34,7 @@ use_laptop_only() {
 
 main() {
     local previous="" current
-    while true; do
+    while hyprland_running; do
         if dp1_connected; then current="external"; else current="laptop"; fi
 
         if [[ "$current" != "$previous" ]]; then

@@ -2,6 +2,7 @@
 # Lists or switches the Plymouth boot splash theme (rebuilds the initramfs on set).
 # Usage: plymouth_theme.sh list
 #        plymouth_theme.sh set <theme-name>
+
 set -euo pipefail
 
 usage() {
@@ -22,7 +23,7 @@ fail() {
 }
 
 require_plymouth() {
-    if ! command -v plymouth-set-default-theme > /dev/null; then
+    if ! command -v plymouth-set-default-theme >/dev/null; then
         fail "Plymouth is not installed. Please install plymouth first."
     fi
 }

@@ -1,3 +1,5 @@
+# gowall themes: the Kanagawa palette used to recolour wallpapers. https://achno.github.io/gowall-docs/
+
 themes:
   - name: "Kanagawa"
     colors:

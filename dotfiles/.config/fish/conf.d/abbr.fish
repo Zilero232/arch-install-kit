@@ -20,9 +20,10 @@ abbr -a vacuum journalctl --vacuum-size=100M
 
 # --- Network ---
 abbr -a myip curl ifconfig.me
-abbr -a ports netstat -tulanp
+abbr -a ports ss -tulpn
 
 # --- Boot and login themes (scripts in ~/bin) ---
 abbr -a plymouth_theme_list ~/bin/plymouth_theme.sh list
 abbr -a plymouth_theme_set ~/bin/plymouth_theme.sh set
-abbr -a sddm_theme ~/bin/sddm_theme.sh
+abbr -a sddm_theme_list ~/bin/sddm_theme.sh list
+abbr -a sddm_theme_set ~/bin/sddm_theme.sh set
