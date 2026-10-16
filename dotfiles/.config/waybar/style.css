@@ -136,6 +136,10 @@ tooltip label {
 	color: @yellow;
 }
 
+#custom-updates.updated {
+	color: @overlay1;
+}
+
 #custom-cava {
 	color: @pink;
 }

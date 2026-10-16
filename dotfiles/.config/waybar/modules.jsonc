@@ -201,12 +201,12 @@
     "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"]
   },
 
-  // Pending pacman/AUR updates (list in the tooltip); click to upgrade; hidden when there are none
+  // Pending pacman/AUR updates (list in the tooltip); click to upgrade; grey when up to date
   "custom/updates": {
-    "exec": "waybar-module-pacman-updates --no-zero-output --interval-seconds 5 --network-interval-seconds 300",
+    "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300",
     "return-type": "json",
-    "format": "{icon}{}",
-    "format-icons": { "has-updates": "󰚰 ", "updated": "" },
+    "format": "{icon} {text}",
+    "format-icons": { "has-updates": "󰚰", "updated": "󰚰" },
     "on-click": "alacritty -e yay"
   },
 
