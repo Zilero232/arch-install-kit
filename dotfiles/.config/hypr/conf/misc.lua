@@ -19,6 +19,12 @@ hl.config({
         direct_scanout = 0,
     },
 
+    -- X11 apps draw at native resolution instead of being upscaled (blurry);
+    -- autostart.lua tells Java and Steam to scale themselves
+    xwayland = {
+        force_zero_scaling = true,
+    },
+
     debug = {
         disable_logs = false,
         enable_stdout_logs = true,

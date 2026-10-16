@@ -3,6 +3,12 @@
 local programs = require("conf.programs")
 
 hl.on("hyprland.start", function()
+    -- --- Scaling for X11 apps (see xwayland in misc.lua) ---
+    local monitor = hl.get_active_monitor()
+    local scale = string.format("%.2f", monitor and monitor.scale or 1)
+    hl.env("STEAM_FORCE_DESKTOPUI_SCALING", scale)
+    local java_scale = "JAVA_TOOL_OPTIONS=-Dsun.java2d.uiScale=" .. scale .. " "
+
     -- --- Session services ---
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("hypridle")
@@ -27,5 +33,5 @@ hl.on("hyprland.start", function()
 
     -- --- Apps ---
     hl.exec_cmd(programs.messenger .. " -startintray")
-    hl.exec_cmd("incy --autostart")
+    hl.exec_cmd(java_scale .. "incy --autostart") -- Java/X11 app, scales itself
 end)
