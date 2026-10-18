@@ -1,0 +1,145 @@
+/* Waybar right strip: system drawer, devices, notifications, privacy and tray.
+ * https://github.com/Alexays/Waybar/wiki/Styling */
+
+/* --- System drawer --- */
+#system {
+  background: transparent;
+}
+
+.system-child {
+  padding: 0 6px;
+}
+
+#cpu {
+  color: @crystalBlue;
+}
+
+#memory {
+  color: @autumnGreen;
+}
+
+#temperature {
+  color: @waveAqua2;
+}
+
+#temperature.critical {
+  color: @seal;
+}
+
+#power-profiles-daemon {
+  color: @springBlue;
+}
+
+#power-profiles-daemon.performance {
+  color: @roninYellow;
+}
+
+#power-profiles-daemon.power-saver {
+  color: @autumnGreen;
+}
+
+#idle_inhibitor {
+  color: @text-muted;
+}
+
+#idle_inhibitor.activated {
+  color: @carpYellow;
+}
+
+/* --- Devices --- */
+#language {
+  color: @oniViolet;
+}
+
+#backlight {
+  color: @carpYellow;
+}
+
+#pulseaudio {
+  color: @springViolet2;
+}
+
+#pulseaudio.muted {
+  color: @border;
+}
+
+#network {
+  color: @waveAqua2;
+}
+
+#network.disconnected,
+#network.disabled {
+  color: @border;
+}
+
+#battery {
+  color: @ok;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @carpYellow;
+}
+
+#battery.warning:not(.charging) {
+  color: @warn;
+}
+
+#battery.critical:not(.charging) {
+  color: @text;
+  background-color: @seal;
+  border-radius: 2px 8px 2px 8px;
+  margin: 6px 2px;
+}
+
+/* --- Updates and notifications --- */
+#custom-updates {
+  color: @carpYellow;
+}
+
+#custom-updates.updated {
+  color: @border;
+}
+
+#custom-notification {
+  color: @text-muted;
+}
+
+#custom-notification.notification,
+#custom-notification.inhibited-notification {
+  color: @accent-alt;
+}
+
+#custom-notification.dnd-none,
+#custom-notification.dnd-notification,
+#custom-notification.dnd-inhibited-none,
+#custom-notification.dnd-inhibited-notification {
+  color: @waveRed;
+}
+
+/* --- Privacy and tray --- */
+#privacy-item {
+  padding: 0 8px;
+  margin: 7px 2px;
+  border-radius: 2px 8px 2px 8px;
+  background: @seal;
+  color: @text;
+}
+
+/* The 1px gradient is a short vertical divider on the left edge */
+#tray {
+  padding: 0 10px 0 8px;
+  background-image: linear-gradient(to bottom, transparent 28%, alpha(@border, 0.7) 28%, alpha(@border, 0.7) 72%, transparent 72%);
+  background-size: 1px 100%;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  background: alpha(@seal, 0.5);
+  border-radius: 2px 6px 2px 6px;
+}

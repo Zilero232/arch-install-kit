@@ -1,0 +1,274 @@
+/* SwayNC notification cards and groups, shared by popups and the control centre.
+ * https://github.com/ErikReider/SwayNotificationCenter/blob/main/data/style/style.scss */
+
+/* --- Notifications --- */
+.notification-row {
+  background: none;
+  outline: none;
+}
+
+.notification-row:focus {
+  background: none;
+}
+
+.notification-row .notification-background {
+  padding: 5px 10px;
+}
+
+.notification-row .notification-background .notification {
+  background: @bg;
+  background-image: linear-gradient(to bottom, alpha(@crystalBlue, 0.06), transparent 60%);
+  border: 1px solid @surface-alt;
+  border-radius: var(--radius);
+  padding: 0;
+  transition: var(--hover);
+}
+
+/* Urgency shows as a coloured left edge */
+.notification-row .notification-background .notification.low {
+  border-left: 3px solid @border;
+}
+
+.notification-row .notification-background .notification.normal {
+  border-left: 3px solid @accent;
+}
+
+.notification-row .notification-background .notification.critical {
+  border: 1px solid @seal;
+  border-left: 3px solid @error;
+}
+
+.floating-notifications .notification {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.notification-default-action {
+  padding: 8px;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: none;
+  color: @text;
+  transition: var(--hover);
+}
+
+.notification-default-action:hover {
+  background: @surface;
+}
+
+/* Square the bottom corners when action buttons sit underneath */
+.notification-default-action:not(:only-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.notification-content {
+  background: transparent;
+  padding: 0;
+}
+
+.notification-content .image {
+  -gtk-icon-size: var(--notification-icon-size);
+  border-radius: var(--radius-small);
+  margin: 4px 10px 4px 4px;
+}
+
+.notification-content .app-icon {
+  -gtk-icon-size: var(--notification-app-icon-size);
+  margin: 6px;
+}
+
+/* GTK 4 dims labels by default */
+.notification-content .text-box label {
+  filter: none;
+}
+
+/* Serif title with a tapered brush stroke underneath, like the active workspace */
+.notification-content .summary {
+  font-family: "Noto Serif CJK JP", serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: @text;
+  padding-bottom: 5px;
+  background-image: linear-gradient(to right, @accent-alt, alpha(@accent-alt, 0.5) 45%, transparent 85%);
+  background-size: 100% 2px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+
+.notification.critical .notification-content .summary {
+  background-image: linear-gradient(to right, @error, alpha(@error, 0.5) 45%, transparent 85%);
+}
+
+.notification-content .time {
+  font-size: 12px;
+  color: @text-muted;
+  margin-right: 30px;
+}
+
+.notification-content .body {
+  font-size: 14px;
+  color: alpha(@text, 0.85);
+}
+
+.notification-content progressbar {
+  margin-top: 6px;
+}
+
+.notification-content progressbar trough {
+  min-height: 6px;
+  border-radius: 3px;
+  background: @surface-alt;
+}
+
+.notification-content progressbar progress {
+  min-height: 6px;
+  border-radius: 3px;
+  background: @waveAqua2;
+}
+
+.notification-content .body-image {
+  margin-top: 6px;
+  border-radius: var(--radius-small);
+  background-color: transparent;
+}
+
+.notification-content .inline-reply {
+  margin-top: 6px;
+}
+
+.notification-content .inline-reply-entry {
+  background: @bg-dark;
+  color: @text;
+  caret-color: @accent;
+  border: 1px solid @surface-alt;
+  border-radius: var(--radius-small);
+}
+
+.notification-content .inline-reply-button {
+  margin-left: 6px;
+  background: @surface;
+  color: @text;
+  border: none;
+  border-radius: var(--radius-small);
+}
+
+.notification-content .inline-reply-button:hover {
+  background: @accent;
+  color: @bg-dark;
+}
+
+.notification-content .inline-reply-button:disabled {
+  background: transparent;
+  color: @text-muted;
+}
+
+.notification-alt-actions {
+  padding: 4px;
+  background: none;
+}
+
+.notification-action {
+  margin: 2px;
+  padding: 0;
+}
+
+.notification-action > button {
+  background: @surface;
+  color: @text;
+  border: none;
+  border-radius: var(--radius-small);
+  box-shadow: none;
+  transition: var(--hover);
+}
+
+.notification-action > button:hover {
+  background: @accent;
+  color: @bg-dark;
+}
+
+/* The close button is a sibling of .notification, shown on hover only */
+.close-button {
+  min-width: 22px;
+  min-height: 22px;
+  margin-top: 10px;
+  margin-right: 14px;
+  padding: 0;
+  background: @surface-alt;
+  color: @text;
+  border: none;
+  border-radius: 100%;
+  box-shadow: none;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out, var(--hover);
+}
+
+.notification-background:hover .close-button,
+.notification-group-close-button .close-button {
+  opacity: 1;
+}
+
+.close-button:hover {
+  background: @seal;
+  color: @text;
+}
+
+/* --- Notification groups --- */
+.notification-group {
+  transition: opacity 200ms ease-in-out;
+}
+
+.notification-group:focus {
+  background: none;
+}
+
+.notification-group .notification-group-headers,
+.notification-group .notification-group-buttons {
+  margin: 4px 14px;
+  color: @text;
+}
+
+.notification-group .notification-group-icon {
+  -gtk-icon-size: var(--notification-group-icon-size);
+  color: @accent;
+}
+
+.notification-group .notification-group-header {
+  font-weight: bold;
+  color: @text;
+}
+
+.notification-group .notification-group-buttons button {
+  background: @surface;
+  color: @text;
+  border: none;
+  border-radius: var(--radius-small);
+  transition: var(--hover);
+}
+
+.notification-group .notification-group-buttons button:hover {
+  background: @surface-alt;
+}
+
+.notification-group .notification-group-close-button .close-button {
+  margin: 10px 18px;
+}
+
+.notification-group.collapsed.not-expanded {
+  opacity: 0.4;
+}
+
+.notification-group.collapsed .notification-row .notification {
+  background: @bg;
+}
+
+/* Hide the content of the cards stacked under the top one */
+.notification-group.collapsed .notification-row:not(:last-child) .notification-action,
+.notification-group.collapsed .notification-row:not(:last-child) .notification-default-action {
+  opacity: 0;
+}
+
+.notification-group.collapsed:hover .notification-row:not(:only-child) .notification {
+  background: @surface;
+}

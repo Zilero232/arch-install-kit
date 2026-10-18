@@ -1,4 +1,4 @@
-/* Rofi launcher (Super+D, Super+V). Theme and colours: colors.rasi
+/* Rofi launcher (Super+D). Theme and colours: colors.rasi; pickers use menu.rasi
  * https://github.com/davatorium/rofi/blob/next/doc/rofi.1.markdown */
 
 @theme "~/.config/rofi/colors.rasi"
@@ -16,9 +16,9 @@ configuration {
 
     /* Mode switcher labels */
     sidebar-mode: true;
-    display-drun: " Apps";
-    display-run: " Run";
-    display-window: " Window";
+    display-drun: "󰀻 Apps";
+    display-run: "󰆍 Run";
+    display-window: "󰖯 Window";
 
     disable-history: false;
 }

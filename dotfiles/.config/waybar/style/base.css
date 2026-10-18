@@ -1,0 +1,111 @@
+/* Waybar base: reset, the three bar strips, shared module spacing, tooltips and menus.
+ * https://github.com/Alexays/Waybar/wiki/Styling */
+
+/* --- Reset --- */
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font", monospace;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+window#waybar {
+  background: transparent;
+  color: @text;
+}
+
+/* --- Strips --- */
+/* Two strips that mirror each other: a square corner where the brush
+ * starts, a soft one where it lifts off. A faint wave tint sits on top. */
+.modules-left,
+.modules-right {
+  background-color: alpha(@bg, 0.94);
+  background-image: linear-gradient(to bottom, alpha(@frame, 0.07), transparent 60%);
+  border: 1px solid alpha(@border, 0.45);
+}
+
+.modules-left {
+  border-radius: 2px 16px 2px 16px;
+  padding-left: 4px;
+  padding-right: 10px;
+}
+
+/* The right strip ends in a vertical ink bar, like the mounting of a hanging scroll */
+.modules-right {
+  border-radius: 16px 2px 16px 2px;
+  border-right: 4px solid @frame;
+  padding-left: 8px;
+}
+
+/* The centre is a darker ink slab with soft corners, framed like the strips */
+.modules-center {
+  background-color: alpha(@bg-dark, 0.92);
+  border: 1px solid alpha(@border, 0.45);
+  border-radius: 12px;
+  padding: 0 8px;
+}
+
+/* --- Modules --- */
+#mpris,
+#custom-cava,
+#cpu,
+#memory,
+#temperature,
+#power-profiles-daemon,
+#idle_inhibitor,
+#language,
+#backlight,
+#pulseaudio,
+#network,
+#battery,
+#custom-updates,
+#custom-notification {
+  padding: 0 8px;
+  transition: color 200ms ease;
+}
+
+#mpris:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#power-profiles-daemon:hover,
+#idle_inhibitor:hover,
+#language:hover,
+#backlight:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#custom-updates:hover,
+#custom-notification:hover {
+  color: @text;
+}
+
+/* --- Tooltips and tray menus --- */
+tooltip {
+  background: @bg;
+  border: 1px solid @border;
+  border-left: 3px solid @seal;
+  border-radius: 2px 10px 2px 10px;
+}
+
+tooltip label {
+  color: @text;
+  padding: 4px 8px;
+}
+
+menu {
+  background: @bg;
+  border: 1px solid @border;
+  border-radius: 2px 10px 2px 10px;
+  padding: 4px 0;
+}
+
+menu menuitem:hover {
+  background: alpha(@seal, 0.25);
+}

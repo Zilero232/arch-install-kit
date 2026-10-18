@@ -1,0 +1,68 @@
+/* SwayNC media player widget.
+ * https://github.com/ErikReider/SwayNotificationCenter/blob/main/data/style/style.scss */
+
+/* --- Media player --- */
+.widget-mpris {
+  padding: 0;
+}
+
+.widget-mpris .widget-mpris-player {
+  margin: 4px 0;
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+
+.widget-mpris .widget-mpris-player .mpris-background {
+  filter: blur(14px);
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay {
+  padding: 14px;
+  background-color: alpha(@bg-dark, 0.7);
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-album-art {
+  -gtk-icon-size: var(--mpris-album-art-icon-size);
+  border-radius: var(--radius-small);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: @text;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle {
+  font-size: 13px;
+  color: @waveAqua2;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button {
+  background: transparent;
+  color: @text;
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+  transition: var(--hover);
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button:hover {
+  background: alpha(@accent, 0.35);
+}
+
+/* Carousel arrows beside the player */
+.widget-mpris > box > button {
+  background: transparent;
+  color: @text-muted;
+  border: none;
+  box-shadow: none;
+}
+
+.widget-mpris > box > button:hover {
+  color: @accent;
+}
+
+.widget-mpris > box > button:disabled {
+  opacity: 0.3;
+}

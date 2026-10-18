@@ -1,4 +1,4 @@
-# Alacritty shortcuts (window management lives in Hyprland).
+# Alacritty shortcuts (window management lives in Hyprland). https://alacritty.org/config-alacritty.html#keyboard
 
 # --- Clipboard ---
 [[keyboard.bindings]]

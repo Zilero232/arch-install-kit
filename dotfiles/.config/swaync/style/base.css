@@ -1,0 +1,27 @@
+/* SwayNC base (GTK 4 CSS): sizes as CSS variables, font, transparent windows.
+ * https://github.com/ErikReider/SwayNotificationCenter/blob/main/data/style/style.scss */
+
+/* --- Base --- */
+:root {
+  --radius: 2px 16px 2px 16px;
+  --radius-mirror: 16px 2px 16px 2px;
+  --radius-small: 2px 10px 2px 10px;
+  --notification-icon-size: 48px;
+  --notification-app-icon-size: 16px;
+  --notification-group-icon-size: 24px;
+  --mpris-album-art-icon-size: 72px;
+  --widget-volume-row-icon-size: 20px;
+  --hover: background 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 14px;
+}
+
+notificationwindow,
+blankwindow,
+.blank-window,
+.floating-notifications {
+  background: transparent;
+}

@@ -1,37 +1,38 @@
-# Kanagawa Wave colours. Source: https://github.com/rebelot/kanagawa.nvim
+# Kanagawa Wave colours. Source: https://github.com/rebelot/kanagawa.nvim (extras/alacritty)
+# TOML can't import CSS: palette names follow ~/.config/theme/kanagawa.css.
 
 [colors.primary]
-background = '#1f1f28'
-foreground = '#dcd7ba'
+background = '#1f1f28' # sumiInk3
+foreground = '#dcd7ba' # fujiWhite
 
 [colors.normal]
-black   = '#090618'
-red     = '#c34043'
-green   = '#76946a'
-yellow  = '#c0a36e'
-blue    = '#7e9cd8'
-magenta = '#957fb8'
-cyan    = '#6a9589'
-white   = '#c8c093'
+black   = '#090618' # upstream terminal black, not in the palette
+red     = '#c34043' # autumnRed
+green   = '#76946a' # autumnGreen
+yellow  = '#c0a36e' # boatYellow2
+blue    = '#7e9cd8' # crystalBlue
+magenta = '#957fb8' # oniViolet
+cyan    = '#6a9589' # waveAqua1
+white   = '#c8c093' # oldWhite
 
 [colors.bright]
-black   = '#727169'
-red     = '#e82424'
-green   = '#98bb6c'
-yellow  = '#e6c384'
-blue    = '#7fb4ca'
-magenta = '#938aa9'
-cyan    = '#7aa89f'
-white   = '#dcd7ba'
+black   = '#727169' # fujiGray
+red     = '#e82424' # samuraiRed
+green   = '#98bb6c' # springGreen
+yellow  = '#e6c384' # carpYellow
+blue    = '#7fb4ca' # springBlue
+magenta = '#938aa9' # springViolet1
+cyan    = '#7aa89f' # waveAqua2
+white   = '#dcd7ba' # fujiWhite
 
 [colors.selection]
-background = '#2d4f67'
-foreground = '#c8c093'
+background = '#2d4f67' # waveBlue2
+foreground = '#c8c093' # oldWhite
 
 [[colors.indexed_colors]]
 index = 16
-color = '#ffa066'
+color = '#ffa066' # surimiOrange
 
 [[colors.indexed_colors]]
 index = 17
-color = '#ff5d62'
+color = '#ff5d62' # peachRed

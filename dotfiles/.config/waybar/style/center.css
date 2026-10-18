@@ -1,0 +1,21 @@
+/* Waybar centre slab: weather and clock.
+ * https://github.com/Alexays/Waybar/wiki/Styling */
+
+/* --- Weather --- */
+#custom-weather {
+  color: @springBlue;
+  padding: 0 10px;
+}
+
+/* --- Clock --- */
+#clock {
+  color: @text;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 0 10px;
+  /* Tapered carp-yellow brush stroke under the time */
+  background-image: linear-gradient(to right, transparent, @highlight 30%, alpha(@highlight, 0.5) 80%, transparent);
+  background-size: 100% 2px;
+  background-position: center 90%;
+  background-repeat: no-repeat;
+}

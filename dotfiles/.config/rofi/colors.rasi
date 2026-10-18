@@ -2,13 +2,22 @@
  * https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown */
 
 /* --- Colours --- */
+/* Rasi can't import CSS: the names and values copy ~/.config/theme/kanagawa.css */
 * {
-    bg: #1f1f23ee;            /* sumiInk, translucent */
-    bg-alt: #2a2a37;          /* sumiInk4 */
-    bg-selected: #7aa89f;     /* waveAqua2 */
-    fg: #dcd7ba;              /* fujiWhite */
-    fg-alt: #727169;          /* fujiGray */
-    fg-selected: #1f1f23;     /* sumiInk */
+    sumiInk3: #1f1f28;
+    sumiInk4: #2a2a37;
+    sumiInk6: #54546d;
+    fujiWhite: #dcd7ba;
+    fujiGray: #727169;
+    sakuraPink: #d27e99;
+
+    bg: #1f1f28ee;            /* sumiInk3 at 93% */
+    bg-alt: @sumiInk4;
+    line: @sumiInk6;
+    bg-selected: @sakuraPink; /* the accent-alt role, as on the bar and in wlogout */
+    fg: @fujiWhite;
+    fg-alt: @fujiGray;
+    fg-selected: @sumiInk3;
 
     /* Reset rofi defaults */
     border: 0;
@@ -35,7 +44,7 @@ inputbar {
     background-color: @bg-alt;
     padding: 12px;
     margin: 0px 0px 20px 0px;
-    border-radius: 8px;
+    border-radius: 2px 16px 2px 16px;
     font: "JetBrainsMono Nerd Font 20";
     children: [prompt, entry];
 }
@@ -67,7 +76,7 @@ listview {
 element {
     orientation: vertical;
     padding: 20px 10px;
-    border-radius: 8px;
+    border-radius: 2px 10px 2px 10px;
     background-color: transparent;
 }
 
@@ -109,7 +118,7 @@ mode-switcher {
 
 button {
     padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: 2px 10px 2px 10px;
     background-color: @bg-alt;
     text-color: @fg;
     vertical-align: 0.5;

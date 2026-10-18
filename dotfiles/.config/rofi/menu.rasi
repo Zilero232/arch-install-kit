@@ -1,0 +1,58 @@
+/* Compact centred list for pickers: clipboard history (Super+V), emoji (Super+.), calculator (Super+=).
+ * Usage: rofi -show emoji -modes emoji -theme menu */
+
+@import "colors.rasi"
+
+window {
+    fullscreen: false;
+    width: 720px;
+    padding: 0;
+    border: 1px;
+    border-color: @line;
+    border-radius: 2px 16px 2px 16px;
+}
+
+/* No mode switcher: each picker runs a single mode */
+mainbox {
+    padding: 16px;
+    children: [inputbar, message, listview];
+}
+
+inputbar {
+    padding: 8px 12px;
+    margin: 0px 0px 12px 0px;
+    font: "JetBrainsMono Nerd Font 14";
+    children: [entry];
+}
+
+listview {
+    lines: 10;
+    columns: 1;
+    spacing: 4px;
+    fixed-height: false; /* shrink to the results, e.g. one calculator line */
+}
+
+/* Text only: the grid's 64px icons would make every row tall */
+element {
+    orientation: horizontal;
+    padding: 8px 14px;
+    children: [element-text];
+}
+
+element-text {
+    horizontal-align: 0;
+    margin: 0;
+}
+
+/* rofi-calc prints the result here */
+message {
+    margin: 0px 0px 12px 0px;
+    padding: 8px 12px;
+    border-radius: 2px 10px 2px 10px;
+    background-color: @bg-alt;
+}
+
+textbox {
+    background-color: transparent;
+    text-color: @fg;
+}
