@@ -1,6 +1,6 @@
 # System essentials: build tools, network, bluetooth, power, boot, backups
 base-devel git rsync stow curl jq pciutils xdg-user-dirs xdg-utils
-pacman-contrib reflector timeshift timeshift-autosnap os-prober ntfs-3g fwupd zram-generator
+pacman-contrib reflector timeshift timeshift-autosnap os-prober efibootmgr ntfs-3g fwupd zram-generator
 networkmanager nm-connection-editor wireless-regdb openssh ufw
 bluez bluez-utils blueman
 gnome-keyring seahorse

@@ -1,10 +1,10 @@
 # Bar, launcher, terminal, shell, files and the apps bound to hotkeys
 waybar swaync wlogout nwg-look libnotify
 rofi rofi-calc rofi-emoji
-alacritty fish fisher oh-my-posh-bin tmux lsd bat fastfetch
+alacritty fish oh-my-posh-bin tmux lsd bat fastfetch neovim
 fzf zoxide fd ripgrep tealdeer man-db man-pages  # search, smarter cd, short man pages
 thunar thunar-archive-plugin gvfs udiskie ranger tree ueberzugpp
 tumbler ffmpegthumbnailer webp-pixbuf-loader  # thumbnails in Thunar
 calcurse neohtop-bin
-wttrbar waybar-module-pacman-updates-git waypaper  # weather, updates, wallpaper picker
+waybar-weather waybar-module-pacman-updates-git waypaper  # weather, updates, wallpaper picker
 firefox google-chrome telegram-desktop

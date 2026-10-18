@@ -1,2 +1,14 @@
-# Needs multilib (enabled by the pacman module)
+# Games: Steam and other launchers, Proton/Wine, performance tools (needs multilib)
 steam gamemode lib32-gamemode mangohud lib32-mangohud gamescope
+
+# Epic, GOG and other stores, Windows games outside Steam
+lutris heroic-games-launcher-bin wine-staging winetricks wine-mono wine-gecko protontricks
+
+# Proton-GE manager and a GUI for the MangoHud overlay
+protonup-qt goverlay
+
+# udev rules for Xbox, PlayStation, Switch and 8BitDo controllers
+game-devices-udev
+
+# Live wallpapers from Steam's Wallpaper Engine (wallpaper.sh falls back to pictures without it)
+linux-wallpaperengine-git

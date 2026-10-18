@@ -7,5 +7,4 @@ swayosd tesseract-data-eng tesseract-data-rus  # volume/brightness OSD, OCR
 
 # SDDM theme runs on X11, hence xorg-server
 sddm xorg-server sddm-astronaut-theme
-plymouth plymouth-theme-deus-ex-git
-linux-wallpaperengine-git
+plymouth plymouth-theme-arch-logo
