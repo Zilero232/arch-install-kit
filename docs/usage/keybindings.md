@@ -32,14 +32,31 @@
 | `Super + C`         | color picker → clipboard                                               |
 | `Super + .`         | emoji picker                                                           |
 | `Super + =`         | calculator                                                             |
-| `Super + Shift + O` | copy text from a screen region (OCR, English and Russian)              |
-| `Super + Shift + R` | start / stop recording a region → `~/Videos`                           |
+| `Super + Shift + O` | copy text from a screen region (OCR, English and Russian), if any      |
+| `Super + Shift + R` | start / stop recording a region → `~/Videos` (with a notification)     |
 | `Super + W`         | random static wallpaper from `~/Images`                                |
 | `Super + Ctrl + W`  | pick a wallpaper in waypaper                                           |
 | `Super + Shift + W` | back to the live Wallpaper Engine scene                                |
-| `Super + N`         | notification centre                                                    |
+| `Super + N`         | notification center                                                    |
 | `Super + P`         | show / hide Waybar                                                     |
 | `Super + O`         | show / hide Telegram and the audio mixer                               |
+
+## Control center (Super + N)
+
+The swaync control center has a row of quick buttons above the volume and brightness sliders ([`swaync/config.json`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/swaync/config.json)):
+
+| Button       | Action                                  |
+| ------------ | --------------------------------------- |
+| Wi-Fi        | network settings (nm-connection-editor) |
+| Bluetooth    | Bluetooth manager (blueman)             |
+| Night light  | toggle hyprsunset at 4500 K             |
+| Microphone   | mute / unmute the microphone            |
+| Mixer        | audio mixer (pavucontrol)               |
+| Screenshot   | region → annotate in satty              |
+| Color picker | pick a color → clipboard                |
+| Wallpaper    | random static wallpaper from `~/Images` |
+| Lock         | lock the screen                         |
+| Power        | power menu (wlogout)                    |
 
 ## Session
 
@@ -64,17 +81,18 @@
 
 ## Workspaces
 
-| Keys                  | Action                        |
-| --------------------- | ----------------------------- |
-| `Super + 1…0`         | go to workspace 1–10          |
-| `Super + Shift + 1…0` | move window to workspace 1–10 |
+| Keys                      | Action                        |
+| ------------------------- | ----------------------------- |
+| `Super + 1…0`             | go to workspace 1–10          |
+| `Super + Shift + 1…0`     | move window to workspace 1–10 |
+| 3-finger horizontal swipe | switch workspace (touchpad)   |
 
 ## Zoom
 
 | Keys                          | Action     |
 | ----------------------------- | ---------- |
-| `Super + Shift + scroll down` | zoom in    |
-| `Super + Shift + scroll up`   | zoom out   |
+| `Super + Shift + scroll up`   | zoom in    |
+| `Super + Shift + scroll down` | zoom out   |
 | `Super + Ctrl + Z`            | reset zoom |
 
 ## Media keys
@@ -92,4 +110,4 @@
 | ------------------------------- | --------------------- |
 | `Alt + Shift` or `Ctrl + Shift` | switch layout (us/ru) |
 
-Like on Windows, the layout switches when you let go of the keys, and only if you pressed nothing else in between, so `Ctrl + Shift + T`, `Ctrl + Shift + ←` and `Alt + Shift + Tab` keep working ([`hypr/conf/layout_switch.lua`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/layout_switch.lua)).
+Like on Windows, the layout switches when you let go of the keys, and only if you pressed nothing else in between, so `Ctrl + Shift + T`, `Ctrl + Shift + ←` and `Alt + Shift + Tab` keep working ([`hypr/conf/layout_switch.lua`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/layout_switch.lua)). One exception: a mouse click in between (`Ctrl + Shift` + click to select a range) still switches the layout on release, because Hyprland's Lua API has no mouse-button event.

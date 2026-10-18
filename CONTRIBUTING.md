@@ -7,7 +7,8 @@ Thanks for your interest in the project! Here's everything you need for a smooth
 ```bash
 git clone https://github.com/Zilero232/arch-install-kit.git
 cd arch-install-kit
-bun install        # commitlint, husky (git hooks), shellcheck, prettier
+mise install       # bun version from mise.toml
+bun install        # commitlint, husky (git hooks), shellcheck, prettier, bats, vitepress
 ```
 
 The hooks enable themselves: before each commit the scripts are checked and Markdown/JSON/YAML gets formatted, and commitlint validates the commit message.
@@ -20,21 +21,22 @@ The hooks enable themselves: before each commit the scripts are checked and Mark
 
 ## Style
 
-Write so that the whole repo reads as if one careful person wrote it. The full house style is in [AGENTS.md](./AGENTS.md#house-style); the short version:
+Write so that the whole repo reads as if one careful person wrote it. Every rule for Bash, configs and docs, with examples, is in the [style guide](./docs/reference/style-guide.md); [AGENTS.md](./AGENTS.md#house-style) keeps the same rules as a checklist. Two matter most:
 
-- **Readability beats brevity.** Short functions, clear names, comments explain _why_, never restate the line.
-- **Bash** ([Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html), trimmed): `#!/usr/bin/env bash`, a one-line purpose comment (plus `# Usage:` if it takes arguments), 4-space indent, `snake_case`, `local` variables, `[[ ]]`, quoted expansions. Standalone scripts use `set -euo pipefail`, `readonly` constants and end with `main "$@"`; `lib/` and `modules/` are sourced and have neither.
 - Anything that changes the system goes through `run`, so `--dry-run` keeps working.
-- **Configs:** first line says what the file is (plus an upstream docs link), sections look like `# --- Name ---` (`/* --- Name --- */` in CSS/rasi).
-- **Docs:** second person, sentence-case headings, a language on every code block; install pages end with a **Next:** link.
 - No absolute `/home/<user>` paths and no secrets in configs.
 
 Checks:
 
 ```bash
-bun run lint              # shellcheck
+bun run lint              # shellcheck for scripts and tests
+bun run test              # config checks, bats and Lua tests (offline, ~10 s)
+bun run test:packages     # every listed package exists (needs network)
+bun run spell             # cspell for the docs
 ./install.sh --dry-run    # on Arch: what would change
 ```
+
+How the tests are laid out and how to add one: [testing](./docs/reference/testing.md).
 
 ## Commits
 
@@ -60,9 +62,11 @@ Format: gitmoji + conventional commits:
 | refactor | ♻️    | rework without behavior changes |
 | perf     | ⚡️    | performance                     |
 | build    | 📦️    | packages and dependencies       |
+| test     | ✅    | adding or fixing tests          |
+| ci       | 👷    | CI workflows                    |
 | chore    | 🔧    | configs, small stuff            |
 
-Scopes: `installer`, `packages`, `hypr`, `waybar`, `rofi`, `shell`, `dotfiles`, `scripts`, `login`, `docs`, `tooling`, `deps`.
+Scopes: `installer`, `packages`, `hypr`, `waybar`, `rofi`, `shell`, `dotfiles`, `scripts`, `login`, `docs`, `tooling`, `deps`, `tests`, `theme`, `system`, `ci`.
 
 Don't feel like remembering the format? `bun run commit` walks you through it.
 
@@ -70,7 +74,7 @@ Don't feel like remembering the format? `bun run commit` walks you through it.
 
 1. Branch off `master`: `git checkout -b feat/clipboard-history`.
 2. One logical change per PR.
-3. Changed flags, packages or keybindings? Update the [docs](./docs).
+3. Changed flags, packages or keybindings? Update the [docs](./docs). Changed code or configs? Add or update a test.
 4. In the description: what and why, and how you tested it.
 
 ## Bugs and ideas

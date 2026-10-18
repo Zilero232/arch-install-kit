@@ -76,7 +76,7 @@ const STEPS = [
   },
   {
     title: 'Make it yours',
-    text: 'Monitors, weather key, wallpapers.',
+    text: 'Monitors, weather city, wallpapers.',
     link: '/install/05-after-install',
   },
 ];
@@ -123,8 +123,8 @@ async function copyQuickStart() {
         class="screen-shot"
         :src="desktop"
         alt="Hyprland desktop with Alacritty and fastfetch"
-        width="2546"
-        height="1430"
+        width="2560"
+        height="1600"
       />
     </section>
 
@@ -166,7 +166,7 @@ async function copyQuickStart() {
       <div class="gallery-grid">
         <figure v-for="shot in GALLERY" :key="shot.caption">
           <a :href="shot.src" target="_blank" rel="noreferrer">
-            <img :src="shot.src" :alt="shot.caption" loading="lazy" width="2559" height="1439" />
+            <img :src="shot.src" :alt="shot.caption" loading="lazy" width="2560" height="1600" />
           </a>
           <figcaption>{{ shot.caption }}</figcaption>
         </figure>

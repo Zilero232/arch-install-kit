@@ -14,6 +14,7 @@ A Hyprland setup for Arch Linux that installs with a single command.
 [![Stars](https://img.shields.io/github/stars/Zilero232/arch-install-kit?style=flat-square&labelColor=1F1F28&color=D27E99)](https://github.com/Zilero232/arch-install-kit/stargazers)
 [![License](https://img.shields.io/github/license/Zilero232/arch-install-kit?style=flat-square&labelColor=1F1F28&color=98BB6C)](./LICENSE)
 [![Deploy](https://img.shields.io/github/actions/workflow/status/Zilero232/arch-install-kit/docs.yml?branch=master&label=deploy&style=flat-square&labelColor=1F1F28&color=7E9CD8)](https://github.com/Zilero232/arch-install-kit/actions/workflows/docs.yml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/Zilero232/arch-install-kit/test.yml?branch=master&label=tests&style=flat-square&labelColor=1F1F28&color=7AA89F)](https://github.com/Zilero232/arch-install-kit/actions/workflows/test.yml)
 
 ![Hyprland desktop](./assets/screenshots/hyrpland_preview.png)
 
@@ -36,22 +37,22 @@ No Arch yet? Start with the [step-by-step guide](./docs/README.md): from a USB s
 
 ## ✨ What's inside
 
-|                  |                                                                                                         |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 🪟 Compositor    | [Hyprland](https://hypr.land) + hyprlock, hypridle, hyprpaper, hyprsunset                               |
-| 📊 Bar           | [Waybar](https://github.com/Alexays/Waybar): weather, updates, audio visualizer                         |
-| 🚀 Launcher      | [Rofi](https://github.com/davatorium/rofi): apps, calculator, emoji, clipboard history                  |
-| 🔔 Notifications | [SwayNC](https://github.com/ErikReider/SwayNotificationCenter)                                          |
-| 📟 Terminal      | [Alacritty](https://alacritty.org) + [Fish](https://fishshell.com) + [Oh My Posh](https://ohmyposh.dev) |
-| 📂 Files         | Thunar, Ranger                                                                                          |
-| 🎨 Theme         | Kanagawa (GTK, icons, terminal, bar), Hackneyed cursor                                                  |
-| 🔐 Login         | SDDM Astronaut, Plymouth splash                                                                         |
-| 🖼️ Wallpapers    | Wallpaper Engine or 270+ static ones from `assets/images`                                               |
+|                  |                                                                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| 🪟 Compositor    | [Hyprland](https://hypr.land) + hyprlock, hypridle, hyprpaper, hyprsunset                                         |
+| 📊 Bar           | [Waybar](https://github.com/Alexays/Waybar) (Ukiyo-e style, kanji workspaces): weather, updates, audio visualizer |
+| 🚀 Launcher      | [Rofi](https://github.com/davatorium/rofi): apps, calculator, emoji, clipboard history                            |
+| 🔔 Notifications | [SwayNC](https://github.com/ErikReider/SwayNotificationCenter) control center with a notification sound           |
+| 📟 Terminal      | [Alacritty](https://alacritty.org) + [Fish](https://fishshell.com) + [Oh My Posh](https://ohmyposh.dev)           |
+| 📂 Files         | Thunar, Ranger                                                                                                    |
+| 🎨 Theme         | Kanagawa (GTK, terminal, bar), Papirus icons with violet folders, Hackneyed cursor                                |
+| 🔐 Login         | SDDM Astronaut, Plymouth Arch logo                                                                                |
+| 🖼️ Wallpapers    | Wallpaper Engine or 370+ static ones from `assets/images`                                                         |
 
 ## 🛠️ Installer
 
 ```text
-./install.sh                 everything: desktop + apps
+./install.sh                 desktop + the optional groups you tick
 ./install.sh --minimal       desktop only
 ./install.sh --groups dev    desktop + chosen groups
 ./install.sh --only dotfiles update configs only
@@ -86,8 +87,10 @@ Best read on the [website](https://zilero232.github.io/arch-install-kit/) (searc
 
 - [Step-by-step install](./docs/README.md#installation--step-by-step) — backup, USB stick, archinstall, install.sh
 - [Keybindings](./docs/usage/keybindings.md)
+- [Theming](./docs/usage/theming.md)
+- [Gaming](./docs/usage/gaming.md)
 - [Packages](./docs/reference/packages.md)
-- [When something breaks](./docs/reference/troubleshooting.md)
+- [Troubleshooting](./docs/reference/troubleshooting.md)
 
 ## 🤝 Contributing
 

@@ -61,27 +61,36 @@ export default defineConfig({
         text: 'Install',
         items: [
           { text: '1. Backup', link: '/install/01-backup' },
-          { text: '2. USB and BIOS', link: '/install/02-usb-and-bios' },
-          { text: '3. Install Arch', link: '/install/03-archinstall' },
-          { text: '4. Run install.sh', link: '/install/04-run-installer' },
-          { text: '5. After install', link: '/install/05-after-install' },
+          { text: '2. USB stick and BIOS', link: '/install/02-usb-and-bios' },
+          { text: '3. Installing Arch', link: '/install/03-archinstall' },
+          { text: '4. Running install.sh', link: '/install/04-run-installer' },
+          { text: '5. After installation', link: '/install/05-after-install' },
         ],
       },
       {
         text: 'Usage',
         items: [
           { text: 'Keybindings', link: '/usage/keybindings' },
+          { text: 'Theming', link: '/usage/theming' },
           { text: 'Fish shell', link: '/usage/fish' },
           { text: 'Scripts', link: '/usage/scripts' },
+          { text: 'Gaming', link: '/usage/gaming' },
         ],
       },
       {
         text: 'Reference',
         items: [
-          { text: 'Packages', link: '/reference/packages' },
-          { text: 'Repository structure', link: '/reference/structure' },
           { text: 'Troubleshooting', link: '/reference/troubleshooting' },
+          { text: 'Packages', link: '/reference/packages' },
           { text: 'Manual Arch install', link: '/reference/manual-arch-install' },
+        ],
+      },
+      {
+        text: 'Contributing',
+        items: [
+          { text: 'Repository structure', link: '/reference/structure' },
+          { text: 'Style guide', link: '/reference/style-guide' },
+          { text: 'Testing', link: '/reference/testing' },
         ],
       },
     ],

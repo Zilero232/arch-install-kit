@@ -1,4 +1,4 @@
-# Repository layout
+# Repository structure
 
 ```text
 arch-install-kit/
@@ -14,10 +14,12 @@ arch-install-kit/
 ├── modules/              # install steps, run in numeric order
 ├── packages/             # package lists per group
 ├── services.txt          # which systemd units to enable
-├── dotfiles/             # mirror of $HOME: .config/, bin/, .gtkrc-2.0
-├── etc/                  # system files (SDDM, Plymouth, reflector, polkit rules)
+├── dotfiles/             # mirror of $HOME: .config/, .local/, bin/, .gtkrc-2.0
+├── etc/                  # system files: SDDM, Plymouth, reflector, makepkg, zram, Timeshift, polkit rule, sleep hook
 ├── assets/               # wallpapers and screenshots
-└── docs/                 # documentation
+├── tests/                # bats, bun and Lua tests (see testing.md)
+├── docs/                 # documentation
+└── website/              # VitePress site built from docs/
 ```
 
 ## How install.sh works
@@ -36,6 +38,8 @@ arch-install-kit/
 - **Idempotency.** Before changing something, check whether it's already done (`grep -q`, `is_installed`) so re-runs don't break anything.
 - **Edit system files only after `backup_once`.** When possible, write a drop-in instead (`/etc/modprobe.d/`, `/etc/mkinitcpio.conf.d/`) with `write_root_file`.
 - **Finish with `ok "…"`.** That way the output shows the step completed.
+
+The shell style (quoting, `set -e` gaps, temp files, traps) is in the [style guide](./style-guide.md).
 
 ### Adding a module
 
@@ -57,19 +61,31 @@ It shows up in `./install.sh --help` right away and is available as `--only exam
 
 `dotfiles/` mirrors your home folder:
 
-| In the repo                           | Ends up in                                                           |
-| ------------------------------------- | -------------------------------------------------------------------- |
-| `dotfiles/.config/hypr/`              | `~/.config/hypr/`                                                    |
-| `dotfiles/bin/`                       | `~/bin/`                                                             |
-| `dotfiles/.gtkrc-2.0`                 | `~/.gtkrc-2.0`                                                       |
-| `dotfiles/.local/share/applications/` | `~/.local/share/applications/` (hides helper apps from the launcher) |
+| In the repo                           | Ends up in                                                                                       |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `dotfiles/.config/hypr/`              | `~/.config/hypr/` (`hyprland.lua`, `conf/*.lua`, hypridle/hyprlock/hyprpaper/hyprsunset `.conf`) |
+| `dotfiles/.config/theme/`             | `~/.config/theme/` (`kanagawa.css`: the shared palette, see [Theming](../usage/theming.md))      |
+| `dotfiles/.config/waybar/`            | `~/.config/waybar/` (`style.css` imports `style/{base,left,center,right}.css`)                   |
+| `dotfiles/.config/swaync/`            | `~/.config/swaync/` (`style.css` imports `style/*.css`)                                          |
+| `dotfiles/.config/waybar-weather/`    | `~/.config/waybar-weather/` (`config.toml`; the installer writes `cityname` from your timezone)  |
+| `dotfiles/.config/environment.d/`     | `~/.config/environment.d/` (puts `~/bin` on `PATH` for systemd user services)                    |
+| `dotfiles/.config/MangoHud/`          | `~/.config/MangoHud/` (the in-game overlay, see [Gaming](../usage/gaming.md))                    |
+| `dotfiles/bin/`                       | `~/bin/`                                                                                         |
+| `dotfiles/.gtkrc-2.0`                 | `~/.gtkrc-2.0`                                                                                   |
+| `dotfiles/.local/share/applications/` | `~/.local/share/applications/` (hides helper apps from the launcher)                             |
 
 The `dotfiles` module deploys them in one of two ways:
 
 - **copy** (default) — `rsync --backup`: replaced files go to `~/.config-backup/<date>/`;
 - **symlinks** (`--link`) — [GNU Stow](https://www.gnu.org/software/stow/): `~/.config/hypr` points into the repo, so edits show up in `git status` right away.
 
+  Some apps rewrite their own config when you change a setting: nwg-look (`gtk-3.0`, `gtk-4.0`, `.gtkrc-2.0`), waypaper (`waypaper/config.ini`, which gains an absolute `/home/…` path) and Thunar (`xfce4/…/thunar.xml`). In link mode those writes land in the repo — review them in `git diff` and commit or `git restore` them.
+
 No secrets live in the repo, and none are needed: the weather module works without an API key.
+
+### Theme
+
+Every app shares one Kanagawa palette, `~/.config/theme/kanagawa.css`. The colors, roles and the files that copy them are in [Theming](../usage/theming.md).
 
 ## Services
 

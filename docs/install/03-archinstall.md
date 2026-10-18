@@ -1,4 +1,4 @@
-# 3. Installing Arch with archinstall
+# 3. Installing Arch
 
 The goal here is a minimal system with a user, networking and a bootloader. [install.sh](./04-run-installer.md) takes care of everything else.
 
@@ -79,6 +79,8 @@ Controls: arrow keys, `Enter` to select, `/` to search, `Space` to toggle, `Esc`
 **Use a best-effort default partition layout** → disk → **ext4** → separate `/home`: **No**.
 
 Everything on the disk will be wiped.
+
+Without a separate `/home`, Timeshift snapshots share the `/` partition with the system; to keep them elsewhere, pick another disk in `timeshift-gtk`.
 
 ### Option B — reinstall over existing partitions
 
