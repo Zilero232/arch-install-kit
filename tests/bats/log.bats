@@ -64,7 +64,7 @@ EOF
 
 ==> Summary
   [ok] preflight         1s
-  [x] packages         42s
+  [x]  packages         42s
   [ok] dotfiles          3s
   ------------------------
   total              46s

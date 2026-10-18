@@ -72,7 +72,7 @@ EOF
 }
 
 @test "pkg_install: a failed batch is retried one package at a time" {
-    local yay_s="yay -S --needed --noconfirm --answerdiff None --answerclean None --removemake"
+    local yay_s="yay -S --needed --noconfirm --answerdiff None --answerclean None --removemake --sudoflags --preserve-env=SKIP_AUTOSNAP"
 
     # The batch with both packages fails, like a transaction one bad package breaks
     mock_cmd yay 'if [[ "$*" == *" foo bar" ]]; then exit 1; fi'
@@ -101,12 +101,34 @@ EOF
     assert_equal "$(grep -c '^yay -S' "$MOCK_LOG")" 1
 }
 
+@test "pkg_install: yay runs with SKIP_AUTOSNAP kept through sudo" {
+    mock_cmd yay 'echo "SKIP_AUTOSNAP=${SKIP_AUTOSNAP:-unset}" >>"$MOCK_LOG"'
+    mock_pacman foo
+
+    run kit 'mkdir -p "$STATE_DIR"; pkg_install foo'
+
+    assert_success
+    assert_equal "$(grep -c '^SKIP_AUTOSNAP=1$' "$MOCK_LOG")" 1
+}
+
 @test "pkg_install: a dry run prints the yay command and runs nothing" {
     mock_cmd yay
 
     DRY_RUN=1 run kit 'pkg_install foo bar'
 
     assert_success
-    assert_output --partial "[dry] yay -S --needed --noconfirm"
+    assert_output --partial "[dry] env SKIP_AUTOSNAP=1 yay -S --needed --noconfirm"
     assert_equal "$(mock_calls)" ""
+}
+
+@test "pkg_install_list: --no-plymouth leaves the splash packages out" {
+    mock_cmd yay
+    mkdir -p "$BATS_TEST_TMPDIR/lists"
+    printf '# Test list\nsddm plymouth plymouth-theme-arch-logo\n' >"$BATS_TEST_TMPDIR/lists/login.txt"
+
+    WITH_PLYMOUTH=0 run kit "PACKAGES_DIR='$BATS_TEST_TMPDIR/lists'; DRY_RUN=1; pkg_install_list login"
+
+    assert_success
+    assert_output --partial "login: 1 packages"
+    refute_output --partial "plymouth"
 }

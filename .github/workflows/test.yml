@@ -1,0 +1,57 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Fast offline suite (bun test + bats + Lua) on a stock runner; Hyprland and
+  # swaync are missing here, so their checks skip and run in the arch job instead
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2 # installs bun from mise.toml
+      - run: sudo apt-get update && sudo apt-get install -y lua5.4
+      - run: bun install --frozen-lockfile
+      - run: bun run test
+
+  # The real thing: Arch with Hyprland and swaync installed, the installer's dry run,
+  # the full suite and the package existence check against the live repos and AUR
+  arch:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      # install.sh refuses root, so everything after setup runs as this user
+      AS_USER: runuser -u builder -- env HOME=/home/builder XDG_RUNTIME_DIR=/tmp/runtime-builder
+    steps:
+      - name: Enable multilib and sync (lib32-* packages live there)
+        run: |
+          printf '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' >>/etc/pacman.conf
+          pacman -Syu --noconfirm --needed git
+
+      - uses: actions/checkout@v4
+
+      - name: Install the installer's bootstrap packages and the test tools
+        run: |
+          mapfile -t bootstrap < <(sed 's/#.*//' packages/bootstrap.txt | tr -s ' \t' '\n' | sed '/^$/d')
+          pacman -S --noconfirm --needed "${bootstrap[@]}" bun lua hyprland swaync tzdata
+
+      - name: Create a non-root user that owns the checkout
+        run: |
+          useradd -m builder
+          chown -R builder: "$GITHUB_WORKSPACE"
+          install -d -m 700 -o builder /tmp/runtime-builder
+
+      - run: $AS_USER bun install --frozen-lockfile
+      - run: $AS_USER ./install.sh --dry-run --yes
+      - run: $AS_USER bun run test
+      - run: $AS_USER bun run test:packages

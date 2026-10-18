@@ -34,6 +34,7 @@ const COMMAND_PACKAGES: Record<string, string | null> = {
   sh: null,
   sleep: null,
   'swaync-client': 'swaync',
+  'swayosd-client': 'swayosd',
   systemctl: null,
   'waybar-module-pacman-updates': 'waybar-module-pacman-updates-git',
   'waybar-weather': 'waybar-weather',
@@ -303,6 +304,46 @@ describe('dotfiles', () => {
       .map((f) => relative(REPO, f));
 
     expect(bad).toEqual([]);
+  });
+
+  test('hyprlock runs top under LC_ALL=C (a comma-decimal locale breaks the awk math)', () => {
+    const bad = readText(join(DOTFILES, '.config/hypr/hyprlock.conf'))
+      .split('\n')
+      .filter((line) => /\btop -b/.test(line) && !/LC_ALL=C top -b/.test(line));
+
+    expect(bad).toEqual([]);
+  });
+
+  test('launchers that are shown (no NoDisplay/Hidden) have a TryExec', () => {
+    const dir = join(DOTFILES, '.local/share/applications');
+    const bad = readdirSync(dir)
+      .filter((name) => name.endsWith('.desktop'))
+      .filter((name) => {
+        const text = readText(join(dir, name));
+        return !/^(NoDisplay|Hidden)=true$/m.test(text) && !/^TryExec=/m.test(text);
+      });
+
+    expect(bad).toEqual([]);
+  });
+
+  test('every rofi -theme X has dotfiles/.config/rofi/X.rasi', () => {
+    const missing: string[] = [];
+    const used: string[] = [];
+
+    for (const file of files.filter((f) => !isBinary(f))) {
+      for (const line of readText(file).split('\n')) {
+        for (const match of line.matchAll(/\brofi\b[^|;&]*?\s-theme\s+["']?([\w.-]+)/g)) {
+          const theme = match[1].replace(/\.rasi$/, '');
+          used.push(theme);
+          if (!existsSync(join(DOTFILES, '.config/rofi', `${theme}.rasi`))) {
+            missing.push(`${relative(REPO, file)}: ${theme}`);
+          }
+        }
+      }
+    }
+
+    expect(used.length).toBeGreaterThan(0);
+    expect(missing).toEqual([]);
   });
 });
 

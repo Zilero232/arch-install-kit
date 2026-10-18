@@ -63,7 +63,7 @@ setup() {
     run "$BIN/quick_toggle.sh" night status
     assert_output true
 
-    mock_cmd hyprctl 'echo 6000'
+    mock_cmd hyprctl 'echo 6500'
     run "$BIN/quick_toggle.sh" night status
     assert_output false
 }
@@ -86,15 +86,13 @@ setup() {
     assert_equal "$(mock_calls)" "hyprctl hyprsunset temperature 4500"
 }
 
-@test "quick_toggle.sh: night off goes back to neutral, then identity" {
+@test "quick_toggle.sh: night off goes back to the neutral 6500 K" {
     mock_cmd hyprctl
 
     SWAYNC_TOGGLE_STATE=false run "$BIN/quick_toggle.sh" night
 
     assert_success
-    assert_equal "$(mock_calls)" "$(printf '%s\n' \
-        'hyprctl hyprsunset temperature 6000' \
-        'hyprctl hyprsunset identity')"
+    assert_equal "$(mock_calls)" "hyprctl hyprsunset temperature 6500"
 }
 
 @test "quick_toggle.sh: mic status is true while the source is muted" {

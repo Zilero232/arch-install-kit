@@ -41,6 +41,14 @@ make_fake_kit() {
     assert_line "Modules: ${names[*]}"
 }
 
+@test "--help prints usage without the banner" {
+    run "$REPO_DIR/install.sh" --help
+
+    assert_success
+    refute_output --partial "Arch Install Kit"
+    assert_line --index 0 "Usage: ./install.sh [options]"
+}
+
 @test "an unknown flag exits 1 with a hint" {
     run "$REPO_DIR/install.sh" --bogus
 
@@ -48,11 +56,48 @@ make_fake_kit() {
     assert_output --partial "Unknown option: --bogus (see --help)"
 }
 
+# All argument tests run the fake kit with --dry-run: a parsing bug must never
+# be able to start a real install on the developer's machine
+
 @test "--only without a value fails" {
-    run "$REPO_DIR/install.sh" --only
+    run "$FAKE_KIT/install.sh" --dry-run --yes --only
 
     assert_failure
     assert_output --partial "--only needs a value"
+    refute_output --partial "==> preflight"
+}
+
+@test "a list flag with only commas fails instead of meaning everything" {
+    local flag
+
+    for flag in --only --skip --groups; do
+        run "$FAKE_KIT/install.sh" --dry-run --yes "$flag" ,
+
+        assert_failure 1
+        assert_output --partial "$flag needs at least one name"
+        refute_output --partial "==> preflight"
+    done
+}
+
+@test "a flag value can't swallow the next flag" {
+    run "$FAKE_KIT/install.sh" --groups --dry-run
+
+    assert_failure
+    assert_output --partial "--groups needs a value"
+}
+
+@test "an unknown module name is rejected" {
+    run "$FAKE_KIT/install.sh" --dry-run --yes --only dotfile
+
+    assert_failure
+    assert_output --partial "Unknown module: dotfile"
+}
+
+@test "an unknown group name is rejected" {
+    run "$FAKE_KIT/install.sh" --dry-run --yes --groups bogus,dev
+
+    assert_failure
+    assert_output --partial "Unknown group: bogus"
 }
 
 # --- Module selection ---
@@ -103,10 +148,11 @@ make_fake_kit() {
 
     run "$FAKE_KIT/install.sh" --dry-run --yes
 
-    assert_success
+    # Exit code 2: the run finished, but a module needs another try
+    assert_failure 2
     assert_output --partial "Module 'dotfiles' failed, continuing"
     assert_line "  [ok] services ran"
-    assert_output --regexp '\[x\] dotfiles +[0-9]+s'
+    assert_output --regexp '\[x\] +dotfiles +[0-9]+s'
 }
 
 @test "a failing critical module stops the installer" {
