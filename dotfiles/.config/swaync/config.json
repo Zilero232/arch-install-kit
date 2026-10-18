@@ -11,7 +11,7 @@
 	"control-center-exclusive-zone": true,
 	"control-center-margin-top": 8,
 	"control-center-margin-bottom": 8,
-	"control-center-margin-right": 8,
+	"control-center-margin-right": 12,
 	"control-center-margin-left": 0,
 	"control-center-width": 420,
 	"control-center-height": 900,
@@ -26,7 +26,7 @@
 	"image-visibility": "when-available",
 	"timeout": 8,
 	"timeout-low": 4,
-	"timeout-critical": 0,
+	"timeout-critical": 15,
 	"transition-time": 200,
 	"keyboard-shortcuts": true,
 	"hide-on-clear": false,
@@ -44,9 +44,9 @@
 	],
 	"widget-config": {
 		"title": {
-			"text": "Notifications",
+			"text": "通知  Notifications",
 			"clear-all-button": true,
-			"button-text": "󰹏  Clear"
+			"button-text": "󰗩  Clear"
 		},
 		"dnd": {
 			"text": "Do not disturb"
@@ -65,14 +65,14 @@
 				{
 					"label": "󰖔",
 					"type": "toggle",
-					"command": "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then hyprctl hyprsunset temperature 3000; else hyprctl hyprsunset temperature 6000 && hyprctl hyprsunset identity; fi'",
-					"update-command": "sh -c 'if [ \"$(hyprctl hyprsunset temperature)\" -lt 6000 ] 2>/dev/null; then echo true; else echo false; fi'"
+					"command": "quick_toggle.sh night",
+					"update-command": "quick_toggle.sh night status"
 				},
 				{
 					"label": "󰍭",
 					"type": "toggle",
-					"command": "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1; else wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0; fi'",
-					"update-command": "sh -c 'if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED; then echo true; else echo false; fi'"
+					"command": "quick_toggle.sh mic",
+					"update-command": "quick_toggle.sh mic status"
 				},
 				{
 					"label": "󰙪",
@@ -80,7 +80,7 @@
 				},
 				{
 					"label": "󰹑",
-					"command": "sh -c 'swaync-client -cp; sleep 0.3; if command -v satty >/dev/null; then hyprshot -m region --raw | satty --filename -; else hyprshot -m region -o ~/Screenshots; fi'"
+					"command": "sh -c 'swaync-client -cp; sleep 0.3; hyprshot -m region --raw | satty --filename -'"
 				},
 				{
 					"label": "󰈊",
@@ -88,11 +88,11 @@
 				},
 				{
 					"label": "󰸉",
-					"command": "sh -c '~/bin/wallpaper.sh random'"
+					"command": "sh -c 'swaync-client -cp; wallpaper.sh random'"
 				},
 				{
 					"label": "󰌾",
-					"command": "sh -c 'swaync-client -cp; hyprlock'"
+					"command": "sh -c 'swaync-client -cp; loginctl lock-session'"
 				},
 				{
 					"label": "󰐥",
@@ -102,14 +102,7 @@
 		},
 		"volume": {
 			"label": "󰕾",
-			"show-per-app": true,
-			"show-per-app-icon": true,
-			"show-per-app-label": false,
-			"expand-button-label": "󰅀",
-			"collapse-button-label": "󰅃",
-			"empty-list-label": "Nothing is playing",
-			"animation-type": "slide_down",
-			"animation-duration": 200
+			"show-per-app": false
 		},
 		"backlight": {
 			"label": "󰃟",
@@ -123,13 +116,26 @@
 			"loop-carousel": true,
 			"blacklist": [
 				"kew",
-				"firefox",
 				"spotify",
 				"playerctld"
 			]
 		},
 		"notifications": {
 			"vexpand": true
+		}
+	},
+	"scripts": {
+		"notification-sound": {
+			"exec": "notification_sound.sh",
+			"urgency": "Normal",
+			"app-name": "^(?!Telegram|telegram|discord|Discord|vesktop).*$",
+			"run-on": "receive"
+		},
+		"notification-sound-critical": {
+			"exec": "notification_sound.sh",
+			"urgency": "Critical",
+			"app-name": "^(?!Telegram|telegram|discord|Discord|vesktop).*$",
+			"run-on": "receive"
 		}
 	}
 }

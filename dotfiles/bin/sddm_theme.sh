@@ -9,6 +9,8 @@ set -euo pipefail
 readonly THEME_DIR=/usr/share/sddm/themes/sddm-astronaut-theme
 readonly METADATA="$THEME_DIR/metadata.desktop"
 
+# --- Messages ---
+
 usage() {
     echo "Usage: sddm_theme.sh <list|set> [variant]"
     echo "  list           show available variants (* = current)"
@@ -16,7 +18,9 @@ usage() {
 }
 
 notify() {
-    local message=$1 icon=$2
+    local message=$1
+    local icon=$2
+
     notify-send "$message" -i "$icon" || true
 }
 
@@ -25,6 +29,8 @@ fail() {
     notify "$1" "dialog-error"
     exit 1
 }
+
+# --- Theme ---
 
 require_theme() {
     if [[ ! -f "$METADATA" ]]; then
@@ -38,7 +44,9 @@ current_variant() {
 
 list_variants() {
     local file name current
+
     current=$(current_variant)
+
     for file in "$THEME_DIR"/Themes/*.conf; do
         name=$(basename "$file" .conf)
         if [[ "$name" == "$current" ]]; then
@@ -51,6 +59,7 @@ list_variants() {
 
 set_variant() {
     local variant=$1
+
     if [[ ! -f "$THEME_DIR/Themes/$variant.conf" ]]; then
         fail "Variant '$variant' not found. Run 'sddm_theme.sh list' to see them."
     fi
@@ -60,24 +69,30 @@ set_variant() {
     notify "SDDM variant '$variant' has been set" "dialog-ok"
 }
 
+# --- Main ---
+
 main() {
     require_theme
+
     case "${1:-}" in
         list)
             list_variants
             ;;
         set)
             if [[ $# -ne 2 ]]; then
-                usage
+                usage >&2
                 exit 1
             fi
             set_variant "$2"
             ;;
         *)
-            usage
+            usage >&2
             exit 1
             ;;
     esac
 }
 
-main "$@"
+# Sourcing the file (tests) loads the functions without running main
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

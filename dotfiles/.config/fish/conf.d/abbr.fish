@@ -4,8 +4,6 @@ status is-interactive; or return
 
 # --- Dev tools ---
 abbr -a n npm
-abbr -a y yarn
-abbr -a p pnpm
 abbr -a b bun
 abbr -a c composer
 abbr -a m make

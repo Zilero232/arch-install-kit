@@ -13,6 +13,12 @@ ini_value() {
 }
 
 main() {
+    # $(…) inside an argument hides sed's failure from set -e, so check the file up front
+    if [[ ! -f "$SETTINGS" ]]; then
+        echo "Error: $SETTINGS not found" >&2
+        exit 1
+    fi
+
     gsettings set "$SCHEMA" gtk-theme "$(ini_value gtk-theme-name)"
     gsettings set "$SCHEMA" icon-theme "$(ini_value gtk-icon-theme-name)"
     gsettings set "$SCHEMA" cursor-theme "$(ini_value gtk-cursor-theme-name)"
@@ -21,4 +27,7 @@ main() {
     gsettings set "$SCHEMA" color-scheme prefer-dark
 }
 
-main "$@"
+# Sourcing the file (tests) loads the functions without running main
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

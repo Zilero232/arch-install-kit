@@ -1,0 +1,18 @@
+# AnyDesk launcher override. https://specifications.freedesktop.org/desktop-entry-spec/latest/
+# AnyDesk supports X11 only: on Wayland its GTK window and its X11 capture disagree (tiny, glitchy
+# dialogs, "no primary monitor"). Run it fully on X11, scaled by hand because XWayland apps
+# draw at native resolution here (xwayland.force_zero_scaling): 2 × 0.8 = 1.6 for text.
+# GDK_SCALE=2 GDK_DPI_SCALE=0.8 targets a 1.6-scale panel (hyprctl monitors shows yours);
+# on a scale-1 screen drop both, on scale 2 keep GDK_SCALE=2 and drop GDK_DPI_SCALE.
+# TryExec hides the entry when anydesk-bin is not installed.
+[Desktop Entry]
+Type=Application
+Name=AnyDesk
+GenericName=Remote desktop
+TryExec=/usr/bin/anydesk
+Exec=env GDK_BACKEND=x11 GDK_SCALE=2 GDK_DPI_SCALE=0.8 /usr/bin/anydesk %u
+Icon=anydesk
+Terminal=false
+Categories=Network;RemoteAccess;
+MimeType=x-scheme-handler/anydesk;
+StartupWMClass=Anydesk

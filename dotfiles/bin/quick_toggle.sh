@@ -7,7 +7,7 @@
 set -euo pipefail
 
 readonly NIGHT_TEMPERATURE=4500
-readonly NEUTRAL_TEMPERATURE=6000
+readonly NEUTRAL_TEMPERATURE=6500
 readonly MIC="@DEFAULT_AUDIO_SOURCE@"
 
 # --- Night light (hyprsunset) ---
@@ -28,7 +28,8 @@ night_set() {
     if [[ "$1" == true ]]; then
         hyprctl hyprsunset temperature "$NIGHT_TEMPERATURE" >/dev/null
     else
-        hyprctl hyprsunset identity >/dev/null
+        # A neutral temperature, not identity: identity keeps reporting the old value, which reads as "on"
+        hyprctl hyprsunset temperature "$NEUTRAL_TEMPERATURE" >/dev/null
     fi
 }
 
@@ -75,4 +76,7 @@ main() {
     fi
 }
 
-main "$@"
+# Sourcing the file (tests) loads the functions without running main
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

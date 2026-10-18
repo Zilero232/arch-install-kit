@@ -6,8 +6,11 @@ set -euo pipefail
 
 readonly MAX_OFFSET=50
 
+# --- Helpers ---
+
 require() {
     local cmd
+
     for cmd in "$@"; do
         if ! command -v "$cmd" >/dev/null; then
             echo "Error: $cmd is not installed" >&2
@@ -15,6 +18,8 @@ require() {
         fi
     done
 }
+
+# --- Cursor ---
 
 random_offset() {
     echo $((RANDOM % (MAX_OFFSET * 2 + 1) - MAX_OFFSET))
@@ -26,15 +31,19 @@ move_cursor() {
 
 nudge_cursor() {
     local x y dx dy
+
     read -r x y < <(hyprctl -j cursorpos | jq -r '"\(.x) \(.y)"')
     dx=$(random_offset)
     dy=$(random_offset)
 
     echo "Moving cursor by $dx, $dy"
     move_cursor "$((x + dx))" "$((y + dy))"
+
     sleep 2
     move_cursor "$x" "$y"
 }
+
+# --- Main ---
 
 main() {
     require hyprctl jq
@@ -46,4 +55,7 @@ main() {
     done
 }
 
-main "$@"
+# Sourcing the file (tests) loads the functions without running main
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi
