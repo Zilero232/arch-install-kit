@@ -2,7 +2,14 @@
 # Package lists and installation. yay resolves both repo and AUR packages.
 
 PACKAGES_DIR="$KIT_DIR/packages"
-YAY_FLAGS=(--needed --noconfirm --answerdiff None --answerclean None --removemake)
+# SKIP_AUTOSNAP stops timeshift-autosnap from taking a snapshot before every batch the kit
+# installs (yay runs pacman through sudo, which drops the environment unless told to keep it)
+YAY_FLAGS=(
+    --needed --noconfirm --answerdiff None --answerclean None --removemake
+    --sudoflags "--preserve-env=SKIP_AUTOSNAP"
+)
+
+# --- Queries ---
 
 # One or more names per line, '#' starts a comment
 read_pkgs() {
@@ -13,16 +20,23 @@ is_installed() {
     pacman -Qq "$1" &>/dev/null
 }
 
+# --- Install ---
+
 # One transaction first; if a single package breaks it, retry one by one
 pkg_install() {
-    (($#)) || return 0
-    if ! run yay -S "${YAY_FLAGS[@]}" "$@"; then
+    local pkg
+
+    if (($# == 0)); then
+        return 0
+    fi
+
+    if ! run env SKIP_AUTOSNAP=1 yay -S "${YAY_FLAGS[@]}" "$@"; then
         warn "Batch install failed, retrying one by one"
-        local pkg
         for pkg in "$@"; do
-            run yay -S "${YAY_FLAGS[@]}" "$pkg" || true
+            run env SKIP_AUTOSNAP=1 yay -S "${YAY_FLAGS[@]}" "$pkg" || true
         done
     fi
+
     pkg_record_missing "$@"
 }
 
@@ -30,47 +44,73 @@ pkg_install() {
 # so ask pacman what actually got installed and record the rest
 pkg_record_missing() {
     local pkg
+
     if ((DRY_RUN)); then
         return 0
     fi
+
     for pkg in "$@"; do
         if ! is_installed "$pkg"; then
             echo "$pkg" >>"$FAILED_FILE"
             warn "failed: $pkg"
         fi
     done
+
     return 0
 }
 
 # Installs one group: packages/<group>.txt
 pkg_install_list() {
-    local file="$PACKAGES_DIR/$1.txt" pkgs
-    [[ -f "$file" ]] || die "No package list: $file"
+    local group="$1"
+    local file="$PACKAGES_DIR/$group.txt"
+    local pkgs=()
+
+    if [[ ! -f "$file" ]]; then
+        die "No package list: $file"
+    fi
 
     mapfile -t pkgs < <(read_pkgs "$file")
-    info "$1: ${#pkgs[@]} packages"
+
+    # --no-plymouth leaves the splash packages out too, not just their setup
+    if ((!${WITH_PLYMOUTH:-1})); then
+        mapfile -t pkgs < <(printf '%s\n' "${pkgs[@]}" | grep -v '^plymouth')
+    fi
+
+    info "$group: ${#pkgs[@]} packages"
     pkg_install "${pkgs[@]}"
 }
 
 # Installer prerequisites from packages/bootstrap.txt (all from the official repos)
 pkg_bootstrap() {
-    local pkg missing=()
+    local pkg
+    local missing=()
+
     while read -r pkg; do
         if ! is_installed "$pkg"; then
             missing+=("$pkg")
         fi
     done < <(read_pkgs "$PACKAGES_DIR/bootstrap.txt")
 
-    if ((${#missing[@]})); then
-        step "Installing installer dependencies: ${missing[*]}"
-        # -Syu, not -S: installing on a stale database would be a partial upgrade
-        run sudo pacman -Syu --needed --noconfirm "${missing[@]}" || die "Cannot install: ${missing[*]}"
+    if ((${#missing[@]} == 0)); then
+        return 0
+    fi
+
+    # This runs before the "Start?" question, so say plainly that it upgrades the system.
+    # -Syu, not -S: installing on a stale database would be a partial upgrade
+    step "Installing installer dependencies: ${missing[*]}"
+    info "Installing the installer's own dependencies (${missing[*]}); this updates the system first"
+    if ! run sudo pacman -Syu --needed --noconfirm "${missing[@]}"; then
+        die "Cannot install: ${missing[*]}"
     fi
 }
 
+# --- Remove ---
+
 # Uninstalls whatever from packages/conflicts.txt is present
 pkg_remove_conflicts() {
-    local pkg found=()
+    local pkg
+    local found=()
+
     while read -r pkg; do
         if is_installed "$pkg"; then
             found+=("$pkg")
@@ -81,5 +121,6 @@ pkg_remove_conflicts() {
         info "Removing conflicting: ${found[*]}"
         run sudo pacman -Rdd --noconfirm "${found[@]}"
     fi
+
     return 0
 }

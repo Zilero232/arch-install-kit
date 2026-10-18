@@ -17,16 +17,44 @@ for file in "${legacy_hypr[@]}"; do
     fi
 done
 
+# Home folders and the bundled wallpapers; existing pictures are never overwritten
 run mkdir -p "$HOME"/{Desktop,Documents,Downloads,Music,Videos,Projects,Screenshots,Images}
 run cp --update=none "$KIT_DIR"/assets/images/* "$HOME/Images/"
 
 run fc-cache -f
 
 # Papirus folders in the Kanagawa violet accent
-if is_installed papirus-folders && ! papirus-folders -l --theme Papirus-Dark | grep -q '> violet'; then
-    run sudo papirus-folders -C violet --theme Papirus-Dark
+if is_installed papirus-folders; then
+    # Captured first: `| grep -q` under pipefail can fail on SIGPIPE and recolour every run
+    folders="$(papirus-folders -l --theme Papirus-Dark)"
+
+    if [[ "$folders" != *"> violet"* ]]; then
+        run sudo papirus-folders -C violet --theme Papirus-Dark
+    fi
 fi
+
+# swaync's brightness slider needs this machine's backlight device. rsync skips the file
+# (dotfiles_copy); it is rendered from the repo copy and written only when it changed.
+# Link mode keeps the repo's device (see docs/install/04-run-installer.md).
+if ((!LINK_DOTFILES)); then
+    rendered="$(swaync_config_render)"
+    update_home_file "$SWAYNC_CONFIG" <<<"$rendered"
+fi
+
+# Weather fallback location when Wi-Fi lookup has no data; never overwrites your own edit
+weather_city="$HOME/.config/waybar-weather/cityname"
+if [[ ! -f "$weather_city" ]]; then
+    city="$(timezone_city)"
+
+    if [[ -n "$city" ]]; then
+        run mkdir -p "$(dirname "$weather_city")"
+        run tee "$weather_city" >/dev/null <<<"$city"
+        info "Weather location: $city (edit $weather_city if needed)"
+    fi
+fi
+
 if [[ -d "$BACKUP_DIR" ]]; then
     info "Previous configs: $BACKUP_DIR"
 fi
+
 ok "Dotfiles deployed"

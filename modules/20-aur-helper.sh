@@ -7,11 +7,15 @@ if command -v yay &>/dev/null; then
 fi
 
 tmp="$(mktemp -d)"
+# The module runs in its own subshell, so this fires when the module ends, even on failure
+trap 'rm -rf "$tmp"' EXIT
+
 run git clone --depth 1 https://aur.archlinux.org/yay-bin.git "$tmp/yay-bin"
+
 if ((DRY_RUN)); then
-    info "[dry] makepkg -si in $tmp/yay-bin"
+    dry "makepkg -si in $tmp/yay-bin"
 else
     (cd "$tmp/yay-bin" && makepkg -si --noconfirm)
 fi
-rm -rf "$tmp"
+
 ok "yay installed"

@@ -1,0 +1,5 @@
+# ShellCheck for the tests; replaces the root .shellcheckrc for files under tests/
+external-sources=true
+# SC1091: sourced paths are resolved at runtime
+# SC2016: code for kit, in_script and mock_cmd is single-quoted on purpose: it expands in the inner shell
+disable=SC1091,SC2016

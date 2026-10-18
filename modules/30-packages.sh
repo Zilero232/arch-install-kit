@@ -15,4 +15,5 @@ if is_installed virtualbox-host-dkms; then
     done < <(installed_kernels)
     pkg_install "${headers[@]}"
 fi
+
 ok "Packages done"
