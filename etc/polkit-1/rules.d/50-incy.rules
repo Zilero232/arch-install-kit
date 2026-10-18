@@ -2,9 +2,16 @@
 // The helper runs whatever binary it is given as root, so only the exact calls the
 // INCY app makes are allowed: the bundled xray and paths under /var/tmp/incy-xray/.
 // Anything else still asks for the password.
+// The state dir is chosen by INCY and lives in world-writable /var/tmp, so any local user could
+// put files there; that is why the rule also requires an active local session of a wheel user.
 
 // --- Allowed calls ---
+// incy-bin ships the helper as a symlink; pkexec resolves it, finds no policy for the real path
+// and falls back to the generic org.freedesktop.policykit.exec action, so both paths and both
+// actions are recognised here
 var INCY_HELPER = "/usr/lib/incy/incy-helper-linux.sh";
+var INCY_HELPER_REAL = "/opt/incy/lib/app/resources/bin/incy-helper-linux.sh";
+var INCY_HELPERS = [INCY_HELPER, INCY_HELPER_REAL];
 var INCY_XRAY = "/opt/incy/lib/app/resources/bin/xray";
 var INCY_STATE_DIR = "/var/tmp/incy-xray/";
 var INCY_COMMANDS = [
@@ -28,7 +35,7 @@ function incyArgIsSafe(arg) {
 
 function incyCallIsSafe(commandLine) {
     var argv = commandLine.split(" ");
-    if (argv[0] !== INCY_HELPER || INCY_COMMANDS.indexOf(argv[1]) === -1) {
+    if (INCY_HELPERS.indexOf(argv[0]) === -1 || INCY_COMMANDS.indexOf(argv[1]) === -1) {
         return false;
     }
     // start-xray-tun's first argument is the binary it runs as root
@@ -39,8 +46,17 @@ function incyCallIsSafe(commandLine) {
 }
 
 // --- Rule ---
+// The INCY action, or the generic pkexec action for exactly the INCY helper
+function isIncyAction(action) {
+    if (action.id === "cc.incy.vpn.run-helper") {
+        return true;
+    }
+    return action.id === "org.freedesktop.policykit.exec"
+        && INCY_HELPERS.indexOf(action.lookup("program")) !== -1;
+}
+
 polkit.addRule(function (action, subject) {
-    if (action.id !== "cc.incy.vpn.run-helper") {
+    if (!isIncyAction(action)) {
         return polkit.Result.NOT_HANDLED;
     }
     if (!subject.local || !subject.active || !subject.isInGroup("wheel")) {
