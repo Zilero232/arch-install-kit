@@ -15,6 +15,49 @@ hl.window_rule({
     workspace = "special:overlay",
 })
 
+-- --- Games: tearing for the lowest input lag, game content type for direct scanout ---
+hl.window_rule({
+    name = "games-immediate",
+    match = { class = "^(steam_app_.*|gamescope)$" },
+    immediate = true,
+    content = "game",
+})
+
+hl.window_rule({
+    name = "games-declared",
+    match = { content = "game" },
+    immediate = true,
+})
+
+-- --- Steam: small dialogs float instead of taking a tile ---
+hl.window_rule({
+    name = "steam-dialogs",
+    match = { class = "steam", title = "^(Friends List|Steam Settings|Properties.*|Screenshot Manager)$" },
+    float = true,
+    center = true,
+})
+
+-- --- Anything fullscreen (games, videos) keeps the screen from dimming and locking ---
+hl.window_rule({
+    name = "fullscreen-no-idle",
+    match = { class = ".*" },
+    idle_inhibit = "fullscreen",
+})
+
+-- --- AnyDesk: connection prompts and settings float, the main window stays tiled ---
+hl.window_rule({
+    name = "anydesk-dialogs",
+    match = { class = "(?i)anydesk" },
+    float = true,
+    center = true,
+})
+
+hl.window_rule({
+    name = "anydesk-main",
+    match = { class = "(?i)anydesk", title = "^AnyDesk$" },
+    tile = true,
+})
+
 -- --- Screenshot editor: floating, centred ---
 hl.window_rule({
     name = "satty-float",

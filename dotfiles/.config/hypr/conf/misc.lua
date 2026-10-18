@@ -4,7 +4,7 @@ hl.config({
     misc = {
         disable_hyprland_logo = true,
         disable_splash_rendering = true,
-        vrr = 2,
+        vrr = 2, -- adaptive sync for fullscreen windows only
         mouse_move_enables_dpms = true,
         enable_swallow = false,
         focus_on_activate = false,
@@ -16,7 +16,7 @@ hl.config({
     },
 
     render = {
-        direct_scanout = 0,
+        direct_scanout = 2, -- only for windows that declare game content: less input lag in games
     },
 
     -- X11 apps draw at native resolution instead of being upscaled (blurry);
@@ -25,9 +25,10 @@ hl.config({
         force_zero_scaling = true,
     },
 
+    -- Logging stays off: writing every debug line (each touchpad event included)
+    -- blocks the compositor loop and makes animations stutter
     debug = {
-        disable_logs = false,
-        enable_stdout_logs = true,
+        disable_logs = true,
         vfr = true,
     },
 })

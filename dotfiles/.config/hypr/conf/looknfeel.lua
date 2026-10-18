@@ -10,6 +10,7 @@ hl.config({
         gaps_out = theme.gaps_out,
         border_size = theme.border_size,
         resize_on_border = true,
+        allow_tearing = true, -- only windows with the `immediate` rule tear (games, see windowrules.lua)
         col = {
             active_border = theme.active_border,
             inactive_border = theme.inactive_border,

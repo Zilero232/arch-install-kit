@@ -20,7 +20,7 @@ hl.config({
 
         touchpad = {
             disable_while_typing = true,
-            natural_scroll = true,
+            natural_scroll = false, -- fingers down scrolls the page down
             scroll_factor = 1.0,
             middle_button_emulation = false,
             clickfinger_behavior = false,

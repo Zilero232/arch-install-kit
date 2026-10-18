@@ -25,6 +25,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("swayosd-server")           -- volume / brightness / caps lock pop-ups
     hl.exec_cmd("batsignal -b -w 20 -c 10") -- notifications at 20% and 10% battery
     hl.exec_cmd("udiskie")                   -- automount USB drives
+    hl.exec_cmd("blueman-applet")            -- Bluetooth tray and pairing agent
 
     -- --- Clipboard: history, and keep copied text after the source app closes ---
     hl.exec_cmd("wl-paste --type text --watch cliphist store")

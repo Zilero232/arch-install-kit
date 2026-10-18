@@ -28,10 +28,14 @@ end
 -- --- Launchers ---
 bind("Return", run(programs.terminal), "Terminal")
 bind("D", run(programs.menu), "App launcher")
-bind("V", run("cliphist list | rofi -dmenu -theme cliphist | cliphist decode | wl-copy"), "Clipboard history")
-bind("C", run("hyprpicker -a"), "Colour picker")
-bind("period", run("rofi -show emoji -modes emoji"), "Emoji picker")
-bind("equal", run("rofi -show calc -modes calc -no-show-match -no-sort"), "Calculator")
+-- Copy only when something was picked: an empty pick would otherwise wipe the clipboard
+bind("V", run(
+    "sel=$(cliphist list | rofi -dmenu -theme menu) && printf '%s' \"$sel\" | cliphist decode | wl-copy"
+), "Clipboard history")
+bind("C", run("hyprpicker -a"), "Color picker")
+-- menu.rasi: a compact centred list instead of the fullscreen app grid
+bind("period", run("rofi -show emoji -modes emoji -theme menu"), "Emoji picker")
+bind("equal", run("rofi -show calc -modes calc -no-show-match -no-sort -theme menu"), "Calculator")
 
 -- --- Apps ---
 bind("SHIFT + F", run(programs.browser), "Browser")
@@ -47,7 +51,8 @@ bind("SHIFT + V", run("virtualbox"), "VirtualBox")
 bind("SHIFT + K", run(programs.terminal .. " -e calcurse"), "Calendar (calcurse)")
 
 -- --- Session ---
-bind("L", run("pidof hyprlock || hyprlock"), "Lock screen")
+-- Through logind, so hypridle's lock_cmd runs (it switches the layout to us first)
+bind("L", run("loginctl lock-session"), "Lock screen")
 bind("X", run(programs.scripts .. "/power_menu.sh"), "Power menu")
 bind("SHIFT + Q", hl.dsp.exit(), "Exit Hyprland")
 
@@ -64,18 +69,24 @@ hl.bind("Print", run("hyprshot -m region --raw | satty --filename -"), { descrip
 hl.bind("SHIFT + Print", run("hyprshot -m output -m active --raw | satty --filename -"), { description = "Screenshot screen and annotate" })
 bind("S", run("hyprshot -m output -m active --clipboard-only"), "Screenshot active monitor to clipboard")
 bind("SHIFT + S", run("hyprshot -m region -o ~/Screenshots"), "Screenshot region to ~/Screenshots")
-bind("SHIFT + O", run("hyprshot -m region --raw | tesseract - - -l eng+rus | wl-copy"), "Copy text from a screen region (OCR)")
+-- Copy only non-empty text: a cancelled selection or an empty result keeps the clipboard as it was
+bind("SHIFT + O", run(
+    "text=$(hyprshot -m region --raw | tesseract - - -l eng+rus 2>/dev/null); "
+        .. "if [ -n \"$(printf '%s' \"$text\" | tr -d '[:space:]')\" ]; then "
+        .. "printf '%s' \"$text\" | wl-copy && notify-send 'Text copied' 'OCR result is in the clipboard'; fi"
+), "Copy text from a screen region (OCR)")
 
 -- --- Screen recording ---
 -- Press once to pick a region and record, again to stop; files go to ~/Videos
 bind("SHIFT + R", run(
-    "pkill -INT -x wf-recorder || "
-        .. "wf-recorder -g \"$(slurp)\" -f ~/Videos/recording-$(date +%F_%H-%M-%S).mp4"
+    "if pkill -INT -x wf-recorder; then notify-send 'Recording stopped' 'Saved to ~/Videos'; "
+        .. "else region=$(slurp) && notify-send 'Recording…' 'Press Super+Shift+R again to stop' && "
+        .. "wf-recorder -g \"$region\" -f ~/Videos/recording-$(date +%F_%H-%M-%S).mp4; fi"
 ), "Start / stop screen recording")
 
 -- --- Zoom ---
-bind("SHIFT + mouse_down", zoom_by(0.5), "Zoom in")
-bind("SHIFT + mouse_up", zoom_by(-0.5), "Zoom out")
+bind("SHIFT + mouse_up", zoom_by(0.5), "Zoom in")
+bind("SHIFT + mouse_down", zoom_by(-0.5), "Zoom out")
 bind("CTRL + Z", function()
     hl.config({ cursor = { zoom_factor = 1 } })
 end, "Reset zoom")
