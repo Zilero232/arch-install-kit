@@ -68,7 +68,6 @@ It shows up in `./install.sh --help` right away and is available as `--only exam
 | `dotfiles/.config/waybar/`            | `~/.config/waybar/` (`style.css` imports `style/{base,left,center,right}.css`)                   |
 | `dotfiles/.config/swaync/`            | `~/.config/swaync/` (`style.css` imports `style/*.css`)                                          |
 | `dotfiles/.config/waybar-weather/`    | `~/.config/waybar-weather/` (`config.toml`; the installer writes `cityname` from your timezone)  |
-| `dotfiles/.config/environment.d/`     | `~/.config/environment.d/` (puts `~/bin` on `PATH` for systemd user services)                    |
 | `dotfiles/.config/MangoHud/`          | `~/.config/MangoHud/` (the in-game overlay, see [Gaming](../usage/gaming.md))                    |
 | `dotfiles/bin/`                       | `~/bin/`                                                                                         |
 | `dotfiles/.gtkrc-2.0`                 | `~/.gtkrc-2.0`                                                                                   |

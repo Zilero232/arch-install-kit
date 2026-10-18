@@ -49,4 +49,4 @@ Only what no package does yet is a script. Everything in [`dotfiles/bin`](https:
 | Fastest mirrors           | `reflector.timer`, weekly, settings in `/etc/xdg/reflector/reflector.conf`                                                                                                                                                      |
 | Boot splash theme         | `plymouth-theme-arch-logo`; switch with `plymouth_theme_list` / `plymouth_theme_set <name>` in fish                                                                                                                             |
 
-`~/bin` is on `PATH` for systemd user services too (`~/.config/environment.d/10-bin.conf`), so swaync buttons and scripts call these by name.
+swaync buttons and scripts call these as `~/bin/<name>`: systemd user services such as swaync don't have `~/bin` on their `PATH`.

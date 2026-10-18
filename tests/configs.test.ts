@@ -205,6 +205,14 @@ describe('swaync', () => {
     expect(problems).toEqual([]);
   });
 
+  // swaync is a systemd user service: ~/bin is not on its PATH, so a bare name is "not found"
+  test('kit scripts are called by their ~/bin path, not a bare name', () => {
+    const text = readText(join(DOTFILES, '.config/swaync/config.json'));
+    const bare = [...text.matchAll(/"([\w.-]+\.sh)\b/g)].map((m) => m[1]);
+
+    expect(bare).toEqual([]);
+  });
+
   test('~/bin scripts referenced inside sh -c buttons exist in dotfiles/bin', () => {
     const text = readText(join(DOTFILES, '.config/swaync/config.json'));
     const missing = [...text.matchAll(/~\/bin\/([\w.-]+)/g)]
