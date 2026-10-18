@@ -1,0 +1,16 @@
+# waybar-weather: Open-Meteo weather for Waybar's custom/weather, no API key. https://github.com/wneessen/waybar-weather
+# Location: Wi-Fi networks via beaconDB where it has coverage, otherwise ~/.config/waybar-weather/cityname
+# ("City,Country", written by the dotfiles module from the system timezone; edit it if that's not your city).
+
+units = "metric"
+
+[templates]
+# Nerd Font weather icon by WMO category (moon for a clear night) and the rounded temperature;
+# clicking the module switches to the forecast (alt_text)
+text = '{{if eq .Current.Category "clear"}}{{if .Current.IsDay}}󰖙{{else}}󰖔{{end}}{{else if eq .Current.Category "fog"}}󰖑{{else if eq .Current.Category "rain"}}󰖗{{else if eq .Current.Category "snow"}}󰖘{{else if eq .Current.Category "thunderstorm"}}󰖓{{else}}󰖐{{end}} {{floatFormat .Current.Temperature 0}}°'
+alt_text = '{{if eq .Forecast.Category "clear"}}{{if .Forecast.IsDay}}󰖙{{else}}󰖔{{end}}{{else if eq .Forecast.Category "fog"}}󰖑{{else if eq .Forecast.Category "rain"}}󰖗{{else if eq .Forecast.Category "snow"}}󰖘{{else if eq .Forecast.Category "thunderstorm"}}󰖓{{else}}󰖐{{end}} {{floatFormat .Forecast.Temperature 0}}°'
+
+[geolocation]
+# IP-based lookups follow the VPN exit (e.g. Helsinki), not where you are
+disable_geoip = true
+disable_geoapi = true

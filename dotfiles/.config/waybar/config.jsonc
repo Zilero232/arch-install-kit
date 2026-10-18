@@ -1,22 +1,22 @@
 {
-  // Bar layout. Module settings live in modules.jsonc, styling in style.css.
+  // Bar layout (Ukiyo-e: two asymmetric paper strips and a free-floating clock).
+  // Module settings live in modules.jsonc, styling in style.css.
   // https://github.com/Alexays/Waybar/wiki/Configuration
 
   "layer": "top",
   "position": "top",
   "height": 34,
-  "margin-top": 6,
-  "margin-left": 10,
-  "margin-right": 10,
+  "margin-top": 8,
+  "margin-left": 12,
+  "margin-right": 12,
   "spacing": 0,
 
-  "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
+  "modules-left": ["custom/launcher", "hyprland/workspaces", "mpris", "custom/cava"],
 
-  "modules-center": ["custom/weather", "clock", "custom/cava"],
+  "modules-center": ["custom/weather", "clock"],
 
   "modules-right": [
     "privacy",
-    "tray",
     "group/system",
     "hyprland/language",
     "backlight",
@@ -24,7 +24,8 @@
     "network",
     "battery",
     "custom/updates",
-    "custom/notification"
+    "custom/notification",
+    "tray"
   ],
 
   "include": "~/.config/waybar/modules.jsonc"

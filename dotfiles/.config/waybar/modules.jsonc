@@ -1,10 +1,12 @@
 {
-  // Module settings, in bar order: left, centre, right.
-  // Every icon comes from the Material Design set (U+F0000+) so they share one baseline.
+  // Module settings (Ukiyo-e variant), in bar order: left, centre, right.
+  // Workspaces use kanji numerals and the launcher is a hanko seal; both need
+  // noto-fonts-cjk (Noto Serif CJK JP). Other icons are Material Design (U+F0000+).
 
   // --- Left ---
   "custom/launcher": {
-    "format": "󰣇",
+    // 波 (nami, "wave"), carved like a red name seal
+    "format": "波",
     "on-click": "rofi -show drun",
     "tooltip": false
   },
@@ -14,34 +16,58 @@
     "on-scroll-down": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'r+1' })\"",
     "on-click": "activate",
     "all-outputs": true,
-    "format": "{name}",
+    "format": "{icon}",
+    "format-icons": {
+      "1": "一",
+      "2": "二",
+      "3": "三",
+      "4": "四",
+      "5": "五",
+      "6": "六",
+      "7": "七",
+      "8": "八",
+      "9": "九",
+      "10": "十",
+      "default": "〇"
+    },
     "persistent-workspaces": {
       "*": 5
     }
   },
 
-  "hyprland/window": {
-    "format": "{title}",
-    "max-length": 45,
-    "separate-outputs": true,
-    "rewrite": {
-      "(.*) — Mozilla Firefox": "󰈹  $1",
-      "(.*) - Google Chrome": "󰊯  $1",
-      "(.*) - Visual Studio Code": "󰨞  $1"
-    }
+  // Current player (music, a browser video...); hidden when nothing plays. Click: play/pause
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} {dynamic}",
+    "dynamic-order": ["title", "artist"],
+    "dynamic-len": 28,
+    "player-icons": {
+      "default": "󰝚",
+      "chromium": "󰊯",
+      "firefox": "󰈹",
+      "mpd": "󰝚"
+    },
+    "status-icons": {
+      "paused": "󰏤"
+    },
+    "tooltip-format": "{player}: {title}",
+    "on-click-right": "playerctl next"
   },
 
   // --- Centre ---
+  // Open-Meteo via waybar-weather (runs continuously, follows your location); click: forecast
   "custom/weather": {
-    "exec": "wttrbar --nerd --custom-indicator '{ICON} {temp_C}°'",
+    "exec": "waybar-weather",
     "return-type": "json",
-    "interval": 1800,
+    "restart-interval": 60,
     "format": "{}",
-    "tooltip": true
+    "tooltip": true,
+    "on-click": "pkill -USR1 -x waybar-weather"
   },
 
   "clock": {
-    "format": "{:%a %d %b  %H:%M}",
+    // Date in muted ink, time in full colour; the span closes inside the strftime spec, which must start with %
+    "format": "<span color='#727169'>{:%a %d %b</span>  %H:%M}",
     "format-alt": "{:%d.%m.%Y  %H:%M:%S}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
@@ -64,11 +90,11 @@
     "interval": 1
   },
 
-  // Audio spectrum, hidden in silence; click: previous, middle: play/pause, right: next
+  // Audio spectrum while a player is playing (quiet scenes included); click: previous, middle: play/pause, right: next
   "custom/cava": {
     "exec": "~/.config/waybar/scripts/cava.sh",
     "restart-interval": 5,
-    "format": "󰝚 {}",
+    "format": "{}",
     "on-click-middle": "playerctl play-pause",
     "on-click-right": "playerctl next",
     "on-click": "playerctl previous"
@@ -153,14 +179,14 @@
     "format": "󰌌 {}",
     "format-en": "EN",
     "format-ru": "RU",
-    "tooltip-format": "{long} (Ctrl+Shift)"
+    "tooltip-format": "{long} (Alt+Shift or Ctrl+Shift)"
   },
 
   "backlight": {
     "format": "{icon} {percent}%",
     "format-icons": ["󰃞", "󰃟", "󰃠"],
-    "on-scroll-down": "brightnessctl set 5%-",
-    "on-scroll-up": "brightnessctl set +5%"
+    "on-scroll-down": "swayosd-client --brightness -5",
+    "on-scroll-up": "swayosd-client --brightness +5"
   },
 
   "pulseaudio": {
@@ -191,8 +217,8 @@
 
   "battery": {
     "states": {
-      "warning": 30,
-      "critical": 15
+      "warning": 20,
+      "critical": 10
     },
     "format": "{icon} {capacity}%",
     "format-charging": "󰂄 {capacity}%",
