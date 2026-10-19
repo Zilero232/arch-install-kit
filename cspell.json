@@ -155,6 +155,7 @@
     "Zilero",
     "zoneinfo",
     "zram",
-    "zramctl"
+    "zramctl",
+    "zswap"
   ]
 }

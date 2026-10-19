@@ -8,12 +8,16 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2 # installs bun from mise.toml
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5 # installs bun and shellcheck from mise.toml
       - run: bun install --frozen-lockfile
       - run: bun run lint
       - run: bun run format:check

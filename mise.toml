@@ -1,4 +1,6 @@
 min_version = "2026.9.0"
 
 [tools]
-bun = "1.3.14"
+bun = "1.4.3"
+# Lint runs the binary from here (CI) or from the system package (dev.txt)
+shellcheck = "0.11.0"

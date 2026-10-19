@@ -40,7 +40,7 @@ __pycache__/
 dotfiles/.config/fish/fish_variables
 dotfiles/.config/fish/completions/
 
-# --- mise local overrides ---
+# --- Mise local overrides ---
 mise.local.toml
 
 # --- Written per machine by the installer (link mode would land them in the repo) ---

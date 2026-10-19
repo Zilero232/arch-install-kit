@@ -5,9 +5,16 @@ on:
     branches: [master]
   pull_request:
   workflow_dispatch:
+  # Packages also vanish from the repos or the AUR between commits
+  schedule:
+    - cron: '0 6 * * 1'
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   # Fast offline suite (bun test + bats + Lua) on a stock runner; Hyprland and
@@ -15,8 +22,8 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2 # installs bun from mise.toml
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5 # installs bun and shellcheck from mise.toml
       - run: sudo apt-get update && sudo apt-get install -y lua5.4
       - run: bun install --frozen-lockfile
       - run: bun run test
@@ -25,6 +32,7 @@ jobs:
   # the full suite and the package existence check against the live repos and AUR
   arch:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     container: archlinux:latest
     defaults:
       run:
@@ -38,7 +46,7 @@ jobs:
           printf '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' >>/etc/pacman.conf
           pacman -Syu --noconfirm --needed git
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install the installer's bootstrap packages and the test tools
         run: |

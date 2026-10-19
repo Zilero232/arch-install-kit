@@ -1,3 +1,4 @@
+# Indentation and line endings per file type. https://editorconfig.org
 root = true
 
 [*]
@@ -7,10 +8,17 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = space
 indent_size = 2
+
+[*.{sh,bash,bats,fish,lua,rasi,toml,conf,rules}]
+indent_size = 4
 max_line_length = 100
 
-[*.{sh,fish}]
-indent_size = 4
+# Written by the apps themselves or kept as upstream ships them
+[{dotfiles/.config/swaync/config.json,dotfiles/.config/wlogout/layout,dotfiles/.config/Thunar/uca.xml}]
+indent_style = tab
+
+[{dotfiles/.config/ranger/**,LICENSE}]
+insert_final_newline = unset
 
 [*.md]
 trim_trailing_whitespace = false
