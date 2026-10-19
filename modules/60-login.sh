@@ -30,7 +30,7 @@ if [[ "$(bootloader)" == grub ]]; then
             warn "Add 'splash' to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub by hand"
         fi
     fi
-else
+elif ! grep -qw splash /proc/cmdline; then
     warn "Add 'quiet splash' to the kernel command line manually ($(bootloader))"
 fi
 

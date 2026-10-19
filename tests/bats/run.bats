@@ -69,6 +69,32 @@ write_module() {
     assert_output 1
 }
 
+@test "write_root_file: a file already in place with the same mode is not rewritten" {
+    local dest="$BATS_TEST_TMPDIR/kit-test.conf"
+
+    echo hello >"$dest"
+    chmod 644 "$dest"
+    mock_cmd sudo
+
+    DRY_RUN=1 run kit "echo hello | write_root_file '$dest'"
+
+    assert_success
+    assert_output ""
+    assert_equal "$(mock_calls)" ""
+}
+
+@test "write_root_file: a file with other content is rewritten" {
+    local dest="$BATS_TEST_TMPDIR/kit-test.conf"
+
+    echo old >"$dest"
+    mock_cmd sudo
+
+    DRY_RUN=1 run kit "echo hello | write_root_file '$dest'"
+
+    assert_success
+    assert_output --regexp "sudo install -Dm644 .+ $dest\$"
+}
+
 # --- run_module ---
 
 @test "run_module: a module that succeeds is recorded as ok with its duration" {

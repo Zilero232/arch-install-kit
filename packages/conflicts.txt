@@ -4,3 +4,6 @@ dunst mako
 
 # TLP and power-profiles-daemon both manage power; the kit uses power-profiles-daemon
 tlp tlp-rdw
+
+# Replaced by a -git build in desktop.txt; yay --noconfirm would refuse to swap it
+waybar

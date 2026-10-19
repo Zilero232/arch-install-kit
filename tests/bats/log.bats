@@ -7,7 +7,7 @@ setup() {
     setup_sandbox
 }
 
-@test "no terminal: plain ASCII, no colour codes" {
+@test "no terminal: plain ASCII, no color codes" {
     run kit 'step Packages 3 12; info note; ok done; dry "rm -rf x"; warn careful 2>&1; err broken 2>&1'
 
     assert_success

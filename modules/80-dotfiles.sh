@@ -25,7 +25,7 @@ run fc-cache -f
 
 # Papirus folders in the Kanagawa violet accent
 if is_installed papirus-folders; then
-    # Captured first: `| grep -q` under pipefail can fail on SIGPIPE and recolour every run
+    # Captured first: `| grep -q` under pipefail can fail on SIGPIPE and recolor every run
     folders="$(papirus-folders -l --theme Papirus-Dark)"
 
     if [[ "$folders" != *"> violet"* ]]; then
@@ -50,6 +50,15 @@ if [[ ! -f "$weather_city" ]]; then
         run mkdir -p "$(dirname "$weather_city")"
         run tee "$weather_city" >/dev/null <<<"$city"
         info "Weather location: $city (edit $weather_city if needed)"
+    fi
+fi
+
+# Chrome opens links from every app (Telegram, the terminal, xdg-open)
+if is_installed google-chrome; then
+    browser="$(xdg-settings get default-web-browser 2>/dev/null)" || browser=""
+
+    if [[ "$browser" != google-chrome.desktop ]]; then
+        run xdg-settings set default-web-browser google-chrome.desktop
     fi
 fi
 

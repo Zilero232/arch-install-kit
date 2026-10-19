@@ -229,7 +229,7 @@ use_system_fixtures() {
     refute_output --partial "rsync"
 }
 
-@test "dotfiles: papirus folders are recoloured only when papirus-folders is installed" {
+@test "dotfiles: papirus folders are recolored only when papirus-folders is installed" {
     mock_cmd papirus-folders 'echo "  blue"'
 
     run_kit_module 80-dotfiles.sh
@@ -238,6 +238,21 @@ use_system_fixtures() {
     mock_pacman papirus-folders
     run_kit_module 80-dotfiles.sh
     assert_line "  [dry] sudo papirus-folders -C violet --theme Papirus-Dark"
+}
+
+@test "dotfiles: Chrome becomes the default browser once, only when it is installed" {
+    mock_cmd xdg-settings 'echo firefox.desktop'
+
+    run_kit_module 80-dotfiles.sh
+    refute_output --partial "xdg-settings set"
+
+    mock_pacman google-chrome
+    run_kit_module 80-dotfiles.sh
+    assert_line "  [dry] xdg-settings set default-web-browser google-chrome.desktop"
+
+    mock_cmd xdg-settings 'echo google-chrome.desktop'
+    run_kit_module 80-dotfiles.sh
+    refute_output --partial "xdg-settings set"
 }
 
 @test "dotfiles: papirus folders already violet are left alone" {
@@ -301,7 +316,8 @@ use_system_fixtures() {
 
 @test "services: only units whose package is installed are enabled" {
     mock_pacman networkmanager mpd
-    mock_cmd systemctl 'echo enabled'
+    # Nothing enabled yet; the rfkill check reads plain "enabled"
+    mock_cmd systemctl 'if [[ "$*" == *--quiet* ]]; then exit 1; fi; echo enabled'
 
     run_kit_module 90-services.sh
 
@@ -310,6 +326,17 @@ use_system_fixtures() {
     assert_line "  [dry] systemctl --user enable mpd.socket"
     refute_output --partial "bluetooth.service"
     refute_output --partial "unmask"
+}
+
+@test "services: a unit that is already enabled is skipped" {
+    mock_pacman networkmanager bluez
+    mock_cmd systemctl 'if [[ "$*" == "is-enabled --quiet bluetooth.service" ]]; then exit 1; fi; echo enabled'
+
+    run_kit_module 90-services.sh
+
+    assert_success
+    assert_line "  [dry] sudo systemctl enable bluetooth.service"
+    refute_output --partial "enable NetworkManager.service"
 }
 
 @test "services: a masked rfkill socket is unmasked" {
@@ -325,7 +352,7 @@ use_system_fixtures() {
     mock_pacman networkmanager bluez sddm mpd
     # A real run (no dry run) against mocks: sudo just runs the command, systemctl fails for bluetooth
     mock_cmd sudo '"$@"'
-    mock_cmd systemctl 'if [[ "$*" == "enable bluetooth.service" ]]; then exit 1; fi'
+    mock_cmd systemctl 'if [[ "$*" == *--quiet* || "$*" == "enable bluetooth.service" ]]; then exit 1; fi'
 
     DRY_RUN=0 run_kit_module 90-services.sh
 

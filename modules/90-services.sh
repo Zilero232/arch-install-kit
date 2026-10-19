@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
 # Enables units from services.txt whose package is installed (they start after reboot).
 
+# is_unit_enabled <unit> <scope>: read-only, so the dry run lists only units still to enable
+is_unit_enabled() {
+    local args=(is-enabled --quiet "$1")
+
+    if [[ "$2" == user ]]; then
+        args=(--user "${args[@]}")
+    fi
+
+    systemctl "${args[@]}" 2>/dev/null
+}
+
 # One unit that fails to enable must not leave the others disabled: note it and go on
 failed=0
 while read -r unit scope package; do
-    if ! is_installed "$package"; then
+    if ! is_installed "$package" || is_unit_enabled "$unit" "$scope"; then
         continue
     fi
 

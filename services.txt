@@ -4,7 +4,7 @@ NetworkManager.service            system   networkmanager
 bluetooth.service                 system   bluez
 sddm.service                      system   sddm
 fstrim.timer                      system   util-linux
-docker.service                    system   docker
+docker.socket                     system   docker
 reflector.timer                   system   reflector
 power-profiles-daemon.service     system   power-profiles-daemon
 ufw.service                       system   ufw

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Terminal output in the Kanagawa palette; the log file gets the same text without ANSI codes.
-# The Linux console (TTY), NO_COLOR and pipes get plain ASCII instead of colours and symbols.
+# The Linux console (TTY), NO_COLOR and pipes get plain ASCII instead of colors and symbols.
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/arch-install-kit"
 LOG_FILE="$STATE_DIR/install-$(date +%F-%H%M%S).log"
@@ -61,7 +61,7 @@ fi
 
 # --- Log file ---
 
-# From here on all output also goes to LOG_FILE, with colour codes stripped
+# From here on all output also goes to LOG_FILE, with color codes stripped
 setup_log() {
     mkdir -p "$STATE_DIR"
 
@@ -105,11 +105,11 @@ banner() {
 
 # One row of the banner box; pads by characters, not bytes, so "·" keeps the border straight
 banner_line() {
-    local colour="$1"
+    local color="$1"
     local text="$2"
     local padding=$((30 - ${#text}))
 
-    printf '│%s  %s%*s  %s│\n' "$C_RESET$colour" "$text" "$padding" '' "$C_RESET$C_VIOLET"
+    printf '│%s  %s%*s  %s│\n' "$C_RESET$color" "$text" "$padding" '' "$C_RESET$C_VIOLET"
 }
 
 # step <name> [index] [total]
@@ -164,17 +164,17 @@ print_result_line() {
     local status="$2"
     local seconds="$3"
     local icon="$ICON_OK"
-    local colour="$C_GREEN"
+    local color="$C_GREEN"
 
     if [[ "$status" != ok ]]; then
         icon="$ICON_ERR"
-        colour="$C_RED"
+        color="$C_RED"
     fi
 
     # Pad to the width of the ok icon so names line up ("[x]" vs "[ok]" in plain mode)
     printf -v icon '%-*s' "${#ICON_OK}" "$icon"
 
-    printf '  %s%s%s %-14s %s%4ss%s\n' "$colour" "$icon" "$C_RESET" "$name" "$C_GREY" "$seconds" "$C_RESET"
+    printf '  %s%s%s %-14s %s%4ss%s\n' "$color" "$icon" "$C_RESET" "$name" "$C_GREY" "$seconds" "$C_RESET"
 }
 
 # Table of the modules that ran, then the total time

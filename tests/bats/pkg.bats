@@ -132,3 +132,21 @@ EOF
     assert_output --partial "login: 1 packages"
     refute_output --partial "plymouth"
 }
+
+# --- pkg_remove_conflicts ---
+
+@test "pkg_remove_conflicts: removes a listed package, keeps a -git build that only provides its name" {
+    # waybar-git provides waybar, so `pacman -Qq waybar` answers with the -git name
+    mock_cmd pacman 'case "$2" in
+    waybar) echo waybar-git ;;
+    jack2) echo jack2 ;;
+    *) exit 1 ;;
+esac'
+    mock_cmd sudo
+
+    run kit 'pkg_remove_conflicts'
+
+    assert_success
+    run grep '^sudo ' "$MOCK_LOG"
+    assert_output "sudo pacman -Rdd --noconfirm jack2"
+}

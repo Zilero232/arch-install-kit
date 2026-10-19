@@ -11,10 +11,13 @@ gpu_info() {
 }
 
 # Match PCI vendor ids, not names: "ati" is also inside "Corporation"
+# Captured first: `| grep -q` under pipefail can fail on SIGPIPE
 has_gpu_vendor() {
     local vendor_id="$1"
+    local gpus
 
-    gpu_info | grep -qi "\[$vendor_id:"
+    gpus="$(gpu_info)"
+    grep -qi "\[$vendor_id:" <<<"$gpus"
 }
 
 has_nvidia() {
@@ -38,10 +41,15 @@ cpu_vendor() {
 # grub | systemd-boot | unknown
 # /boot is root-only (0700), so look at packages and /etc instead of /boot itself
 bootloader() {
+    local entries
+
+    # systemd-boot registers itself as "Linux Boot Manager"; no sudo needed (dry runs stay quiet).
+    # Captured first, like has_gpu_vendor, so pipefail can't turn a match into a failure
+    entries="$(efibootmgr 2>/dev/null)" || entries=""
+
     if [[ -f /etc/default/grub ]] && is_installed grub; then
         echo grub
-    elif efibootmgr 2>/dev/null | grep -q 'Linux Boot Manager'; then
-        # systemd-boot registers itself under this label; no sudo needed (dry runs stay quiet)
+    elif grep -q 'Linux Boot Manager' <<<"$entries"; then
         echo systemd-boot
     else
         echo unknown

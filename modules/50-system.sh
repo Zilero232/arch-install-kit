@@ -41,10 +41,14 @@ if [[ -d /sys/module/ath11k_pci ]]; then
         <"$KIT_DIR/etc/systemd/system-sleep/ath11k.sh"
 fi
 
-# Compressed swap in RAM; takes effect after a reboot (archinstall may have written one already)
+# Compressed swap in RAM, tuned for zram and with zswap off in front of it;
+# takes effect after a reboot (archinstall may have written a zram config already)
 if is_installed zram-generator; then
     backup_once /etc/systemd/zram-generator.conf
     write_root_file /etc/systemd/zram-generator.conf <"$KIT_DIR/etc/systemd/zram-generator.conf"
+    write_root_file /etc/sysctl.d/99-vm-zram-parameters.conf \
+        <"$KIT_DIR/etc/sysctl.d/99-vm-zram-parameters.conf"
+    write_root_file /etc/tmpfiles.d/zswap-off.conf <"$KIT_DIR/etc/tmpfiles.d/zswap-off.conf"
 fi
 
 # Wi-Fi regulatory domain, see WIFI_COUNTRY

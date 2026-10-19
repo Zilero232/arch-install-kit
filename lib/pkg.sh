@@ -106,13 +106,25 @@ pkg_bootstrap() {
 
 # --- Remove ---
 
+# True only for a package installed under exactly this name: `pacman -Qq waybar`
+# also succeeds for waybar-git, which provides waybar, and that one must stay
+is_installed_exactly() {
+    local name
+
+    if ! name="$(pacman -Qq "$1" 2>/dev/null)"; then
+        return 1
+    fi
+
+    [[ "$name" == "$1" ]]
+}
+
 # Uninstalls whatever from packages/conflicts.txt is present
 pkg_remove_conflicts() {
     local pkg
     local found=()
 
     while read -r pkg; do
-        if is_installed "$pkg"; then
+        if is_installed_exactly "$pkg"; then
             found+=("$pkg")
         fi
     done < <(read_pkgs "$PACKAGES_DIR/conflicts.txt")

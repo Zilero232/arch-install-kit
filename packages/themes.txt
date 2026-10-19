@@ -1,2 +1,2 @@
-# Kanagawa GTK, Papirus icons with violet folders, Hackneyed cursor (names used in gtk-*/settings.ini); gowall recolours wallpapers
+# Kanagawa GTK, Papirus icons with violet folders, Hackneyed cursor (names used in gtk-*/settings.ini); gowall recolors wallpapers
 kanagawa-gtk-theme-git papirus-icon-theme papirus-folders xcursor-hackneyed-dark gowall

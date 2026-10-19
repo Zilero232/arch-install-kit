@@ -1,5 +1,6 @@
 # Bar, launcher, terminal, shell, files and the apps bound to hotkeys
-waybar swaync wlogout nwg-look libnotify
+swaync wlogout nwg-look libnotify
+waybar-git  # 0.15 sends old-style dispatches, workspace clicks fail with hyprland.lua
 rofi rofi-calc rofi-emoji
 alacritty fish oh-my-posh-bin tmux lsd bat fastfetch neovim
 fzf zoxide fd ripgrep tealdeer man-db man-pages  # search, smarter cd, short man pages

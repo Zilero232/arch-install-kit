@@ -28,6 +28,12 @@ write_root_file() {
     tmp="$(mktemp)"
     cat >"$tmp"
 
+    # Already in place with this mode: skip it, so re-runs and dry runs list only real changes
+    if cmp -s "$tmp" "$dest" && [[ "$(stat -c %a "$dest")" == "$mode" ]]; then
+        rm -f "$tmp"
+        return 0
+    fi
+
     # Keep the status instead of letting set -e exit, so the temp file is always removed
     run sudo install -Dm"$mode" "$tmp" "$dest" || status=$?
     rm -f "$tmp"
