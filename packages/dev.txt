@@ -2,8 +2,11 @@
 visual-studio-code-bin phpstorm phpstorm-jre android-studio
 
 # Tools
-github-cli shellcheck cloc meson meld filezilla dbeaver postman-bin wireshark-qt
+github-cli shellcheck cloc meson meld postman-bin wireshark-qt
 docker docker-compose docker-buildx lazydocker
+
+# Database and server clients: SQL (DBeaver, TablePlus), SSH with SFTP and saved hosts (Tabby), FTP
+dbeaver tableplus tabby-bin filezilla
 
 # Languages (per-project versions: mise)
 mise
