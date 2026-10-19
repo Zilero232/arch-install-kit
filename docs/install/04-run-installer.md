@@ -19,7 +19,7 @@ What you'll see:
 After that it runs on its own: 20–60 minutes, depending on your connection and how many AUR packages it builds.
 
 > Run it **as your regular user**, not with `sudo` — the script calls sudo itself where needed.
-
+>
 > Some defaults are the author's: the Wi-Fi region (`WIFI_COUNTRY="RU"` in [`modules/50-system.sh`](https://github.com/Zilero232/arch-install-kit/blob/master/modules/50-system.sh)), the `ru_RU` locale (same file) and the reflector mirror countries (`--country` in [`etc/xdg/reflector/reflector.conf`](https://github.com/Zilero232/arch-install-kit/blob/master/etc/xdg/reflector/reflector.conf)). Change them before the first run if you live elsewhere.
 
 ## 4.1. What happens, step by step
@@ -27,7 +27,7 @@ After that it runs on its own: 20–60 minutes, depending on your connection and
 | Module       | What it does                                                                                                                                                         |
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preflight`  | checks that this is Arch, you're online, pacman isn't locked, and there's enough space                                                                               |
-| `pacman`     | enables multilib, colors, parallel downloads, no AUR debug packages; updates the system                                                                              |
+| `pacman`     | enables multilib, colors, parallel downloads, AUR builds without debug packages on every core; updates the system                                                    |
 | `aur-helper` | installs `yay`                                                                                                                                                       |
 | `gpu`        | CPU microcode and Intel / AMD / NVIDIA drivers based on your hardware                                                                                                |
 | `packages`   | removes conflicting packages and installs the selected [groups](../reference/packages.md)                                                                            |

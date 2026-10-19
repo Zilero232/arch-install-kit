@@ -26,16 +26,16 @@ Waybar, SwayNC, wlogout and `gtk-3.0/gtk.css` load it with `@import url("../them
 2. Reload Waybar with `pkill -SIGUSR2 waybar` and restart SwayNC with `systemctl --user restart swaync`. wlogout and GTK apps pick the change up the next time they open.
 3. Update the apps that can't import CSS. They carry copies of the hex values, so change them by hand:
 
-| File in `~/.config/`                  | What carries the color                         |
-| ------------------------------------- | ---------------------------------------------- |
-| `rofi/colors.rasi`                    | the launcher and the pickers (`menu.rasi`)     |
-| `alacritty/themes/kanagawa_wave.toml` | the terminal                                   |
-| `hypr/theme.lua`                      | window borders (`active_border`)               |
-| `hypr/hyprlock.conf`                  | the lock screen                                |
-| `fish/conf.d/fzf.fish`                | fzf in the terminal                            |
-| `waybar/modules.jsonc`                | the calendar tooltip (Pango markup)            |
-| `MangoHud/MangoHud.conf`              | the in-game overlay                            |
-| `gowall/config.yml`                   | the full palette gowall recolors wallpapers to |
+| File in `~/.config/`                  | What carries the color                            |
+| ------------------------------------- | ------------------------------------------------- |
+| `rofi/colors.rasi`                    | the launcher and the pickers (`menu.rasi`)        |
+| `alacritty/themes/kanagawa_wave.toml` | the terminal                                      |
+| `hypr/theme.lua`                      | window borders (`active_border`)                  |
+| `hypr/hyprlock.conf`                  | the lock screen                                   |
+| `fish/conf.d/fzf.fish`                | fzf in the terminal                               |
+| `waybar/modules.jsonc`                | the clock and the calendar tooltip (Pango markup) |
+| `MangoHud/MangoHud.conf`              | the in-game overlay                               |
+| `gowall/config.yml`                   | the full palette gowall recolors wallpapers to    |
 
 To find every copy of a color, search for its hex value:
 
@@ -69,6 +69,8 @@ The bundled wallpapers are copied to `~/Images`; add your own there. `~/bin/wall
 | `Super + W`         | `random`: a random static picture from `~/Images`                                        |
 | `Super + Ctrl + W`  | `pick`: choose a picture in [waypaper](https://github.com/anufrievroman/waypaper)        |
 | `Super + Shift + W` | `live`: the Wallpaper Engine scene (see [after install](../install/05-after-install.md)) |
+
+The next login starts the same mode. `Super + W` or `Super + Ctrl + W` switches it to a static picture; if the Workshop scene is missing at login, you see the picture and a notification, and live mode stays saved for the next login.
 
 To make any picture match the palette, recolor it with [gowall](https://achno.github.io/gowall-docs/) and its `Kanagawa` theme from `gowall/config.yml`:
 

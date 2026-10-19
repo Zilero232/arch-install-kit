@@ -15,7 +15,7 @@ arch-install-kit/
 ├── packages/             # package lists per group
 ├── services.txt          # which systemd units to enable
 ├── dotfiles/             # mirror of $HOME: .config/, .local/, bin/, .gtkrc-2.0
-├── etc/                  # system files: SDDM, Plymouth, reflector, makepkg, zram, Timeshift, polkit rule, sleep hook
+├── etc/                  # system files: SDDM, Plymouth, reflector, makepkg, zram + sysctl, zswap, Timeshift, polkit, sleep hook
 ├── assets/               # wallpapers and screenshots
 ├── tests/                # bats, bun and Lua tests (see testing.md)
 ├── docs/                 # documentation
@@ -51,6 +51,7 @@ cat > modules/55-example.sh <<'EOF'
 if ! is_installed example; then
     pkg_install example
 fi
+
 ok "Example configured"
 EOF
 ```
@@ -91,5 +92,5 @@ Every app shares one Kanagawa palette, `~/.config/theme/kanagawa.css`. The color
 [`services.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/services.txt): unit, `system`/`user`, package. A unit is enabled only if its package is installed:
 
 ```text
-docker.service   system   docker
+docker.socket   system   docker
 ```

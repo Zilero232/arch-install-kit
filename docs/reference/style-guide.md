@@ -17,7 +17,6 @@ There are two kinds of shell files, and they look different on purpose.
 ```bash
 #!/usr/bin/env bash
 # Opens wlogout with margins sized to the focused monitor.
-# Usage: power_menu.sh
 
 set -euo pipefail
 
@@ -134,7 +133,7 @@ mapfile -t pkgs < <(read_pkgs "$file")
 Use globs, never the output of `ls`. A glob that matches nothing stays literal, so check before you use it:
 
 ```bash
-for file in "$HOME"/.config/hypr/conf/*.conf; do
+for file in "$HOME"/.config/hypr/conf/*.lua; do
     if [[ -f "$file" ]]; then
         …
     fi
@@ -187,13 +186,13 @@ Every command that changes the system goes through `run`, so `--dry-run` prints 
 ```bash
 if ! grep -q '^GRUB_DISABLE_OS_PROBER=false' /etc/default/grub; then
     backup_once /etc/default/grub
-    echo 'GRUB_DISABLE_OS_PROBER=false' | run sudo tee -a /etc/default/grub >/dev/null
+    run sudo tee -a /etc/default/grub >/dev/null <<<'GRUB_DISABLE_OS_PROBER=false'
 fi
 ```
 
 - **Idempotent:** check first, change second, so a re-run changes nothing.
 - **Back up** with `backup_once` before editing a file in `/etc`; better, write a drop-in with `write_root_file`.
-- **Root files:** `sudo cmd >/etc/file` fails, because the redirect runs as you. Use `write_root_file` or `| run sudo tee file >/dev/null`.
+- **Root files:** `sudo cmd >/etc/file` fails, because the redirect runs as you. Use `write_root_file` or `run sudo tee file >/dev/null <<<"$text"`; never pipe into `run` (in a dry run nothing reads the pipe).
 
 ## Temp files, traps and processes
 
@@ -219,7 +218,7 @@ When you stop processes:
 
 ## ShellCheck
 
-`bun run lint` runs ShellCheck on every tracked `.sh` file, and the pre-commit hook runs it on staged ones. Keep it clean. When a warning is wrong, disable it on that one line and say why:
+`bun run lint` runs ShellCheck on every tracked `.sh`, `.bash` and `.bats` file, and the pre-commit hook runs it on staged ones. Keep it clean. When a warning is wrong, disable it on that one line and say why:
 
 ```bash
 # shellcheck source=/dev/null

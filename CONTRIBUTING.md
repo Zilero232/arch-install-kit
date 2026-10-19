@@ -7,8 +7,8 @@ Thanks for your interest in the project! Here's everything you need for a smooth
 ```bash
 git clone https://github.com/Zilero232/arch-install-kit.git
 cd arch-install-kit
-mise install       # bun version from mise.toml
-bun install        # commitlint, husky (git hooks), shellcheck, prettier, bats, vitepress
+mise install       # bun and shellcheck versions from mise.toml
+bun install        # commitlint, husky (git hooks), prettier, bats, vitepress
 ```
 
 The hooks enable themselves: before each commit the scripts are checked and Markdown/JSON/YAML gets formatted, and commitlint validates the commit message.

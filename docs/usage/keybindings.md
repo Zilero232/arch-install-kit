@@ -9,10 +9,10 @@
 | `Super + Enter`            | terminal (Alacritty)      |
 | `Super + D`                | app launcher (Rofi)       |
 | `Super + Shift + N`        | file manager (Thunar)     |
-| `Super + Shift + F`        | Firefox                   |
-| `Super + Shift + H`        | Google Chrome             |
-| `Super + Shift + Ctrl + F` | Firefox, private window   |
+| `Super + Shift + H`        | Google Chrome (main)      |
 | `Super + Shift + Ctrl + H` | Chrome, incognito         |
+| `Super + Shift + F`        | Firefox                   |
+| `Super + Shift + Ctrl + F` | Firefox, private window   |
 | `Super + Shift + T`        | Telegram                  |
 | `Super + Shift + C`        | VS Code                   |
 | `Super + Shift + P`        | PhpStorm                  |

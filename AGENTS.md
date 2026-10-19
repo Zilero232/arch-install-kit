@@ -15,8 +15,8 @@ Read first: [docs/reference/structure.md](docs/reference/structure.md).
 - **Prefer existing tools** (yay, rsync, stow, hyprctl, systemd drop-ins) over custom code.
 - **Every system change goes through `run`** (dry-run) and is idempotent; back up with `backup_once` before editing `/etc` files, prefer drop-in files.
 - **Packages:** add to the right `packages/<group>.txt`; verify the name exists (archlinux.org/packages, AUR RPC). Wayland-native tools only — no X11 utilities (xdotool, redshift, flameshot…). Drivers/microcode belong to `modules/25-gpu.sh` (it runs before the package lists so Steam and co. pick the right Vulkan driver), not the lists.
-- **Dotfiles:** Hyprland 0.56+ Lua config (`hyprland.lua` + `conf/*.lua`; check https://wiki.hypr.land and `/usr/share/hypr/stubs/hl.meta.lua`; verify with `Hyprland --verify-config -c ~/.config/hypr/hyprland.lua`). hyprlock, hypridle, hyprpaper and hyprsunset keep their hyprlang `.conf` files; no absolute `/home/<user>` paths — use `~` or `$HOME`; no secrets in the repo.
-- **Theming:** one Kanagawa palette in `dotfiles/.config/theme/kanagawa.css` — the official [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim/blob/master/lua/kanagawa/colors.lua) names plus roles (`bg`, `surface`, `text`, `accent`, `frame`, `seal`, `ok`/`warn`/`error`…). Waybar, SwayNC, wlogout and `gtk-3.0/gtk.css` `@import` it; use a role for structure and state, a palette name for a module's own hue, never a raw hex. Change an accent by re-pointing its role there. Files that can't import CSS carry copies of the values — update them by hand: `rofi/colors.rasi`, `alacritty/themes/kanagawa_wave.toml`, `hypr/theme.lua`, `hypr/hyprlock.conf`, `fish/conf.d/fzf.fish`, `waybar/modules.jsonc` (calendar), `MangoHud/MangoHud.conf`, `gowall/config.yml` (see [docs/usage/theming.md](docs/usage/theming.md)). Big stylesheets are plain CSS split into `style/*.css` and imported in order from `style.css` — no SCSS, no build step.
+- **Dotfiles:** Hyprland 0.56+ Lua config (`hyprland.lua` + `conf/*.lua`; check <https://wiki.hypr.land> and `/usr/share/hypr/stubs/hl.meta.lua`; verify with `Hyprland --verify-config -c ~/.config/hypr/hyprland.lua`). hyprlock, hypridle, hyprpaper and hyprsunset keep their hyprlang `.conf` files; no absolute `/home/<user>` paths — use `~` or `$HOME`; no secrets in the repo.
+- **Theming:** one Kanagawa palette in `dotfiles/.config/theme/kanagawa.css` — the official [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim/blob/master/lua/kanagawa/colors.lua) names plus roles (`bg`, `surface`, `text`, `accent`, `frame`, `seal`, `ok`/`warn`/`error`…). Waybar, SwayNC, wlogout and `gtk-3.0/gtk.css` `@import` it; use a role for structure and state, a palette name for a module's own hue, never a raw hex. Change an accent by re-pointing its role there. Files that can't import CSS carry copies of the values — update them by hand: `rofi/colors.rasi`, `alacritty/themes/kanagawa_wave.toml`, `hypr/theme.lua`, `hypr/hyprlock.conf`, `fish/conf.d/fzf.fish`, `waybar/modules.jsonc` (clock and calendar), `MangoHud/MangoHud.conf`, `gowall/config.yml` (see [docs/usage/theming.md](docs/usage/theming.md)). Big stylesheets are plain CSS split into `style/*.css` and imported in order from `style.css` — no SCSS, no build step.
 - **Docs:** when behavior, flags, packages or keybindings change, update the matching page in `docs/` (keybindings → `docs/usage/keybindings.md`, colors and themes → `docs/usage/theming.md`).
 
 ## House style
@@ -74,8 +74,8 @@ Everything should read as if one careful person wrote it. Based on the [Google S
 ## Checks
 
 ```bash
-mise install         # once: bun version from mise.toml
-bun install          # once: commitlint, husky, shellcheck, prettier, bats, vitepress
+mise install         # once: bun and shellcheck versions from mise.toml
+bun install          # once: commitlint, husky, prettier, bats, vitepress
 bun run lint         # shellcheck for all scripts and tests
 bun run test         # offline suite: config checks (bun test), bats, Lua (~10 s)
 bun run test:packages    # every listed package exists (network, synced pacman db)
