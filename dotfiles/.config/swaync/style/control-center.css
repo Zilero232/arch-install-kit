@@ -1,8 +1,8 @@
-/* SwayNC control centre panel and its notification list.
+/* SwayNC control center panel and its notification list.
  * https://github.com/ErikReider/SwayNotificationCenter/blob/main/data/style/style.scss */
 
-/* --- Control centre --- */
-/* Mirrors the right Waybar strip: brushed corner on the left, a wave-coloured mounting on the right */
+/* --- Control center --- */
+/* Mirrors the right Waybar strip: brushed corner on the left, a wave-colored mounting on the right */
 .control-center {
   background: @bg-dark;
   background-image: linear-gradient(to bottom, alpha(@crystalBlue, 0.05), transparent 40%);

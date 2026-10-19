@@ -1,4 +1,4 @@
-# Kanagawa Wave colours. Source: https://github.com/rebelot/kanagawa.nvim (extras/alacritty)
+# Kanagawa Wave colors. Source: https://github.com/rebelot/kanagawa.nvim (extras/alacritty)
 # TOML can't import CSS: palette names follow ~/.config/theme/kanagawa.css.
 
 [colors.primary]

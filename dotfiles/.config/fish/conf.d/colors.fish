@@ -1,4 +1,4 @@
-# Syntax highlighting colours. https://fishshell.com/docs/current/interactive.html#syntax-highlighting
+# Syntax highlighting colors. https://fishshell.com/docs/current/interactive.html#syntax-highlighting
 
 status is-interactive; or return
 

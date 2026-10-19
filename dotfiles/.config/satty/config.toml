@@ -3,7 +3,6 @@
 [general]
 app-id = "com.gabm.satty"
 resize = { mode = "smart" }
-floating-hack = true
 initial-tool = "arrow"
 corner-roundness = 12
 annotation-size-factor = 2

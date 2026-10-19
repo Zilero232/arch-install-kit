@@ -88,7 +88,7 @@
 				},
 				{
 					"label": "󰸉",
-					"command": "sh -c 'swaync-client -cp; wallpaper.sh random'"
+					"command": "sh -c 'swaync-client -cp; ~/bin/wallpaper.sh random'"
 				},
 				{
 					"label": "󰌾",

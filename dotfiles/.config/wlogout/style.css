@@ -42,7 +42,7 @@ button:hover {
   color: @bg-dark;
 }
 
-button span {
+button label {
   font-size: 1.2em;
 }
 

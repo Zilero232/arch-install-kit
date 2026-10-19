@@ -1,4 +1,4 @@
-/* Rofi launcher (Super+D). Theme and colours: colors.rasi; pickers use menu.rasi
+/* Rofi launcher (Super+D). Theme and colors: colors.rasi; pickers use menu.rasi
  * https://github.com/davatorium/rofi/blob/next/doc/rofi.1.markdown */
 
 @theme "~/.config/rofi/colors.rasi"
@@ -12,7 +12,7 @@ configuration {
     show-icons: true;
     icon-theme: "Papirus-Dark"; /* same as GTK */
     drun-display-format: "{name}";
-    location: 0; /* centre */
+    location: 0; /* center */
 
     /* Mode switcher labels */
     sidebar-mode: true;

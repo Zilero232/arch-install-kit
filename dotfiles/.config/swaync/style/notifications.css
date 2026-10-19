@@ -1,4 +1,4 @@
-/* SwayNC notification cards and groups, shared by popups and the control centre.
+/* SwayNC notification cards and groups, shared by popups and the control center.
  * https://github.com/ErikReider/SwayNotificationCenter/blob/main/data/style/style.scss */
 
 /* --- Notifications --- */
@@ -24,7 +24,7 @@
   transition: var(--hover);
 }
 
-/* Urgency shows as a coloured left edge */
+/* Urgency shows as a colored left edge */
 .notification-row .notification-background .notification.low {
   border-left: 3px solid @border;
 }

@@ -35,7 +35,8 @@ setup() {
     assert_equal "$(cat "$XDG_STATE_HOME/wallpaper-mode")" live
 }
 
-@test "wallpaper.sh: live without the Workshop scene falls back to the static picture" {
+@test "wallpaper.sh: live without the Workshop scene shows the picture but stays live" {
+    mock_cmd linux-wallpaperengine
     mock_cmd notify-send
     mock_cmd pkill 'exit 1'
     mock_cmd pgrep
@@ -44,9 +45,55 @@ setup() {
     run "$BIN/wallpaper.sh" live
 
     assert_success
-    assert_equal "$(cat "$XDG_STATE_HOME/wallpaper-mode")" static
+    assert_equal "$(cat "$XDG_STATE_HOME/wallpaper-mode")" live
     run grep -c '^waypaper --restore$' "$MOCK_LOG"
     assert_output 1
+}
+
+@test "wallpaper.sh: live without linux-wallpaperengine saves static for the next login" {
+    mock_cmd notify-send
+    mock_cmd pkill 'exit 1'
+    mock_cmd pgrep
+    mock_cmd waypaper
+    # A PATH with only the tools the script needs, so a real linux-wallpaperengine stays out
+    local tool
+    for tool in bash cat dirname mkdir sleep; do
+        ln -s "$(command -v "$tool")" "$MOCK_BIN/$tool"
+    done
+
+    PATH="$MOCK_BIN" run "$BIN/wallpaper.sh" live
+
+    assert_success
+    assert_equal "$(cat "$XDG_STATE_HOME/wallpaper-mode")" static
+}
+
+@test "wallpaper.sh: live with no monitor keeps hyprpaper running" {
+    mkdir -p "$HOME/.local/share/Steam/steamapps/workshop/content/431960/3162872709"
+    mock_cmd linux-wallpaperengine
+    mock_cmd notify-send
+    mock_cmd pkill 'exit 1'
+    mock_cmd pgrep
+    mock_cmd waypaper
+    mock_cmd hyprctl 'echo "[]"'
+
+    run "$BIN/wallpaper.sh" live
+
+    assert_success
+    run grep -c '^pkill -x hyprpaper$' "$MOCK_LOG"
+    assert_output 0
+    run grep -c '^linux-wallpaperengine' "$MOCK_LOG"
+    assert_output 0
+}
+
+@test "wallpaper.sh: a random picture switches the saved mode to static" {
+    mock_cmd pkill 'exit 1'
+    mock_cmd pgrep
+    mock_cmd waypaper
+
+    run "$BIN/wallpaper.sh" random
+
+    assert_success
+    assert_equal "$(cat "$XDG_STATE_HOME/wallpaper-mode")" static
 }
 
 # --- quick_toggle.sh ---
@@ -146,4 +193,40 @@ setup() {
     assert_equal "$output" ""
     run in_script "$CAVA" 'printf "%s\n" ▁▂ ▃▄ ▅▆ | gate_on_player | wc -l'
     assert_output 1
+}
+
+@test "cava.sh: cava sleeps after a moment of silence" {
+    run in_script "$CAVA" 'write_cava_config; grep -x "sleep_timer = 2" "$CONFIG_FILE"'
+
+    assert_success
+}
+
+@test "cava.sh: one playing player among paused ones counts as playing" {
+    mock_cmd playerctl 'printf "%s\n" Paused Playing'
+
+    run in_script "$CAVA" 'seed_player_state; cat "$STATE_FILE"'
+
+    assert_success
+    assert_output Playing
+}
+
+# --- anti_afk.sh ---
+
+@test "anti_afk.sh: an interrupted nudge puts the cursor back where it was" {
+    mock_cmd hyprctl
+
+    run in_script "$BIN/anti_afk.sh" 'NUDGE_ORIGIN="100 200"; restore_cursor'
+
+    assert_success
+    run grep -c '^hyprctl dispatch hl.dsp.cursor.move({ x = 100, y = 200 })$' "$MOCK_LOG"
+    assert_output 1
+}
+
+@test "anti_afk.sh: with no nudge in progress the cursor is left alone" {
+    mock_cmd hyprctl
+
+    run in_script "$BIN/anti_afk.sh" 'restore_cursor'
+
+    assert_success
+    assert_equal "$(mock_calls)" ""
 }

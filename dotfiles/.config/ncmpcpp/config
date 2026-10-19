@@ -48,7 +48,7 @@ statusbar_visibility = "yes"
 titles_visibility = "yes"
 enable_window_title = "yes"
 
-# --- Colours ---
+# --- Colors ---
 statusbar_color = "white"
 color1 = "white"
 color2 = "blue"

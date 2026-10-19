@@ -1,5 +1,7 @@
 -- Environment variables. https://wiki.hypr.land/Configuring/Environment-variables/
 
+local programs = require("conf.programs")
+
 -- --- Toolkit backends ---
 hl.env("GDK_BACKEND", "wayland,x11,*")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
@@ -19,3 +21,6 @@ hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("XCURSOR_THEME", "Hackneyed-Dark-24px")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
+
+-- --- Default apps for everything Hyprland starts (fish sets the same for TTY and SSH) ---
+hl.env("BROWSER", programs.browser)

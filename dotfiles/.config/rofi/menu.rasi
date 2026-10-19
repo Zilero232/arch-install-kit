@@ -1,4 +1,4 @@
-/* Compact centred list for pickers: clipboard history (Super+V), emoji (Super+.), calculator (Super+=).
+/* Compact centered list for pickers: clipboard history (Super+V), emoji (Super+.), calculator (Super+=).
  * Usage: rofi -show emoji -modes emoji -theme menu */
 
 @import "colors.rasi"

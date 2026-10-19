@@ -43,7 +43,7 @@ window#waybar {
   padding-left: 8px;
 }
 
-/* The centre is a darker ink slab with soft corners, framed like the strips */
+/* The center is a darker ink slab with soft corners, framed like the strips */
 .modules-center {
   background-color: alpha(@bg-dark, 0.92);
   border: 1px solid alpha(@border, 0.45);

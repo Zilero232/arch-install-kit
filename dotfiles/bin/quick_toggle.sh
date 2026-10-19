@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Night light and microphone toggles for the swaync control centre buttons.
+# Night light and microphone toggles for the swaync control center buttons.
 # swaync passes the wanted state in SWAYNC_TOGGLE_STATE; `status` prints the current one.
 # Usage: quick_toggle.sh night|mic          apply SWAYNC_TOGGLE_STATE (true = on)
 #        quick_toggle.sh night|mic status   print true or false

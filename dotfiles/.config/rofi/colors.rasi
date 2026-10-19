@@ -1,7 +1,7 @@
-/* Rofi theme: Kanagawa colours, fullscreen app grid.
+/* Rofi theme: Kanagawa colors, fullscreen app grid.
  * https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown */
 
-/* --- Colours --- */
+/* --- Colors --- */
 /* Rasi can't import CSS: the names and values copy ~/.config/theme/kanagawa.css */
 * {
     sumiInk3: #1f1f28;

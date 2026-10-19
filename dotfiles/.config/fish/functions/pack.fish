@@ -4,5 +4,7 @@ function pack --description 'Pack <directory> into <directory>.tar.gz'
         return 1
     end
 
-    tar -czf $argv[1].tar.gz $argv[1]
+    # Tab completion adds a trailing slash, which would put the archive inside the folder
+    set -l dir (string trim --right --chars / -- $argv[1])
+    tar -czf $dir.tar.gz $dir
 end

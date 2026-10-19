@@ -1,4 +1,4 @@
--- Kanagawa colours and sizes for Hyprland (based on adi1090x's theme). Used by conf/looknfeel.lua.
+-- Kanagawa colors and sizes for Hyprland (based on adi1090x's theme). Used by conf/looknfeel.lua.
 
 return {
     -- --- Sizes ---
@@ -8,6 +8,6 @@ return {
     rounding = 10,
 
     -- --- Borders ---
-    active_border = { colors = { "rgba(957fb8ff)", "rgba(dca7a7ff)" }, angle = 45 },
-    inactive_border = "rgba(1f1f23ff)",
+    active_border = { colors = { "rgba(957fb8ff)", "rgba(d27e99ff)" }, angle = 45 },
+    inactive_border = "rgba(1f1f28ff)",
 }

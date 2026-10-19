@@ -6,7 +6,7 @@
   background: transparent;
 }
 
-.system-child {
+#system .system-child {
   padding: 0 6px;
 }
 
@@ -60,7 +60,7 @@
 }
 
 #pulseaudio.muted {
-  color: @border;
+  color: @text-muted;
 }
 
 #network {
@@ -69,7 +69,7 @@
 
 #network.disconnected,
 #network.disabled {
-  color: @border;
+  color: @text-muted;
 }
 
 #battery {
@@ -98,7 +98,7 @@
 }
 
 #custom-updates.updated {
-  color: @border;
+  color: @text-muted;
 }
 
 #custom-notification {

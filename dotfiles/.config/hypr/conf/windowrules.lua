@@ -58,10 +58,17 @@ hl.window_rule({
     tile = true,
 })
 
--- --- Screenshot editor: floating, centred ---
+-- --- Screenshot editor: floating, centered ---
 hl.window_rule({
     name = "satty-float",
     match = { class = "com.gabm.satty" },
     float = true,
     center = true,
+})
+
+-- --- Region picker: slurp's dim overlay must be gone before grim takes the shot ---
+hl.layer_rule({
+    name = "selection-no-anim",
+    match = { namespace = "selection" },
+    no_anim = true,
 })

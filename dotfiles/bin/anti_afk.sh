@@ -6,6 +6,9 @@ set -euo pipefail
 
 readonly MAX_OFFSET=50
 
+# "x y" while the cursor is moved away, so Ctrl+C during a nudge can put it back
+NUDGE_ORIGIN=""
+
 # --- Helpers ---
 
 require() {
@@ -29,6 +32,13 @@ move_cursor() {
     hyprctl dispatch "hl.dsp.cursor.move({ x = $1, y = $2 })" >/dev/null
 }
 
+# EXIT trap: undo a nudge that Ctrl+C interrupted
+restore_cursor() {
+    if [[ -n "$NUDGE_ORIGIN" ]]; then
+        move_cursor "${NUDGE_ORIGIN% *}" "${NUDGE_ORIGIN#* }"
+    fi
+}
+
 nudge_cursor() {
     local x y dx dy
 
@@ -37,16 +47,20 @@ nudge_cursor() {
     dy=$(random_offset)
 
     echo "Moving cursor by $dx, $dy"
+    NUDGE_ORIGIN="$x $y"
     move_cursor "$((x + dx))" "$((y + dy))"
 
     sleep 2
     move_cursor "$x" "$y"
+    NUDGE_ORIGIN=""
 }
 
 # --- Main ---
 
 main() {
     require hyprctl jq
+    trap restore_cursor EXIT
+    trap 'exit 130' INT TERM
     echo "Anti-AFK started. Press Ctrl+C to stop."
 
     while true; do

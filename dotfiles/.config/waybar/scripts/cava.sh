@@ -15,6 +15,8 @@ write_cava_config() {
 [general]
 framerate = 30
 bars = 14
+# After 2 s of silence cava stops computing and only checks the input once a second
+sleep_timer = 2
 
 [input]
 method = pulse
@@ -46,8 +48,10 @@ build_sed_script() {
 watch_players() {
     local status
 
+    # Write a temp file and rename it, so the gate never reads a half-written state
     while read -r status; do
-        echo "$status" >"$STATE_FILE"
+        echo "$status" >"$STATE_FILE.tmp"
+        mv "$STATE_FILE.tmp" "$STATE_FILE"
     done < <(playerctl --all-players --follow status 2>/dev/null)
 }
 
@@ -71,8 +75,13 @@ gate_on_player() {
 seed_player_state() {
     local status
 
-    status=$(playerctl --all-players status 2>/dev/null | head -1) || true
-    echo "${status:-Stopped}" >"$STATE_FILE"
+    # Any playing player counts, not just the first one listed
+    status=$(playerctl --all-players status 2>/dev/null) || true
+    if grep -qx Playing <<<"$status"; then
+        echo Playing >"$STATE_FILE"
+    else
+        echo Stopped >"$STATE_FILE"
+    fi
 }
 
 # Stops the watcher and its playerctl; runs on exit, when waybar restarts this module

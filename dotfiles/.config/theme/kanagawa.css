@@ -68,9 +68,9 @@
 @define-color accent @oniViolet;
 /* Active workspace stroke, the player, unread notifications */
 @define-color accent-alt @sakuraPink;
-/* The "scroll mounting" edge of the right bar strip and the control centre */
+/* The "scroll mounting" edge of the right bar strip and the control center */
 @define-color frame @waveAqua2;
-/* Brush strokes under the clock and the control-centre title */
+/* Brush strokes under the clock and the control-center title */
 @define-color highlight @carpYellow;
 /* Hanko-seal vermilion: the launcher, critical states, destructive hovers */
 @define-color seal @autumnRed;

@@ -43,14 +43,11 @@ saved_mode() {
     fi
 }
 
-# True when linux-wallpaperengine and the Workshop scene it renders are both there
-can_go_live() {
-    command -v linux-wallpaperengine >/dev/null && [[ -d "$WORKSHOP_DIR/$WALLPAPER_ID" ]]
-}
 
 # --- Wallpapers ---
 
-# hyprpaper must be running before waypaper can talk to it over IPC
+# hyprpaper must be running before waypaper can talk to it over IPC.
+# Callers save the mode: a live fallback keeps "live" for the next login.
 start_static() {
     pkill -x linux-wallpaper || true
 
@@ -59,18 +56,31 @@ start_static() {
         disown
         sleep 1
     fi
+}
 
-    save_mode static
+# Shows the picture instead of the scene; the saved mode decides what the next login tries
+fall_back_to_static() {
+    notify "$1"
+    start_static
+    waypaper --restore
 }
 
 start_live() {
     local monitor
     local args=()
 
-    if ! can_go_live; then
-        notify "Wallpaper Engine scene $WALLPAPER_ID is not installed (Steam Workshop), keeping the picture"
-        start_static
-        waypaper --restore
+    # Without the program live mode can't work, so the next login starts with the picture
+    if ! command -v linux-wallpaperengine >/dev/null; then
+        save_mode static
+        fall_back_to_static "linux-wallpaperengine is not installed, keeping the picture"
+        return 0
+    fi
+
+    # The scene may be missing only for now (Steam re-downloading it), so the choice stays live
+    save_mode live
+    if [[ ! -d "$WORKSHOP_DIR/$WALLPAPER_ID" ]]; then
+        fall_back_to_static \
+            "Wallpaper Engine scene $WALLPAPER_ID is not installed (Steam Workshop), keeping the picture"
         return 0
     fi
 
@@ -79,9 +89,14 @@ start_live() {
         args+=(--scaling "$SCALING" --screen-root "$monitor" --bg "$WALLPAPER_ID")
     done < <(hyprctl -j monitors | jq -r '.[].name')
 
+    # No monitor yet: killing hyprpaper now would leave a black screen
+    if ((${#args[@]} == 0)); then
+        fall_back_to_static "No monitor found for the Wallpaper Engine scene, keeping the picture"
+        return 0
+    fi
+
     pkill -x hyprpaper || true
     pkill -x linux-wallpaper || true
-    save_mode live
 
     linux-wallpaperengine --silent "${args[@]}" >/dev/null 2>&1 &
     disown
@@ -96,15 +111,18 @@ main() {
                 start_live
             else
                 start_static
+                save_mode static
                 waypaper --restore
             fi
             ;;
         random)
             start_static
+            save_mode static
             waypaper --random
             ;;
         pick)
             start_static
+            save_mode static
             waypaper
             ;;
         live)

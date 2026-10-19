@@ -1,5 +1,5 @@
 {
-  // Module settings (Ukiyo-e variant), in bar order: left, centre, right.
+  // Module settings (Ukiyo-e variant), in bar order: left, center, right.
   // Workspaces use kanji numerals and the launcher is a hanko seal; both need
   // noto-fonts-cjk (Noto Serif CJK JP). Other icons are Material Design (U+F0000+).
 
@@ -14,7 +14,6 @@
   "hyprland/workspaces": {
     "on-scroll-up": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'r-1' })\"",
     "on-scroll-down": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'r+1' })\"",
-    "on-click": "activate",
     "all-outputs": true,
     "format": "{icon}",
     "format-icons": {
@@ -54,7 +53,7 @@
     "on-click-right": "playerctl next"
   },
 
-  // --- Centre ---
+  // --- Center ---
   // Open-Meteo via waybar-weather (runs continuously, follows your location); click: forecast
   "custom/weather": {
     "exec": "waybar-weather",
@@ -66,7 +65,7 @@
   },
 
   "clock": {
-    // Date in muted ink, time in full colour; the span closes inside the strftime spec, which must start with %
+    // Date in muted ink, time in full color; the span closes inside the strftime spec, which must start with %
     "format": "<span color='#727169'>{:%a %d %b</span>  %H:%M}",
     "format-alt": "{:%d.%m.%Y  %H:%M:%S}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
@@ -229,7 +228,7 @@
 
   // Pending pacman/AUR updates (list in the tooltip); click to upgrade; grey when up to date
   "custom/updates": {
-    "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300",
+    "exec": "waybar-module-pacman-updates",
     "return-type": "json",
     "format": "{icon} {text}",
     "format-icons": { "has-updates": "󰚰", "updated": "󰚰" },

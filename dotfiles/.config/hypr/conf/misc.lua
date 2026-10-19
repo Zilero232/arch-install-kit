@@ -1,4 +1,4 @@
--- Misc behaviour, rendering and debug. https://wiki.hypr.land/Configuring/Variables/#misc
+-- Misc behavior, rendering and debug. https://wiki.hypr.land/Configuring/Variables/#misc
 
 hl.config({
     misc = {
@@ -11,8 +11,8 @@ hl.config({
         initial_workspace_tracking = 0,
         middle_click_paste = false,
         enable_anr_dialog = true,
-        anr_missed_pings = 15,             -- default 1 flags slow apps too eagerly
-        allow_session_lock_restore = true, -- keeps hyprlock alive after resume
+        anr_missed_pings = 15,             -- default 5 flags slow apps too eagerly
+        allow_session_lock_restore = true, -- a crashed hyprlock can be restarted instead of a red screen
     },
 
     render = {

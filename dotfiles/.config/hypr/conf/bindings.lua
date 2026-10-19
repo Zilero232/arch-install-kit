@@ -33,15 +33,15 @@ bind("V", run(
     "sel=$(cliphist list | rofi -dmenu -theme menu) && printf '%s' \"$sel\" | cliphist decode | wl-copy"
 ), "Clipboard history")
 bind("C", run("hyprpicker -a"), "Color picker")
--- menu.rasi: a compact centred list instead of the fullscreen app grid
+-- menu.rasi: a compact centered list instead of the fullscreen app grid
 bind("period", run("rofi -show emoji -modes emoji -theme menu"), "Emoji picker")
 bind("equal", run("rofi -show calc -modes calc -no-show-match -no-sort -theme menu"), "Calculator")
 
 -- --- Apps ---
-bind("SHIFT + F", run(programs.browser), "Browser")
-bind("SHIFT + H", run(programs.browser_alt), "Chrome")
-bind("SHIFT + CTRL + F", run(programs.browser .. " --private-window"), "Browser (private)")
-bind("SHIFT + CTRL + H", run(programs.browser_alt .. " --incognito"), "Chrome (incognito)")
+bind("SHIFT + H", run(programs.browser), "Chrome")
+bind("SHIFT + CTRL + H", run(programs.browser .. " --incognito"), "Chrome (incognito)")
+bind("SHIFT + F", run(programs.browser_alt), "Firefox")
+bind("SHIFT + CTRL + F", run(programs.browser_alt .. " --private-window"), "Firefox (private)")
 bind("SHIFT + N", run(programs.file_manager), "File manager")
 bind("SHIFT + C", run(programs.editor), "Editor")
 bind("SHIFT + P", run("phpstorm"), "PhpStorm")
@@ -58,7 +58,7 @@ bind("SHIFT + Q", hl.dsp.exit(), "Exit Hyprland")
 
 -- --- Desktop ---
 bind("P", run("pkill -SIGUSR1 -x waybar"), "Toggle Waybar")
-bind("N", run("swaync-client -t -sw"), "Notification centre")
+bind("N", run("swaync-client -t -sw"), "Notification center")
 bind("W", run(programs.scripts .. "/wallpaper.sh random"), "Random wallpaper")
 bind("CTRL + W", run(programs.scripts .. "/wallpaper.sh pick"), "Pick wallpaper")
 bind("SHIFT + W", run(programs.scripts .. "/wallpaper.sh live"), "Live wallpaper")

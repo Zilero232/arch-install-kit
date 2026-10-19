@@ -43,7 +43,7 @@ const COMMAND_PACKAGES: Record<string, string | null> = {
 };
 
 // Waybar's own click actions (hyprland/workspaces, clock), not shell commands
-const WAYBAR_ACTIONS = new Set(['activate', 'mode', 'shift_up', 'shift_down', 'shift_reset']);
+const WAYBAR_ACTIONS = new Set(['mode', 'shift_up', 'shift_down', 'shift_reset']);
 
 // --- Helpers ---
 
@@ -208,7 +208,7 @@ describe('swaync', () => {
   // swaync is a systemd user service: ~/bin is not on its PATH, so a bare name is "not found"
   test('kit scripts are called by their ~/bin path, not a bare name', () => {
     const text = readText(join(DOTFILES, '.config/swaync/config.json'));
-    const bare = [...text.matchAll(/"([\w.-]+\.sh)\b/g)].map((m) => m[1]);
+    const bare = [...text.matchAll(/(?<![\w~/.-])([\w-]+\.sh)\b/g)].map((m) => m[1]);
 
     expect(bare).toEqual([]);
   });
@@ -356,6 +356,41 @@ describe('dotfiles', () => {
 });
 
 // --- Packages ---
+
+// Files that can't @import kanagawa.css carry copies of its values (AGENTS.md, Theming)
+const PALETTE_COPIES = [
+  'rofi/colors.rasi',
+  'alacritty/themes/kanagawa_wave.toml',
+  'hypr/theme.lua',
+  'hypr/hyprlock.conf',
+  'fish/conf.d/fzf.fish',
+  'waybar/modules.jsonc',
+  'MangoHud/MangoHud.conf',
+  'gowall/config.yml',
+];
+// Upstream terminal black (alacritty) and the hyprlock shadow are not palette colors
+const PALETTE_EXTRAS = new Set(['090618', '000000']);
+
+describe('theme', () => {
+  const css = readText(join(DOTFILES, '.config/theme/kanagawa.css'));
+  const palette = new Set([...css.matchAll(/#([0-9a-f]{6})\b/gi)].map((m) => m[1].toLowerCase()));
+
+  test('every color in the palette copies is a kanagawa.css value', () => {
+    const drifted = PALETTE_COPIES.flatMap((file) => {
+      const text = readText(join(DOTFILES, '.config', file));
+      // #rrggbb, rgb(a)(rrggbb[aa]) and MangoHud's key=RRGGBB
+      const hexes = [
+        ...text.matchAll(/(?:#|rgba?\(|=\s*)([0-9a-f]{6})(?:[0-9a-f]{2})?(?![0-9a-z])/gi),
+      ];
+      return hexes
+        .map((m) => m[1].toLowerCase())
+        .filter((hex) => !palette.has(hex) && !PALETTE_EXTRAS.has(hex))
+        .map((hex) => `${file}: ${hex}`);
+    });
+
+    expect(drifted).toEqual([]);
+  });
+});
 
 describe('packages', () => {
   test('every list starts with a "# what this group is for" line', () => {
