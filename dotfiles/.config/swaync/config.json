@@ -16,7 +16,7 @@
 	"control-center-width": 420,
 	"control-center-height": 900,
 	"fit-to-screen": true,
-	"notification-window-width": 380,
+	"notification-window-width": 432,
 	"notification-2fa-action": true,
 	"notification-inline-replies": true,
 	"notification-body-image-height": 120,
@@ -44,7 +44,7 @@
 	],
 	"widget-config": {
 		"title": {
-			"text": "通知  Notifications",
+			"text": "Notifications",
 			"clear-all-button": true,
 			"button-text": "󰗩  Clear"
 		},

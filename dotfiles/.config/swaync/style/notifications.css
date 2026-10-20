@@ -15,6 +15,17 @@
   padding: 5px 10px;
 }
 
+/* In the control center a card is as wide as the widgets above it (see .widget-notifications) */
+.widget-notifications .notification-row .notification-background {
+  padding: 4px 0;
+}
+
+/* Popups line up with the control center: 8px under the bar, 12px from the right edge like
+ * Waybar's margin-right, 420px wide (notification-window-width 432 minus that margin) */
+.floating-notifications .notification-row .notification-background {
+  padding: 8px 12px 0 0;
+}
+
 .notification-row .notification-background .notification {
   background: @bg;
   background-image: linear-gradient(to bottom, alpha(@crystalBlue, 0.06), transparent 60%);

@@ -8,6 +8,12 @@
   border-radius: var(--radius);
 }
 
+/* The notification list has no side padding, so its cards are as wide as the widgets above */
+.widget-notifications {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /* --- Title --- */
 .widget-title {
   margin-top: 8px;
