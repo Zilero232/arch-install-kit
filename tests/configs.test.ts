@@ -282,6 +282,15 @@ describe('toml', () => {
 // --- Dotfiles ---
 
 describe('dotfiles', () => {
+  // A browser tab that opens the microphone must not flip Bluetooth headphones to the call profile
+  test('wireplumber keeps Bluetooth headphones in A2DP', () => {
+    const text = readText(
+      join(DOTFILES, '.config/wireplumber/wireplumber.conf.d/51-bluetooth.conf'),
+    );
+
+    expect(text).toMatch(/^\s*bluetooth\.autoswitch-to-headset-profile = false$/m);
+  });
+
   const files = walk(DOTFILES);
 
   test('no absolute /home/<user> paths (use ~ or $HOME)', () => {
