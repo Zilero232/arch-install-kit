@@ -1,4 +1,4 @@
-# Modules are sourced by install.sh, helpers come from lib/
+# Modules are sourced by install.sh, helpers come from installer/lib/
 external-sources=true
 # SC1091: sourced paths are resolved at runtime
 # SC2034: variables are used by sourced modules

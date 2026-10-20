@@ -19,7 +19,7 @@ setup() {
 
 # run_kit_module <file>: runs modules/<file> the way install.sh does, both streams captured
 run_kit_module() {
-    run kit "run_module \"\$KIT_DIR/modules/$1\" 1 1 2>&1"
+    run kit "run_module \"\$KIT_DIR/installer/modules/$1\" 1 1 2>&1"
 }
 
 # --- 25-gpu ---
@@ -33,6 +33,28 @@ mock_gpus() {
         body+="echo '00:02.0 VGA compatible controller [0300]: Some GPU [$id:1234]'"$'\n'
     done
     mock_cmd lspci "$body"
+}
+
+@test "gpu: NVIDIA libraries pulled in as a dependency go away on an AMD-only machine" {
+    mock_gpus 1002
+    # Both installed as dependencies (pacman -Qdq lists them)
+    mock_cmd pacman 'case "$1" in -Qq | -Qdq) echo "$2" ;; *) exit 1 ;; esac'
+
+    run_kit_module 25-gpu.sh
+
+    assert_success
+    assert_line "  [dry] sudo pacman -Rs --noconfirm nvidia-utils lib32-nvidia-utils"
+}
+
+@test "gpu: NVIDIA libraries stay on a machine with an NVIDIA card" {
+    echo '# fixture' >"$ENVIRONMENT_FILE"
+    mock_gpus 10de
+    mock_cmd pacman 'case "$1" in -Qq | -Qdq) echo "$2" ;; *) exit 1 ;; esac'
+
+    run_kit_module 25-gpu.sh
+
+    assert_success
+    refute_output --partial "pacman -Rs"
 }
 
 @test "gpu: NVIDIA as the only GPU gets the VA-API and GLX variables" {
@@ -364,4 +386,30 @@ use_system_fixtures() {
     assert_line "systemctl enable sddm.service"
     assert_line "systemctl --user enable mpd.socket"
     assert_line "systemctl mask NetworkManager-wait-online.service"
+}
+
+# --- 55-printing ---
+
+@test "printing: skipped without cups" {
+    run_kit_module 55-printing.sh
+
+    assert_success
+    assert_output --partial "Printing skipped"
+    refute_output --partial "[dry]"
+}
+
+@test "printing: mDNS goes into nsswitch once, before resolve, and ufw opens 5353/udp" {
+    export KIT_NSSWITCH_FILE="$BATS_TEST_TMPDIR/nsswitch.conf"
+    echo 'hosts: mymachines resolve [!UNAVAIL=return] files myhostname dns' >"$KIT_NSSWITCH_FILE"
+    mock_pacman cups nss-mdns ufw
+
+    run_kit_module 55-printing.sh
+
+    assert_success
+    assert_output --partial "sed -i /^hosts:/ s/resolve/mdns_minimal [NOTFOUND=return] resolve/ $KIT_NSSWITCH_FILE"
+    assert_output --partial "[dry] sudo ufw allow 5353/udp comment mDNS: network printers and scanners"
+
+    echo 'hosts: mymachines mdns_minimal [NOTFOUND=return] resolve files dns' >"$KIT_NSSWITCH_FILE"
+    run_kit_module 55-printing.sh
+    refute_output --partial "sed -i"
 }

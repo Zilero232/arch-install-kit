@@ -62,7 +62,7 @@ mock_calls() {
 # kit <code>: runs bash code in a fresh shell with lib/ loaded the way install.sh loads it.
 # A separate shell because lib/run.sh defines its own run(), which would shadow bats' run.
 kit() {
-    bash -c "for lib in \"\$KIT_DIR\"/lib/*.sh; do source \"\$lib\"; done; $1"
+    bash -c "for lib in \"\$KIT_DIR\"/installer/lib/*.sh; do source \"\$lib\"; done; $1"
 }
 
 # in_script <file> <code>: sources a standalone script and runs code in a fresh shell.

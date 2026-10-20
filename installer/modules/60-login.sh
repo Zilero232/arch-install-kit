@@ -3,7 +3,7 @@
 
 PLYMOUTH_THEME="arch-logo"
 
-write_root_file /etc/sddm.conf.d/theme.conf <"$KIT_DIR/etc/sddm.conf.d/theme.conf"
+write_root_file /etc/sddm.conf.d/theme.conf <"$SYSTEM_DIR/sddm.conf.d/theme.conf"
 
 if ((!WITH_PLYMOUTH)) || ! is_installed plymouth; then
     info "Plymouth skipped"
@@ -12,7 +12,7 @@ fi
 
 # Drop-in: lets the splash animation finish before SDDM starts
 write_root_file /etc/systemd/system/plymouth-quit.service.d/wait-for-animation.conf \
-    <"$KIT_DIR/etc/systemd/system/plymouth-quit.service.d/wait-for-animation.conf"
+    <"$SYSTEM_DIR/systemd/system/plymouth-quit.service.d/wait-for-animation.conf"
 
 if ! grep -q '^HOOKS=.*plymouth' /etc/mkinitcpio.conf; then
     backup_once /etc/mkinitcpio.conf

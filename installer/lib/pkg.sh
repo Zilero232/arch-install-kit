@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Package lists and installation. yay resolves both repo and AUR packages.
 
-PACKAGES_DIR="$KIT_DIR/packages"
+PACKAGES_DIR="$KIT_DIR/installer/packages"
 # SKIP_AUTOSNAP stops timeshift-autosnap from taking a snapshot before every batch the kit
 # installs (yay runs pacman through sudo, which drops the environment unless told to keep it)
 YAY_FLAGS=(

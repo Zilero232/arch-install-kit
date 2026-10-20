@@ -31,25 +31,31 @@ fi
 
 # Weekly mirror refresh (reflector.timer is enabled by the services module)
 backup_once /etc/xdg/reflector/reflector.conf
-write_root_file /etc/xdg/reflector/reflector.conf <"$KIT_DIR/etc/xdg/reflector/reflector.conf"
+write_root_file /etc/xdg/reflector/reflector.conf <"$SYSTEM_DIR/xdg/reflector/reflector.conf"
 
 # --- Hardware ---
 
 # Qualcomm ath11k Wi-Fi hangs resume from suspend unless the driver is unloaded around it
 if [[ -d /sys/module/ath11k_pci ]]; then
     write_root_file /usr/lib/systemd/system-sleep/ath11k 755 \
-        <"$KIT_DIR/etc/systemd/system-sleep/ath11k.sh"
+        <"$SYSTEM_DIR/systemd/system-sleep/ath11k.sh"
 fi
 
 # Compressed swap in RAM, tuned for zram and with zswap off in front of it;
 # takes effect after a reboot (archinstall may have written a zram config already)
 if is_installed zram-generator; then
     backup_once /etc/systemd/zram-generator.conf
-    write_root_file /etc/systemd/zram-generator.conf <"$KIT_DIR/etc/systemd/zram-generator.conf"
+    write_root_file /etc/systemd/zram-generator.conf <"$SYSTEM_DIR/systemd/zram-generator.conf"
     write_root_file /etc/sysctl.d/99-vm-zram-parameters.conf \
-        <"$KIT_DIR/etc/sysctl.d/99-vm-zram-parameters.conf"
-    write_root_file /etc/tmpfiles.d/zswap-off.conf <"$KIT_DIR/etc/tmpfiles.d/zswap-off.conf"
+        <"$SYSTEM_DIR/sysctl.d/99-vm-zram-parameters.conf"
+    write_root_file /etc/tmpfiles.d/zswap-off.conf <"$SYSTEM_DIR/tmpfiles.d/zswap-off.conf"
 fi
+
+# systemd-oomd kills a runaway app before memory pressure freezes the desktop (services.txt starts it)
+write_root_file /etc/systemd/system/-.slice.d/10-oomd.conf \
+    <"$SYSTEM_DIR/systemd/system/-.slice.d/10-oomd.conf"
+write_root_file /etc/systemd/system/user@.service.d/10-oomd.conf \
+    <"$SYSTEM_DIR/systemd/system/user@.service.d/10-oomd.conf"
 
 # Wi-Fi regulatory domain, see WIFI_COUNTRY
 if is_installed wireless-regdb && ! grep -q "^$REGDOM_LINE" "$REGDOM_FILE"; then
@@ -93,7 +99,7 @@ if is_installed timeshift; then
         backup_once "$TIMESHIFT_CONFIG"
         write_root_file "$TIMESHIFT_CONFIG" <<<"$config"
     elif ((write_config)); then
-        config="$(sed "s/@BACKUP_UUID@/$backup_uuid/" "$KIT_DIR/etc/timeshift/timeshift.json")"
+        config="$(sed "s/@BACKUP_UUID@/$backup_uuid/" "$SYSTEM_DIR/timeshift/timeshift.json")"
         write_root_file "$TIMESHIFT_CONFIG" <<<"$config"
     fi
 fi
@@ -111,7 +117,7 @@ fi
 # INCY VPN connects without a password prompt (the rule allows only its own helper calls)
 if is_installed incy-bin; then
     write_root_file /etc/polkit-1/rules.d/50-incy.rules \
-        <"$KIT_DIR/etc/polkit-1/rules.d/50-incy.rules"
+        <"$SYSTEM_DIR/polkit-1/rules.d/50-incy.rules"
 fi
 
 ok "System configured"

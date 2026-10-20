@@ -10,7 +10,7 @@ import { parse as parseJsonc, printParseErrorCode, type ParseError } from 'jsonc
 
 const REPO = resolve(import.meta.dir, '..');
 const DOTFILES = join(REPO, 'dotfiles');
-const PACKAGES = join(REPO, 'packages');
+const PACKAGES = join(REPO, 'installer/packages');
 const SWAYNC_SCHEMA = '/etc/xdg/swaync/configSchema.json';
 
 // Commands the configs may start, and the package in packages/*.txt that provides each.
@@ -416,7 +416,7 @@ describe('packages', () => {
   });
 
   describe('services.txt', () => {
-    const lines = readText(join(REPO, 'services.txt')).split('\n');
+    const lines = readText(join(REPO, 'installer/services.txt')).split('\n');
     const rows = lines.filter((line) => line.trim() && !line.startsWith('#'));
 
     test('each row is "unit scope package" with scope system or user', () => {

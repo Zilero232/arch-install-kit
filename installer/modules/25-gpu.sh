@@ -35,6 +35,24 @@ if ((${#pkgs[@]})); then
     pkg_install "${pkgs[@]}"
 fi
 
+# No NVIDIA card: its libraries are dead weight, and their sleep hooks change how suspend works.
+# Steam pulls them in when it is installed before the Vulkan driver (the kit's order before 2026-10)
+if ! has_nvidia; then
+    stray=()
+    for pkg in nvidia-utils lib32-nvidia-utils; do
+        if is_installed_exactly "$pkg" && pacman -Qdq "$pkg" &>/dev/null; then
+            stray+=("$pkg")
+        fi
+    done
+
+    if ((${#stray[@]})); then
+        info "Removing NVIDIA libraries installed without an NVIDIA GPU: ${stray[*]}"
+        if ! run sudo pacman -Rs --noconfirm "${stray[@]}"; then
+            warn "Could not remove ${stray[*]}; check with: pacman -Rs --print ${stray[*]}"
+        fi
+    fi
+fi
+
 # Drop-ins instead of editing mkinitcpio.conf and the kernel command line
 if has_nvidia; then
     write_root_file /etc/mkinitcpio.conf.d/nvidia.conf \

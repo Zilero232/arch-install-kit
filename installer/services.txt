@@ -4,10 +4,13 @@ NetworkManager.service            system   networkmanager
 bluetooth.service                 system   bluez
 sddm.service                      system   sddm
 fstrim.timer                      system   util-linux
+systemd-oomd.service              system   systemd
 docker.socket                     system   docker
 reflector.timer                   system   reflector
 power-profiles-daemon.service     system   power-profiles-daemon
 ufw.service                       system   ufw
+cups.socket                       system   cups
+avahi-daemon.service              system   avahi
 paccache.timer                    system   pacman-contrib
 fwupd-refresh.timer               system   fwupd
 swayosd-libinput-backend.service  system   swayosd

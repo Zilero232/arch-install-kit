@@ -9,18 +9,18 @@ setup() {
     make_fake_kit
 }
 
-# A copy of install.sh and lib/ next to stub modules that only say they ran
+# A copy of install.sh and installer/lib/ next to stub modules that only say they ran
 make_fake_kit() {
     local name
 
     FAKE_KIT="$BATS_TEST_TMPDIR/kit"
-    mkdir -p "$FAKE_KIT/modules" "$FAKE_KIT/packages"
+    mkdir -p "$FAKE_KIT/installer/modules" "$FAKE_KIT/installer/packages"
     cp "$REPO_DIR/install.sh" "$FAKE_KIT/"
-    cp -r "$REPO_DIR/lib" "$FAKE_KIT/"
-    echo "# nothing to bootstrap in tests" >"$FAKE_KIT/packages/bootstrap.txt"
+    cp -r "$REPO_DIR/installer/lib" "$FAKE_KIT/installer/"
+    echo "# nothing to bootstrap in tests" >"$FAKE_KIT/installer/packages/bootstrap.txt"
 
     for name in 00-preflight 10-pacman 30-packages 80-dotfiles 90-services; do
-        printf 'ok "%s ran"\n' "${name#*-}" >"$FAKE_KIT/modules/$name.sh"
+        printf 'ok "%s ran"\n' "${name#*-}" >"$FAKE_KIT/installer/modules/$name.sh"
     done
 }
 
@@ -29,7 +29,7 @@ make_fake_kit() {
 @test "--help lists every module in run order" {
     local file names=()
 
-    for file in "$REPO_DIR"/modules/*.sh; do
+    for file in "$REPO_DIR"/installer/modules/*.sh; do
         file="$(basename "$file" .sh)"
         names+=("${file#*-}")
     done
@@ -144,7 +144,7 @@ make_fake_kit() {
 # --- Failures ---
 
 @test "a failing module warns and the installer goes on" {
-    echo 'false' >"$FAKE_KIT/modules/80-dotfiles.sh"
+    echo 'false' >"$FAKE_KIT/installer/modules/80-dotfiles.sh"
 
     run "$FAKE_KIT/install.sh" --dry-run --yes
 
@@ -156,7 +156,7 @@ make_fake_kit() {
 }
 
 @test "a failing critical module stops the installer" {
-    echo 'false' >"$FAKE_KIT/modules/10-pacman.sh"
+    echo 'false' >"$FAKE_KIT/installer/modules/10-pacman.sh"
 
     run "$FAKE_KIT/install.sh" --dry-run --yes
 

@@ -1,0 +1,6 @@
+# Printing and scanning: driverless devices on the network or USB (IPP Everywhere, AirPrint, eSCL)
+cups cups-pdf system-config-printer ipp-usb
+sane-airscan simple-scan
+
+# Finds printers and scanners on the network by name (mDNS); the printing module sets up nsswitch
+avahi nss-mdns

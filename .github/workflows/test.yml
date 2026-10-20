@@ -50,7 +50,7 @@ jobs:
 
       - name: Install the installer's bootstrap packages and the test tools
         run: |
-          mapfile -t bootstrap < <(sed 's/#.*//' packages/bootstrap.txt | tr -s ' \t' '\n' | sed '/^$/d')
+          mapfile -t bootstrap < <(sed 's/#.*//' installer/packages/bootstrap.txt | tr -s ' \t' '\n' | sed '/^$/d')
           pacman -S --noconfirm --needed "${bootstrap[@]}" bun lua hyprland swaync tzdata
 
       - name: Create a non-root user that owns the checkout

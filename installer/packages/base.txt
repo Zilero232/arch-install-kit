@@ -8,3 +8,6 @@ unzip zip 7zip
 
 # Laptop: power profiles (amd-pstate / intel_pstate aware), brightness, battery alerts
 power-profiles-daemon brightnessctl batsignal
+
+# Diagnostics: disk health (SMART, NVMe), VA-API check (vainfo), AUR rebuilds after updates
+smartmontools nvme-cli libva-utils rebuild-detector

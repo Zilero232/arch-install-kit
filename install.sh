@@ -9,7 +9,7 @@ KIT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 readonly KIT_DIR
 
 readonly CORE_GROUPS=(base hyprland desktop audio fonts themes)
-readonly OPTIONAL_GROUPS=(apps dev media office gaming)
+readonly OPTIONAL_GROUPS=(apps dev media office gaming printing)
 readonly CRITICAL_MODULES=(preflight pacman aur-helper)
 
 DRY_RUN=0
@@ -45,7 +45,7 @@ Modules: $(module_names | paste -sd ' ')
 EOF
 }
 
-# modules/25-gpu.sh -> gpu
+# installer/modules/25-gpu.sh -> gpu
 module_name() {
     local file="$1"
     local name
@@ -58,7 +58,7 @@ module_name() {
 module_names() {
     local file
 
-    for file in "$KIT_DIR"/modules/*.sh; do
+    for file in "$KIT_DIR"/installer/modules/*.sh; do
         module_name "$file"
     done
 }
@@ -199,7 +199,7 @@ should_run() {
 load_libs() {
     local lib
 
-    for lib in "$KIT_DIR"/lib/*.sh; do
+    for lib in "$KIT_DIR"/installer/lib/*.sh; do
         # shellcheck source=/dev/null
         source "$lib"
     done
@@ -209,7 +209,7 @@ load_libs() {
 selected_modules() {
     local file
 
-    for file in "$KIT_DIR"/modules/*.sh; do
+    for file in "$KIT_DIR"/installer/modules/*.sh; do
         if should_run "$(module_name "$file")"; then
             echo "$file"
         fi

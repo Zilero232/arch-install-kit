@@ -5,7 +5,7 @@ import { join } from 'node:path';
 
 type Rule = (action: unknown, subject: unknown) => string;
 
-const RULE_FILE = join(import.meta.dir, '..', 'etc/polkit-1/rules.d/50-incy.rules');
+const RULE_FILE = join(import.meta.dir, '..', 'installer/system/polkit-1/rules.d/50-incy.rules');
 const HELPER = '/usr/lib/incy/incy-helper-linux.sh';
 const HELPER_REAL = '/opt/incy/lib/app/resources/bin/incy-helper-linux.sh';
 const XRAY = '/opt/incy/lib/app/resources/bin/xray';

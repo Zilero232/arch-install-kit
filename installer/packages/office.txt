@@ -1,0 +1,5 @@
+# Documents and notes
+libreoffice-fresh evince obsidian
+
+# Spell checking in LibreOffice and Qt apps (English, Russian)
+hunspell hunspell-en_us hunspell-ru

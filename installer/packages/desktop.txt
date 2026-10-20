@@ -9,3 +9,6 @@ tumbler ffmpegthumbnailer webp-pixbuf-loader  # thumbnails in Thunar
 calcurse neohtop-bin
 waybar-weather waybar-module-pacman-updates-git waypaper  # weather, updates, wallpaper picker
 firefox google-chrome telegram-desktop
+
+# GStreamer codecs: video and audio in GTK apps (thumbnails, previews, webkitgtk pages)
+gst-plugins-good gst-plugins-bad gst-libav

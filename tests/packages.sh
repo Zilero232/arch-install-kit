@@ -26,7 +26,7 @@ require() {
 all_packages() {
     local file
 
-    for file in "$KIT_DIR"/packages/*.txt; do
+    for file in "$KIT_DIR"/installer/packages/*.txt; do
         read_pkgs "$file"
     done | sort -u
 }
@@ -68,7 +68,7 @@ main() {
 
     require pacman curl jq
     # shellcheck source=../lib/pkg.sh
-    source "$KIT_DIR/lib/pkg.sh"
+    source "$KIT_DIR/installer/lib/pkg.sh"
 
     total="$(all_packages | wc -l)"
     missing="$(all_packages | not_in_repos | not_in_aur)"

@@ -2,6 +2,8 @@
 # Safe edits: system files are backed up once, user files go to a dated backup dir.
 
 BACKUP_DIR="$HOME/.config-backup/$(date +%F-%H%M%S)"
+# Files the modules install under /etc and /usr/lib, laid out like their targets
+SYSTEM_DIR="$KIT_DIR/installer/system"
 # Copy mode renders this file instead of rsyncing it (see swaync_config_render)
 SWAYNC_CONFIG=.config/swaync/config.json
 BACKLIGHT_DIR="${KIT_BACKLIGHT_DIR:-/sys/class/backlight}"

@@ -28,7 +28,7 @@ while read -r unit scope package; do
         warn "Could not enable $unit"
         failed=1
     fi
-done < <(sed 's/#.*//; /^[[:space:]]*$/d' "$KIT_DIR/services.txt")
+done < <(sed 's/#.*//; /^[[:space:]]*$/d' "$KIT_DIR/installer/services.txt")
 
 # Boot does not wait for the network
 run sudo systemctl mask NetworkManager-wait-online.service
