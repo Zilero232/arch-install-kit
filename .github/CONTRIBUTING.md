@@ -15,13 +15,13 @@ The hooks enable themselves: before each commit the scripts are checked and Mark
 
 ## Before you write code
 
-- Read [how the repo is laid out](./docs/reference/structure.md) — it has the rules for modules and dotfiles.
-- Need a new package? Add it to the matching [`packages/<group>.txt`](./docs/reference/packages.md) and double-check the name with `yay -Ss`.
+- Read [how the repo is laid out](../docs/reference/structure.md) — it has the rules for modules and dotfiles.
+- Need a new package? Add it to the matching [`installer/packages/<group>.txt`](../docs/reference/packages.md) and double-check the name with `yay -Ss`.
 - Look for an existing solution first (a package, a tool, a drop-in file) before writing your own.
 
 ## Style
 
-Write so that the whole repo reads as if one careful person wrote it. Every rule for Bash, configs and docs, with examples, is in the [style guide](./docs/reference/style-guide.md); [AGENTS.md](./AGENTS.md#house-style) keeps the same rules as a checklist. Two matter most:
+Write so that the whole repo reads as if one careful person wrote it. Every rule for Bash, configs and docs, with examples, is in the [style guide](../docs/reference/style-guide.md); [AGENTS.md](../AGENTS.md#house-style) keeps the same rules as a checklist. Two matter most:
 
 - Anything that changes the system goes through `run`, so `--dry-run` keeps working.
 - No absolute `/home/<user>` paths and no secrets in configs.
@@ -36,7 +36,7 @@ bun run spell             # cspell for the docs
 ./install.sh --dry-run    # on Arch: what would change
 ```
 
-How the tests are laid out and how to add one: [testing](./docs/reference/testing.md).
+How the tests are laid out and how to add one: [testing](../docs/reference/testing.md).
 
 ## Commits
 
@@ -74,7 +74,7 @@ Don't feel like remembering the format? `bun run commit` walks you through it.
 
 1. Branch off `master`: `git checkout -b feat/clipboard-history`.
 2. One logical change per PR.
-3. Changed flags, packages or keybindings? Update the [docs](./docs). Changed code or configs? Add or update a test.
+3. Changed flags, packages or keybindings? Update the [docs](../docs). Changed code or configs? Add or update a test.
 4. In the description: what and why, and how you tested it.
 
 ## Bugs and ideas
