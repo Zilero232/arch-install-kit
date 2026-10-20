@@ -32,7 +32,10 @@
     "format": "{player_icon} {dynamic}",
     "format-paused": "{status_icon} {dynamic}",
     "dynamic-order": ["title", "artist"],
-    "dynamic-len": 28,
+    // dynamic-len drops a tag that doesn't fit instead of cutting it, so the title gets its own
+    // limit: a long video title is cut with "…" and the artist goes when there's no room
+    "title-len": 30,
+    "dynamic-len": 32,
     "player-icons": {
       "default": "󰝚",
       "chromium": "󰊯",

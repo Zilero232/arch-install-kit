@@ -43,7 +43,6 @@
 /* The 1px gradient is a short vertical divider on the left edge */
 #mpris {
   color: @accent-alt;
-  font-style: italic;
   background-image: linear-gradient(to bottom, transparent 28%, alpha(@border, 0.7) 28%, alpha(@border, 0.7) 72%, transparent 72%);
   background-size: 1px 100%;
   background-position: left center;
