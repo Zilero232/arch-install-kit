@@ -4,7 +4,7 @@ Guidance for AI coding agents (Claude Code, Codex, Cursor…) working in this re
 
 ## What this is
 
-Personal Arch Linux + Hyprland setup: a modular bash installer (`install.sh`, `lib/`, `modules/`), package lists (`packages/*.txt`) and dotfiles (`dotfiles/`, a mirror of `$HOME`). Everything — docs (`docs/`), code, comments, commits — is in English.
+Personal Arch Linux + Hyprland setup: a modular bash installer (`install.sh`, `installer/lib/`, `installer/modules/`), package lists (`installer/packages/*.txt`) and dotfiles (`dotfiles/`, a mirror of `$HOME`). Everything — docs (`docs/`), code, comments, commits — is in English.
 
 Read first: [docs/reference/structure.md](docs/reference/structure.md).
 
@@ -14,7 +14,7 @@ Read first: [docs/reference/structure.md](docs/reference/structure.md).
 - **A script is the last resort.** If a package or a built-in feature does the job (waybar signals, systemd timers, Hyprland rules), use it.
 - **Prefer existing tools** (yay, rsync, stow, hyprctl, systemd drop-ins) over custom code.
 - **Every system change goes through `run`** (dry-run) and is idempotent; back up with `backup_once` before editing `/etc` files, prefer drop-in files.
-- **Packages:** add to the right `packages/<group>.txt`; verify the name exists (archlinux.org/packages, AUR RPC). Wayland-native tools only — no X11 utilities (xdotool, redshift, flameshot…). Drivers/microcode belong to `modules/25-gpu.sh` (it runs before the package lists so Steam and co. pick the right Vulkan driver), not the lists.
+- **Packages:** add to the right `installer/packages/<group>.txt`; verify the name exists (archlinux.org/packages, AUR RPC). Wayland-native tools only — no X11 utilities (xdotool, redshift, flameshot…). Drivers/microcode belong to `installer/modules/25-gpu.sh` (it runs before the package lists so Steam and co. pick the right Vulkan driver), not the lists.
 - **Dotfiles:** Hyprland 0.56+ Lua config (`hyprland.lua` + `conf/*.lua`; check <https://wiki.hypr.land> and `/usr/share/hypr/stubs/hl.meta.lua`; verify with `Hyprland --verify-config -c ~/.config/hypr/hyprland.lua`). hyprlock, hypridle, hyprpaper and hyprsunset keep their hyprlang `.conf` files; no absolute `/home/<user>` paths — use `~` or `$HOME`; no secrets in the repo.
 - **Theming:** one Kanagawa palette in `dotfiles/.config/theme/kanagawa.css` — the official [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim/blob/master/lua/kanagawa/colors.lua) names plus roles (`bg`, `surface`, `text`, `accent`, `frame`, `seal`, `ok`/`warn`/`error`…). Waybar, SwayNC, wlogout and `gtk-3.0/gtk.css` `@import` it; use a role for structure and state, a palette name for a module's own hue, never a raw hex. Change an accent by re-pointing its role there. Files that can't import CSS carry copies of the values — update them by hand: `rofi/colors.rasi`, `alacritty/themes/kanagawa_wave.toml`, `hypr/theme.lua`, `hypr/hyprlock.conf`, `fish/conf.d/fzf.fish`, `waybar/modules.jsonc` (clock and calendar), `MangoHud/MangoHud.conf`, `gowall/config.yml` (see [docs/usage/theming.md](docs/usage/theming.md)). Big stylesheets are plain CSS split into `style/*.css` and imported in order from `style.css` — no SCSS, no build step.
 - **Docs:** when behavior, flags, packages or keybindings change, update the matching page in `docs/` (keybindings → `docs/usage/keybindings.md`, colors and themes → `docs/usage/theming.md`).
@@ -27,11 +27,11 @@ Everything should read as if one careful person wrote it. Based on the [Google S
 
 - Shebang `#!/usr/bin/env bash`, then a one-line `# Purpose.` comment, then `# Usage: …` lines if the script takes arguments.
 - Standalone scripts (`install.sh`, `dotfiles/bin/`, `waybar/scripts/`): header, blank line, `set -euo pipefail`, `readonly` UPPER_SNAKE constants, functions, `main()` last. Scripts in `dotfiles/bin/` and `waybar/scripts/` end with `if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then main "$@"; fi` (written over three lines) so tests can source them; `install.sh` ends with `main "$@"` and drops `-e` on purpose: it handles module failures itself.
-- `lib/` and `modules/` are sourced: no `set` line and no `main`. Globals are UPPER_SNAKE at the top of the file (not `readonly`, so a file can be sourced again). Modules run under `set -Eeuo pipefail` (`run_module`), so the last line of a function is `if …; then …; fi`, never `cond && action`.
+- `installer/lib/` and `installer/modules/` are sourced: no `set` line and no `main`. Globals are UPPER_SNAKE at the top of the file (not `readonly`, so a file can be sourced again). Modules run under `set -Eeuo pipefail` (`run_module`), so the last line of a function is `if …; then …; fi`, never `cond && action`.
 - 4-space indent, `snake_case` names, `local` for every function variable (assign `$(…)` on a separate line), `[[ ]]` for tests, `(( ))` for numbers, `$(…)` never backticks, quote every expansion, no space after redirects (`>/dev/null`, `<<EOF`).
 - Function comment: one line above the function, only when the name doesn't tell the whole story (arguments, side effects, why).
 
-**Bash layout** (airy, not cramped; `lib/log.sh` is the reference)
+**Bash layout** (airy, not cramped; `installer/lib/log.sh` is the reference)
 
 - Locals first, one per line (uninitialized loop variables may share one: `local entry name status`), then a blank line, then the body.
 - A blank line between logical steps (checks / work / output), and before the final `return` or result line in a function longer than ~5 lines.
@@ -54,15 +54,15 @@ Everything should read as if one careful person wrote it. Based on the [Google S
 - Temp files: `mktemp`, removed by `trap 'rm -rf "$tmp"' EXIT` (a module's trap fires when its subshell ends) or on every path out of the function.
 - Traps: a trap on `INT`/`TERM` must `exit` (`trap 'exit 130' INT TERM`), or Ctrl+C is swallowed. Clean up on `EXIT`.
 - Processes: `pkill -x name`; `pkill -f pattern` also matches any command line that contains the pattern, the caller's own included. `pkill -P` reaches direct children only, not the commands inside a backgrounded pipeline. Detach daemons with `cmd >/dev/null 2>&1 &` + `disown`.
-- ShellCheck: `bun run lint` stays clean. Disable a check on the one line that needs it, with a reason; repo-wide exceptions live in `.shellcheckrc`. Hooks that systemd calls with `/bin/sh` (`etc/systemd/system-sleep/`) may stay POSIX `sh`.
+- ShellCheck: `bun run lint` stays clean. Disable a check on the one line that needs it, with a reason; repo-wide exceptions live in `.shellcheckrc`. Hooks that systemd calls with `/bin/sh` (`installer/system/systemd/system-sleep/`) may stay POSIX `sh`.
 
-**Configs** (`dotfiles/`, `etc/`)
+**Configs** (`dotfiles/`, `installer/system/`)
 
 - First line says what the file is, with an upstream docs link where one exists.
 - Sections: `# --- Name ---` (`/* --- Name --- */` in CSS/rasi, `// --- Name ---` in JSONC), sentence case, no blank line after the divider.
 - No comments that restate the line; keep the ones that explain a value or a workaround. Plain JSON has no comments. Vendored upstream files (`ranger/rc.conf`, `ranger/scope.sh`) keep their upstream comments.
 
-**Lists:** each `packages/*.txt` starts with one `# What this group is for` line; sub-groups are separated by a blank line and their own comment. `services.txt` keeps its columns aligned.
+**Lists:** each `installer/packages/*.txt` starts with one `# What this group is for` line; sub-groups are separated by a blank line and their own comment. `installer/services.txt` keeps its columns aligned.
 
 **Docs:** second person, plain verbs, sentence-case headings. Emoji headings only in `README.md`. Install pages number their sections (`## 4.1.`) and end with `---` and `**Next:** [… →](…)`. Every code block names its language (`bash`, `text`, `ini`…); prettier formats tables.
 
@@ -83,11 +83,11 @@ bun run spell        # cspell for the docs (American English)
 ./install.sh --dry-run   # on Arch: see what would change
 ```
 
-Tests live in `tests/` ([docs/reference/testing.md](docs/reference/testing.md)); a change to `lib/`, `modules/`, a script or a config gets a test there, and a failing test means fixing the code, not the test. Never run `install.sh` without `--dry-run` on a machine you don't intend to configure.
+Tests live in `tests/` ([docs/reference/testing.md](docs/reference/testing.md)); a change to `installer/lib/`, `installer/modules/`, a script or a config gets a test there, and a failing test means fixing the code, not the test. Never run `install.sh` without `--dry-run` on a machine you don't intend to configure.
 
 ## Commits
 
-Gitmoji + conventional, enforced by commitlint (`commitlint.config.mjs`):
+Gitmoji + conventional, enforced by commitlint (the `commitlint` key in `package.json`):
 
 ```text
 ✨ feat(hypr): add clipboard history on Super+V

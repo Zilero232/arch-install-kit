@@ -2,33 +2,38 @@
 
 ```text
 arch-install-kit/
-├── install.sh            # entry point: flags, module order
-├── lib/                  # shared functions used by the modules
-│   ├── log.sh            #   output and log file
-│   ├── run.sh            #   run (with --dry-run), module runner
-│   ├── sudo.sh           #   refuse root, sudo handling
-│   ├── ui.sh             #   gum prompts: group picker, confirmation
-│   ├── pkg.sh            #   reading lists, installing via yay
-│   ├── hw.sh             #   CPU, GPU, bootloader, kernels
-│   └── fs.sh             #   backups, deploying dotfiles
-├── modules/              # install steps, run in numeric order
-├── packages/             # package lists per group
-├── services.txt          # which systemd units to enable
-├── dotfiles/             # mirror of $HOME: .config/, .local/, bin/, .gtkrc-2.0
-├── etc/                  # system files: SDDM, Plymouth, reflector, makepkg, zram + sysctl, zswap, Timeshift, polkit, sleep hook
-├── assets/               # wallpapers and screenshots
-├── tests/                # bats, bun and Lua tests (see testing.md)
-├── docs/                 # documentation
-└── website/              # VitePress site built from docs/
+├── install.sh              # entry point: flags, module order
+├── installer/              # everything install.sh reads
+│   ├── lib/                #   shared functions used by the modules
+│   │   ├── log.sh          #     output and log file
+│   │   ├── run.sh          #     run (with --dry-run), module runner
+│   │   ├── sudo.sh         #     refuse root, sudo handling
+│   │   ├── ui.sh           #     gum prompts: group picker, confirmation
+│   │   ├── pkg.sh          #     reading lists, installing via yay
+│   │   ├── hw.sh           #     CPU, GPU, bootloader, kernels
+│   │   └── fs.sh           #     backups, deploying dotfiles
+│   ├── modules/            #   install steps, run in numeric order (00-preflight … 99-finish)
+│   ├── packages/           #   package lists per group
+│   ├── services.txt        #   which systemd units to enable
+│   └── system/             #   files for /etc and /usr/lib, laid out like their targets:
+│                           #     SDDM, Plymouth, reflector, makepkg, zram + sysctl, zswap,
+│                           #     systemd-oomd, Timeshift, polkit, sleep hook
+├── dotfiles/               # mirror of $HOME: .config/, .local/, bin/, .gtkrc-2.0
+├── assets/                 # wallpapers and screenshots
+├── docs/                   # documentation
+├── website/                # VitePress site built from docs/
+├── tests/                  # bats, bun and Lua tests (see testing.md)
+├── .github/                # CI workflows, contributing guide, security policy
+└── package.json, mise.toml # dev tools: lint, tests, docs site (configs live in package.json)
 ```
 
 ## How install.sh works
 
-1. Sources every `lib/*.sh`.
+1. Sources every `installer/lib/*.sh`.
 2. Parses the flags (`--minimal`, `--only`, `--dry-run`…).
-3. Installs its own dependencies from `packages/bootstrap.txt` (`pkg_bootstrap`).
-4. Unless `--yes` is given or there's no terminal, lets you pick optional groups and confirm the plan (`lib/ui.sh`, gum).
-5. Runs `modules/NN-name.sh` one by one. Each module runs in its own subshell in strict mode (`set -Eeuo pipefail`), so an error only stops that module.
+3. Installs its own dependencies from `installer/packages/bootstrap.txt` (`pkg_bootstrap`).
+4. Unless `--yes` is given or there's no terminal, lets you pick optional groups and confirm the plan (`installer/lib/ui.sh`, gum).
+5. Runs `installer/modules/NN-name.sh` one by one. Each module runs in its own subshell in strict mode (`set -Eeuo pipefail`), so an error only stops that module.
 6. If a critical module fails (`preflight`, `pacman`, `aur-helper`), the install aborts. Anything else can be re-run with `--only`.
 
 ## Module rules
@@ -44,7 +49,7 @@ The shell style (quoting, `set -e` gaps, temp files, traps) is in the [style gui
 ### Adding a module
 
 ```bash
-cat > modules/55-example.sh <<'EOF'
+cat > installer/modules/55-example.sh <<'EOF'
 #!/usr/bin/env bash
 # One line: what this module does.
 
@@ -89,7 +94,7 @@ Every app shares one Kanagawa palette, `~/.config/theme/kanagawa.css`. The color
 
 ## Services
 
-[`services.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/services.txt): unit, `system`/`user`, package. A unit is enabled only if its package is installed:
+[`installer/services.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/installer/services.txt): unit, `system`/`user`, package. A unit is enabled only if its package is installed:
 
 ```text
 docker.socket   system   docker

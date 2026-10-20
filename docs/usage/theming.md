@@ -62,7 +62,7 @@ sudo papirus-folders -C blue --theme Papirus-Dark
 
 ## Wallpapers
 
-The bundled wallpapers are copied to `~/Images`; add your own there. `~/bin/wallpaper.sh` switches between modes and remembers the last one:
+The 373 bundled wallpapers (WebP, 1920×1080, about 88 MB) are copied to `~/Images` without overwriting anything there; add your own in any format hyprpaper reads (PNG, JPEG, WebP, JPEG XL). `~/bin/wallpaper.sh` switches between modes and remembers the last one:
 
 | Keys                | Mode                                                                                     |
 | ------------------- | ---------------------------------------------------------------------------------------- |
@@ -75,7 +75,7 @@ The next login starts the same mode. `Super + W` or `Super + Ctrl + W` switches 
 To make any picture match the palette, recolor it with [gowall](https://achno.github.io/gowall-docs/) and its `Kanagawa` theme from `gowall/config.yml`:
 
 ```bash
-gowall convert ~/Images/42.jpg -t Kanagawa
+gowall convert ~/Images/42.webp -t Kanagawa
 ```
 
 ## Login and boot screens

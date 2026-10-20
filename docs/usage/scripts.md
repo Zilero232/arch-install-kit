@@ -5,6 +5,7 @@ Only what no package does yet is a script. Everything in [`dotfiles/bin`](https:
 | Script                  | Keys                                                            | What it does                                                                                          |
 | ----------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `power_menu.sh`         | `Super + X`                                                     | wlogout power menu sized to the focused monitor                                                       |
+| `keybinds.sh`           | `Super + /`                                                     | every described bind from `hyprctl binds -j` in a searchable rofi list; no package does this          |
 | `wallpaper.sh`          | autostart, `Super + W`, `Super + Ctrl + W`, `Super + Shift + W` | live Wallpaper Engine scene or a static picture (`random`, `pick`, `live`); remembers the last choice |
 | `gtk_theme.sh`          | autostart                                                       | applies the GTK theme, icons, cursor and font from `gtk-3.0/settings.ini`                             |
 | `sddm_theme.sh`         | —                                                               | `list` / `set <variant>` for the SDDM Astronaut login screen                                          |

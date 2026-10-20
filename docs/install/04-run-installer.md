@@ -4,15 +4,17 @@ One command installs packages, drivers and configs, and sets up boot and service
 
 ```bash
 sudo pacman -S --needed git
-git clone https://github.com/Zilero232/arch-install-kit.git ~/arch-install-kit
+git clone --depth 1 https://github.com/Zilero232/arch-install-kit.git ~/arch-install-kit
 cd ~/arch-install-kit
 ./install.sh
 ```
 
+`--depth 1` downloads only the current files, not the history (about 100 MB instead of several hundred); `git pull` works as usual.
+
 What you'll see:
 
 1. **sudo password** — asked once, kept alive for the whole run.
-2. **Installer dependencies** — `git`, `rsync`, `stow`, `jq`, [`gum`](https://github.com/charmbracelet/gum) and a few more from [`packages/bootstrap.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/packages/bootstrap.txt). Missing ones are installed with `sudo pacman -Syu`, so this step **updates the whole system** before any question is asked (installing on a stale package database would be a partial upgrade).
+2. **Installer dependencies** — `git`, `rsync`, `stow`, `jq`, [`gum`](https://github.com/charmbracelet/gum) and a few more from [`installer/packages/bootstrap.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/installer/packages/bootstrap.txt). Missing ones are installed with `sudo pacman -Syu`, so this step **updates the whole system** before any question is asked (installing on a stale package database would be a partial upgrade).
 3. **Pick optional groups** — a checklist (space toggles, enter confirms); everything is ticked by default.
 4. **Plan and confirmation** — a summary box and _Start?_
 
@@ -20,24 +22,25 @@ After that it runs on its own: 20–60 minutes, depending on your connection and
 
 > Run it **as your regular user**, not with `sudo` — the script calls sudo itself where needed.
 >
-> Some defaults are the author's: the Wi-Fi region (`WIFI_COUNTRY="RU"` in [`modules/50-system.sh`](https://github.com/Zilero232/arch-install-kit/blob/master/modules/50-system.sh)), the `ru_RU` locale (same file) and the reflector mirror countries (`--country` in [`etc/xdg/reflector/reflector.conf`](https://github.com/Zilero232/arch-install-kit/blob/master/etc/xdg/reflector/reflector.conf)). Change them before the first run if you live elsewhere.
+> Some defaults are the author's: the Wi-Fi region (`WIFI_COUNTRY="RU"` in [`installer/modules/50-system.sh`](https://github.com/Zilero232/arch-install-kit/blob/master/installer/modules/50-system.sh)), the `ru_RU` locale (same file) and the reflector mirror countries (`--country` in [`installer/system/xdg/reflector/reflector.conf`](https://github.com/Zilero232/arch-install-kit/blob/master/installer/system/xdg/reflector/reflector.conf)). Change them before the first run if you live elsewhere.
 
 ## 4.1. What happens, step by step
 
-| Module       | What it does                                                                                                                                                         |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `preflight`  | checks that this is Arch, you're online, pacman isn't locked, and there's enough space                                                                               |
-| `pacman`     | enables multilib, colors, parallel downloads, AUR builds without debug packages on every core; updates the system                                                    |
-| `aur-helper` | installs `yay`                                                                                                                                                       |
-| `gpu`        | CPU microcode and Intel / AMD / NVIDIA drivers based on your hardware                                                                                                |
-| `packages`   | removes conflicting packages and installs the selected [groups](../reference/packages.md)                                                                            |
-| `system`     | `ru_RU` locale, reflector, Wi-Fi region, zram, Timeshift target, ufw firewall, INCY polkit rule, ath11k sleep hook, user groups                                      |
-| `login`      | SDDM Astronaut theme and the Plymouth Arch logo splash                                                                                                               |
-| `boot`       | rebuilds the initramfs, adds Windows to the GRUB menu                                                                                                                |
-| `dotfiles`   | deploys `dotfiles/` into your home folder, copies the wallpapers to `~/Images`, colors Papirus folders violet, sets the swaync backlight device and the weather city |
-| `shell`      | fish as the default shell                                                                                                                                            |
-| `services`   | enables services from [`services.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/services.txt), stops boot from waiting for the network              |
-| `finish`     | shows what failed to install and what to do next                                                                                                                     |
+| Module       | What it does                                                                                                                                                                |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `preflight`  | checks that this is Arch, you're online, pacman isn't locked, and there's enough space                                                                                      |
+| `pacman`     | enables multilib, colors, parallel downloads, AUR builds without debug packages on every core; updates the system                                                           |
+| `aur-helper` | installs `yay`                                                                                                                                                              |
+| `gpu`        | CPU microcode and Intel / AMD / NVIDIA drivers based on your hardware                                                                                                       |
+| `packages`   | removes conflicting packages and installs the selected [groups](../reference/packages.md)                                                                                   |
+| `system`     | `ru_RU` locale, reflector, Wi-Fi region, zram, Timeshift target, ufw firewall, INCY polkit rule, ath11k sleep hook, user groups                                             |
+| `printing`   | only with the printing group: printer names over mDNS (`nsswitch.conf`), ufw lets discovery replies in (5353/udp)                                                           |
+| `login`      | SDDM Astronaut theme and the Plymouth Arch logo splash                                                                                                                      |
+| `boot`       | rebuilds the initramfs, adds Windows to the GRUB menu                                                                                                                       |
+| `dotfiles`   | deploys `dotfiles/` into your home folder, copies the wallpapers to `~/Images`, colors Papirus folders violet, sets the swaync backlight device and the weather city        |
+| `shell`      | fish as the default shell                                                                                                                                                   |
+| `services`   | enables services from [`installer/services.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/installer/services.txt), stops boot from waiting for the network |
+| `finish`     | shows what failed to install and what to do next                                                                                                                            |
 
 ## 4.2. Options
 
@@ -47,7 +50,7 @@ After that it runs on its own: 20–60 minutes, depending on your connection and
 
 | Option               | What for                                                                          |
 | -------------------- | --------------------------------------------------------------------------------- |
-| `--minimal`          | desktop only: no dev, office, media, gaming or other apps                         |
+| `--minimal`          | desktop only: no dev, office, media, gaming, printing or other apps               |
 | `--groups dev,media` | desktop + the chosen groups                                                       |
 | `--only dotfiles`    | run only the listed modules (comma-separated)                                     |
 | `--skip gpu,login`   | skip modules                                                                      |

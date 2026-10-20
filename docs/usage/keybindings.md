@@ -1,6 +1,6 @@
 # Keybindings
 
-`Super` is the Windows key. Source: [`hypr/conf/bindings.lua`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/bindings.lua). Every bind has a description, so `hyprctl binds` lists them too.
+`Super` is the Windows key. Source: [`hypr/conf/bindings.lua`](https://github.com/Zilero232/arch-install-kit/blob/master/dotfiles/.config/hypr/conf/bindings.lua). Every bind has a description: `Super + /` opens a searchable list of all of them, and `hyprctl binds` prints it too.
 
 ## Apps
 
@@ -32,12 +32,16 @@
 | `Super + C`         | color picker → clipboard                                               |
 | `Super + .`         | emoji picker                                                           |
 | `Super + =`         | calculator                                                             |
+| `Super + /`         | keybinding cheat sheet (search with typing)                            |
 | `Super + Shift + O` | copy text from a screen region (OCR, English and Russian), if any      |
 | `Super + Shift + R` | start / stop recording a region → `~/Videos` (with a notification)     |
 | `Super + W`         | random static wallpaper from `~/Images`                                |
 | `Super + Ctrl + W`  | pick a wallpaper in waypaper                                           |
 | `Super + Shift + W` | back to the live Wallpaper Engine scene                                |
 | `Super + N`         | notification center                                                    |
+| `Super + ,`         | dismiss the latest notification                                        |
+| `Super + Shift + ,` | dismiss all notifications                                              |
+| `Super + G`         | game mode: no animations, blur or gaps (press again to undo)           |
 | `Super + P`         | show / hide Waybar                                                     |
 | `Super + O`         | show / hide Telegram and the audio mixer                               |
 
@@ -68,16 +72,24 @@ The swaync control center has a row of quick buttons above the volume and bright
 
 ## Windows
 
-| Keys                   | Action                 |
-| ---------------------- | ---------------------- |
-| `Super + Q`            | close window           |
-| `Super + F`            | fullscreen             |
-| `Super + T`            | toggle floating        |
-| `Super + J`            | toggle split direction |
-| `Super + ←↑→↓`         | move focus             |
-| `Super + Shift + ←↑→↓` | resize window          |
-| `Super + drag left`    | move window            |
-| `Super + drag right`   | resize window          |
+| Keys                     | Action                                         |
+| ------------------------ | ---------------------------------------------- |
+| `Super + Q`              | close window                                   |
+| `Super + F`              | fullscreen                                     |
+| `Super + T`              | toggle floating                                |
+| `Super + J`              | toggle split direction                         |
+| `Super + ←↑→↓`           | move focus                                     |
+| `Super + Ctrl + ←↑→↓`    | swap window in that direction                  |
+| `Super + Shift + ←↑→↓`   | resize window                                  |
+| `Super + drag left`      | move window                                    |
+| `Super + drag right`     | resize window                                  |
+| `Super + Y`              | pin a floating window to every workspace       |
+| `Alt + Tab`              | next window, brought to the front              |
+| `Alt + Shift + Tab`      | previous window                                |
+| `Super + `` ` ``         | show / hide the scratchpad (the key left of 1) |
+| `Super + Shift + `` ` `` | move window to the scratchpad                  |
+
+Picture-in-picture videos from Chrome and Firefox open small, pinned, in the bottom-right corner.
 
 ## Workspaces
 
@@ -85,6 +97,8 @@ The swaync control center has a row of quick buttons above the volume and bright
 | ------------------------- | ----------------------------- |
 | `Super + 1…0`             | go to workspace 1–10          |
 | `Super + Shift + 1…0`     | move window to workspace 1–10 |
+| `Super + Tab`             | previous workspace            |
+| `Super + wheel`           | next / previous workspace     |
 | 3-finger horizontal swipe | switch workspace (touchpad)   |
 
 ## Zoom

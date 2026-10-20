@@ -4,7 +4,7 @@ import { withBase } from 'vitepress';
 
 import InstallTerminal from './InstallTerminal.vue';
 
-import desktop from '../../../../assets/screenshots/hyrpland_preview.png';
+import desktop from '../../../../assets/screenshots/hyprland_preview.png';
 import launcher from '../../../../assets/screenshots/application_manager.png';
 import terminals from '../../../../assets/screenshots/several_terminals.png';
 import files from '../../../../assets/screenshots/file_explorer.png';
@@ -16,7 +16,7 @@ const REPO = 'https://github.com/Zilero232/arch-install-kit';
 
 const QUICK_START = [
   'sudo pacman -S --needed git',
-  `git clone ${REPO}.git ~/arch-install-kit`,
+  `git clone --depth 1 ${REPO}.git ~/arch-install-kit`,
   'cd ~/arch-install-kit && ./install.sh',
 ].join('\n');
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
-// What ./install.sh prints on a typical laptop, module by module (see modules/)
+// What ./install.sh prints on a typical laptop, module by module (see installer/modules/)
 const LINES = [
   { kind: 'cmd', text: './install.sh --yes' },
   { kind: 'step', name: 'preflight', note: 'Arch, online, 214G free' },

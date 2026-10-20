@@ -43,6 +43,8 @@ lsblk -f
 | `swap`                         | swap partition            |
 | ~8–64 GB stick                 | the installer, ignore it  |
 
+> See `ntfs` and want to keep Windows? Use [option C](#option-c-next-to-windows-dual-boot) below. Option A erases the whole disk, Windows included, and nothing brings it back: on an SSD the format also wipes the old blocks (TRIM).
+
 ## 3.2. archinstall menu
 
 ```bash
@@ -56,7 +58,7 @@ Controls: arrow keys, `Enter` to select, `/` to search, `Space` to toggle, `Esc`
 | Archinstall language     | English                                                               |
 | Locales                  | Keyboard `us`, Language `en_US.UTF-8` (install.sh adds `ru_RU.UTF-8`) |
 | Mirrors and repositories | region — your country; Optional repositories — **multilib**           |
-| Disk configuration       | see [3.3](#33-disk-partitioning)                                      |
+| Disk configuration       | see 3.3 below                                                         |
 | Swap                     | **True** (zram)                                                       |
 | Bootloader               | **Grub** (can show Windows)                                           |
 | Unified kernel images    | False                                                                 |
@@ -74,15 +76,21 @@ Controls: arrow keys, `Enter` to select, `/` to search, `Space` to toggle, `Esc`
 
 ## 3.3. Disk partitioning
 
-### Option A — whole disk for Arch
+| You have                                | Option                                            |
+| --------------------------------------- | ------------------------------------------------- |
+| an empty disk, or nothing on it to keep | [A](#option-a-whole-disk-for-arch)                |
+| Arch already, reinstalling it           | [B](#option-b-reinstall-over-existing-partitions) |
+| Windows you want to keep                | [C](#option-c-next-to-windows-dual-boot)          |
+
+### Option A: whole disk for Arch
 
 **Use a best-effort default partition layout** → disk → **ext4** → separate `/home`: **No**.
 
-Everything on the disk will be wiped.
+> **Everything on the disk is wiped, Windows included.** Keeping Windows? Stop here and use option C.
 
 Without a separate `/home`, Timeshift snapshots share the `/` partition with the system; to keep them elsewhere, pick another disk in `timeshift-gtk`.
 
-### Option B — reinstall over existing partitions
+### Option B: reinstall over existing partitions
 
 **Manual Partitioning** → disk. For each partition:
 
@@ -98,6 +106,21 @@ You don't need the **xbootldr** flag (that's for systemd-boot).
 Before **Confirm and exit**, check the _Status_ column: `/` should say `format`/`modify`, and the `/home` you're keeping should say `existing`.
 
 **No "Mark to be formatted" option?** Delete the partition (**Delete partition**) → select the resulting **free space** → **Create new partition** → default size → FS and mountpoint as in the table. For a new EFI partition, mark it **bootable** and **ESP** after creating it.
+
+### Option C: next to Windows, dual boot
+
+You need the unallocated space you freed in Windows ([2.3](./02-usb-and-bios.md)). **Manual Partitioning** → disk, then:
+
+| Partition                          | What to do                                                                                                               |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Windows EFI (vfat)                 | at least 500 MB: mountpoint `/boot`, format **no**. Windows' default 100 MB is too small for the kernels: leave it alone |
+| **free space**                     | **Create new partition**: 1 GB fat32 for `/boot`, marked **bootable** and **ESP**, only if the Windows EFI is too small  |
+| **free space** (the rest)          | **Create new partition**: ext4, mountpoint `/`, format **yes**                                                           |
+| ntfs, Microsoft reserved, recovery | **don't touch**: no mountpoint, no format                                                                                |
+
+Before **Confirm and exit**, check the _Status_ column: every Windows partition must say `existing`. If one says `delete` or `format`, press **Esc** and start over.
+
+After the install GRUB lists Windows: install.sh turns on os-prober ([4.1](./04-run-installer.md)).
 
 ## 3.4. Install
 

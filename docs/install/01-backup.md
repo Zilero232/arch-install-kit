@@ -28,7 +28,7 @@ pacman -Qqen > ~/reinstall-backup/pkglist.txt   # from the official repos
 pacman -Qqem > ~/reinstall-backup/aurlist.txt   # from the AUR
 ```
 
-Handy for comparing against [packages/](https://github.com/Zilero232/arch-install-kit/tree/master/packages) and adding anything you installed by hand.
+Handy for comparing against [installer/packages/](https://github.com/Zilero232/arch-install-kit/tree/master/installer/packages) and adding anything you installed by hand.
 
 ## 1.3. Save whatever isn't in the repo
 

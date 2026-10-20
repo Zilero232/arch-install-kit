@@ -36,7 +36,10 @@ sudo dd if=archlinux-*.iso of=/dev/sdX bs=4M status=progress oflag=sync
 
 - **Secure Boot** — off.
 - Boot mode — **UEFI** (no Legacy/CSM).
-- Dual-booting Windows? Turn off **fast startup** there (Control Panel → Power Options → Choose what the power buttons do → Turn on fast startup).
+- Dual-booting Windows? Do this in Windows **before** you boot the stick:
+  - Turn off **fast startup** (Control Panel → Power Options → Choose what the power buttons do → Turn on fast startup).
+  - Free space for Arch: **Disk Management** → right-click `C:` → **Shrink Volume**, at least 60 GB. Leave the space unallocated; archinstall partitions it in [3.3](./03-archinstall.md).
+  - If BitLocker or device encryption is on (Settings → Privacy & security → Device encryption), save the recovery key from [account.microsoft.com/devices/recoverykey](https://account.microsoft.com/devices/recoverykey). A new bootloader can make Windows ask for it once.
 - Boot from the stick: usually F12, F8 or Esc at power-on.
 
 ## 2.4. USB boot menu

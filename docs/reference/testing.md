@@ -24,13 +24,13 @@ The pre-commit hook doesn't run the tests, so commits stay fast; run `bun run te
 
 ## What each layer covers
 
-| Layer          | Files                              | Covers                                                                                                                                                                                               |
-| -------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Config checks  | `tests/configs.test.ts`            | Waybar modules, formats and commands; swaync schema, scripts and buttons; Hyprland `--verify-config` and `hl.dsp.` dispatches; TOML files; dotfiles; lists                                           |
-| Polkit rule    | `tests/polkit.test.ts`             | the INCY rule against a stub of polkit's JavaScript API: allowed helper calls, path and argument checks, wheel + active local session                                                                |
-| Bash (bats)    | `tests/bats/*.bats`                | `lib/` functions, `install.sh` flags and module selection, the `gpu`, `system`, `login`, `dotfiles` and `services` modules in dry run against fixtures, `wallpaper.sh`, `quick_toggle.sh`, `cava.sh` |
-| Lua            | `tests/lua/layout_switch_test.lua` | Alt+Shift / Ctrl+Shift layout switch: taps, other keys in the chord, capitals, autorepeat, switching only after the last key is up                                                                   |
-| Packages (net) | `tests/packages.sh`                | Every name in `packages/*.txt` is in the synced repos (`pacman -Slq`) or the AUR (one RPC v5 request)                                                                                                |
+| Layer          | Files                              | Covers                                                                                                                                                                                                         |
+| -------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Config checks  | `tests/configs.test.ts`            | Waybar modules, formats and commands; swaync schema, scripts and buttons; Hyprland `--verify-config` and `hl.dsp.` dispatches; TOML files; dotfiles; lists                                                     |
+| Polkit rule    | `tests/polkit.test.ts`             | the INCY rule against a stub of polkit's JavaScript API: allowed helper calls, path and argument checks, wheel + active local session                                                                          |
+| Bash (bats)    | `tests/bats/*.bats`                | `installer/lib/` functions, `install.sh` flags and module selection, the `gpu`, `system`, `login`, `dotfiles` and `services` modules in dry run against fixtures, `wallpaper.sh`, `quick_toggle.sh`, `cava.sh` |
+| Lua            | `tests/lua/layout_switch_test.lua` | Alt+Shift / Ctrl+Shift layout switch: taps, other keys in the chord, capitals, autorepeat, switching only after the last key is up                                                                             |
+| Packages (net) | `tests/packages.sh`                | Every name in `installer/packages/*.txt` is in the synced repos (`pacman -Slq`) or the AUR (one RPC v5 request)                                                                                                |
 
 Some checks skip themselves when the tool they need is missing, and say so in the output: the swaync schema check needs `/etc/xdg/swaync/configSchema.json`, the Hyprland check needs `Hyprland`, the grub branch of `bootloader` needs `/etc/default/grub`, and `timezone_city` needs tzdata. In CI only, a Hyprland that cannot start at all is reported and skipped; on your machine it fails the test.
 
@@ -43,19 +43,19 @@ Every `.bats` file starts with `load helpers` and calls `setup_sandbox` from its
 - its own `HOME`, `XDG_STATE_HOME` and `XDG_RUNTIME_DIR` in a temp dir, so logs, state files and backups never touch your real home;
 - a mock dir first in `PATH`, plus `NO_COLOR=1` so the installer prints plain ASCII.
 
-| Helper                  | What it does                                                                                 |
-| ----------------------- | -------------------------------------------------------------------------------------------- |
-| `mock_cmd name 'body'`  | a fake `name` that appends `name args` to `$MOCK_LOG`, then runs `body` (default: `exit 0`)  |
-| `mock_pacman pkg…`      | `pacman -Qq` (so `is_installed`) succeeds only for these packages                            |
-| `mock_calls`            | the calls the mocks recorded, one per line                                                   |
-| `kit 'code'`            | runs `code` in a fresh bash with every `lib/*.sh` loaded, the way `install.sh` loads them    |
-| `in_script file 'code'` | sources a `dotfiles/bin` or `waybar/scripts` script without running `main`, then runs `code` |
+| Helper                  | What it does                                                                                        |
+| ----------------------- | --------------------------------------------------------------------------------------------------- |
+| `mock_cmd name 'body'`  | a fake `name` that appends `name args` to `$MOCK_LOG`, then runs `body` (default: `exit 0`)         |
+| `mock_pacman pkg…`      | `pacman -Qq` (so `is_installed`) succeeds only for these packages                                   |
+| `mock_calls`            | the calls the mocks recorded, one per line                                                          |
+| `kit 'code'`            | runs `code` in a fresh bash with every `installer/lib/*.sh` loaded, the way `install.sh` loads them |
+| `in_script file 'code'` | sources a `dotfiles/bin` or `waybar/scripts` script without running `main`, then runs `code`        |
 
-`kit` uses a separate shell because `lib/run.sh` defines its own `run`, which would replace bats' `run`. Scripts in `dotfiles/bin/` and `waybar/scripts/` end with a source guard (`if [[ "${BASH_SOURCE[0]}" == "$0" ]]`), which is what lets `in_script` load their functions.
+`kit` uses a separate shell because `installer/lib/run.sh` defines its own `run`, which would replace bats' `run`. Scripts in `dotfiles/bin/` and `waybar/scripts/` end with a source guard (`if [[ "${BASH_SOURCE[0]}" == "$0" ]]`), which is what lets `in_script` load their functions.
 
 ## Add a test
 
-A bats test for a `lib/` function: mock what it calls, run it through `kit`, assert on the output and on the recorded calls.
+A bats test for an `installer/lib/` function: mock what it calls, run it through `kit`, assert on the output and on the recorded calls.
 
 ```bash
 @test "pkg_install: a dry run prints the yay command and runs nothing" {

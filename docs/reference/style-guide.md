@@ -38,9 +38,9 @@ fi
 
 Scripts in `dotfiles/bin/` and `waybar/scripts/` end with that guard, so a test can `source` them and call one function. `install.sh` and `tests/packages.sh` only ever run whole and end with a plain `main "$@"`.
 
-**Sourced files** (`lib/`, `modules/`) are read by `install.sh`. They have no `set` line and no `main`; globals are `UPPER_SNAKE` at the top and not `readonly`, so a file can be sourced again. Each module runs in its own subshell under `set -Eeuo pipefail`, so an error stops only that module.
+**Sourced files** (`installer/lib/`, `installer/modules/`) are read by `install.sh`. They have no `set` line and no `main`; globals are `UPPER_SNAKE` at the top and not `readonly`, so a file can be sourced again. Each module runs in its own subshell under `set -Eeuo pipefail`, so an error stops only that module.
 
-Hooks that systemd calls with `/bin/sh` (`etc/systemd/system-sleep/`) may stay POSIX `sh`.
+Hooks that systemd calls with `/bin/sh` (`installer/system/systemd/system-sleep/`) may stay POSIX `sh`.
 
 ## Formatting and names
 
@@ -62,7 +62,7 @@ name="$(hyprctl -j activewindow | jq -r .class)"
 
 ## Layout
 
-Give the code room to breathe. [`lib/log.sh`](https://github.com/Zilero232/arch-install-kit/blob/master/lib/log.sh) is the reference:
+Give the code room to breathe. [`installer/lib/log.sh`](https://github.com/Zilero232/arch-install-kit/blob/master/installer/lib/log.sh) is the reference:
 
 - Declare locals first, one per line, then leave a blank line before the body. Uninitialized loop variables may share one line: `local entry name status`.
 - Separate logical steps (checks, work, output) with one blank line, and leave one before the final `return` or result line of a longer function.
@@ -99,7 +99,7 @@ pkg_install_list() {
 
 ## Output and exit codes
 
-Data goes to stdout, messages go to stderr. In the installer, `warn`, `err` and `die` from `lib/log.sh` already write to stderr, and the log file gets both streams.
+Data goes to stdout, messages go to stderr. In the installer, `warn`, `err` and `die` from `installer/lib/log.sh` already write to stderr, and the log file gets both streams.
 
 ```bash
 # Bad
@@ -173,7 +173,7 @@ fi
 
 In modules, the last line of a function is `if …; then …; fi`, never `cond && action`: when `cond` is false the function returns non-zero and the module stops.
 
-This reaches into subshells too: `if ! ( set -e; … ); then` runs the whole subshell with `set -e` off, however it is set inside. Run the subshell as a plain statement and read `$?` afterwards, as `run_module` in `lib/run.sh` does.
+This reaches into subshells too: `if ! ( set -e; … ); then` runs the whole subshell with `set -e` off, however it is set inside. Run the subshell as a plain statement and read `$?` afterwards, as `run_module` in `installer/lib/run.sh` does.
 
 Add `|| true` only for a failure that is expected and harmless, such as `pkill` finding nothing.
 
