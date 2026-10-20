@@ -1,16 +1,9 @@
 {
   // Module settings (Ukiyo-e variant), in bar order: left, center, right.
-  // Workspaces use kanji numerals and the launcher is a hanko seal; both need
-  // noto-fonts-cjk (Noto Serif CJK JP). Other icons are Material Design (U+F0000+).
+  // Workspaces use kanji numerals, which need noto-fonts-cjk (Noto Serif CJK JP).
+  // Other icons are Material Design (U+F0000+).
 
   // --- Left ---
-  "custom/launcher": {
-    // 波 (nami, "wave"), carved like a red name seal
-    "format": "波",
-    "on-click": "rofi -show drun",
-    "tooltip": false
-  },
-
   "hyprland/workspaces": {
     "on-scroll-up": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'r-1' })\"",
     "on-scroll-down": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'r+1' })\"",

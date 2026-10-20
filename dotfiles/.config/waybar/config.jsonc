@@ -11,7 +11,7 @@
   "margin-right": 12,
   "spacing": 0,
 
-  "modules-left": ["custom/launcher", "hyprland/workspaces", "mpris", "custom/cava"],
+  "modules-left": ["hyprland/workspaces", "mpris", "custom/cava"],
 
   "modules-center": ["custom/weather", "clock"],
 

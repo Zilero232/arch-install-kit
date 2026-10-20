@@ -15,7 +15,7 @@ The palette is `~/.config/theme/kanagawa.css` ([`dotfiles/.config/theme/kanagawa
 | `accent`, `accent-alt`   | `oniViolet`, `sakuraPink`                  | toggles and sliders; active workspace, player, unread      |
 | `frame`                  | `waveAqua2`                                | the right edge of the right strip and the control center   |
 | `highlight`              | `carpYellow`                               | brush strokes under the clock and the control-center title |
-| `seal`                   | `autumnRed`                                | the launcher seal, critical states, destructive hovers     |
+| `seal`                   | `autumnRed`                                | critical states, destructive hovers                        |
 | `ok`, `warn`, `error`    | `autumnGreen`, `roninYellow`, `samuraiRed` | battery and urgency states                                 |
 
 Waybar, SwayNC, wlogout and `gtk-3.0/gtk.css` load it with `@import url("../theme/kanagawa.css")`. Waybar and SwayNC split their CSS into `style/*.css` files that `style.css` imports in order: plain GTK CSS, no build step.

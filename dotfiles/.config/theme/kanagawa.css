@@ -72,7 +72,7 @@
 @define-color frame @waveAqua2;
 /* Brush strokes under the clock and the control-center title */
 @define-color highlight @carpYellow;
-/* Hanko-seal vermilion: the launcher, critical states, destructive hovers */
+/* Hanko-seal vermilion: critical states, destructive hovers */
 @define-color seal @autumnRed;
 @define-color ok @autumnGreen;
 @define-color warn @roninYellow;
