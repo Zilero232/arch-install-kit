@@ -72,3 +72,14 @@ hl.layer_rule({
     match = { namespace = "selection" },
     no_anim = true,
 })
+
+-- --- Picture-in-picture (Chrome, Firefox): a small window in the corner on every workspace ---
+hl.window_rule({
+    name = "picture-in-picture",
+    match = { title = "^Picture[- ]in[- ][Pp]icture$" },
+    float = true,
+    pin = true,
+    keep_aspect_ratio = true,
+    size = { "monitor_w * 0.3", "monitor_h * 0.3" },
+    move = { "monitor_w - window_w - 20", "monitor_h - window_h - 20" },
+})

@@ -3,6 +3,7 @@
 -- Flags: repeating = repeat while held, locked = works on the lock screen, mouse = mouse bind.
 
 local programs = require("conf.programs")
+local theme = require("theme")
 
 local MAIN = "SUPER"
 
@@ -25,6 +26,22 @@ local function zoom_by(step)
     end
 end
 
+-- Game mode: no animations, blur or gaps, so the GPU (and the battery) only works for the game.
+-- Animations on means game mode is off; a second press puts the theme.lua look back
+local function toggle_game_mode()
+    local turning_on = hl.get_config("animations.enabled")
+
+    hl.config({
+        animations = { enabled = not turning_on },
+        decoration = { blur = { enabled = not turning_on } },
+        general = {
+            gaps_in = turning_on and 0 or theme.gaps_in,
+            gaps_out = turning_on and 0 or theme.gaps_out,
+        },
+    })
+    hl.dispatch(run("notify-send 'Game mode' '" .. (turning_on and "On" or "Off") .. "'"))
+end
+
 -- --- Launchers ---
 bind("Return", run(programs.terminal), "Terminal")
 bind("D", run(programs.menu), "App launcher")
@@ -36,6 +53,7 @@ bind("C", run("hyprpicker -a"), "Color picker")
 -- menu.rasi: a compact centered list instead of the fullscreen app grid
 bind("period", run("rofi -show emoji -modes emoji -theme menu"), "Emoji picker")
 bind("equal", run("rofi -show calc -modes calc -no-show-match -no-sort -theme menu"), "Calculator")
+bind("slash", run(programs.scripts .. "/keybinds.sh"), "Keybinding cheat sheet")
 
 -- --- Apps ---
 bind("SHIFT + H", run(programs.browser), "Chrome")
@@ -62,6 +80,9 @@ bind("N", run("swaync-client -t -sw"), "Notification center")
 bind("W", run(programs.scripts .. "/wallpaper.sh random"), "Random wallpaper")
 bind("CTRL + W", run(programs.scripts .. "/wallpaper.sh pick"), "Pick wallpaper")
 bind("SHIFT + W", run(programs.scripts .. "/wallpaper.sh live"), "Live wallpaper")
+bind("G", toggle_game_mode, "Game mode (no animations, blur, gaps)")
+bind("comma", run("swaync-client --close-latest"), "Dismiss the latest notification")
+bind("SHIFT + comma", run("swaync-client --close-all"), "Dismiss all notifications")
 
 -- --- Screenshots ---
 -- PrtSc works like Windows' Snipping Tool: select a region, annotate in satty, Enter copies and saves
@@ -97,9 +118,25 @@ bind("F", hl.dsp.window.fullscreen({ mode = "fullscreen" }), "Fullscreen")
 bind("T", hl.dsp.window.float({ action = "toggle" }), "Toggle floating")
 bind("J", hl.dsp.layout("togglesplit"), "Toggle split")
 bind("O", hl.dsp.workspace.toggle_special("overlay"), "Toggle overlay (chat and mixer)")
+bind("Y", hl.dsp.window.pin({ action = "toggle" }), "Pin a floating window to every workspace")
+
+-- Scratchpad: a hidden workspace for anything you want at hand (a terminal, notes)
+bind("grave", hl.dsp.workspace.toggle_special("scratch"), "Toggle scratchpad")
+bind("SHIFT + grave", hl.dsp.window.move({ workspace = "special:scratch" }), "Move window to scratchpad")
+
+-- Alt+Tab like on Windows: the next window comes to the front
+hl.bind("ALT + Tab", function()
+    hl.dispatch(hl.dsp.window.cycle_next())
+    hl.dispatch(hl.dsp.window.bring_to_top())
+end, { description = "Next window" })
+hl.bind("ALT + SHIFT + Tab", function()
+    hl.dispatch(hl.dsp.window.cycle_next({ next = false }))
+    hl.dispatch(hl.dsp.window.bring_to_top())
+end, { description = "Previous window" })
 
 for _, direction in ipairs({ "left", "right", "up", "down" }) do
     bind(direction, hl.dsp.focus({ direction = direction }), "Focus " .. direction)
+    bind("CTRL + " .. direction, hl.dsp.window.swap({ direction = direction }), "Swap window " .. direction)
 end
 
 bind("SHIFT + left", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), "Shrink width", { repeating = true })
@@ -117,6 +154,10 @@ for workspace = 1, 10 do
     bind(key, hl.dsp.focus({ workspace = workspace }), "Workspace " .. workspace)
     bind("SHIFT + " .. key, hl.dsp.window.move({ workspace = workspace }), "Move window to workspace " .. workspace)
 end
+
+bind("Tab", hl.dsp.focus({ workspace = "previous" }), "Previous workspace")
+bind("mouse_down", hl.dsp.focus({ workspace = "e+1" }), "Next workspace")
+bind("mouse_up", hl.dsp.focus({ workspace = "e-1" }), "Previous workspace (wheel)")
 
 -- --- Hardware keys ---
 local function hardware(key, command, description, repeating)

@@ -230,3 +230,23 @@ setup() {
     assert_success
     assert_equal "$(mock_calls)" ""
 }
+
+# --- keybinds.sh ---
+
+@test "keybinds.sh: the modifier mask becomes names in Super, Ctrl, Alt, Shift order" {
+    run in_script "$BIN/keybinds.sh" 'modifier_names 69; echo; modifier_names 0'
+
+    assert_success
+    assert_output "Super + Ctrl + Shift"
+}
+
+@test "keybinds.sh: only binds with a description are listed, keys before the description" {
+    run in_script "$BIN/keybinds.sh" 'format_binds <<<'"'"'[
+        {"modmask": 65, "key": "H", "description": "Chrome", "has_description": true},
+        {"modmask": 0, "key": "XF86AudioMute", "description": "Mute", "has_description": true},
+        {"modmask": 64, "key": "Z", "description": "", "has_description": false}
+    ]'"'"
+
+    assert_success
+    assert_output "$(printf 'Super + Shift + H\tChrome\nXF86AudioMute\tMute')"
+}
