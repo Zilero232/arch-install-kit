@@ -1,10 +1,13 @@
 # System essentials: build tools, network, bluetooth, power, boot, backups
 base-devel git rsync stow curl jq pciutils xdg-user-dirs xdg-utils
-pacman-contrib reflector timeshift timeshift-autosnap os-prober efibootmgr ntfs-3g fwupd zram-generator
+pacman-contrib reflector timeshift timeshift-autosnap fwupd zram-generator
 networkmanager nm-connection-editor wireless-regdb openssh ufw
 bluez bluez-utils blueman
 gnome-keyring seahorse
 unzip zip 7zip
+
+# Boot and dual boot: EFI entries, FAT32 tools, Windows in GRUB (os-prober reads NTFS), Windows install media (wimlib)
+efibootmgr dosfstools os-prober ntfs-3g wimlib
 
 # Laptop: power profiles (amd-pstate / intel_pstate aware), brightness, battery alerts
 power-profiles-daemon brightnessctl batsignal
