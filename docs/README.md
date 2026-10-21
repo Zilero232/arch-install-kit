@@ -19,6 +19,7 @@
 | [Fish](./usage/fish.md)               | terminal abbreviations and functions                         |
 | [Scripts](./usage/scripts.md)         | what lives in `~/bin`                                        |
 | [Gaming](./usage/gaming.md)           | Steam, Proton-GE, launchers, MangoHud, Hyprland game tweaks  |
+| [Dual boot](./usage/dual-boot.md)     | Windows 11 next to Arch, with or without a USB stick         |
 
 ## Reference
 

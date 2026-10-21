@@ -57,7 +57,7 @@ sudo -u postgres psql -f ~/reinstall-backup/pg_dump.sql
 - [ ] `notify-send test hello` — a notification with a sound; `Super + N` opens the control center
 - [ ] `Alt + Shift` — the layout indicator in Waybar switches between us and ru
 - [ ] `sudo ufw status` — firewall active; `zramctl` — zram swap
-- [ ] Windows in the GRUB menu (if you have it)
+- [ ] Windows in the GRUB menu and the same time in both systems, if you have Windows ([dual boot](../usage/dual-boot.md))
 
 All keybindings are in [usage/keybindings.md](../usage/keybindings.md).
 

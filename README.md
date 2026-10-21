@@ -53,7 +53,7 @@ My own Kanagawa-themed setup: a modular installer you can re-run, preview with `
 - Arch Linux installed with archinstall's **Minimal** profile (or an existing Arch install), a regular user with sudo, internet.
 - Tested on an AMD Ryzen 7 8845HS / Radeon 780M laptop. Intel and NVIDIA are detected and get their drivers, but are less tested.
 - About 100 MB to download with `--depth 1`, mostly the 373 wallpapers (WebP).
-- Keeping Windows? Read [dual boot](./docs/install/03-archinstall.md#option-c-next-to-windows-dual-boot) **before** you partition: archinstall's default layout wipes the whole disk.
+- Keeping Windows? Read [dual boot](./docs/install/03-archinstall.md#option-c-next-to-windows-dual-boot) **before** you partition: archinstall's default layout wipes the whole disk. Adding Windows to an installed Arch: [Dual boot with Windows](./docs/usage/dual-boot.md).
 
 ## ⚡ Quick start
 

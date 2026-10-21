@@ -75,6 +75,7 @@ export default defineConfig({
           { text: 'Fish shell', link: '/usage/fish' },
           { text: 'Scripts', link: '/usage/scripts' },
           { text: 'Gaming', link: '/usage/gaming' },
+          { text: 'Dual boot', link: '/usage/dual-boot' },
         ],
       },
       {

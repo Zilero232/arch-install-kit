@@ -51,10 +51,11 @@
 
 ## Boot
 
-| Symptom                                 | What to do                                                                                                                                                                                                                                                                                                      |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Windows missing from GRUB               | `sudo grub-mkconfig -o /boot/grub/grub.cfg` and look for "Found Windows Boot Manager" in the output. No `ntfs` partition in `lsblk -f` and no "Windows Boot Manager" in `efibootmgr`: Windows was erased with the disk (archinstall's default layout wipes it); see [adding Windows back](#adding-windows-back) |
-| GRUB is gone, boots straight to Windows | boot from the USB stick, then see below                                                                                                                                                                                                                                                                         |
+| Symptom                                       | What to do                                                                                                                                                                                                                                                                                                                              |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Windows missing from GRUB                     | `sudo grub-mkconfig -o /boot/grub/grub.cfg` and look for "Found Windows Boot Manager" in the output. No `ntfs` partition in `lsblk -f` and no "Windows Boot Manager" in `efibootmgr`: Windows was erased with the disk (archinstall's default layout wipes it); see [Dual boot with Windows](../usage/dual-boot.md) to install it again |
+| Boots straight to Windows                     | Windows made itself the first boot entry (after its install or a big update): pick GRUB in the boot menu (F12/F8/Esc), then put it first with `sudo efibootmgr -o` ([back to GRUB](../usage/dual-boot.md#back-to-grub)). No GRUB in that menu: boot from the USB stick, then see below                                                  |
+| The clock is off by hours after using Windows | Windows keeps the hardware clock in local time, Linux in UTC: turn on `RealTimeIsUniversal` in Windows ([in Windows](../usage/dual-boot.md#in-windows))                                                                                                                                                                                 |
 
 Restoring GRUB from the USB stick:
 
@@ -67,17 +68,6 @@ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 exit && reboot
 ```
-
-### Adding Windows back
-
-Back up `/home` first: shrinking a partition can lose data.
-
-1. Boot a [GParted Live](https://gparted.org/livecd.php) stick and shrink the `/home` (or `/`) partition from its end; ext4 can't shrink while it's mounted.
-2. Install Windows from its own stick into the unallocated space (**Custom** install → the free space). It adds its own EFI entry next to GRUB.
-3. If the PC now boots straight to Windows, pick GRUB in the boot menu (F12/F8/Esc) or restore it as above.
-4. In Arch, `./install.sh --only boot` rebuilds the GRUB menu with Windows in it.
-
-Windows in a VM is the easier way, when you only need a few apps: VirtualBox comes with the `dev` group.
 
 ## Rolling back
 
