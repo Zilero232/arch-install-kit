@@ -34,14 +34,14 @@ lsblk                                  # which partition is /home, here nvme0n1p
 parted /dev/nvme0n1 unit MiB print     # the "Disk /dev/nvme0n1:" line is the disk size
 ```
 
-The new end of `/home` is the disk size minus the Windows size, minus 8192 MiB more if you have no USB stick (the [installer partition](#no-stick-an-installer-partition) goes there). For a 2 TB disk (1953514 MiB), 200 GiB for Windows (204800 MiB) and no stick: 1953514 − 204800 − 8192 = **1740522 MiB**.
+The new end of `/home` is the disk size minus the Windows size, minus 10240 MiB more if you have no USB stick (the [installer partition](#no-stick-an-installer-partition) goes there). For a 2 TB disk (1953514 MiB), 200 GiB for Windows (204800 MiB) and no stick: 1953514 − 204800 − 10240 = **1738474 MiB**.
 
 ```bash
 loginctl terminate-user <your-user>         # ends your processes, which keep files in /home open
 umount /home                                # resize2fs can't shrink a mounted ext4
 e2fsck -f /dev/nvme0n1p3                    # resize2fs refuses to shrink without a fresh check
 resize2fs /dev/nvme0n1p3 1600G              # shrink the filesystem below the new partition size
-parted /dev/nvme0n1 resizepart 3 1740522MiB # move the end of /home; answer Yes
+parted /dev/nvme0n1 resizepart 3 1738474MiB # move the end of /home; answer Yes
 resize2fs /dev/nvme0n1p3                    # grow the filesystem back to fill the partition
 reboot
 ```
@@ -54,7 +54,7 @@ The filesystem shrinks first, to a size between what `/home` uses (`df -h /home`
 
 ### USB stick
 
-Any stick of 8 GB or more. On a Windows PC, [Rufus](https://rufus.ie) writes the ISO; [Ventoy](https://www.ventoy.net) takes it as a copied file. From Linux, give the stick a FAT32 partition, the only filesystem UEFI is sure to boot from:
+A stick of 16 GB or more: the Windows 11 ISO is about 9 GB. On a Windows PC, [Rufus](https://rufus.ie) writes the ISO; [Ventoy](https://www.ventoy.net) takes it as a copied file. From Linux, give the stick a FAT32 partition, the only filesystem UEFI is sure to boot from:
 
 ```bash
 lsblk                                                   # find the stick, e.g. sda: NOT your system disk
@@ -66,10 +66,10 @@ Then [copy the installer files](#copy-the-installer-files) to `/dev/sdX1`.
 
 ### No stick: an installer partition
 
-An 8 GiB FAT32 partition goes right after `/home`, in front of the Windows space; GRUB starts the installer from it. Creating it doesn't need the console, the disk can stay mounted:
+A 10 GiB FAT32 partition goes right after `/home`, in front of the Windows space; GRUB starts the installer from it. It holds the whole ISO (about 9 GB, check yours with `ls -lh ~/Downloads/*.iso`), and even one edition of Windows doesn't fit in 8 GiB. Creating it doesn't need the console, the disk can stay mounted:
 
 ```bash
-sudo parted /dev/nvme0n1 mkpart WININSTALL fat32 1740522MiB 1748714MiB   # 8 GiB right after /home
+sudo parted /dev/nvme0n1 mkpart WININSTALL fat32 1738474MiB 1748714MiB   # 10 GiB right after /home
 sudo mkfs.fat -F32 -n WININSTALL /dev/nvme0n1p4                          # FAT32 with the label GRUB looks for
 ```
 
@@ -98,7 +98,7 @@ The Windows image, `sources/install.wim`, is bigger than 4 GB and doesn't fit FA
 
 ```bash
 sudo mkdir -p /mnt/iso /mnt/win
-sudo mount -o loop,ro ~/Downloads/Win11*.iso /mnt/iso       # the ISO as a read-only disk
+sudo mount -o loop,ro ~/Downloads/Win*.iso /mnt/iso         # the ISO as a read-only disk
 sudo mount /dev/nvme0n1p4 /mnt/win                           # the installer partition, or the stick
 sudo rsync -r --exclude=/sources/install.wim /mnt/iso/ /mnt/win/
 sudo wimlib-imagex split /mnt/iso/sources/install.wim /mnt/win/sources/install.swm 3800
@@ -113,7 +113,7 @@ The trailing `/` in `/mnt/iso/` makes rsync copy the folder's contents, not the 
 2. Choose the custom install, select **Unallocated space**, **Next**.
 3. Leave every other partition alone (EFI, Linux, WININSTALL): no Delete, no Format.
 
-Windows puts its boot files on the existing EFI partition and makes itself the first boot entry, so from now on the PC starts Windows directly until you fix the order [below](#back-to-grub).
+Windows puts its boot files on the existing EFI partition and often makes itself the first boot entry. If the PC now starts Windows directly, fix the order [below](#back-to-grub).
 
 ## In Windows
 
@@ -143,7 +143,7 @@ sudoedit /etc/grub.d/40_custom     # remove the "Windows 11 installer" entry, if
 
 ## Give the installer partition back to `/home`
 
-Once Windows works, the 8 GiB go back to `/home`. ext4 grows while mounted, so this runs from your normal session:
+Once Windows works, the 10 GiB go back to `/home`. ext4 grows while mounted, so this runs from your normal session:
 
 ```bash
 lsblk                                                # the WININSTALL partition, here nvme0n1p4
