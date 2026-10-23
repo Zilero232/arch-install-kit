@@ -26,21 +26,21 @@ After that it runs on its own: 20–60 minutes, depending on your connection and
 
 ## 4.1. What happens, step by step
 
-| Module       | What it does                                                                                                                                                                |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `preflight`  | checks that this is Arch, you're online, pacman isn't locked, and there's enough space                                                                                      |
-| `pacman`     | enables multilib, colors, parallel downloads, AUR builds without debug packages on every core; updates the system                                                           |
-| `aur-helper` | installs `yay`                                                                                                                                                              |
-| `gpu`        | CPU microcode and Intel / AMD / NVIDIA drivers based on your hardware                                                                                                       |
-| `packages`   | removes conflicting packages and installs the selected [groups](../reference/packages.md)                                                                                   |
-| `system`     | `ru_RU` locale, reflector, Wi-Fi region, zram, Timeshift target, ufw firewall, INCY polkit rule, ath11k sleep hook, user groups                                             |
-| `printing`   | only with the printing group: printer names over mDNS (`nsswitch.conf`), ufw lets discovery replies in (5353/udp)                                                           |
-| `login`      | SDDM Astronaut theme and the Plymouth Arch logo splash                                                                                                                      |
-| `boot`       | rebuilds the initramfs, adds Windows to the GRUB menu                                                                                                                       |
-| `dotfiles`   | deploys `dotfiles/` into your home folder, copies the wallpapers to `~/Images`, colors Papirus folders violet, sets the swaync backlight device and the weather city        |
-| `shell`      | fish as the default shell                                                                                                                                                   |
-| `services`   | enables services from [`installer/services.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/installer/services.txt), stops boot from waiting for the network |
-| `finish`     | shows what failed to install and what to do next                                                                                                                            |
+| Module       | What it does                                                                                                                                                                                                                               |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `preflight`  | checks that this is Arch, you're online, pacman isn't locked, and there's enough space                                                                                                                                                     |
+| `pacman`     | enables multilib, colors, parallel downloads, AUR builds without debug packages on every core; updates the system                                                                                                                          |
+| `aur-helper` | installs `yay`                                                                                                                                                                                                                             |
+| `gpu`        | CPU microcode and Intel / AMD / NVIDIA drivers based on your hardware                                                                                                                                                                      |
+| `packages`   | removes conflicting packages and installs the selected [groups](../reference/packages.md)                                                                                                                                                  |
+| `system`     | `ru_RU` locale, reflector, Wi-Fi region, zram, Timeshift target, ufw firewall, INCY polkit rule, ath11k sleep hook, user groups                                                                                                            |
+| `printing`   | only with the printing group: printer names over mDNS (`nsswitch.conf`), ufw lets discovery replies in (5353/udp)                                                                                                                          |
+| `login`      | SDDM Astronaut theme and the Plymouth Arch logo splash                                                                                                                                                                                     |
+| `boot`       | rebuilds the initramfs, adds Windows to the GRUB menu                                                                                                                                                                                      |
+| `dotfiles`   | deploys `dotfiles/` into your home folder, copies the wallpapers to `~/Images`, colors Papirus folders violet, sets the swaync backlight device and the weather city, makes Chrome the default browser and VS Code the default text editor |
+| `shell`      | fish as the default shell                                                                                                                                                                                                                  |
+| `services`   | enables services from [`installer/services.txt`](https://github.com/Zilero232/arch-install-kit/blob/master/installer/services.txt), stops boot from waiting for the network                                                                |
+| `finish`     | shows what failed to install and what to do next                                                                                                                                                                                           |
 
 ## 4.2. Options
 

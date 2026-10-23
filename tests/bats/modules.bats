@@ -277,6 +277,22 @@ use_system_fixtures() {
     refute_output --partial "xdg-settings set"
 }
 
+@test "dotfiles: VS Code opens text files once, only when it is installed" {
+    mock_cmd xdg-mime 'echo libreoffice-writer.desktop'
+
+    run_kit_module 80-dotfiles.sh
+    refute_output --partial "xdg-mime default"
+
+    mock_pacman visual-studio-code-bin
+    run_kit_module 80-dotfiles.sh
+    assert_line "  [dry] xdg-mime default com.microsoft.VSCode.desktop text/plain"
+    assert_line "  [dry] xdg-mime default com.microsoft.VSCode.desktop application/x-shellscript"
+
+    mock_cmd xdg-mime 'echo com.microsoft.VSCode.desktop'
+    run_kit_module 80-dotfiles.sh
+    refute_output --partial "xdg-mime default"
+}
+
 @test "dotfiles: papirus folders already violet are left alone" {
     mock_pacman papirus-folders
     mock_cmd papirus-folders 'printf "  blue\n> violet\n"'

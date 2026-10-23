@@ -62,6 +62,23 @@ if is_installed google-chrome; then
     fi
 fi
 
+# VS Code opens text files from xdg-open and Tabby's SFTP panel, not LibreOffice Writer
+if is_installed visual-studio-code-bin; then
+    text_types=(
+        text/plain text/markdown text/x-log
+        application/json application/yaml application/x-yaml application/toml
+        application/x-shellscript application/x-zerosize
+    )
+
+    for type in "${text_types[@]}"; do
+        editor="$(xdg-mime query default "$type" 2>/dev/null)" || editor=""
+
+        if [[ "$editor" != com.microsoft.VSCode.desktop ]]; then
+            run xdg-mime default com.microsoft.VSCode.desktop "$type"
+        fi
+    done
+fi
+
 if [[ -d "$BACKUP_DIR" ]]; then
     info "Previous configs: $BACKUP_DIR"
 fi
